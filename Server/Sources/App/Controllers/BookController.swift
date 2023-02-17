@@ -3,8 +3,11 @@ import Vapor
 
 struct PatchBook: Codable {
     let id: UUID
-    let title: String?
+    
     let authorID: UUID?
+    let orderID: UUID?
+    
+    let title: String?
     let genre: String?
     let price: Int?
 }
@@ -41,6 +44,10 @@ struct BookController: RouteCollection {
             book.$author.id = authorID
         }
         
+        if let orderID = patchBook.orderID {
+            book.$order.id = orderID
+        }
+        
         if let title = patchBook.title {
             book.title = title
         }
@@ -52,11 +59,6 @@ struct BookController: RouteCollection {
         if let genre = patchBook.genre {
             book.genre = genre
         }
-            
-        book.author.id = patchBook.authorID
-        book.title = book.title
-        book.price = book.price
-        book.genre = book.genre
 
         try await book.update(on: req.db)
         return book
