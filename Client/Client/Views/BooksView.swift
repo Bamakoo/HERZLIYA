@@ -27,9 +27,7 @@ struct BooksView: View {
                 await viewModel.fetchBooks()
             }
         }
-        
     }
-    
 }
 
 struct BooksView_Previews: PreviewProvider {

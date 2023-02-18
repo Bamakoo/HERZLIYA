@@ -21,6 +21,9 @@
 		A4C9867029A10B5F003CF879 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9866F29A10B5F003CF879 /* Book.swift */; };
 		A4C9867329A1198F003CF879 /* BooksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867229A1198F003CF879 /* BooksViewModel.swift */; };
 		A4C9867829A11EFC003CF879 /* BooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867729A11EFC003CF879 /* BooksView.swift */; };
+		A4C9867A29A14D6A003CF879 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867929A14D6A003CF879 /* Author.swift */; };
+		A4C9867C29A153FC003CF879 /* AuthorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867B29A153FC003CF879 /* AuthorsViewModel.swift */; };
+		A4C9867E29A1544B003CF879 /* AuthorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867D29A1544B003CF879 /* AuthorsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +61,9 @@
 		A4C9866F29A10B5F003CF879 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		A4C9867229A1198F003CF879 /* BooksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksViewModel.swift; sourceTree = "<group>"; };
 		A4C9867729A11EFC003CF879 /* BooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksView.swift; sourceTree = "<group>"; };
+		A4C9867929A14D6A003CF879 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
+		A4C9867B29A153FC003CF879 /* AuthorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorsViewModel.swift; sourceTree = "<group>"; };
+		A4C9867D29A1544B003CF879 /* AuthorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				A4C9866F29A10B5F003CF879 /* Book.swift */,
+				A4C9867929A14D6A003CF879 /* Author.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -168,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				A4C9867229A1198F003CF879 /* BooksViewModel.swift */,
+				A4C9867B29A153FC003CF879 /* AuthorsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -176,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				A4C9867729A11EFC003CF879 /* BooksView.swift */,
+				A4C9867D29A1544B003CF879 /* AuthorsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -314,9 +323,12 @@
 				A4C9867829A11EFC003CF879 /* BooksView.swift in Sources */,
 				A4C9867329A1198F003CF879 /* BooksViewModel.swift in Sources */,
 				A4C98667299FD187003CF879 /* HttpClient.swift in Sources */,
+				A4C9867A29A14D6A003CF879 /* Author.swift in Sources */,
 				A4C9867029A10B5F003CF879 /* Book.swift in Sources */,
 				A4C9863C299FB843003CF879 /* ClientApp.swift in Sources */,
+				A4C9867C29A153FC003CF879 /* AuthorsViewModel.swift in Sources */,
 				A4C98669299FD8DD003CF879 /* Networking.swift in Sources */,
+				A4C9867E29A1544B003CF879 /* AuthorsView.swift in Sources */,
 				A4C9866B299FDB68003CF879 /* SettingsNetworkManager.swift in Sources */,
 				A4C9866D29A10835003CF879 /* Constants.swift in Sources */,
 			);

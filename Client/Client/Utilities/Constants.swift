@@ -13,5 +13,6 @@ enum Request {
 
 enum Endpoint {
     static let books = "books"
+    static let authors = "authors"
     
 }

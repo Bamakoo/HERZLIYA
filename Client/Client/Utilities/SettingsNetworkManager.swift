@@ -20,4 +20,10 @@ final class SettingNetworkManager {
         let books: [Book] = try await httpClient.fetch(url: url)
         return books
     }
+    
+    func fetchAuthors() async throws -> [Author] {
+        let url = URL(string: Request.baseURL + Endpoint.authors)!
+        let authors: [Author] = try await httpClient.fetch(url: url)
+        return authors
+    }
 }
