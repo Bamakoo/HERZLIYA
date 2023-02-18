@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Book: Codable {
+struct Book: Identifiable, Codable, Hashable, Equatable {
     var id: UUID?
     var title: String?
     var authorID: UUID?
     var orderID: UUID?
     var genre: String?
-    var price: Int
+    var price: Int?
 }
