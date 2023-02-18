@@ -15,7 +15,9 @@ final class SettingNetworkManager {
         self.httpClient = httpClient
     }
     
-    func fetchBooks(){
-        let url = URL(string: Request.baseURL + Endpoint.books)
+    func fetchBooks() async throws -> [Book] {
+        let url = URL(string: Request.baseURL + Endpoint.books)!
+        let books: [Book] = try await httpClient.fetch(url: url)
+        return books
     }
 }
