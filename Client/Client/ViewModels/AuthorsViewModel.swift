@@ -23,4 +23,13 @@ final class AuthorsViewModel: ObservableObject {
             print("\(error)")
         }
     }
+    
+    func createAuthors(firstName: String, lastName: String) async throws {
+        do {
+            try await networkManager.createAuthor(firstName: firstName, lastName: lastName)
+        }
+        catch {
+            
+        }
+    }
 }

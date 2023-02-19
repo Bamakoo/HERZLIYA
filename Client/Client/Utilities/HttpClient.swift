@@ -28,6 +28,8 @@ enum HttpError: Error {
 
 protocol HttpClient {
     func fetch<T: Codable>(url: URL) async throws -> [T]
+    func sendData<T: Codable>(to url: URL, object: T, httpMethod: String) async throws
+
 }
 
 

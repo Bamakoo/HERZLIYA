@@ -26,4 +26,10 @@ final class SettingNetworkManager {
         let authors: [Author] = try await httpClient.fetch(url: url)
         return authors
     }
+    
+    func createAuthor(firstName: String, lastName: String) async throws {
+        let url = URL(string: Request.baseURL + Endpoint.authors)!
+        let newAuthor = Author(id: nil, firstName: firstName, lastName: lastName)
+        try await httpClient.sendData(to: url, object: newAuthor, httpMethod: HttpMethods.POST.rawValue)
+    }
 }

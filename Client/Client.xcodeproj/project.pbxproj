@@ -24,6 +24,8 @@
 		A4C9867A29A14D6A003CF879 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867929A14D6A003CF879 /* Author.swift */; };
 		A4C9867C29A153FC003CF879 /* AuthorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867B29A153FC003CF879 /* AuthorsViewModel.swift */; };
 		A4C9867E29A1544B003CF879 /* AuthorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867D29A1544B003CF879 /* AuthorsView.swift */; };
+		A4C9868029A177A6003CF879 /* CreateAuthorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867F29A177A6003CF879 /* CreateAuthorViewModel.swift */; };
+		A4C9868229A177D3003CF879 /* CreateAuthorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9868129A177D3003CF879 /* CreateAuthorsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		A4C9867929A14D6A003CF879 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
 		A4C9867B29A153FC003CF879 /* AuthorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorsViewModel.swift; sourceTree = "<group>"; };
 		A4C9867D29A1544B003CF879 /* AuthorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorsView.swift; sourceTree = "<group>"; };
+		A4C9867F29A177A6003CF879 /* CreateAuthorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthorViewModel.swift; sourceTree = "<group>"; };
+		A4C9868129A177D3003CF879 /* CreateAuthorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthorsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +180,7 @@
 			children = (
 				A4C9867229A1198F003CF879 /* BooksViewModel.swift */,
 				A4C9867B29A153FC003CF879 /* AuthorsViewModel.swift */,
+				A4C9867F29A177A6003CF879 /* CreateAuthorViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 			children = (
 				A4C9867729A11EFC003CF879 /* BooksView.swift */,
 				A4C9867D29A1544B003CF879 /* AuthorsView.swift */,
+				A4C9868129A177D3003CF879 /* CreateAuthorsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -320,6 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4C9863E299FB843003CF879 /* ContentView.swift in Sources */,
+				A4C9868229A177D3003CF879 /* CreateAuthorsView.swift in Sources */,
 				A4C9867829A11EFC003CF879 /* BooksView.swift in Sources */,
 				A4C9867329A1198F003CF879 /* BooksViewModel.swift in Sources */,
 				A4C98667299FD187003CF879 /* HttpClient.swift in Sources */,
@@ -329,6 +336,7 @@
 				A4C9867C29A153FC003CF879 /* AuthorsViewModel.swift in Sources */,
 				A4C98669299FD8DD003CF879 /* Networking.swift in Sources */,
 				A4C9867E29A1544B003CF879 /* AuthorsView.swift in Sources */,
+				A4C9868029A177A6003CF879 /* CreateAuthorViewModel.swift in Sources */,
 				A4C9866B299FDB68003CF879 /* SettingsNetworkManager.swift in Sources */,
 				A4C9866D29A10835003CF879 /* Constants.swift in Sources */,
 			);
