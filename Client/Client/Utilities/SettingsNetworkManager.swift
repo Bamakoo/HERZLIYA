@@ -32,4 +32,10 @@ final class SettingNetworkManager {
         let newAuthor = Author(id: nil, firstName: firstName, lastName: lastName)
         try await httpClient.sendData(to: url, object: newAuthor, httpMethod: HttpMethods.POST.rawValue)
     }
+    
+    func createBook(title: String, genre: String, price: Int, author: Author) async throws {
+        let url = URL(string: Request.baseURL + Endpoint.authors)!
+        let newBook = Book(id: nil, title: title, author: author, orderID: UUID?, genre: genre, price: price)
+        try await httpClient.sendData(to: url, object: newBook, httpMethod: HttpMethods.POST.rawValue)
+    }
 }

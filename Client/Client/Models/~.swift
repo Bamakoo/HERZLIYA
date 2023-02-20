@@ -12,4 +12,6 @@ struct Order: Identifiable, Codable, Hashable, Equatable {
     let price: Int
     let buyer: User
     let seller: User
+    let books: [Book]
+
 }

@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+struct Order: Identifiable, Codable, Hashable, Equatable {
+    let id: UUID?
+    let price: Int
+    let buyer: User
+    let seller: User
+    let books: [Book]
+}

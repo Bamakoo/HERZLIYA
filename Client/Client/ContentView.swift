@@ -24,6 +24,11 @@ struct ContentView: View {
                 .tabItem {
                     Label("Add author", systemImage: "person.fill.badge.plus")
                 }
+            
+            CreateBookView()
+                .tabItem {
+                    Label("Add a book", systemImage: "plus.circle")
+                }
         }
     }
 }

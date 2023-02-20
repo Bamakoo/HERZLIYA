@@ -8,6 +8,8 @@ struct UserController: RouteCollection {
         users.put(use: update)
         users.post(use: create)
         users.group(":userID") { user in
+            user.get(use: index)
+            user.put(use: update)
             user.delete(use: delete)
         }
     }

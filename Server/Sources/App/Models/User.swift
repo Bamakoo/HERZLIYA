@@ -19,7 +19,6 @@ final class User: Model, Content {
     @Children(for: \.$seller)
     var sellerOrders: [Order]
 
-
     init() { }
 
     init(id: UUID? = nil,
