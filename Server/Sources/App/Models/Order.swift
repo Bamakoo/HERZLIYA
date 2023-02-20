@@ -15,9 +15,7 @@ final class Order: Model, Content {
     
     @Parent(key: "seller_id")
     var seller: User
-    
-    @Children(for: \.$order)
-    var books: [Book]
+
     
     init() { }
 

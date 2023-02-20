@@ -1,22 +1,11 @@
 import Fluent
 import Vapor
 
-struct PatchBook: Codable {
-    let id: UUID
-    
-    let author: String?
-    let orderID: UUID?
-    
-    let title: String?
-    let genre: String?
-    let price: Int?
-}
-
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let books = routes.grouped("books")
         books.get(use: index)
-        books.patch(use: update)
+        books.put(use: update)
         books.post(use: create)
         books.group(":bookID") { book in
             book.delete(use: delete)
@@ -34,34 +23,19 @@ struct BookController: RouteCollection {
     }
     
     func update(req: Request) async throws -> Book {
-        let patchBook = try req.content.decode(PatchBook.self)
+        let book = try req.content.decode(Book.self)
         
-        guard let book =  try await Book.find(patchBook.id, on: req.db) else {
+        guard let bookFromDB =  try await Book.find(book.id, on: req.db) else {
             throw Abort(.notFound)
         }
         
-        if let author = patchBook.author {
-            book.author = author
-        }
-        
-        if let orderID = patchBook.orderID {
-            book.$order.id = orderID
-        }
-        
-        if let title = patchBook.title {
-            book.title = title
-        }
-        
-        if let price = patchBook.price {
-            book.price = price
-        }
-        
-        if let genre = patchBook.genre {
-            book.genre = genre
-        }
+        bookFromDB.title = book.title
+        bookFromDB.price = book.price
+        bookFromDB.author = book.author
+        bookFromDB.genre = book.genre
 
-        try await book.update(on: req.db)
-        return book
+        try await bookFromDB.update(on: req.db)
+        return bookFromDB
     }
 
     func delete(req: Request) async throws -> HTTPStatus {
