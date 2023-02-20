@@ -13,7 +13,6 @@ func routes(_ app: Application) throws {
     
     try app.register(collection: UserController())
     try app.register(collection: OrderController())
-    try app.register(collection: AuthorController())
     try app.register(collection: BookController())
 
 }

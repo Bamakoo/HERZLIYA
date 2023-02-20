@@ -38,7 +38,6 @@ struct AuthorsView: View {
             }
         }
     }
-    
 }
 
 struct AuthorsView_Previews: PreviewProvider {

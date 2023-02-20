@@ -10,8 +10,8 @@ final class Book: Model, Content {
     @Field(key: "title")
     var title: String
     
-    @Parent(key: "author_id")
-    var author: Author
+    @Field(key: "author")
+    var author: String
     
     @Field(key: "genre")
     var genre: String
@@ -26,13 +26,13 @@ final class Book: Model, Content {
 
     init(id: UUID? = nil,
          title: String,
-         authorID: Author.IDValue,
+         author: String,
          genre: String,
          price: Int,
          orderID: Order.IDValue) {
         self.id = id
         self.title = title
-        self.$author.id = authorID
+        self.author = author
         self.genre = genre
         self.price = price
         self.$order.id = orderID

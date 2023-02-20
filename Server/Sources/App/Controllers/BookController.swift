@@ -4,7 +4,7 @@ import Vapor
 struct PatchBook: Codable {
     let id: UUID
     
-    let authorID: UUID?
+    let author: String?
     let orderID: UUID?
     
     let title: String?
@@ -40,8 +40,8 @@ struct BookController: RouteCollection {
             throw Abort(.notFound)
         }
         
-        if let authorID = patchBook.authorID {
-            book.$author.id = authorID
+        if let author = patchBook.author {
+            book.author = author
         }
         
         if let orderID = patchBook.orderID {

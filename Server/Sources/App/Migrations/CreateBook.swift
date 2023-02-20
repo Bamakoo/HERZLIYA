@@ -5,7 +5,7 @@ struct CreateBook: AsyncMigration {
         try await database.schema("books")
             .id()
             .field("title", .string, .required)
-            .field("author_id", .uuid, .references("authors", "id"))
+            .field("author", .string, .required)
             .field("genre", .string, .required)
             .field("price", .int, .required)
             .field("order_id", .uuid, .references("orders", "id"))

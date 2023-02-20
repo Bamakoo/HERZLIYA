@@ -17,7 +17,6 @@ public func configure(_ app: Application) throws {
 
     app.migrations.add(CreateUser())
     app.migrations.add(CreateOrder())
-    app.migrations.add(CreateAuthor())
     app.migrations.add(CreateBook())
 
     // register routes
