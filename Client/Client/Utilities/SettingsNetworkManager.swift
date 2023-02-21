@@ -21,21 +21,9 @@ final class SettingNetworkManager {
         return books
     }
     
-    func fetchAuthors() async throws -> [Author] {
-        let url = URL(string: Request.baseURL + Endpoint.authors)!
-        let authors: [Author] = try await httpClient.fetch(url: url)
-        return authors
-    }
-    
-    func createAuthor(firstName: String, lastName: String) async throws {
-        let url = URL(string: Request.baseURL + Endpoint.authors)!
-        let newAuthor = Author(id: nil, firstName: firstName, lastName: lastName)
-        try await httpClient.sendData(to: url, object: newAuthor, httpMethod: HttpMethods.POST.rawValue)
-    }
-    
-    func createBook(title: String, genre: String, price: Int, author: Author) async throws {
-        let url = URL(string: Request.baseURL + Endpoint.authors)!
-        let newBook = Book(id: nil, title: title, author: author, orderID: UUID?, genre: genre, price: price)
+    func createBook(title: String, genre: String, price: Int, author: String) async throws {
+        let url = URL(string: Request.baseURL + Endpoint.books)!
+        let newBook = Book(id: nil, title: title, author: author, genre: genre, price: price)
         try await httpClient.sendData(to: url, object: newBook, httpMethod: HttpMethods.POST.rawValue)
     }
 }

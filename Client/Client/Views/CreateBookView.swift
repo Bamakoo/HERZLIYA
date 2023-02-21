@@ -12,27 +12,31 @@ struct CreateBookView: View {
     
     @State private var title = ""
     @State private var genre = ""
-    @State private var price = ""
-    @State private var authorFirstName = ""
-    @State private var authorLastName = ""
+    @State private var cost = ""
+    @State private var author = ""
+
+    var price: Int {
+           guard let price = Int(cost) else {
+               return 0
+           }
+        return price
+       }
     
-    @StateObject private var viewModel = CreateBookViewModel(networkManager: SettingNetworkManager(httpClient: Networking()))
+    @StateObject private var viewModel = BooksViewModel(networkManager: SettingNetworkManager(httpClient: Networking()))
     
     var body: some View {
-        VStack(alignment: .leading) {
-            TextField("BookTitle", text: $title, prompt: Text("Your book's title"))
+        Form {
+            TextField("BookTitle", text: $title, prompt: Text("Book's title"))
                 .textFieldStyle(.roundedBorder)
             TextField("BookGenre", text: $genre, prompt: Text("Book's genre"))
                 .textFieldStyle(.roundedBorder)
-            TextField("BookPrice", text: $price, prompt: Text("Book's price"))
+            TextField("BookPrice", text: $cost, prompt: Text("Book's price"))
                 .textFieldStyle(.roundedBorder)
-            TextField("AuthorFirstName", text: $authorFirstName, prompt: Text("Author's First Name"))
-                .textFieldStyle(.roundedBorder)
-            TextField("AuthorLastName", text: $authorLastName, prompt: Text("Author's Last Name"))
+            TextField("Author", text: $author, prompt: Text("Author's Name"))
                 .textFieldStyle(.roundedBorder)
             Button {
                 Task {
-                    try await viewModel.createBooks()
+                    try await viewModel.createBooks(title: title, genre: genre, price: price, author: author)
                 }
             } label: {
                 Text("Offer book for sale")

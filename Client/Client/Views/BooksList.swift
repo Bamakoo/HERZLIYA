@@ -8,19 +8,24 @@
 import SwiftUI
 
 struct BooksList: View {
-    
     @StateObject private var viewModel = BooksViewModel(networkManager: SettingNetworkManager(httpClient: Networking()))
+    @State private var selection: Book?
     
     var body: some View {
-        List {
-            Section {
-                ForEach (viewModel.books, id: \.self) { book in
-                    Text("\(book.title ?? "The subtle art of not giving a fuck") by \(book.author ?? "Mark Manson")")
+        NavigationSplitView {
+            List(viewModel.books, selection: $selection) { book in
+                NavigationLink(value: book) {
+                    BookRow(book: book)
                 }
             }
-        header: {
-            Text("Available books")
-        }
+            .navigationTitle("Books")
+            
+        } detail: {
+            if let book = selection {
+                BookDetail(book: book)
+            } else {
+                Text("Pick a book")
+            }
         }
         .onAppear() {
             Task {

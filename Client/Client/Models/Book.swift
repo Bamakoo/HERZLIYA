@@ -10,8 +10,8 @@ import Foundation
 struct Book: Identifiable, Codable, Hashable, Equatable {
     let id: UUID?
     let title: String?
-    let author: Author
-    let orderID: Order
+    let author: String?
     let genre: String?
     let price: Int?
+//    var isFavorite: Bool
 }

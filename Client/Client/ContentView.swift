@@ -10,24 +10,24 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            BooksView()
+            BooksList()
                 .tabItem {
-                    Label("Books", systemImage: "books.vertical")
-                }
-
-            AuthorsView()
-                .tabItem {
-                    Label("Authors", systemImage: "person.circle")
-                }
-            
-            CreateAuthorView()
-                .tabItem {
-                    Label("Add author", systemImage: "person.fill.badge.plus")
+                    Label("Browse Books", systemImage: "books.vertical")
                 }
             
             CreateBookView()
                 .tabItem {
-                    Label("Add a book", systemImage: "plus.circle")
+                    Label("Add Book", systemImage: "plus.circle")
+                }
+            
+            UserProfileView()
+                .tabItem {
+                    Label("Profile", systemImage: "person.crop.circle.fill")
+                }
+            
+            LikesView()
+                .tabItem {
+                    Label("Likes", systemImage: "heart.fill")
                 }
         }
     }

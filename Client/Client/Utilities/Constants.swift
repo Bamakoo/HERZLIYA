@@ -4,7 +4,6 @@
 //
 //  Created by Emma Gaubert on 18/02/2023.
 //
-
 import Foundation
 
 enum Request {
@@ -13,6 +12,4 @@ enum Request {
 
 enum Endpoint {
     static let books = "books"
-    static let authors = "authors"
-    
 }
