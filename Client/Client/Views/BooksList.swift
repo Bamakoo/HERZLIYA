@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BooksView: View {
+struct BooksList: View {
     
     @StateObject private var viewModel = BooksViewModel(networkManager: SettingNetworkManager(httpClient: Networking()))
     
@@ -15,11 +15,11 @@ struct BooksView: View {
         List {
             Section {
                 ForEach (viewModel.books, id: \.self) { book in
-                    Text(book.title ?? "The subtle art of not giving a fuck")
+                    Text("\(book.title ?? "The subtle art of not giving a fuck") by \(book.author ?? "Mark Manson")")
                 }
             }
         header: {
-            Text("Browse available books")
+            Text("Available books")
         }
         }
         .onAppear() {
@@ -32,6 +32,6 @@ struct BooksView: View {
 
 struct BooksView_Previews: PreviewProvider {
     static var previews: some View {
-        BooksView()
+        BooksList()
     }
 }
