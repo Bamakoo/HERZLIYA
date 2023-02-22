@@ -15,11 +15,25 @@ struct BookDetail: View {
         ScrollView {
             Text(book.author ?? "the subtle art of not giving a fuck")
             Text(book.title ?? "Mark Manson")
+                .font(.title)
+            
+            HStack {
+                Spacer()
+                Text(book.genre ?? "timeless classic")
+            }
+            .font(.subheadline)
+            .foregroundColor(.secondary)
+            
+            Divider()
+            
         }
-        .navigationTitle(book.title ?? "")
+        .padding()
+        .navigationTitle(book.title ?? "les misérables")
         .navigationBarTitleDisplayMode(.inline)
     }
-}
+
+    }
+
 
 struct BookDetail_Previews: PreviewProvider {
     static var previews: some View {

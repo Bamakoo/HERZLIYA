@@ -12,13 +12,12 @@ struct BookRow: View {
     @State var book: Book
     
     var body: some View {
-        VStack {
+        HStack {
             Text(book.title ?? "the subtle art of not giving a fuck")
                 .fontWeight(.heavy)
-
+            Spacer()
             Text(book.author ?? "Mark Manson")
                 .italic()
-
         }
     }
 }
