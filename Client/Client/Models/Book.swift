@@ -12,6 +12,5 @@ struct Book: Identifiable, Codable, Hashable, Equatable {
     let title: String?
     let author: String?
     let genre: String?
-    let price: Int?
-//    var isFavorite: Bool
+    let price: Int
 }

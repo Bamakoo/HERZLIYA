@@ -13,11 +13,12 @@ struct BookRow: View {
     
     var body: some View {
         HStack {
-            Text(book.title ?? "the subtle art of not giving a fuck")
-                .fontWeight(.heavy)
+            VStack(alignment: .leading) {
+                Text(book.title ?? "the subtle art of not giving a fuck").font(.headline)
+                Text(book.author ?? "Mark Manson").font(.subheadline).foregroundColor(.gray)
+            }
             Spacer()
-            Text(book.author ?? "Mark Manson")
-                .italic()
+            Text(String(book.price))
         }
     }
 }

@@ -19,6 +19,7 @@ struct BooksList: View {
                 }
             }
             .navigationTitle("Books")
+            .listStyle(.grouped)
             
         } detail: {
             if let book = selection {
