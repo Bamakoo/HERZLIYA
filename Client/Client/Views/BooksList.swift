@@ -18,7 +18,7 @@ struct BooksList: View {
                     BookRow(book: book)
                 }
             }
-            .navigationTitle("Books")
+            .navigationTitle("Browse Books")
             .listStyle(.grouped)
             
         } detail: {
