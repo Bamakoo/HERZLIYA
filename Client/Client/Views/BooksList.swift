@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BooksList: View {
-    @StateObject private var viewModel = BooksViewModel(networkManager: SettingNetworkManager(httpClient: Networking()))
+    @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var selection: Book?
     
     var body: some View {
@@ -20,7 +20,6 @@ struct BooksList: View {
             }
             .navigationTitle("Browse Books")
             .listStyle(.grouped)
-            
         } detail: {
             if let book = selection {
                 BookDetail(book: book)

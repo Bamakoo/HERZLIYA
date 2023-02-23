@@ -20,12 +20,21 @@ struct BookDetail: View {
         }
         .padding()
         .navigationBarTitle(book.title ?? "les misérables", displayMode: .inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    print("edit button tapped for book \(book.title ?? "the subtle art")")
+                } label: {
+                    Text("Edit")
+                }
+            }
+        }
     }
 }
 
 
 struct BookDetail_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetail(book: BooksViewModel(networkManager: SettingNetworkManager(httpClient: HttpClient.self as! HttpClient)).books[0])
+        BookDetail(book: BooksViewModel(networkManager: BooksNetworkManager(httpClient: HttpClient.self as! HttpClient)).books[0])
     }
 }

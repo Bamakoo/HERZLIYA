@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class SettingNetworkManager {
+final class BooksNetworkManager {
     
     let httpClient: HttpClient
     

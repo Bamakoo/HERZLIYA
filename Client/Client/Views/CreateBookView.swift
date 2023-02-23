@@ -22,7 +22,7 @@ struct CreateBookView: View {
         return price
        }
     
-    @StateObject private var viewModel = BooksViewModel(networkManager: SettingNetworkManager(httpClient: Networking()))
+    @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     
     var body: some View {
         Form {

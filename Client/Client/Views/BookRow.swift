@@ -18,13 +18,13 @@ struct BookRow: View {
                 Text(book.author ?? "Mark Manson").font(.subheadline).foregroundColor(.gray)
             }
             Spacer()
-            Text(String(book.price))
+            Text("\(book.price)$")
         }
     }
 }
 
 struct BookRow_Previews: PreviewProvider {
-    static var books = BooksViewModel(networkManager: SettingNetworkManager(httpClient: HttpClient.self as! HttpClient)).books
+    static var books = BooksViewModel(networkManager: BooksNetworkManager(httpClient: HttpClient.self as! HttpClient)).books
     static var previews: some View {
         BookRow(book: books[0])
     }
