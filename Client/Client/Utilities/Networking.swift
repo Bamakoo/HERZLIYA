@@ -37,7 +37,7 @@ final class Networking: HttpClient {
         }
     }
     
-    func delete(at id: UUID, url: URL) async throws {
+    func delete(url: URL) async throws {
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethods.DELETE.rawValue
         

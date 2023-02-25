@@ -39,4 +39,9 @@ final class BooksNetworkManager {
         try await httpClient.updateData(to: url, object: updatedBook, httpMethod: HttpMethods.PUT.rawValue)
         print("request sent")
     }
+    
+    func deleteBook(id: UUID) async throws {
+        let url = URL(string: Request.baseURL + Endpoint.books + "/\(id)")!
+        try await httpClient.delete(url: url)
+    }
 }

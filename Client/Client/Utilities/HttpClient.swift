@@ -29,7 +29,7 @@ enum HttpError: Error {
 protocol HttpClient {
     func fetch<T: Codable>(url: URL) async throws -> [T]
     func sendData<T: Codable>(to url: URL, object: T, httpMethod: String) async throws
-    func delete(at id: UUID, url: URL) async throws
+    func delete(url: URL) async throws
     func updateData<T: Codable>(to url: URL, object: T, httpMethod: String ) async throws
 }
 

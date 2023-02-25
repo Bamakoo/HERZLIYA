@@ -14,7 +14,7 @@ struct BookDetail: View {
     @State private var genre = ""
     @State private var price = 0
     @State private var author = ""
-//    @State var showEditView = false
+    
     
     var body: some View {
         Form {
@@ -33,22 +33,19 @@ struct BookDetail: View {
             } label: {
                 Text("Update book")
             }
+            Button {
+                Task {
+                    try await viewModel.deleteBook(id: book.id)
+                }
+            } label: {
+                Text("Delete book")
+            }
         }
-        .padding()
         .navigationBarTitle(book.title, displayMode: .inline)
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarTrailing) {
-//                Button {
-//                    self.showEditView.toggle()
-//                } label: {
-//                    Text("Edit")
-//                }.sheet(isPresented: $showEditView) {
-//                    EditBookView()
-//                }
-//            }
-//        }
+
     }
 }
+
 
 
 struct BookDetail_Previews: PreviewProvider {
