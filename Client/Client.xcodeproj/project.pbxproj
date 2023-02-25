@@ -120,8 +120,8 @@
 			children = (
 				A4C9867429A11D3B003CF879 /* Views */,
 				A4C9867129A1196D003CF879 /* ViewModels */,
-				A4C9866E29A10AEB003CF879 /* Models */,
 				A4C98665299FD178003CF879 /* Utilities */,
+				A4C9866E29A10AEB003CF879 /* Models */,
 				A4C9863B299FB843003CF879 /* ClientApp.swift */,
 				A4C9863D299FB843003CF879 /* ContentView.swift */,
 				A4C9863F299FB844003CF879 /* Assets.xcassets */,

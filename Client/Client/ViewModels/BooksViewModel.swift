@@ -24,7 +24,7 @@ final class BooksViewModel: ObservableObject {
             print("\(error)")
         }
     }
-    func createBooks(title: String, genre: String, price: Int, author: String) async throws {
+    func createBook(title: String, genre: String, price: Int, author: String) async throws {
         do {
             try await networkManager.createBook(title: title, genre: genre, price: price, author: author)
         }
@@ -32,5 +32,23 @@ final class BooksViewModel: ObservableObject {
             print("\(error)")
         }
     }
+    
+    func updateBook(author: String, id: UUID!, title: String, price: Int, genre: String) async throws {
+        do {
+            print("calling networkManager.updatebook")
+            try await networkManager.updateBook(author: author, id: id!, title: title, price: price, genre: genre)
+        }
+        catch {
+            print("\(error)")
+        }
+    }
+//    func deleteBook() {
+//        do {
+//            try await
+//        }
+//        catch {
+//
+//        }
+//    }
 }
 

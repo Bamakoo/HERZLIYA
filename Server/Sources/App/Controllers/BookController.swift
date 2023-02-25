@@ -17,12 +17,15 @@ struct BookController: RouteCollection {
     }
 
     func create(req: Request) async throws -> Book {
+        print("creating new book")
         let book = try req.content.decode(Book.self)
+        print(book)
         try await book.save(on: req.db)
         return book
     }
     
     func update(req: Request) async throws -> Book {
+        print("PUT request received")
         let book = try req.content.decode(Book.self)
         
         guard let bookFromDB =  try await Book.find(book.id, on: req.db) else {
@@ -40,6 +43,7 @@ struct BookController: RouteCollection {
 
     func delete(req: Request) async throws -> HTTPStatus {
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
+            print("unable to delete book")
             throw Abort(.notFound)
         }
         try await book.delete(on: req.db)

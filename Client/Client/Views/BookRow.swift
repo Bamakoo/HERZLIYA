@@ -9,13 +9,13 @@ import SwiftUI
 
 struct BookRow: View {
     
-    @State var book: Book
+    var book: Book
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(book.title ?? "the subtle art of not giving a fuck").font(.headline)
-                Text(book.author ?? "Mark Manson").font(.subheadline).foregroundColor(.gray)
+                Text(book.title).font(.headline)
+                Text(book.author).font(.subheadline).foregroundColor(.gray)
             }
             Spacer()
             Text("\(book.price)$")

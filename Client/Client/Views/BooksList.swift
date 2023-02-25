@@ -18,7 +18,7 @@ struct BooksList: View {
                     BookRow(book: book)
                 }
             }
-            .navigationTitle("Browse Books")
+            .navigationTitle("Books")
             .listStyle(.grouped)
         } detail: {
             if let book = selection {
@@ -34,6 +34,7 @@ struct BooksList: View {
         }
     }
 }
+
 
 struct BooksView_Previews: PreviewProvider {
     static var previews: some View {

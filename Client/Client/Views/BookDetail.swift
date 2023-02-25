@@ -8,27 +8,45 @@
 import SwiftUI
 
 struct BookDetail: View {
-    
     var book: Book
+    @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
+    @State private var title = ""
+    @State private var genre = ""
+    @State private var price = 0
+    @State private var author = ""
+//    @State var showEditView = false
     
     var body: some View {
-        VStack {
-            Text(book.author ?? "the subtle art of not giving a fuck")
-                .font(.title)
-            Text(book.genre ?? "timeless classic")
-            Text(String(book.price))
-        }
-        .padding()
-        .navigationBarTitle(book.title ?? "les misérables", displayMode: .inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    print("edit button tapped for book \(book.title ?? "the subtle art")")
-                } label: {
-                    Text("Edit")
+        Form {
+            TextField("BookTitle", text: $title, prompt: Text(book.title).bold())
+            TextField("BookGenre", text: $genre, prompt: Text(book.genre).bold())
+            TextField("BookPrice", value: $price, format: .currency(code: "USD"), prompt: Text(String(book.price)))
+                .background(Color.white)
+                .keyboardType(.numberPad)
+            TextField("Author", text: $author, prompt: Text(book.author).bold())
+                .background(Color.white)
+            Button {
+                Task {
+                    print("update button pressed")
+                    try await viewModel.updateBook(author: author, id: book.id, title: title, price: price, genre: genre)
                 }
+            } label: {
+                Text("Update book")
             }
         }
+        .padding()
+        .navigationBarTitle(book.title, displayMode: .inline)
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                Button {
+//                    self.showEditView.toggle()
+//                } label: {
+//                    Text("Edit")
+//                }.sheet(isPresented: $showEditView) {
+//                    EditBookView()
+//                }
+//            }
+//        }
     }
 }
 
