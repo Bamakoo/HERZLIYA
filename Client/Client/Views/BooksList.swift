@@ -10,7 +10,6 @@ import SwiftUI
 struct BooksList: View {
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var selection: Book?
-    @State var showCreateBookView = false
     
     var body: some View {
         NavigationSplitView {
@@ -32,16 +31,6 @@ struct BooksList: View {
         .onAppear() {
             Task {
                 await viewModel.fetchBooks()
-            }
-        }
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                Button {
-                    self.showCreateBookView.toggle()
-                } label: {
-                    Image(systemName: "plus.circle")
-                }.sheet(isPresented: $showCreateBookView) {  CreateBookView()
-                }
             }
         }
     }

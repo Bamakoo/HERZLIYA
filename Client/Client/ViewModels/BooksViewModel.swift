@@ -9,6 +9,7 @@ import SwiftUI
 
 final class BooksViewModel: ObservableObject {
     @Published var books = [Book]()
+    
     private let networkManager: BooksNetworkManager
     
     init(networkManager: BooksNetworkManager) {

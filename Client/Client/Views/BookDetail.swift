@@ -15,7 +15,6 @@ struct BookDetail: View {
     @State private var price = 0
     @State private var author = ""
     
-    
     var body: some View {
         Form {
             TextField("BookTitle", text: $title, prompt: Text(book.title).bold())
@@ -42,7 +41,17 @@ struct BookDetail: View {
             }
         }
         .navigationBarTitle(book.title, displayMode: .inline)
-
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    Task {
+                        try await viewModel.deleteBook(id: book.id)
+                    }
+                } label: {
+                    Image(systemName: "trash.circle")
+                }
+            }
+        }
     }
 }
 
