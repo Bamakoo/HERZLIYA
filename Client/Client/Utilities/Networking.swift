@@ -49,6 +49,7 @@ final class Networking: HttpClient {
     }
     
     func updateData<T: Codable>(to url: URL, object: T, httpMethod: String ) async throws {
+        print("in updateData func")
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
     }

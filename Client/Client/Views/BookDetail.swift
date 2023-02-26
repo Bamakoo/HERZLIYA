@@ -26,18 +26,10 @@ struct BookDetail: View {
                 .background(Color.white)
             Button {
                 Task {
-                    print("update button pressed")
-                    try await viewModel.updateBook(author: author, id: book.id, title: title, price: price, genre: genre)
+                    try await viewModel.updateBook(author: author, title: title, id: book.id,   price: price, genre: genre)
                 }
             } label: {
                 Text("Update book")
-            }
-            Button {
-                Task {
-                    try await viewModel.deleteBook(id: book.id)
-                }
-            } label: {
-                Text("Delete book")
             }
         }
         .navigationBarTitle(book.title, displayMode: .inline)

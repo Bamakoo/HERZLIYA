@@ -8,9 +8,9 @@
 import Foundation
 
 struct Book: Identifiable, Codable, Hashable, Equatable {
-    let id: UUID
-    let title: String
     let author: String
+    let title: String
+    let id: UUID
     let price: Int
     let genre: String
 }
