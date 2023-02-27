@@ -12,4 +12,5 @@ enum Request {
 
 enum Endpoint {
     static let books = "books"
+    static let orders = "orders"
 }

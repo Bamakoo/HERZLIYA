@@ -5,7 +5,7 @@
 //  Created by Emma Gaubert on 18/02/2023.
 //
 
-import SwiftUI
+import Foundation
 
 final class BooksViewModel: ObservableObject {
     @Published var books = [Book]()

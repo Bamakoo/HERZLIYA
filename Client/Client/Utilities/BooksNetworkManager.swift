@@ -33,6 +33,7 @@ final class BooksNetworkManager {
             print("Unable to create valid URL")
             return
         }
+        print(type(of: price))
         let updatedBook = Book(author: author, title: title, id: id,  price: price, genre: genre)
         print(updatedBook)
         
