@@ -17,7 +17,6 @@ struct BookController: RouteCollection {
     }
 
     func create(req: Request) async throws -> Book {
-        print("creating new book")
         let book = try req.content.decode(Book.self)
         print(book)
         try await book.save(on: req.db)
@@ -25,7 +24,6 @@ struct BookController: RouteCollection {
     }
     
     func update(req: Request) async throws -> Book {
-        print("PUT request received")
         let book = try req.content.decode(Book.self)
         
         guard let bookFromDB =  try await Book.find(book.id, on: req.db) else {

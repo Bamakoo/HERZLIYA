@@ -8,6 +8,7 @@ struct CreateBook: AsyncMigration {
             .field("author", .string, .required)
             .field("genre", .string, .required)
             .field("price", .int, .required)
+            .field("order_id", .uuid, .references("orders", "id"))
             .create()
     }
 

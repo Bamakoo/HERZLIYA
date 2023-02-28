@@ -31,8 +31,8 @@ struct OrderController: RouteCollection {
         
         orderFromDB.id = order.id
         orderFromDB.price = order.price
-        orderFromDB.buyer = order.buyer
-        orderFromDB.seller = order.seller
+//        orderFromDB.buyer = order.buyer
+//        orderFromDB.seller = order.seller
         
 
         try await orderFromDB.update(on: req.db)

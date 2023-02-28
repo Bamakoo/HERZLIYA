@@ -10,22 +10,24 @@ final class Order: Model, Content {
     @Field(key: "price")
     var price: Int
     
-    @Parent(key: "buyer_id")
-    var buyer: User
-    
-    @Parent(key: "seller_id")
-    var seller: User
+//    @Parent(key: "buyer_id")
+//    var buyer: User
+//
+//    @Parent(key: "seller_id")
+//    var seller: User
 
+    @Children(for: \.$order)
+    var books: [Book]
     
     init() { }
 
     init(id: UUID? = nil,
-         price: Int,
-         buyerID: User.IDValue,
-         sellerID: User.IDValue) {
+         price: Int){
+//         buyerID: User.IDValue,
+//         sellerID: User.IDValue) {
         self.id = id
         self.price = price
-        self.$buyer.id = buyerID
-        self.$seller.id = sellerID
+//        self.$buyer.id = buyerID
+//        self.$seller.id = sellerID
     }
 }

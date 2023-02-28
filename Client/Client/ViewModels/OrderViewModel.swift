@@ -25,18 +25,18 @@ final class OrderViewModel: ObservableObject {
             print("\(error)")
         }
     }
-    func createOrder(title: String, genre: String, price: Int, author: String) async throws {
+    func createOrder(id: UUID, buyer: User, seller: User, price: Int, books: [Book]) async throws {
         do {
-            try await networkManager.createOrder(title: title, genre: genre, price: price, author: author)
+            try await networkManager.createOrder(id: id, buyer: buyer, seller: seller, price: price, books: books)
         }
         catch {
             print("\(error)")
         }
     }
     
-    func updateOrder(author: String, title: String, id: UUID, price: Int, genre: String) async throws {
+    func updateOrder(id: UUID, buyer: User, seller: User, price: Int, books: [Book]) async throws {
         do {
-            try await networkManager.updateOrder(author: author, title: title, id: id, price: price, genre: genre)
+            try await networkManager.updateOrder(id: id, buyer: buyer, seller: seller, price: price, books: books)
         }
         catch {
             print(error)

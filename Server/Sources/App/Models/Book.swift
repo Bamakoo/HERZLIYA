@@ -18,6 +18,9 @@ final class Book: Model, Content {
     
     @Field(key: "price")
     var price: Int
+    
+    @OptionalParent(key: "order_id")
+    var order: Order?
 
     init() { }
 
@@ -25,12 +28,14 @@ final class Book: Model, Content {
          title: String,
          author: String,
          genre: String,
-         price: Int
+         price: Int,
+         orderID: Order.IDValue
          ) {
         self.id = id
         self.title = title
         self.author = author
         self.genre = genre
         self.price = price
+        self.$order.id = orderID
     }
 }

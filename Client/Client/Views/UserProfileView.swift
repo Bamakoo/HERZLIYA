@@ -10,6 +10,16 @@ import SwiftUI
 struct UserProfileView: View {
     var body: some View {
         Text("Displays the User's profile")
+        Button {
+            print("account created")
+        } label: {
+            Text("Create an account")
+        }
+        Button {
+            print("user logged in")
+        } label: {
+            Text("Log in")
+        }
     }
 }
 

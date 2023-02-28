@@ -21,19 +21,21 @@ final class OrdersNetworkManager {
         return orders
     }
     
-    func createOrder() async throws {
-        let url = URL(string: Request.baseURL + Endpoint.orders)!
-        let newOrder = Order(id: , buyer: <#T##User#>, seller: <#T##User#>, price: , books: <#T##[Book]#>)
+    func createOrder(id: UUID, buyer: User, seller: User, price: Int, books: [Book]) async throws {
+        guard let url = URL(string: Request.baseURL + Endpoint.orders) else {
+            print("Unable to create valid URL for creating an order")
+            return
+        }
+        let newOrder = Order(id: id, buyer: buyer, seller: seller, price: price, books: books)
         try await httpClient.sendData(to: url, object: newOrder, httpMethod: HttpMethods.POST.rawValue)
     }
     
-    func updateOrder() async throws {
+    func updateOrder(id: UUID, buyer: User, seller: User, price: Int, books: [Book]) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.orders) else {
-            print("Unable to create valid URL")
+            print("Unable to create valid URL for updating an order")
             return
         }
-        let updatedOrder = Order(id: <#T##UUID#>, buyer: <#T##User#>, seller: <#T##User#>, price: <#T##Int#>, books: <#T##[Book]#>)
-        
+        let updatedOrder = Order(id: id, buyer: buyer, seller: seller, price: price, books: books)
         try await httpClient.updateData(to: url, object: updatedOrder, httpMethod: HttpMethods.PUT.rawValue)
         print("request sent")
     }

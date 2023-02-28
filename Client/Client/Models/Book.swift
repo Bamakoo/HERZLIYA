@@ -13,4 +13,5 @@ struct Book: Identifiable, Codable, Hashable, Equatable {
     let id: UUID
     let price: Int
     let genre: String
+    let order: Order?
 }
