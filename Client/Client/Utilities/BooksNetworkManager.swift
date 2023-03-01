@@ -23,23 +23,18 @@ final class BooksNetworkManager {
     
     func createBook(title: String, genre: String, price: Int, author: String, order: Order) async throws {
         let url = URL(string: Request.baseURL + Endpoint.books)!
-        let newBook = Book(author: author, title: title, id: UUID(),   price: price, genre: genre, order: nil)
+        let newBook = Book(author: author, title: title, id: UUID(), price: price, genre: genre, order: nil)
         try await httpClient.sendData(to: url, object: newBook, httpMethod: HttpMethods.POST.rawValue)
     }
     
     func updateBook(author: String,  title: String, id: UUID!, price: Int, genre: String, order: Order) async throws {
-        print("starting to update book")
         guard let url = URL(string: Request.baseURL + Endpoint.books) else {
             print("Unable to create valid URL")
             return
         }
         let updatedBook = Book(author: author, title: title, id: id,  price: price, genre: genre, order: nil)
-        print(updatedBook)
-        
         try await httpClient.updateData(to: url, object: updatedBook, httpMethod: HttpMethods.PUT.rawValue)
-        print("request sent")
     }
-    
     func deleteBook(id: UUID) async throws {
         let url = URL(string: Request.baseURL + Endpoint.books + "/\(id)")!
         try await httpClient.delete(url: url)
