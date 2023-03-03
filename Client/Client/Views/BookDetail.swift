@@ -26,7 +26,7 @@ struct BookDetail: View {
                 .background(Color.white)
             Button {
                 Task {
-                    try await viewModel.updateBook(author: author, title: title, id: book.id, price: price, genre: genre, order: nil)
+                    try await viewModel.updateBook(author: author, title: title, id: book.id, price: price, genre: genre, order: Order(id: nil, price: nil))
                 }
             } label: {
                 Text("Update book")

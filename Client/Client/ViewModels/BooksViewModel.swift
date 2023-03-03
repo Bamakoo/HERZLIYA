@@ -35,7 +35,7 @@ final class BooksViewModel: ObservableObject {
     }
     func updateBook(author: String, title: String, id: UUID, price: Int, genre: String, order: Order?) async throws {
         do {
-            try await networkManager.updateBook(author: author, title: title, id: id, price: price, genre: genre, order: order ?? Order(id: UUID(), price: price))
+            try await networkManager.updateBook(author: author, title: title, id: id, price: price, genre: genre, order: Order(id: nil, price: nil))
         }
         catch {
             print(error)

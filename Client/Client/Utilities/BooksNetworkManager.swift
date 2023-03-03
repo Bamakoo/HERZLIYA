@@ -24,6 +24,7 @@ final class BooksNetworkManager {
     func createBook(title: String, genre: String, price: Int, author: String, order: Order) async throws {
         let url = URL(string: Request.baseURL + Endpoint.books)!
         let newBook = Book(author: author, title: title, id: UUID(), price: price, genre: genre, order: Order(id: nil, price: nil))
+        print(newBook)
         try await httpClient.sendData(to: url, object: newBook, httpMethod: HttpMethods.POST.rawValue)
     }
     
@@ -32,9 +33,11 @@ final class BooksNetworkManager {
             print("Unable to create valid URL")
             return
         }
-        let updatedBook = Book(author: author, title: title, id: id,  price: price, genre: genre, order: nil)
+        let updatedBook = Book(author: author, title: title, id: id,  price: price, genre: genre, order: Order(id: nil))
+        print(updatedBook)
         try await httpClient.updateData(to: url, object: updatedBook, httpMethod: HttpMethods.PUT.rawValue)
     }
+    
     func deleteBook(id: UUID) async throws {
         let url = URL(string: Request.baseURL + Endpoint.books + "/\(id)")!
         try await httpClient.delete(url: url)
