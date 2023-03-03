@@ -8,8 +8,8 @@
 import Foundation
 
 struct Order: Identifiable, Codable, Hashable, Equatable {
-    let id: UUID
+    let id: UUID?
 //    let buyer: User
 //    let seller: User
-    let price: Int
+    let price: Int?
 }

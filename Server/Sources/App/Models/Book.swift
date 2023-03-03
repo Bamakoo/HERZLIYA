@@ -29,13 +29,14 @@ final class Book: Model, Content {
          author: String,
          genre: String,
          price: Int,
-         orderID: Order.IDValue
-         ) {
+         orderID: Order.IDValue?) {
         self.id = id
         self.title = title
         self.author = author
         self.genre = genre
         self.price = price
-        self.$order.id = orderID
+        if let orderID {
+            self.$order.id = orderID
+        }
     }
 }

@@ -18,7 +18,6 @@ struct BookController: RouteCollection {
 
     func create(req: Request) async throws -> Book {
         let book = try req.content.decode(Book.self)
-        print(book)
         try await book.save(on: req.db)
         return book
     }
