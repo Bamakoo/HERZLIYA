@@ -35,8 +35,6 @@ final class Book: Model, Content {
         self.author = author
         self.genre = genre
         self.price = price
-        if let orderID {
-            self.$order.id = orderID
-        }
+        self.$order.id = orderID
     }
 }

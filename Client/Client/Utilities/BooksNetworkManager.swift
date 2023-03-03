@@ -23,7 +23,7 @@ final class BooksNetworkManager {
     
     func createBook(title: String, genre: String, price: Int, author: String, order: Order) async throws {
         let url = URL(string: Request.baseURL + Endpoint.books)!
-        let newBook = Book(author: author, title: title, id: UUID(), price: price, genre: genre, order: nil)
+        let newBook = Book(author: author, title: title, id: UUID(), price: price, genre: genre, order: Order(id: nil, price: nil))
         try await httpClient.sendData(to: url, object: newBook, httpMethod: HttpMethods.POST.rawValue)
     }
     

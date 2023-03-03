@@ -27,7 +27,7 @@ final class BooksViewModel: ObservableObject {
     }
     func createBook(title: String, genre: String, price: Int, author: String, order: Order?) async throws {
         do {
-            try await networkManager.createBook(title: title, genre: genre, price: price, author: author, order: order ?? Order(id: UUID(), price: price))
+            try await networkManager.createBook(title: title, genre: genre, price: price, author: author, order: order ?? Order(id: nil, price: nil))
         }
         catch {
             print("\(error)")
