@@ -33,7 +33,7 @@ final class BooksNetworkManager {
             print("Unable to create valid URL")
             return
         }
-        let updatedBook = Book(author: author, title: title, id: id,  price: price, genre: genre, order: Order(id: nil))
+        let updatedBook = Book(author: author, title: title, id: id,  price: price, genre: genre, order: Order(id: nil, price: nil))
         print(updatedBook)
         try await httpClient.updateData(to: url, object: updatedBook, httpMethod: HttpMethods.PUT.rawValue)
     }

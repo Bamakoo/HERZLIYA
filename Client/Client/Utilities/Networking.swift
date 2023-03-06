@@ -49,9 +49,12 @@ final class Networking: HttpClient {
     }
     
     func updateData<T: Codable>(to url: URL, object: T, httpMethod: String ) async throws {
-        print(object)
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
+        request.addValue(MIMEType.JSON.rawValue,
+                         forHTTPHeaderField: HttpHeaders.contentType.rawValue)
+        
+        request.httpBody = try? JSONEncoder().encode(object)
         let (_, response) = try await URLSession.shared.data(for: request)
         
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
