@@ -29,7 +29,7 @@ struct BookDetail: View {
                     try await viewModel.updateBook(author: author, title: title, id: book.id, price: price, genre: genre, order: Order(id: nil, price: nil))
                 }
             } label: {
-                Text("Update book")
+                Text("Order now")
             }
         }
         .navigationBarTitle(book.title, displayMode: .inline)
