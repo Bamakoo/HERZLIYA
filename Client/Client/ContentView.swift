@@ -12,7 +12,7 @@ struct ContentView: View {
         TabView {
             BooksList()
                 .tabItem {
-                    Label("Browse Books", systemImage: "books.vertical")
+                    Label("Books", systemImage: "books.vertical")
                 }
             
             CreateBookView()

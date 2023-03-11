@@ -31,11 +31,6 @@ struct BookDetail: View {
             } label: {
                 Text("Update book")
             }
-            Button {
-                print("Ordered book \(book.title)")
-            } label: {
-                Text("Order book \(book.title)")
-            }
         }
         .navigationBarTitle(book.title, displayMode: .inline)
         .toolbar {
