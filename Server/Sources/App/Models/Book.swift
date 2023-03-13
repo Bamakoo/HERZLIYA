@@ -1,6 +1,10 @@
 import Fluent
 import Vapor
 
+enum BookGenre: String, Codable {
+    case fantasy, scienceFiction, action, mystery, horror, romance, realism, biography
+}
+
 final class Book: Model, Content {
     static let schema = "books"
     
@@ -13,8 +17,8 @@ final class Book: Model, Content {
     @Field(key: "author")
     var author: String
     
-    @Field(key: "genre")
-    var genre: String
+    @Enum(key: "book_genre")
+    var genre: BookGenre
     
     @Field(key: "price")
     var price: Int
@@ -30,7 +34,7 @@ final class Book: Model, Content {
     init(id: UUID? = nil,
          title: String,
          author: String,
-         genre: String,
+         genre: BookGenre,
          price: Int,
          orderID: Order.IDValue?,
          userID: User.IDValue) {
