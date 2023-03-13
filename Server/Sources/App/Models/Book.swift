@@ -5,6 +5,14 @@ enum BookGenre: String, Codable {
     case fantasy, scienceFiction, action, mystery, horror, romance, realism, biography
 }
 
+enum BookState: String, Codable {
+    case horrendous, bad, okay, passable, acceptable, good, excellent, brandNew
+}
+
+enum BookStatus: String, Codable {
+    case available, purchased, inTransit, delivered
+}
+
 final class Book: Model, Content {
     static let schema = "books"
     
@@ -20,14 +28,32 @@ final class Book: Model, Content {
     @Enum(key: "book_genre")
     var genre: BookGenre
     
+    @Enum(key: "book_state")
+    var state: BookState
+    
     @Field(key: "price")
     var price: Int
     
     @OptionalParent(key: "order_id")
-    var order: Order?
+    var order: Kart?
     
-    @Parent(key: "user_id")
+    @Parent(key: "seller_id")
+    var seller: User
+    
+    @Parent(key: "buyer_id")
+    var buyer: User
+    
+    @Parent(key: "kart_id")
+    var kart: Kart
+    
+    @Parent(key: "favorited_by")
     var user: User
+
+    @Field(key: "rating")
+    var rating: Float
+    
+    @Enum(key: "book_status")
+    var status: BookStatus
     
     init() { }
 
@@ -35,15 +61,25 @@ final class Book: Model, Content {
          title: String,
          author: String,
          genre: BookGenre,
+         state: BookState,
          price: Int,
-         orderID: Order.IDValue?,
-         userID: User.IDValue) {
+         kartID: Kart.IDValue?,
+         sellerID: User.IDValue,
+         buyerID: User.IDValue,
+         favoritedBy: User.IDValue,
+         rating: Float,
+         status: BookStatus) {
         self.id = id
         self.title = title
         self.author = author
         self.genre = genre
+        self.state = state
         self.price = price
-        self.$order.id = orderID
-        self.$user.id = userID
+        self.$kart.id = kartID ?? UUID()
+        self.$user.id = favoritedBy
+        self.$seller.id = sellerID
+        self.$buyer.id = buyerID
+        self.rating = rating
+        self.status = status
     }
 }

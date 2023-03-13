@@ -16,6 +16,12 @@ final class User: Authenticatable, Model, Content {
     @Field(key: "favorite_book")
     var favoriteBook: String
     
+    @Field(key: "country")
+    var country: String
+    
+    @Field(key: "city")
+    var city: String
+    
     @Children(for: \.$user)
     var favoritedBooks: [Book]
     
@@ -23,10 +29,10 @@ final class User: Authenticatable, Model, Content {
     var favoriteAuthor: String
     
     @Children(for: \.$buyer)
-    var buyerOrders: [Order]
+    var baughtBooks: [Book]
     
     @Children(for: \.$seller)
-    var sellerOrders: [Order]
+    var soldBooks: [Book]
 
     init() { }
 
