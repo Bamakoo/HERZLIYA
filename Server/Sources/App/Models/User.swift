@@ -1,31 +1,44 @@
-//import Fluent
-//import Vapor
-//
-//final class User: Model, Content {
-//    static let schema = "users"
-//    
-//    @ID(key: .id)
-//    var id: UUID?
-//
-//    @Field(key: "username")
-//    var username: String
-//    
-//    @Field(key: "password")
-//    var password: String
-//    
-//    @Children(for: \.$buyer)
-//    var buyerOrders: [Order]
-//    
-//    @Children(for: \.$seller)
-//    var sellerOrders: [Order]
-//
-//    init() { }
-//
-//    init(id: UUID? = nil,
-//         username: String,
-//         password: String) {
-//        self.id = id
-//        self.username = username
-//        self.password = password
-//    }
-//}
+import Fluent
+import Vapor
+
+final class User: Authenticatable, Model, Content {
+    static let schema = "users"
+    
+    @ID(key: .id)
+    var id: UUID?
+
+    @Field(key: "username")
+    var username: String
+    
+    @Field(key: "password")
+    var password: String
+    
+    @Field(key: "favorite_book")
+    var favoriteBook: String
+    
+    @Children(for: \.$user)
+    var favoritedBooks: [Book]
+    
+    @Field(key: "favorite_author")
+    var favoriteAuthor: String
+    
+    @Children(for: \.$buyer)
+    var buyerOrders: [Order]
+    
+    @Children(for: \.$seller)
+    var sellerOrders: [Order]
+
+    init() { }
+
+    init(id: UUID? = nil,
+         username: String,
+         password: String,
+         favoriteBook: String,
+         favoriteAuthor: String) {
+        self.id = id
+        self.username = username
+        self.password = password
+        self.favoriteBook = favoriteBook
+        self.favoriteAuthor = favoriteAuthor
+    }
+}

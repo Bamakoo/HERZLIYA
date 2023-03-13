@@ -21,7 +21,10 @@ final class Book: Model, Content {
     
     @OptionalParent(key: "order_id")
     var order: Order?
-
+    
+    @Parent(key: "user_id")
+    var user: User
+    
     init() { }
 
     init(id: UUID? = nil,
@@ -29,12 +32,14 @@ final class Book: Model, Content {
          author: String,
          genre: String,
          price: Int,
-         orderID: Order.IDValue?) {
+         orderID: Order.IDValue?,
+         userID: User.IDValue) {
         self.id = id
         self.title = title
         self.author = author
         self.genre = genre
         self.price = price
         self.$order.id = orderID
+        self.$user.id = userID
     }
 }

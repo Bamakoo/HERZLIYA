@@ -5,8 +5,8 @@ struct CreateOrder: AsyncMigration {
         try await database.schema("orders")
             .id()
             .field("price", .int, .required)
-//            .field("buyer_id", .uuid, .references("users", "id"))
-//            .field("seller_id", .uuid, .references("users", "id"))
+            .field("buyer_id", .uuid, .references("users", "id"))
+            .field("seller_id", .uuid, .references("users", "id"))
             .create()
     }
 
