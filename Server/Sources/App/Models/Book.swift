@@ -25,6 +25,9 @@ final class Book: Model, Content {
     @Field(key: "author")
     var author: String
     
+    @Field(key: "description")
+    var description: String
+    
     @Enum(key: "book_genre")
     var genre: BookGenre
     
@@ -63,6 +66,7 @@ final class Book: Model, Content {
     init(id: UUID? = nil,
          title: String,
          author: String,
+         description: String,
          genre: BookGenre,
          state: BookState,
          price: Int,
@@ -78,6 +82,7 @@ final class Book: Model, Content {
         self.id = id
         self.title = title
         self.author = author
+        self.description = description
         self.genre = genre
         self.state = state
         self.price = price
