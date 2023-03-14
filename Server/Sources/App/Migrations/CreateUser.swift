@@ -6,6 +6,10 @@ struct CreateUser: AsyncMigration {
             .id()
             .field("username", .string, .required)
             .field("password", .string, .required)
+            .field("favorite_book", .string, .required)
+            .field("country", .string, .required)
+            .field("city", .string, .required)
+            .field("favorite_author", .string, .required)
             .create()
     }
 

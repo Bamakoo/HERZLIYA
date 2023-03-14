@@ -22,8 +22,8 @@ final class User: Authenticatable, Model, Content {
     @Field(key: "city")
     var city: String
     
-    @Children(for: \.$user)
-    var favoritedBooks: [Book]
+    @Children(for: \.$likedByUser)
+    var likedBooks: [Book]
     
     @Field(key: "favorite_author")
     var favoriteAuthor: String
@@ -33,6 +33,15 @@ final class User: Authenticatable, Model, Content {
     
     @Children(for: \.$seller)
     var soldBooks: [Book]
+    
+    @Timestamp(key: "created_at", on: .create)
+    var createdAt: Date?
+
+    @Timestamp(key: "updated_at", on: .update)
+    var updatedAt: Date?
+    
+    @Timestamp(key: "deleted_at", on: .delete)
+    var deletedAt: Date?
 
     init() { }
 
@@ -40,11 +49,21 @@ final class User: Authenticatable, Model, Content {
          username: String,
          password: String,
          favoriteBook: String,
-         favoriteAuthor: String) {
+         country: String,
+         city: String,
+         favoriteAuthor: String,
+         createdAt: Date? = nil,
+         updatedAt: Date? = nil,
+         deletedAt: Date? = nil) {
         self.id = id
         self.username = username
         self.password = password
         self.favoriteBook = favoriteBook
+        self.country = country
+        self.city = city
         self.favoriteAuthor = favoriteAuthor
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.deletedAt = deletedAt
     }
 }

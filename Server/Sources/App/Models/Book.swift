@@ -34,9 +34,6 @@ final class Book: Model, Content {
     @Field(key: "price")
     var price: Int
     
-    @OptionalParent(key: "order_id")
-    var order: Kart?
-    
     @Parent(key: "seller_id")
     var seller: User
     
@@ -46,14 +43,23 @@ final class Book: Model, Content {
     @Parent(key: "kart_id")
     var kart: Kart
     
-    @Parent(key: "favorited_by")
-    var user: User
+    @Parent(key: "liked_by")
+    var likedByUser: User
 
     @Field(key: "rating")
     var rating: Float
     
     @Enum(key: "book_status")
     var status: BookStatus
+    
+    @Timestamp(key: "created_at", on: .create)
+    var createdAt: Date?
+
+    @Timestamp(key: "updated_at", on: .update)
+    var updatedAt: Date?
+    
+    @Timestamp(key: "deleted_at", on: .delete)
+    var deletedAt: Date?
     
     init() { }
 
@@ -63,12 +69,15 @@ final class Book: Model, Content {
          genre: BookGenre,
          state: BookState,
          price: Int,
-         kartID: Kart.IDValue?,
          sellerID: User.IDValue,
          buyerID: User.IDValue,
-         favoritedBy: User.IDValue,
+         kartID: Kart.IDValue?,
+         likedByUser: User.IDValue,
          rating: Float,
-         status: BookStatus) {
+         status: BookStatus,
+         createdAt: Date? = nil,
+         updatedAt: Date? = nil,
+         deletedAt: Date? = nil) {
         self.id = id
         self.title = title
         self.author = author
@@ -76,10 +85,13 @@ final class Book: Model, Content {
         self.state = state
         self.price = price
         self.$kart.id = kartID ?? UUID()
-        self.$user.id = favoritedBy
+        self.$likedByUser.id = likedByUser
         self.$seller.id = sellerID
         self.$buyer.id = buyerID
         self.rating = rating
         self.status = status
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.deletedAt = deletedAt
     }
 }

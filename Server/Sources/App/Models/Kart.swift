@@ -23,6 +23,6 @@ final class Kart: Model, Content {
          total: Int) {
         self.id = id
         self.$user.id = userID
-        self.total = total 
+        self.total = total
     }
 }
