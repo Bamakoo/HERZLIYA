@@ -10,8 +10,11 @@ final class User: Authenticatable, Model, Content {
     @Field(key: "username")
     var username: String
     
-    @Field(key: "password")
-    var password: String
+    @Field(key: "email")
+    var email: String
+    
+    @Field(key: "password_hash")
+    var passwordHash: String
     
     @Field(key: "favorite_book")
     var favoriteBook: String
@@ -53,7 +56,8 @@ final class User: Authenticatable, Model, Content {
 
     init(id: UUID? = nil,
          username: String,
-         password: String,
+         email: String,
+         passwordHash: String,
          favoriteBook: String,
          country: String,
          city: String,
@@ -63,7 +67,8 @@ final class User: Authenticatable, Model, Content {
          deletedAt: Date? = nil) {
         self.id = id
         self.username = username
-        self.password = password
+        self.email = email 
+        self.passwordHash = passwordHash
         self.favoriteBook = favoriteBook
         self.country = country
         self.city = city
