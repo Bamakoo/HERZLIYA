@@ -49,6 +49,9 @@ final class Book: Model, Content {
     @Enum(key: "book_status")
     var status: BookStatus
     
+    @Children(for: \.$commentedOnBook)
+    var commentsOnBooks: [Comment]
+    
     @Children(for: \.$likedBook)
     var likes: [Like]
     

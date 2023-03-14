@@ -25,7 +25,7 @@ struct LikeController: RouteCollection {
     func update(req: Request) async throws -> Like {
         let like = try req.content.decode(Like.self)
         
-        guard let likeFromDB =  try await Like.find(kart.id, on: req.db) else {
+        guard let likeFromDB =  try await Like.find(like.id, on: req.db) else {
             throw Abort(.notFound)
         }
         

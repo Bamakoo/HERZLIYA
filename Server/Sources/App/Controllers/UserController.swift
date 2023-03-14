@@ -30,7 +30,7 @@ struct UserController: RouteCollection {
         }
         
         userFromDB.username = user.username
-        userFromDB.password = user.password
+        userFromDB.passwordHash = user.passwordHash
 
         try await userFromDB.update(on: req.db)
         return userFromDB

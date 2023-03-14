@@ -43,6 +43,9 @@ final class User: Authenticatable, Model, Content {
     @Children(for: \.$user)
     var likes: [Like]
     
+    @Children(for: \.$userWhoCommented)
+    var comments: [Comment]
+    
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?
 
@@ -67,7 +70,7 @@ final class User: Authenticatable, Model, Content {
          deletedAt: Date? = nil) {
         self.id = id
         self.username = username
-        self.email = email 
+        self.email = email
         self.passwordHash = passwordHash
         self.favoriteBook = favoriteBook
         self.country = country
