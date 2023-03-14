@@ -22,9 +22,6 @@ final class User: Authenticatable, Model, Content {
     @Field(key: "city")
     var city: String
     
-    @Children(for: \.$likedByUser)
-    var likedBooks: [Book]
-    
     @Field(key: "favorite_author")
     var favoriteAuthor: String
     
@@ -33,6 +30,15 @@ final class User: Authenticatable, Model, Content {
     
     @Children(for: \.$seller)
     var soldBooks: [Book]
+    
+    @Children(for: \.$ratedUser)
+    var receivedRatings: [Rating]
+    
+    @Children(for: \.$userWhoRates)
+    var emittedRatings: [Rating]
+    
+    @Children(for: \.$user)
+    var likes: [Like]
     
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?

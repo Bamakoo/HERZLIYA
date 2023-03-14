@@ -43,14 +43,11 @@ final class Book: Model, Content {
     @Parent(key: "kart_id")
     var kart: Kart
     
-    @Parent(key: "liked_by")
-    var likedByUser: User
-
-    @Field(key: "rating")
-    var rating: Float
-    
     @Enum(key: "book_status")
     var status: BookStatus
+    
+    @Children(for: \.$likedBook)
+    var likes: [Like]
     
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?
@@ -85,10 +82,8 @@ final class Book: Model, Content {
         self.state = state
         self.price = price
         self.$kart.id = kartID ?? UUID()
-        self.$likedByUser.id = likedByUser
         self.$seller.id = sellerID
         self.$buyer.id = buyerID
-        self.rating = rating
         self.status = status
         self.createdAt = createdAt
         self.updatedAt = updatedAt

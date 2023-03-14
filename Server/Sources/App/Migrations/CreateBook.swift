@@ -20,6 +20,9 @@ struct CreateBook: AsyncMigration {
             .field("liked_by", .uuid, .references("users", "id"))
             .field("rating", .float, .required)
             .field("book_status", bookStatus, .required)
+            .field("created_at", .date)
+            .field("updated_at", .date)
+            .field("deleted_at", .date)
             .create()
     }
 

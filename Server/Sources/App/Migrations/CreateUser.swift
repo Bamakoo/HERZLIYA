@@ -10,6 +10,9 @@ struct CreateUser: AsyncMigration {
             .field("country", .string, .required)
             .field("city", .string, .required)
             .field("favorite_author", .string, .required)
+            .field("created_at", .date)
+            .field("updated_at", .date)
+            .field("deleted_at", .date)
             .create()
     }
 

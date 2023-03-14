@@ -21,6 +21,8 @@ public func configure(_ app: Application) throws {
     app.migrations.add(CreateUser())
     app.migrations.add(CreateKart())
     app.migrations.add(CreateBook())
+    app.migrations.add(CreateRating())
+    app.migrations.add(CreateLike())
 
     // register routes
     try routes(app)
