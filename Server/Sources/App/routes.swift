@@ -2,14 +2,21 @@ import Fluent
 import Vapor
 
 func routes(_ app: Application) throws {
-//    app.grouped(UserPasswordAuthenticator())
-//        .grouped(UserTokenAuthenticator())
-//        .grouped(User.guardMiddleware())
-//        .post("login")
-//    { req in
-//        let user = try req.auth.require(User.self)
-//        // Do something with user.
-//    }
+    
+    app.post("users") { req async throws -> User in
+        try User.validate(content: req)
+        let create = try req.content.decode(User.self)
+        guard create.password == create.confirmPassword else {
+            throw Abort(.badRequest, reason: "Passwords did not match")
+        }
+        let user = try User(
+            name: create.name,
+            email: create.email,
+            passwordHash: Bcrypt.hash(create.password)
+        )
+        try await user.save(on: req.db)
+        return user
+    }
     
     let passwordProtected = app.grouped(User.authenticator())
     passwordProtected.post("login") { req async throws -> UserToken in
@@ -17,6 +24,11 @@ func routes(_ app: Application) throws {
         let token = try user.generateToken()
         try await token.save(on: req.db)
         return token
+    }
+    
+    let tokenProtected = app.grouped(UserToken.authenticator())
+    tokenProtected.get("me") { req -> User in
+        try req.auth.require(User.self)
     }
     try app.register(collection: UserController())
     try app.register(collection: KartController())

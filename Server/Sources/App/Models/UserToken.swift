@@ -2,6 +2,7 @@ import Fluent
 import Vapor
 
 final class UserToken: Model, Content {
+    static let schema = "user_tokens"
 
     @ID(key: .id)
     var id: UUID?
