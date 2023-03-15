@@ -23,7 +23,8 @@ public func configure(_ app: Application) throws {
     app.migrations.add(CreateBook())
     app.migrations.add(CreateRating())
     app.migrations.add(CreateLike())
-
+    app.migrations.add(CreateComment())
+    app.migrations.add(CreateUserToken())
     // register routes
     try routes(app)
 }

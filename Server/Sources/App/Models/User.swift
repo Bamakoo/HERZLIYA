@@ -46,6 +46,9 @@ final class User: Authenticatable, Model, Content {
     @Children(for: \.$userWhoCommented)
     var comments: [Comment]
     
+    @Children(for: \.$user)
+    var tokens: [UserToken]
+    
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?
 
