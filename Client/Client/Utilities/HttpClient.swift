@@ -32,11 +32,3 @@ protocol HttpClient {
     func delete(url: URL) async throws
     func updateData<T: Codable>(to url: URL, object: T, httpMethod: String ) async throws
 }
-
-
-
-
-
-
-    
-

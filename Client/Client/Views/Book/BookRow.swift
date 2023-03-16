@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct BookRow: View {
-    
     var book: Book
-    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {

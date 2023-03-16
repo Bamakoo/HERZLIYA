@@ -14,17 +14,14 @@ struct ContentView: View {
                 .tabItem {
                     Label("Books", systemImage: "books.vertical")
                 }
-            
             CreateBookView()
                 .tabItem {
                     Label("Add Book", systemImage: "plus.circle")
                 }
-            
             UserProfileView()
                 .tabItem {
                     Label("Profile", systemImage: "person.crop.circle.fill")
                 }
-            
             LikesView()
                 .tabItem {
                     Label("Likes", systemImage: "heart.fill")

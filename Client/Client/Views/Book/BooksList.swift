@@ -10,7 +10,6 @@ import SwiftUI
 struct BooksList: View {
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var selection: Book?
-    
     var body: some View {
         NavigationSplitView {
             List(viewModel.books, selection: $selection) { book in
@@ -26,9 +25,8 @@ struct BooksList: View {
             } else {
                 Text("Pick a book")
             }
-            
         }
-        .onAppear() {
+        .onAppear {
             Task {
                 await viewModel.fetchBooks()
             }

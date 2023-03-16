@@ -9,14 +9,11 @@ import Foundation
 import SwiftUI
 
 struct CreateBookView: View {
-    
     @State private var title = ""
     @State private var genre = ""
     @State private var price = 0
     @State private var author = ""
-    
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
-    
     var body: some View {
         Form {
             TextField("BookTitle", text: $title, prompt: Text("Book's title"))

@@ -14,7 +14,6 @@ struct BookDetail: View {
     @State private var genre = ""
     @State private var price = 0
     @State private var author = ""
-    
     var body: some View {
         Form {
             TextField("BookTitle", text: $title, prompt: Text(book.title).bold())
@@ -26,10 +25,22 @@ struct BookDetail: View {
                 .background(Color.white)
             Button {
                 Task {
-                    try await viewModel.updateBook(author: author, title: title, id: book.id, price: price, genre: genre, order: Order(id: nil, price: price))
+                    try await viewModel.updateBook(author: author,
+                                                   title: title,
+                                                   id: book.id,
+                                                   price: price,
+                                                   genre: genre,
+                                                   order: Order(id: nil, price: price))
                 }
             } label: {
-                Text("Order now")
+                Text("Purchase book \(book.title)")
+            }
+            Button {
+                Task {
+                    print("added \(book.title) to kart")
+                }
+            } label: {
+                Text("Add to kart")
             }
         }
         .navigationBarTitle(book.title, displayMode: .inline)
@@ -46,8 +57,6 @@ struct BookDetail: View {
         }
     }
 }
-
-
 
 struct BookDetail_Previews: PreviewProvider {
     static var previews: some View {

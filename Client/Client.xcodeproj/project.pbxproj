@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A413CB4229BF633E00FDB528 /* UserProfileRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A413CB4129BF633E00FDB528 /* UserProfileRow.swift */; };
 		A44D59AF29A3722500FF7F22 /* CreateBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D59AE29A3722500FF7F22 /* CreateBookView.swift */; };
 		A44D59BD29A4077E00FF7F22 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D59BC29A4077E00FF7F22 /* UserProfileView.swift */; };
 		A44D59BF29A407C800FF7F22 /* LikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D59BE29A407C800FF7F22 /* LikesView.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A413CB4129BF633E00FDB528 /* UserProfileRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileRow.swift; sourceTree = "<group>"; };
 		A44D59AE29A3722500FF7F22 /* CreateBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBookView.swift; sourceTree = "<group>"; };
 		A44D59BC29A4077E00FF7F22 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		A44D59BE29A407C800FF7F22 /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A413CB3F29BD406800FDB528 /* Book */ = {
+			isa = PBXGroup;
+			children = (
+				A44D59C029A4C21A00FF7F22 /* BookRow.swift */,
+				A4C9867729A11EFC003CF879 /* BooksList.swift */,
+				A44D59AE29A3722500FF7F22 /* CreateBookView.swift */,
+				A44D59C229A4C59600FF7F22 /* BookDetail.swift */,
+			);
+			path = Book;
+			sourceTree = "<group>";
+		};
+		A413CB4029BD40A300FDB528 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				A44D59BC29A4077E00FF7F22 /* UserProfileView.swift */,
+				A413CB4129BF633E00FDB528 /* UserProfileRow.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		A4C9862F299FB843003CF879 = {
 			isa = PBXGroup;
 			children = (
@@ -197,11 +219,8 @@
 		A4C9867429A11D3B003CF879 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A44D59AE29A3722500FF7F22 /* CreateBookView.swift */,
-				A44D59C029A4C21A00FF7F22 /* BookRow.swift */,
-				A4C9867729A11EFC003CF879 /* BooksList.swift */,
-				A44D59C229A4C59600FF7F22 /* BookDetail.swift */,
-				A44D59BC29A4077E00FF7F22 /* UserProfileView.swift */,
+				A413CB3F29BD406800FDB528 /* Book */,
+				A413CB4029BD40A300FDB528 /* Profile */,
 				A44D59BE29A407C800FF7F22 /* LikesView.swift */,
 			);
 			path = Views;
@@ -217,6 +236,7 @@
 				A4C98634299FB843003CF879 /* Sources */,
 				A4C98635299FB843003CF879 /* Frameworks */,
 				A4C98636299FB843003CF879 /* Resources */,
+				A4DC262629C3164800A9D94D /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -332,6 +352,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A4DC262629C3164800A9D94D /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A4C98634299FB843003CF879 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -344,6 +385,7 @@
 				A4C98667299FD187003CF879 /* HttpClient.swift in Sources */,
 				A4C9867029A10B5F003CF879 /* Book.swift in Sources */,
 				A44D59C329A4C59600FF7F22 /* BookDetail.swift in Sources */,
+				A413CB4229BF633E00FDB528 /* UserProfileRow.swift in Sources */,
 				A44D59CB29ACB0D000FF7F22 /* User.swift in Sources */,
 				A4C9863C299FB843003CF879 /* ClientApp.swift in Sources */,
 				A4C98669299FD8DD003CF879 /* Networking.swift in Sources */,
