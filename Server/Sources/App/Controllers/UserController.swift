@@ -17,7 +17,20 @@ struct UserController: RouteCollection {
     }
 
     func create(req: Request) async throws -> User {
-        let user = try req.content.decode(User.self)
+        try User.Create.validate(content: req)
+        let newUser = try req.content.decode(User.Create.self)
+        guard newUser.password == newUser.confirmPassword else {
+            throw Abort(.badRequest, reason: "Passwords did not match")
+        }
+        let user = try User(
+            username: newUser.username,
+            email: newUser.email,
+            passwordHash: Bcrypt.hash(newUser.password),
+            favoriteBook: newUser.favoriteBook,
+            country: newUser.country,
+            city: newUser.city,
+            favoriteAuthor: newUser.favoriteAuthor
+        )
         try await user.save(on: req.db)
         return user
     }

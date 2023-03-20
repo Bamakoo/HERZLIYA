@@ -10,6 +10,9 @@ struct BasicUserAuthenticator: AsyncBasicAuthenticator {
         let user = try request.content.decode(User.self)
         if basic.username == user.username && basic.password == user.passwordHash {
             request.auth.login(user)
+        } else {
+            print("unable to log in \(user) with password and username")
+            return
         }
     }
 }
