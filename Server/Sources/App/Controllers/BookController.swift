@@ -23,19 +23,14 @@ struct BookController: RouteCollection {
     }
     
     func update(req: Request) async throws -> Book {
-        print(req)
         let book = try req.content.decode(Book.self)
-        print(book)
         guard let bookFromDB =  try await Book.find(book.id, on: req.db) else {
-            print("I've entered guard")
             throw Abort(.notFound)
         }
-        print(bookFromDB)
         bookFromDB.title = book.title
         bookFromDB.price = book.price
         bookFromDB.author = book.author
         bookFromDB.genre = book.genre
-
         try await bookFromDB.update(on: req.db)
         return bookFromDB
     }

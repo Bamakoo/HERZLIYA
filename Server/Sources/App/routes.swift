@@ -4,15 +4,18 @@ import Vapor
 func routes(_ app: Application) throws {
     
     app.post("users") { req async throws -> User in
-        try User.validate(content: req)
-        let create = try req.content.decode(User.self)
-        guard create.password == create.confirmPassword else {
+        try User.Create.validate(content: req)
+        let newUser = try req.content.decode(User.Create.self)
+        guard newUser.password == newUser.confirmPassword else {
             throw Abort(.badRequest, reason: "Passwords did not match")
         }
         let user = try User(
-            name: create.name,
-            email: create.email,
-            passwordHash: Bcrypt.hash(create.password)
+            username: newUser.username,
+            email: newUser.email,
+            passwordHash: Bcrypt.hash(newUser.password),
+            favoriteBook: newUser.favoriteBook,
+            country: newUser.country,
+            city: newUser.city
         )
         try await user.save(on: req.db)
         return user

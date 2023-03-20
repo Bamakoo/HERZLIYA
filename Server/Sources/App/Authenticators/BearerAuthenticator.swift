@@ -1,14 +1,15 @@
 import Vapor
 
-struct UserAuthenticator: AsyncBearerAuthenticator {
+struct BearerUserAuthenticator: AsyncBearerAuthenticator {
     typealias User = App.User
 
     func authenticate(
         bearer: BearerAuthorization,
         for request: Request
     ) async throws {
-       if bearer.token == "foo" {
-           request.auth.login(User(name: "Vapor"))
+        let userToken = try request.content.decode(UserToken.self)
+        if bearer.token == userToken.value {
+            request.auth.login(User())
        }
    }
 }

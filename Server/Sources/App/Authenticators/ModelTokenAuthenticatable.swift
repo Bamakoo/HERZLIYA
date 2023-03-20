@@ -7,7 +7,6 @@ extension UserToken: ModelTokenAuthenticatable {
 
     var isValid: Bool {
         true
-        
         // TODO: give token a lifetime value of 24 hours
     }
 }
