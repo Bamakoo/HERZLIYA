@@ -8,7 +8,8 @@ struct BasicUserAuthenticator: AsyncBasicAuthenticator {
         for request: Request
     ) async throws {
         let user = try request.content.decode(User.self)
-        if basic.username == user.username && basic.password == user.passwordHash {
+        let passwordHashesMatch = try user.verify(password: basic.password)
+        if basic.username == user.username && passwordHashesMatch {
             request.auth.login(user)
         } else {
             print("unable to log in \(user) with password and username")
