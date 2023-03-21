@@ -41,7 +41,7 @@ struct UserController: RouteCollection {
         guard let userFromDB =  try await User.find(user.id, on: req.db) else {
             throw Abort(.notFound)
         }
-        
+        // TODO: work on PUT server-side
         userFromDB.username = user.username
         userFromDB.passwordHash = user.passwordHash
 
