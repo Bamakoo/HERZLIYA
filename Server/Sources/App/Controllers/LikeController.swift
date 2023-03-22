@@ -3,11 +3,12 @@ import Vapor
 
 struct LikeController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        let likes = routes.grouped("likes")
-        likes.get(use: index)
-        likes.put(use: update)
-        likes.post(use: create)
-        likes.group(":likeID") { like in
+        let tokenProtectedLikes = routes.grouped(UserToken.authenticator())
+            .grouped(UserToken.guardMiddleware())
+        tokenProtectedLikes.get("likes", use: index)
+        tokenProtectedLikes.put("likes", use: update)
+        tokenProtectedLikes.post("likes", use: create)
+        tokenProtectedLikes.group("likes", ":likeID") { like in
             like.delete(use: delete)
         }
     }

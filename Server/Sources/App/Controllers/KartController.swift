@@ -3,11 +3,12 @@ import Vapor
 
 struct KartController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        let karts = routes.grouped("karts")
-        karts.get(use: index)
-        karts.put(use: update)
-        karts.post(use: create)
-        karts.group(":kartID") { kart in
+        let tokenProtectedKarts = routes.grouped(UserToken.authenticator())
+            .grouped(UserToken.guardMiddleware())
+        tokenProtectedKarts.get("karts", use: index)
+        tokenProtectedKarts.put("karts", use: update)
+        tokenProtectedKarts.post("karts", use: create)
+        tokenProtectedKarts.group("karts", ":kartID") { kart in
             kart.delete(use: delete)
         }
     }

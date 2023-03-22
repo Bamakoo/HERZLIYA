@@ -3,11 +3,13 @@ import Vapor
 
 struct UserController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        let users = routes.grouped("users")
-        users.get(use: index)
-        users.put(use: update)
-        users.post(use: create)
-        users.group(":userID") { user in
+        let createNewUser = routes.grouped("users")
+        createNewUser.post(use: create)
+        let tokenProtectedUsers = routes.grouped(UserToken.authenticator())
+            .grouped(UserToken.guardMiddleware())
+        tokenProtectedUsers.get("users", use: index)
+        tokenProtectedUsers.put("users", use: update)
+        tokenProtectedUsers.group("users", ":userID") { user in
             user.delete(use: delete)
         }
     }

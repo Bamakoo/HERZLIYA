@@ -3,11 +3,12 @@ import Vapor
 
 struct RatingController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        let ratings = routes.grouped("ratings")
-        ratings.get(use: index)
-        ratings.put(use: update)
-        ratings.post(use: create)
-        ratings.group(":ratingID") { rating in
+        let tokenProtectedRatings = routes.grouped(UserToken.authenticator())
+            .grouped(UserToken.guardMiddleware())
+        tokenProtectedRatings.get("ratings", use: index)
+        tokenProtectedRatings.put("ratings", use: update)
+        tokenProtectedRatings.post("ratings", use: create)
+        tokenProtectedRatings.group("ratings", ":ratingID") { rating in
             rating.delete(use: delete)
         }
     }
