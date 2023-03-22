@@ -8,7 +8,7 @@ struct CommentController: RouteCollection {
         tokenProtectedComments.get("comments", use: index)
         tokenProtectedComments.put("comments", use: update)
         tokenProtectedComments.post("comments", use: create)
-        tokenProtectedComments.group(":commentID") { comment in
+        tokenProtectedComments.group("comments", ":commentID") { comment in
             comment.delete(use: delete)
         }
     }

@@ -3,11 +3,12 @@ import Vapor
 
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        let books = routes.grouped("books")
-        books.get(use: index)
-        books.put(use: update)
-        books.post(use: create)
-        books.group(":bookID") { book in
+        let tokenProtectedBooks = routes.grouped(UserToken.authenticator())
+            .grouped(UserToken.guardMiddleware())
+        tokenProtectedBooks.get("books", use: index)
+        tokenProtectedBooks.put("books", use: update)
+        tokenProtectedBooks.post("books", use: create)
+        tokenProtectedBooks.group("books", ":bookID") { book in
             book.delete(use: delete)
         }
     }
