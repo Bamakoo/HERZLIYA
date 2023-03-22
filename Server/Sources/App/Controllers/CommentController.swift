@@ -5,9 +5,9 @@ struct CommentController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let tokenProtectedComments = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
-        tokenProtectedComments.get(use: index)
-        tokenProtectedComments.put(use: update)
-        tokenProtectedComments.post(use: create)
+        tokenProtectedComments.get("comments", use: index)
+        tokenProtectedComments.put("comments", use: update)
+        tokenProtectedComments.post("comments", use: create)
         tokenProtectedComments.group(":commentID") { comment in
             comment.delete(use: delete)
         }
