@@ -27,6 +27,13 @@ struct BookController: RouteCollection {
         guard let bookFromDB =  try await Book.find(book.id, on: req.db) else {
             throw Abort(.notFound)
         }
+        bookFromDB.id = book.id
+        bookFromDB.description = book.description
+        bookFromDB.state = book.state
+        bookFromDB.seller = book.seller
+        bookFromDB.buyer = book.buyer
+        bookFromDB.kart = book.kart
+        bookFromDB.status = book.status
         bookFromDB.title = book.title
         bookFromDB.price = book.price
         bookFromDB.author = book.author

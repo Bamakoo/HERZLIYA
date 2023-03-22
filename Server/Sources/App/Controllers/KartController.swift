@@ -30,6 +30,9 @@ struct KartController: RouteCollection {
         }
         
         kartFromDB.id = kart.id
+        kartFromDB.user = kart.user
+        kartFromDB.total = kart.total
+        
 
         try await kartFromDB.update(on: req.db)
         return kartFromDB

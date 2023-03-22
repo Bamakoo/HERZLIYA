@@ -30,6 +30,9 @@ struct RatingController: RouteCollection {
         }
         
         ratingFromDB.id = rating.id
+        ratingFromDB.userWhoRates = rating.userWhoRates
+        ratingFromDB.ratedUser = rating.ratedUser
+        ratingFromDB.rating = rating.rating
 
         try await ratingFromDB.update(on: req.db)
         return ratingFromDB
