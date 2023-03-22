@@ -3,11 +3,12 @@ import Vapor
 
 struct CommentController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        let comments = routes.grouped("comments")
-        comments.get(use: index)
-        comments.put(use: update)
-        comments.post(use: create)
-        comments.group(":commentID") { comment in
+        let tokenProtectedComments = routes.grouped(UserToken.authenticator())
+            .grouped(UserToken.guardMiddleware())
+        tokenProtectedComments.get(use: index)
+        tokenProtectedComments.put(use: update)
+        tokenProtectedComments.post(use: create)
+        tokenProtectedComments.group(":commentID") { comment in
             comment.delete(use: delete)
         }
     }
