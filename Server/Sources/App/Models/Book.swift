@@ -40,11 +40,11 @@ final class Book: Model, Content {
     @Parent(key: "seller_id")
     var seller: User
     
-    @Parent(key: "buyer_id")
-    var buyer: User
+    @OptionalParent(key: "buyer_id")
+    var buyer: User?
     
-    @Parent(key: "kart_id")
-    var kart: Kart
+    @OptionalParent(key: "kart_id")
+    var kart: Kart?
     
     @Enum(key: "book_status")
     var status: BookStatus
@@ -74,10 +74,8 @@ final class Book: Model, Content {
          state: BookState,
          price: Int,
          sellerID: User.IDValue,
-         buyerID: User.IDValue,
+         buyerID: User.IDValue?,
          kartID: Kart.IDValue?,
-         likedByUser: User.IDValue,
-         rating: Float,
          status: BookStatus,
          createdAt: Date? = nil,
          updatedAt: Date? = nil,
