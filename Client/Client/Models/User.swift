@@ -1,16 +1,17 @@
-//
-//  User.swift
-//  Client
-//
-//  Created by Emma Gaubert on 27/02/2023.
-//
+import Foundation
 
-// import Foundation
-//
-// struct User: Identifiable, Codable, Hashable, Equatable {
-//    let id: UUID
-//    let username: String
-//    let password: String
-//    let buyerOrders: [Order]
-//    let sellerOrders: [Order]
-// }
+ struct User: Identifiable, Codable, Hashable, Equatable {
+    let id: UUID?
+    let username: String
+    let email: String
+    let password_hash: String
+    let password: String
+    let confirmPassword: String
+    let favoriteBook: String
+    let country: String
+    let city: String
+    let favoriteAuthor: String
+    let createdAt: Date?
+    let updatedAt: Date?
+    let deletedAt: Date?
+ }

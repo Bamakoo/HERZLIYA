@@ -14,9 +14,12 @@
 		A44D59C129A4C21A00FF7F22 /* BookRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D59C029A4C21A00FF7F22 /* BookRow.swift */; };
 		A44D59C329A4C59600FF7F22 /* BookDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D59C229A4C59600FF7F22 /* BookDetail.swift */; };
 		A44D59C729ACAFC800FF7F22 /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D59C629ACAFC800FF7F22 /* OrderViewModel.swift */; };
-		A44D59C929ACB05A00FF7F22 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D59C829ACB05A00FF7F22 /* Order.swift */; };
+		A44D59C929ACB05A00FF7F22 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D59C829ACB05A00FF7F22 /* Like.swift */; };
 		A44D59CB29ACB0D000FF7F22 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D59CA29ACB0D000FF7F22 /* User.swift */; };
 		A44D59CD29ACB33200FF7F22 /* OrdersNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D59CC29ACB33200FF7F22 /* OrdersNetworkManager.swift */; };
+		A4AF589629CC617A003F03AD /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589529CC617A003F03AD /* Comment.swift */; };
+		A4AF589829CC61F3003F03AD /* Kart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589729CC61F3003F03AD /* Kart.swift */; };
+		A4AF589A29CC628E003F03AD /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589929CC628E003F03AD /* Rating.swift */; };
 		A4C9863C299FB843003CF879 /* ClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9863B299FB843003CF879 /* ClientApp.swift */; };
 		A4C9863E299FB843003CF879 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9863D299FB843003CF879 /* ContentView.swift */; };
 		A4C98640299FB844003CF879 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4C9863F299FB844003CF879 /* Assets.xcassets */; };
@@ -58,9 +61,12 @@
 		A44D59C029A4C21A00FF7F22 /* BookRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRow.swift; sourceTree = "<group>"; };
 		A44D59C229A4C59600FF7F22 /* BookDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetail.swift; sourceTree = "<group>"; };
 		A44D59C629ACAFC800FF7F22 /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
-		A44D59C829ACB05A00FF7F22 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		A44D59C829ACB05A00FF7F22 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		A44D59CA29ACB0D000FF7F22 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A44D59CC29ACB33200FF7F22 /* OrdersNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersNetworkManager.swift; sourceTree = "<group>"; };
+		A4AF589529CC617A003F03AD /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		A4AF589729CC61F3003F03AD /* Kart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kart.swift; sourceTree = "<group>"; };
+		A4AF589929CC628E003F03AD /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		A4C98638299FB843003CF879 /* Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4C9863B299FB843003CF879 /* ClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientApp.swift; sourceTree = "<group>"; };
 		A4C9863D299FB843003CF879 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -201,7 +207,10 @@
 			isa = PBXGroup;
 			children = (
 				A4C9866F29A10B5F003CF879 /* Book.swift */,
-				A44D59C829ACB05A00FF7F22 /* Order.swift */,
+				A4AF589529CC617A003F03AD /* Comment.swift */,
+				A4AF589729CC61F3003F03AD /* Kart.swift */,
+				A44D59C829ACB05A00FF7F22 /* Like.swift */,
+				A4AF589929CC628E003F03AD /* Rating.swift */,
 				A44D59CA29ACB0D000FF7F22 /* User.swift */,
 			);
 			path = Models;
@@ -380,7 +389,7 @@
 			files = (
 				A4C9863E299FB843003CF879 /* ContentView.swift in Sources */,
 				A4C9867829A11EFC003CF879 /* BooksList.swift in Sources */,
-				A44D59C929ACB05A00FF7F22 /* Order.swift in Sources */,
+				A44D59C929ACB05A00FF7F22 /* Like.swift in Sources */,
 				A4C9867329A1198F003CF879 /* BooksViewModel.swift in Sources */,
 				A4C98667299FD187003CF879 /* HttpClient.swift in Sources */,
 				A4C9867029A10B5F003CF879 /* Book.swift in Sources */,
@@ -391,8 +400,11 @@
 				A4C98669299FD8DD003CF879 /* Networking.swift in Sources */,
 				A44D59BD29A4077E00FF7F22 /* UserProfileView.swift in Sources */,
 				A44D59CD29ACB33200FF7F22 /* OrdersNetworkManager.swift in Sources */,
+				A4AF589829CC61F3003F03AD /* Kart.swift in Sources */,
 				A44D59BF29A407C800FF7F22 /* LikesView.swift in Sources */,
 				A44D59AF29A3722500FF7F22 /* CreateBookView.swift in Sources */,
+				A4AF589A29CC628E003F03AD /* Rating.swift in Sources */,
+				A4AF589629CC617A003F03AD /* Comment.swift in Sources */,
 				A4C9866B299FDB68003CF879 /* BooksNetworkManager.swift in Sources */,
 				A44D59C729ACAFC800FF7F22 /* OrderViewModel.swift in Sources */,
 				A44D59C129A4C21A00FF7F22 /* BookRow.swift in Sources */,
