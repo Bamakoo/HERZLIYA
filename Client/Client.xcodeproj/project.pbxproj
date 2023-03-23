@@ -20,6 +20,9 @@
 		A4AF589629CC617A003F03AD /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589529CC617A003F03AD /* Comment.swift */; };
 		A4AF589829CC61F3003F03AD /* Kart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589729CC61F3003F03AD /* Kart.swift */; };
 		A4AF589A29CC628E003F03AD /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589929CC628E003F03AD /* Rating.swift */; };
+		A4AF589C29CC6522003F03AD /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589B29CC6522003F03AD /* LoginView.swift */; };
+		A4AF589E29CC6529003F03AD /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589D29CC6529003F03AD /* CreateAccountView.swift */; };
+		A4AF58A029CC653D003F03AD /* KartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589F29CC653D003F03AD /* KartView.swift */; };
 		A4C9863C299FB843003CF879 /* ClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9863B299FB843003CF879 /* ClientApp.swift */; };
 		A4C9863E299FB843003CF879 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9863D299FB843003CF879 /* ContentView.swift */; };
 		A4C98640299FB844003CF879 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4C9863F299FB844003CF879 /* Assets.xcassets */; };
@@ -67,6 +70,9 @@
 		A4AF589529CC617A003F03AD /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		A4AF589729CC61F3003F03AD /* Kart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kart.swift; sourceTree = "<group>"; };
 		A4AF589929CC628E003F03AD /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
+		A4AF589B29CC6522003F03AD /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A4AF589D29CC6529003F03AD /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
+		A4AF589F29CC653D003F03AD /* KartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KartView.swift; sourceTree = "<group>"; };
 		A4C98638299FB843003CF879 /* Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4C9863B299FB843003CF879 /* ClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientApp.swift; sourceTree = "<group>"; };
 		A4C9863D299FB843003CF879 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -231,6 +237,9 @@
 				A413CB3F29BD406800FDB528 /* Book */,
 				A413CB4029BD40A300FDB528 /* Profile */,
 				A44D59BE29A407C800FF7F22 /* LikesView.swift */,
+				A4AF589B29CC6522003F03AD /* LoginView.swift */,
+				A4AF589F29CC653D003F03AD /* KartView.swift */,
+				A4AF589D29CC6529003F03AD /* CreateAccountView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -391,12 +400,15 @@
 				A4C9867829A11EFC003CF879 /* BooksList.swift in Sources */,
 				A44D59C929ACB05A00FF7F22 /* Like.swift in Sources */,
 				A4C9867329A1198F003CF879 /* BooksViewModel.swift in Sources */,
+				A4AF589C29CC6522003F03AD /* LoginView.swift in Sources */,
 				A4C98667299FD187003CF879 /* HttpClient.swift in Sources */,
+				A4AF589E29CC6529003F03AD /* CreateAccountView.swift in Sources */,
 				A4C9867029A10B5F003CF879 /* Book.swift in Sources */,
 				A44D59C329A4C59600FF7F22 /* BookDetail.swift in Sources */,
 				A413CB4229BF633E00FDB528 /* UserProfileRow.swift in Sources */,
 				A44D59CB29ACB0D000FF7F22 /* User.swift in Sources */,
 				A4C9863C299FB843003CF879 /* ClientApp.swift in Sources */,
+				A4AF58A029CC653D003F03AD /* KartView.swift in Sources */,
 				A4C98669299FD8DD003CF879 /* Networking.swift in Sources */,
 				A44D59BD29A4077E00FF7F22 /* UserProfileView.swift in Sources */,
 				A44D59CD29ACB33200FF7F22 /* OrdersNetworkManager.swift in Sources */,
