@@ -7,35 +7,35 @@
 
 import Foundation
 
-final class OrderViewModel: ObservableObject {
-    @Published var orders = [Order]()
-    private let networkManager: OrdersNetworkManager
-    init(networkManager: OrdersNetworkManager) {
+final class KartViewModel: ObservableObject {
+    @Published var karts = [Kart]()
+    private let networkManager: KartsNetworkManager
+    init(networkManager: KartsNetworkManager) {
         self.networkManager = networkManager
     }
     @MainActor
-    func fetchOrders() async {
+    func getUsersKart() async {
         do {
-            orders = try await networkManager.fetchOrders()
+            karts = try await networkManager.fetchOrders()
         } catch {
             print(error)
         }
     }
-    func createOrder(id: UUID, price: Int) async throws {
+    func addBookToKart(id: UUID, price: Int) async throws {
         do {
             try await networkManager.createOrder(id: id, price: price)
         } catch {
             print(error)
         }
     }
-    func updateOrder(id: UUID, price: Int) async throws {
+    func changeKart(id: UUID, price: Int) async throws {
         do {
             try await networkManager.updateOrder(id: id, price: price)
         } catch {
             print(error)
         }
     }
-    func deleteOrder(id: UUID) async throws {
+    func deleteBookFromKart(id: UUID) async throws {
         do {
             try await networkManager.deleteOrder(id: id)
         } catch {

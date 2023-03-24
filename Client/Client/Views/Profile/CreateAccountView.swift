@@ -8,6 +8,8 @@ struct CreateAccountView: View {
     @State private var favoriteBook = ""
     @State private var username = ""
     @State private var email = ""
+    
+    @StateObject private var viewModel = 
     var body: some View {
         Text("We'll use your favorite author and book as an extra security layer")
     }

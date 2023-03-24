@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class OrdersNetworkManager {
+final class KartsNetworkManager {
     let httpClient: HttpClient
     init(httpClient: HttpClient) {
         self.httpClient = httpClient
