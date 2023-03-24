@@ -21,7 +21,9 @@ final class BooksViewModel: ObservableObject {
             print("unable to fetch books because of : \(error)")
         }
     }
-    func createBook(title: String, genre: String, price: Int, author: String, kart: Kart?) async throws {
+    
+    func createBook(author: String,
+                    description: String, title: String, genre: String, price: Int, kart: Kart?) async throws {
         do {
             try await networkManager.createBook(title: title, genre: genre, price: price, author: author, order: order ?? Order(id: nil, price: nil))
         } catch {

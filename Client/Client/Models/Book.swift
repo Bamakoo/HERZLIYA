@@ -34,5 +34,5 @@ struct Book: Identifiable, Codable, Hashable, Equatable {
     let createdAt: Date?
     let updatedAt: Date?
     let deletedAt: Date?
-
 }
+
