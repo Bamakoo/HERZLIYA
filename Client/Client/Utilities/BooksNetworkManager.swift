@@ -17,21 +17,62 @@ final class BooksNetworkManager {
         let books: [Book] = try await httpClient.fetch(url: url)
         return books
     }
-    func createBook(title: String, genre: String, price: Int, author: String, kart: nil) async throws {
+    func createBook(id: UUID?,
+                    author: String,
+                    description: String,
+                    genre: BookGenre,
+                    state: BookState,
+                    seller: User,
+                    buyer: User?,
+                    kart: Kart?,
+                    status: BookStatus,
+                    title: String,
+                    price: Int,
+                    createdAt: Date?,
+                    updatedAt: Date?,
+                    deletedAt: Date?) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.books) else {
             print("Unable to create valid URL for creating the book")
             return
         }
-        let newBook = Book(author: author, title: title, id: UUID(), price: price, genre: genre, order: Order(id: nil, price: nil))
+        let newBook = Book(id: id,
+                           author: author,
+                           description: description,
+                           genre: genre,
+                           state: state,
+                           seller: seller,
+                           buyer: buyer,
+                           kart: kart,
+                           status: status,
+                           title: title,
+                           price: price,
+                           createdAt: nil,
+                           updatedAt: nil,
+                           deletedAt: nil)
         try await httpClient.sendData(to: url, object: newBook, httpMethod: HttpMethods.POST.rawValue)
     }
-    func updateBook(author: String, title: String, id: UUID!, price: Int, genre: String, order: Order) async throws {
+    func updateBook(id: UUID, author: String, description: String, genre: BookGenre, state: BookState, seller: User, buyer: User?, status: BookStatus, title: String, price: Int, ) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.books) else {
             print("Unable to create valid URL for updating the book")
             return
         }
-        let updatedBook = Book(id: nil, author: <#T##String#>, description: <#T##String#>, genre: <#T##BookGenre#>, state: <#T##BookState#>, seller: <#T##User#>, buyer: <#T##User?#>, kart: nil, status: <#T##BookStatus#>, title: <#T##String#>, price: <#T##Int#>, createdAt: nil, updatedAt: nil, deletedAt: nil)
-        try await httpClient.updateData(to: url, object: updatedBook, httpMethod: HttpMethods.PUT.rawValue)
+        let updatedBook = Book(id: id,
+                               author: author,
+                               description: description,
+                               genre: genre,
+                               state: state,
+                               seller: seller,
+                               buyer: buyer,
+                               kart: nil,
+                               status: status,
+                               title: title,
+                               price: price,
+                               createdAt: nil,
+                               updatedAt: nil,
+                               deletedAt: nil)
+        try await httpClient.updateData(to: url,
+                                        object: updatedBook,
+                                        httpMethod: HttpMethods.PUT.rawValue)
     }
     func deleteBook(id: UUID) async throws {
         let url = URL(string: Request.baseURL + Endpoint.books + "/\(id)")!

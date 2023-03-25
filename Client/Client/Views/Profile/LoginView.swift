@@ -1,8 +1,24 @@
 import SwiftUI
 
 struct LoginView: View {
+    @State private var username: String = ""
+    @State private var password: String = ""
+    @StateObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
+
     var body: some View {
-        Text("Use your username and password to login to your account")
+        TextField(
+            "User name (email address)",
+            text: $username)
+        .autocapitalization(.none)
+        .disableAutocorrection(true)
+        .border(Color(UIColor.separator))
+        SecureField(
+            "Password",
+            text: $password
+        ) {
+            viewModel.handleLogin(username: username, password: password)
+        }
+        .border(Color(UIColor.separator))
     }
 }
 

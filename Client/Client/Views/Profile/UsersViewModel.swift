@@ -22,9 +22,28 @@ final class UsersViewModel: ObservableObject {
             print("unable to get my profile because of \(error)")
         }
     }
-    func createANewUser() async throws {
+    func createANewUser(username: String,
+                        email: String,
+                        password_hash: String,
+                        password: String,
+                        confirmPassword: String,
+                        favoriteBook: String,
+                        country: String,
+                        city: String,
+                        favoriteAuthor: String) async throws {
         do {
-            try await networkManager.createUser(username: <#T##String#>, email: <#T##String#>, password_hash: <#T##String#>, password: <#T##String#>, confirmPassword: <#T##String#>, favoriteBook: <#T##String#>, country: <#T##String#>, city: <#T##String#>, favoriteAuthor: <#T##String#>, createdAt: <#T##Date#>, updatedAt: <#T##Date#>, deletedAt: <#T##Date#>)
+            try await networkManager.createUser(username: username,
+                                                email: email,
+                                                password_hash: password_hash,
+                                                password: password,
+                                                confirmPassword: confirmPassword,
+                                                favoriteBook: favoriteBook,
+                                                country: country,
+                                                city: city,
+                                                favoriteAuthor: favoriteAuthor,
+                                                createdAt: nil,
+                                                updatedAt: nil,
+                                                deletedAt: nil)
         } catch {
             print(error)
         }
@@ -43,5 +62,7 @@ final class UsersViewModel: ObservableObject {
             print(error)
         }
     }
-
+    func handleLogin(username: String, password: String) {
+        
+    }
 }

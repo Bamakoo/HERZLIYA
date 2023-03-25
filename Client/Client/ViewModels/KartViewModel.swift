@@ -16,7 +16,7 @@ final class KartViewModel: ObservableObject {
     @MainActor
     func getUsersKart() async {
         do {
-            karts = try await networkManager.fetchOrders()
+            karts = try await networkManager.fetchMyKart()
         } catch {
             print(error)
         }

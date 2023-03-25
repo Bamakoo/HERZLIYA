@@ -19,7 +19,7 @@ final class UserNetworkManager {
         return myProfile
     }
     
-    func createUser(username: String, email: String, password_hash: String, password: String, confirmPassword: String, favoriteBook: String, country: String, city: String, favoriteAuthor: String, createdAt: Date, updatedAt: Date, deletedAt: Date) async throws {
+    func createUser(username: String, email: String, password_hash: String, password: String, confirmPassword: String, favoriteBook: String, country: String, city: String, favoriteAuthor: String, createdAt: Date?, updatedAt: Date?, deletedAt: Date?) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.users) else {
             print("Unable to create valid URL for creating a new user")
             return
