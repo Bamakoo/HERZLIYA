@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class UsersViewModel: ObservableObject {
     @Published var myProfile: User
-    @Published var isLoggedIn: Bool
+    @Published var isLoggedIn: Bool = false
     private let networkManager: UserNetworkManager
     init(networkManager: UserNetworkManager) {
         self.networkManager = networkManager
@@ -24,13 +25,12 @@ final class UsersViewModel: ObservableObject {
     }
     func createANewUser(username: String,
                         email: String,
-                        password_hash: String,
                         password: String,
                         confirmPassword: String,
                         favoriteBook: String,
-                        country: String,
+                        favoriteAuthor: String,
                         city: String,
-                        favoriteAuthor: String) async throws {
+                        country: String) async throws {
         do {
             try await networkManager.createUser(username: username,
                                                 email: email,
@@ -63,6 +63,6 @@ final class UsersViewModel: ObservableObject {
         }
     }
     func handleLogin(username: String, password: String) {
-        
+        isLoggedIn.toggle()
     }
 }
