@@ -26,7 +26,7 @@ struct CreateBookView: View {
                 .background(Color.white)
             Button {
                 Task {
-                    try await viewModel.createBook(title: title, genre: genre, price: price, author: author, order: nil)
+//                    try await viewModel.createBook(title: title, genre: genre, price: price, author: author, order: nil)
                 }
             } label: {
                 Text("Offer book for sale")

@@ -1,5 +1,5 @@
 //
-//  OrdersNetworkManager.swift
+//  KartsNetworkManager.swift
 //  Client
 //
 //  Created by Emma Gaubert on 27/02/2023.
@@ -12,10 +12,10 @@ final class KartsNetworkManager {
     init(httpClient: HttpClient) {
         self.httpClient = httpClient
     }
-    func fetchOrders() async throws -> [Order] {
-        let url = URL(string: Request.baseURL + Endpoint.orders)!
-        let orders: [Order] = try await httpClient.fetch(url: url)
-        return orders
+    func getMyKart() async throws -> [Kart] {
+        let url = URL(string: Request.baseURL + Endpoint.karts)!
+        let kart: [Kart] = try await httpClient.fetch(url: url)
+        return kart
     }
     func createOrder(id: UUID, price: Int) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.orders) else {
@@ -34,7 +34,7 @@ final class KartsNetworkManager {
         try await httpClient.updateData(to: url, object: updatedOrder, httpMethod: HttpMethods.PUT.rawValue)
     }
     func deleteOrder(id: UUID) async throws {
-        let url = URL(string: Request.baseURL + Endpoint.orders + "/\(id)")!
+        let url = URL(string: Request.baseURL + Endpoint.karts + "/\(id)")!
         try await httpClient.delete(url: url)
     }
 }

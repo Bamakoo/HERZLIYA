@@ -1,40 +1,30 @@
 import Foundation
 
 final class SignInViewModel: ObservableObject {
-
-    // MARK: - Properties
-
     @Published var email = ""
     @Published var password = ""
-
-    // MARK: -
-
     @Published var hasError = false
-
     @Published var isSigningIn = false
-
-    // MARK: -
-
     var canSignIn: Bool {
         !email.isEmpty && !password.isEmpty
     }
-
-    // MARK: - Public API
-
     func signIn() {
         guard !email.isEmpty && !password.isEmpty else {
             print("Email or password are empty")
             return
         }
+        guard let url = URL(string: Request.baseURL) else {
+            print("unable to create an URL to send username and password")
+            return
+        }
+        var request = URLRequest(url: url)
 
-        var request = URLRequest(url: URL(string: "http://localhost:8080/api/v1/signin")!)
-
-        request.httpMethod = "POST"
+        request.httpMethod = HttpMethods.POST.rawValue
 
         let authData = (email + ":" + password).data(using: .utf8)!.base64EncodedString()
         request.addValue("Basic \(authData)", forHTTPHeaderField: "Authorization")
 
-        isSigningIn = true
+        isSigningIn.toggle()
 
         URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             DispatchQueue.main.async {
@@ -45,16 +35,16 @@ final class SignInViewModel: ObservableObject {
                         let signInResponse = try JSONDecoder().decode(SignInResponse.self, from: data)
 
                         print(signInResponse)
-
-                        // TODO: Cache Access Token in Keychain
                     } catch {
                         print("Unable to Decode Response \(error)")
                     }
                 }
-
                 self?.isSigningIn = false
             }
         }.resume()
     }
+}
 
+fileprivate struct SignInResponse: Decodable {
+    let accessToken: String
 }

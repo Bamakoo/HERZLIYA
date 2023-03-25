@@ -25,14 +25,14 @@ final class BooksViewModel: ObservableObject {
     func createBook(author: String,
                     description: String, title: String, genre: String, price: Int, kart: Kart?) async throws {
         do {
-            try await networkManager.createBook(title: title, genre: genre, price: price, author: author, order: order ?? Order(id: nil, price: nil))
+//            try await networkManager.createBook(title: title, genre: genre, price: price, author: author, order: order ?? Order(id: nil, price: nil))
         } catch {
             print(error)
         }
     }
-    func updateBook(author: String, title: String, id: UUID, price: Int, genre: String, order: Order?) async throws {
+//    func updateBook(author: String, title: String, id: UUID, price: Int, genre: String, order: Order?) async throws {
         do {
-            try await networkManager.updateBook(author: author, title: title, id: id, price: price, genre: genre, order: Order(id: nil, price: price))
+//            try await networkManager.updateBook(author: author, title: title, id: id, price: price, genre: genre, order: Order(id: nil, price: price))
         } catch {
             print(error)
         }

@@ -18,6 +18,16 @@ final class Networking: HttpClient {
         }
         return object
     }
+    func fetchSingleObject<T: Codable>(url: URL) async throws -> T {
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw HttpError.badResponse
+        }
+        guard let object = try? JSONDecoder().decode(T.self, from: data) else {
+            throw HttpError.errorDecodingData
+        }
+        return object
+    }
     func sendData<T: Codable>(to url: URL, object: T, httpMethod: String) async throws {
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod

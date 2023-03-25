@@ -51,7 +51,7 @@ final class BooksNetworkManager {
                            deletedAt: nil)
         try await httpClient.sendData(to: url, object: newBook, httpMethod: HttpMethods.POST.rawValue)
     }
-    func updateBook(id: UUID, author: String, description: String, genre: BookGenre, state: BookState, seller: User, buyer: User?, status: BookStatus, title: String, price: Int, ) async throws {
+    func updateBook(id: UUID, author: String, description: String, genre: BookGenre, state: BookState, seller: User, buyer: User?, status: BookStatus, title: String, price: Int) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.books) else {
             print("Unable to create valid URL for updating the book")
             return

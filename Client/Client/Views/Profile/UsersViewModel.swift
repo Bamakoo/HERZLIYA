@@ -34,27 +34,23 @@ final class UsersViewModel: ObservableObject {
         do {
             try await networkManager.createUser(username: username,
                                                 email: email,
-                                                password_hash: password_hash,
                                                 password: password,
                                                 confirmPassword: confirmPassword,
                                                 favoriteBook: favoriteBook,
-                                                country: country,
-                                                city: city,
                                                 favoriteAuthor: favoriteAuthor,
-                                                createdAt: nil,
-                                                updatedAt: nil,
-                                                deletedAt: nil)
+                                                city: city,
+                                                country: country)
         } catch {
             print(error)
         }
     }
-    func updateUserProfile() async throws {
-        do {
-            try await networkManager.updateMyProfile()
-        } catch {
-            print(error)
-        }
-    }
+//    func updateUserProfile() async throws {
+//        do {
+//            try await networkManager.updateMyProfile(id: <#T##UUID#>, username: <#T##String#>, email: <#T##String#>, password: <#T##String#>, confirmPassword: <#T##String#>, favoriteBook: <#T##String#>, favoriteAuthor: <#T##String#>, city: <#T##String#>, country: <#T##String#>)
+//        } catch {
+//            print(error)
+//        }
+//    }
     func deleteUserProfile(id: UUID) async throws {
         do {
             try await networkManager.deleteProfile(id: id)

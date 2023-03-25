@@ -4,7 +4,7 @@ import Foundation
     let id: UUID?
     let username: String
     let email: String
-    let password_hash: String
+    let password_hash: String?
     let password: String
     let confirmPassword: String
     let favoriteBook: String
