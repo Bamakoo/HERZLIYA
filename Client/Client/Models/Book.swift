@@ -7,16 +7,19 @@
 
 import Foundation
 
-enum BookGenre: String, Codable {
+enum BookGenre: String, Identifiable, CaseIterable, Codable {
     case fantasy, scienceFiction, action, mystery, horror, romance, realism, biography
+    var id: Self { self }
 }
 
-enum BookState: String, Codable {
+enum BookState: String, Identifiable, CaseIterable, Codable {
     case horrendous, bad, okay, passable, acceptable, good, excellent, brandNew
+    var id: Self { self }
 }
 
-enum BookStatus: String, Codable {
+enum BookStatus: String, Identifiable, CaseIterable, Codable {
     case available, purchased, inTransit, delivered
+    var id: Self { self }
 }
 
 struct Book: Identifiable, Codable, Hashable, Equatable {

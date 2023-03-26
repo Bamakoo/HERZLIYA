@@ -13,7 +13,7 @@ final class SignInViewModel: ObservableObject {
             print("Email or password are empty")
             return
         }
-        guard let url = URL(string: Request.baseURL) else {
+        guard let url = URL(string: Request.baseURL + Endpoint.login) else {
             print("unable to create an URL to send username and password")
             return
         }
@@ -22,7 +22,7 @@ final class SignInViewModel: ObservableObject {
         request.httpMethod = HttpMethods.POST.rawValue
 
         let authData = (email + ":" + password).data(using: .utf8)!.base64EncodedString()
-        request.addValue("Basic \(authData)", forHTTPHeaderField: "Authorization")
+        request.addValue("Basic \(authData)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
 
         isSigningIn.toggle()
 
@@ -33,10 +33,9 @@ final class SignInViewModel: ObservableObject {
                 } else if let data = data {
                     do {
                         let signInResponse = try JSONDecoder().decode(SignInResponse.self, from: data)
-
                         print(signInResponse)
                     } catch {
-                        print("Unable to Decode Response \(error)")
+                        print("Unable to Decode Response \(error.localizedDescription)")
                     }
                 }
                 self?.isSigningIn = false

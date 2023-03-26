@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct SignInView: View {
-
+    
     @ObservedObject var viewModel: SignInViewModel
-
+    
     var body: some View {
         HStack {
             Spacer()
@@ -38,7 +38,6 @@ struct SignInView: View {
             )
         }
     }
-
 }
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
