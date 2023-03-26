@@ -8,6 +8,10 @@
 import Foundation
 
 final class BooksViewModel: ObservableObject {
+    @Published var title = ""
+    @Published var genre = ""
+    @Published var price = 0
+    @Published var author = ""
     @Published var books = [Book]()
     private let networkManager: BooksNetworkManager
     init(networkManager: BooksNetworkManager) {

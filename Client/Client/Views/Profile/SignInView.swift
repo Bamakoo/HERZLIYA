@@ -7,20 +7,16 @@ struct SignInView: View {
     var body: some View {
         HStack {
             Spacer()
-
             VStack {
                 VStack(alignment: .leading) {
-                    Text("Email")
-                    TextField("Email", text: $viewModel.email)
+                    TextField("Email", text: $viewModel.email, prompt:                     Text("Email"))
                         .autocapitalization(.none)
                         .keyboardType(.emailAddress)
                         .disableAutocorrection(true)
-                    Text("Password")
-                    SecureField("Password", text: $viewModel.password)
+                    SecureField("Password", text: $viewModel.password, prompt:                     Text("Password"))
                 }
                 .textFieldStyle(.roundedBorder)
                 .disabled(viewModel.isSigningIn)
-
                 if viewModel.isSigningIn {
                     ProgressView()
                         .progressViewStyle(.circular)
@@ -29,12 +25,10 @@ struct SignInView: View {
                         viewModel.signIn()
                     }
                 }
-
                 Spacer()
             }
             .padding()
             .frame(maxWidth: 400.0)
-
             Spacer()
         }
         .alert(isPresented: $viewModel.hasError) {
@@ -48,6 +42,6 @@ struct SignInView: View {
 }
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        SignInView(viewModel: SignInViewModel())
     }
 }

@@ -10,18 +10,14 @@ import SwiftUI
 struct BookDetail: View {
     var book: Book
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
-    @State private var title = ""
-    @State private var genre = ""
-    @State private var price = 0
-    @State private var author = ""
     var body: some View {
         Form {
-            TextField("BookTitle", text: $title, prompt: Text(book.title).bold())
-            TextField("BookGenre", text: $genre, prompt: Text(book.genre).bold())
-            TextField("BookPrice", value: $price, format: .currency(code: "USD"), prompt: Text(String(book.price)))
+            TextField("BookTitle", text: $viewModel.title, prompt: Text(book.title).bold())
+            TextField("BookGenre", text: $viewModel.genre, prompt: Text(book.genre).bold())
+            TextField("BookPrice", value: $viewModel.price, format: .currency(code: "USD"), prompt: Text(String(book.price)))
                 .background(Color.white)
                 .keyboardType(.numberPad)
-            TextField("Author", text: $author, prompt: Text(book.author).bold())
+            TextField("Author", text: $viewModel.author, prompt: Text(book.author).bold())
                 .background(Color.white)
             Button {
                 Task {

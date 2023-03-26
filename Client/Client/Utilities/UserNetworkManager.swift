@@ -14,10 +14,7 @@ final class UserNetworkManager {
     }
     
     func getMe() async throws -> User {
-        guard let url = URL(string: Request.baseURL + Endpoint.me) else {
-            print("unable to generate URL to get user profile")
-            return 
-        }
+        let url = URL(string: Request.baseURL + Endpoint.me)!
         let myProfile: User = try await httpClient.fetchSingleObject(url: url)
         return myProfile
     }
