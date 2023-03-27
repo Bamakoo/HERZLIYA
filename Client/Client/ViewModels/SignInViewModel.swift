@@ -44,6 +44,6 @@ final class SignInViewModel: ObservableObject {
     }
 }
 
-fileprivate struct SignInResponse: Decodable {
+struct SignInResponse: Decodable {
     let accessToken: String
 }

@@ -19,6 +19,7 @@ enum HttpHeaders: String {
     case contentType = "Content-Type"
     case authorization = "Authorization"
     case accept = "Accept"
+    case authentication = "Authentication"
 }
 
 enum HttpError: Error {

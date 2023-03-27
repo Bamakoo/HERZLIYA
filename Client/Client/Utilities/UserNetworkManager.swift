@@ -39,22 +39,22 @@ final class UserNetworkManager {
                                createdAt: nil, updatedAt: nil, deletedAt: nil)
             try await httpClient.sendData(to: url, object: newUser, httpMethod: HttpMethods.POST.rawValue)
         }
-    func updateMyProfile(id: UUID,
-                        username: String,
-                         email: String,
-                         password: String,
-                         confirmPassword: String,
-                         favoriteBook: String,
-                         favoriteAuthor: String,
-                         city: String,
-                         country: String) async throws {
-        guard let url = URL(string: Request.baseURL + Endpoint.users) else {
-            print("Unable to create valid URL for updating the users' profile")
-            return
-        }
-        let updatedProfile = User(id: <#T##UUID?#>, username: <#T##String#>, email: <#T##String#>, password_hash: <#T##String?#>, password: <#T##String#>, confirmPassword: <#T##String#>, favoriteBook: <#T##String#>, country: <#T##String#>, city: <#T##String#>, favoriteAuthor: <#T##String#>, createdAt: <#T##Date?#>, updatedAt: <#T##Date?#>, deletedAt: <#T##Date?#>)
-        try await httpClient.updateData(to: url, object: updatedProfile, httpMethod: HttpMethods.PUT.rawValue)
-    }
+//    func updateMyProfile(id: UUID,
+//                        username: String,
+//                         email: String,
+//                         password: String,
+//                         confirmPassword: String,
+//                         favoriteBook: String,
+//                         favoriteAuthor: String,
+//                         city: String,
+//                         country: String) async throws {
+//        guard let url = URL(string: Request.baseURL + Endpoint.users) else {
+//            print("Unable to create valid URL for updating the users' profile")
+//            return
+//        }
+//        let updatedProfile = User(id: <#T##UUID?#>, username: <#T##String#>, email: <#T##String#>, password_hash: <#T##String?#>, password: <#T##String#>, confirmPassword: <#T##String#>, favoriteBook: <#T##String#>, country: <#T##String#>, city: <#T##String#>, favoriteAuthor: <#T##String#>, createdAt: <#T##Date?#>, updatedAt: <#T##Date?#>, deletedAt: <#T##Date?#>)
+//        try await httpClient.updateData(to: url, object: updatedProfile, httpMethod: HttpMethods.PUT.rawValue)
+//    }
     func deleteProfile(id: UUID) async throws {
         let url = URL(string: Request.baseURL + Endpoint.users + "/\(id)")!
         try await httpClient.delete(url: url)
