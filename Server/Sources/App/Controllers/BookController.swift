@@ -8,6 +8,7 @@ struct BookController: RouteCollection {
         tokenProtectedBooks.get("books", use: index)
         tokenProtectedBooks.put("books", use: update)
         tokenProtectedBooks.post("books", use: create)
+        // TODO: make path dynamic
         tokenProtectedBooks.group("books", ":bookID") { book in
             book.delete(use: delete)
         }
