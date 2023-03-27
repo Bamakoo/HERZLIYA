@@ -21,12 +21,7 @@ struct BookDetail: View {
                 .background(Color.white)
             Button {
                 Task {
-                    try await viewModel.updateBook(author: author,
-                                                   title: title,
-                                                   id: book.id,
-                                                   price: price,
-                                                   genre: genre,
-                                                   order: Order(id: nil, price: price))
+                    try await viewModel.updateBook()
                 }
             } label: {
                 Text("Purchase book \(book.title)")

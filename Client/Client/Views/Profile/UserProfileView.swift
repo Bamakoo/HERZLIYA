@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct UserProfileView: View {
+    @ObservedObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
 
     var body: some View {
         Text("user's profile goes here")
     }
+        .onAppear{
+            Task {
+                viewModel.getMyProfile()
+            }
+        }
 }
 
 struct UserProfileView_Previews: PreviewProvider {
