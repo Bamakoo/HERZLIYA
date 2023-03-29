@@ -12,7 +12,7 @@ struct MainMenu: View {
         TabView {
             BooksList()
                 .tabItem {
-                    Label("Books", systemImage: "books.vertical")
+                    Label("Books", systemImage: "books.vertical.circle.fill")
                 }
             CreateBookView()
                 .tabItem {
@@ -25,6 +25,14 @@ struct MainMenu: View {
             LikesView()
                 .tabItem {
                     Label("Likes", systemImage: "heart.fill")
+                }
+            CreateAccountView()
+                .tabItem {
+                    Label("Create an Account", systemImage: "person.fill.badge.plus")
+                }
+            SignInView(viewModel: SignInViewModel())
+                .tabItem {
+                    Label("Sign in", systemImage: "person.badge.shield.checkmark.fill")
                 }
         }
     }

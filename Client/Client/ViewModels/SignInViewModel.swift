@@ -1,15 +1,16 @@
 import Foundation
+// swiftlint:disable all
 
 final class SignInViewModel: ObservableObject {
-    @Published var email = ""
+    @Published var username = ""
     @Published var password = ""
     @Published var hasError = false
     @Published var isSigningIn = false
     var canSignIn: Bool {
-        !email.isEmpty && !password.isEmpty
+        !username.isEmpty && !password.isEmpty
     }
     func signIn() {
-        guard !email.isEmpty && !password.isEmpty else {
+        guard !username.isEmpty && !password.isEmpty else {
             print("Email or password are empty")
             return
         }
@@ -21,7 +22,7 @@ final class SignInViewModel: ObservableObject {
 
         request.httpMethod = HttpMethods.POST.rawValue
 
-        let authData = (email + ":" + password).data(using: .utf8)!.base64EncodedString()
+        let authData = (username + ":" + password).data(using: .utf8)!.base64EncodedString()
         request.addValue("Basic \(authData)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
 
         isSigningIn.toggle()

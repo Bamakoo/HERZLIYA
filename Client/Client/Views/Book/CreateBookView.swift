@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 struct CreateBookView: View {
-    
     @ObservedObject var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     var body: some View {
         Form {
@@ -31,13 +30,13 @@ struct CreateBookView: View {
             TextField("Author", text: $viewModel.author, prompt: Text("Author's Name"))
                 .background(Color.white)
             TextField("Description", text: $viewModel.description, prompt: Text("Description"))
-        }
-        Button {
-            Task {
-                try await viewModel.createBook()
+            Button {
+                Task {
+                    try await viewModel.createBook()
+                }
+            } label: {
+                Text("Offer book for sale")
             }
-        } label: {
-            Text("Offer book for sale")
         }
     }
 }

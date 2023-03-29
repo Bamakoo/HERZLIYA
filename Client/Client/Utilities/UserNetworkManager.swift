@@ -4,6 +4,8 @@
 //
 //  Created by Emma Gaubert on 24/03/2023.
 //
+// swiftlint:disable all
+
 
 import Foundation
 
@@ -12,13 +14,11 @@ final class UserNetworkManager {
     init(httpClient: HttpClient) {
         self.httpClient = httpClient
     }
-    
     func getMe() async throws -> User {
         let url = URL(string: Request.baseURL + Endpoint.me)!
         let myProfile: User = try await httpClient.fetchSingleObject(url: url)
         return myProfile
     }
-    
     func createUser(username: String,
                     email: String,
                     password: String,

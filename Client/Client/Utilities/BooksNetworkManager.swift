@@ -4,6 +4,7 @@
 //
 //  Created by Emma Gaubert on 17/02/2023.
 //
+// swiftlint:disable all
 
 import Foundation
 

@@ -1,3 +1,5 @@
+// swiftlint:disable all
+
 import SwiftUI
 
 struct SignInView: View {
@@ -9,11 +11,11 @@ struct SignInView: View {
             Spacer()
             VStack {
                 VStack(alignment: .leading) {
-                    TextField("Email", text: $viewModel.email, prompt:                     Text("Email"))
+                    TextField("Username", text: $viewModel.username, prompt: Text("Username"))
                         .autocapitalization(.none)
                         .keyboardType(.emailAddress)
                         .disableAutocorrection(true)
-                    SecureField("Password", text: $viewModel.password, prompt:                     Text("Password"))
+                    SecureField("Password", text: $viewModel.password, prompt: Text("Password"))
                 }
                 .textFieldStyle(.roundedBorder)
                 .disabled(viewModel.isSigningIn)

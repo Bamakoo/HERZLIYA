@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BooksList: View {
-    @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
+    @ObservedObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var selection: Book?
     var body: some View {
         NavigationSplitView {

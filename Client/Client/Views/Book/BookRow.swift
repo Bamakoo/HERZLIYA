@@ -4,6 +4,7 @@
 //
 //  Created by Emma Gaubert on 21/02/2023.
 //
+// swiftlint:disable all
 
 import SwiftUI
 

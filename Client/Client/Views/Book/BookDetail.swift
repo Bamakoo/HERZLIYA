@@ -4,6 +4,7 @@
 //
 //  Created by Emma Gaubert on 21/02/2023.
 //
+// swiftlint:disable all
 
 import SwiftUI
 
@@ -11,9 +12,7 @@ struct BookDetail: View {
     var book: Book
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     var body: some View {
-        Form {
             TextField("BookTitle", text: $viewModel.title, prompt: Text(book.title).bold())
-            TextField("BookGenre", text: $viewModel.genre, prompt: Text(book.genre).bold())
             TextField("BookPrice", value: $viewModel.price, format: .currency(code: "USD"), prompt: Text(String(book.price)))
                 .background(Color.white)
                 .keyboardType(.numberPad)
@@ -21,7 +20,7 @@ struct BookDetail: View {
                 .background(Color.white)
             Button {
                 Task {
-                    try await viewModel.updateBook()
+//                    try await viewModel.updateBook()
                 }
             } label: {
                 Text("Purchase book \(book.title)")
@@ -33,13 +32,13 @@ struct BookDetail: View {
             } label: {
                 Text("Add to kart")
             }
-        }
+        
         .navigationBarTitle(book.title, displayMode: .inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     Task {
-                        try await viewModel.deleteBook(id: book.id)
+                        try await viewModel.deleteBook(id: book.id!)
                     }
                 } label: {
                     Image(systemName: "trash.circle")

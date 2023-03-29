@@ -38,4 +38,3 @@ struct Book: Identifiable, Codable, Hashable, Equatable {
     let updatedAt: Date?
     let deletedAt: Date?
 }
-

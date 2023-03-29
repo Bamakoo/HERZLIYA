@@ -1,3 +1,5 @@
+// swiftlint:disable all
+
 import Foundation
 
  struct User: Identifiable, Codable, Hashable, Equatable {
@@ -15,3 +17,20 @@ import Foundation
     let updatedAt: Date?
     let deletedAt: Date?
  }
+
+extension User {
+   static let testUser = User(id: nil,
+                               username: "",
+                               email: "kireyin@datadome.co",
+                               password_hash: "AReallyComplexHash",
+                               password: "iPhonesRDaBest",
+                               confirmPassword: "iPhonesRDaBest",
+                              favoriteBook: "Brave new world by Huxley",
+                               country: "Taiwan",
+                               city: "Taipei",
+                               favoriteAuthor: "Boulgakov",
+                               createdAt: nil,
+                               updatedAt: nil,
+                               deletedAt: nil)
+
+}
