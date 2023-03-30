@@ -3,12 +3,12 @@ import Vapor
 
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
+        let unprotectedBooks = routes.grouped("books")
+        unprotectedBooks.get(use: index)
         let tokenProtectedBooks = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
-        tokenProtectedBooks.get("books", use: index)
-        tokenProtectedBooks.put("books", use: update)
         tokenProtectedBooks.post("books", use: create)
-        // TODO: make path dynamic
+        tokenProtectedBooks.put("books", use: update)
         tokenProtectedBooks.group("books", ":bookID") { book in
             book.delete(use: delete)
         }
@@ -19,6 +19,7 @@ struct BookController: RouteCollection {
     }
 
     func create(req: Request) async throws -> Book {
+        try Book.validate(content: req)
         let book = try req.content.decode(Book.self)
         try await book.save(on: req.db)
         return book
