@@ -11,5 +11,5 @@ struct Comment: Identifiable, Codable, Hashable, Equatable {
     let id: UUID?
     let comment: String
     let userWhoCommented: User
-    let commentedOnBook: Book 
+    let commentedOnBook: Book
 }

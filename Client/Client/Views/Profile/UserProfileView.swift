@@ -9,16 +9,15 @@ import SwiftUI
 
 struct UserProfileView: View {
     @ObservedObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
-
+    var linkNames = LinkNames.allCases
     var body: some View {
-        Text("user's profile goes here")
+        VStack(spacing: 0) {
+            ForEach(linkNames) { linkName in
+                ProfileRow(linkName: linkName.rawValue)
+            }
+            Spacer()
+        }
     }
-//        .onAppear{
-//            Task {
-//                viewModel.getMyProfile()
-//            }
-//        }
-
 }
 
 struct UserProfileView_Previews: PreviewProvider {

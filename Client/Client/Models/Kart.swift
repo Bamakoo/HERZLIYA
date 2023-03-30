@@ -9,6 +9,6 @@ import Foundation
 
 struct Kart: Identifiable, Codable, Hashable, Equatable {
     let id: UUID?
-    let user: User
-    let total: Int 
+    let user: User?
+    let total: Int?
 }

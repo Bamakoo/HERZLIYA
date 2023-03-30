@@ -27,7 +27,7 @@ final class BooksViewModel: ObservableObject {
         do {
             books = try await networkManager.fetchBooks()
         } catch {
-            print("unable to fetch books because of : \(error)")
+            print("unable to fetch books because of : \(error.localizedDescription)")
         }
     }
     func deleteBook(id: UUID) async throws {
@@ -48,8 +48,9 @@ final class BooksViewModel: ObservableObject {
         }
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethods.POST.rawValue
-        let token = "mysuperSecretToken"
-        request.addValue(("Bearer \(token)"), forHTTPHeaderField: HttpHeaders.authentication.rawValue)
+        // TODO: fix token so it's not hard coded
+        let token = "Ns4HizdQGxnA2oxcA6ke/Q=="
+        request.setValue(("Bearer \(token)"), forHTTPHeaderField: HttpHeaders.authorization.rawValue)
         let data = Book(id: nil,
                         author: author,
                         description: description,
@@ -57,7 +58,7 @@ final class BooksViewModel: ObservableObject {
                         state: state,
                         seller: User.testUser,
                         buyer: nil,
-                        kart: nil,
+                        kart: Kart(id: nil, user: nil, total: nil),
                         status: status,
                         title: title,
                         price: price,
@@ -74,7 +75,6 @@ final class BooksViewModel: ObservableObject {
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 print("Error: error calling POST")
-                print(error!)
                 return
             }
             guard let data = data else {
@@ -169,9 +169,3 @@ final class BooksViewModel: ObservableObject {
 //        }.resume()
 //    }
 }
-
-
-
-
-
-

@@ -16,12 +16,12 @@ struct CreateBookView: View {
                 .background(Color.white)
             Picker("Genre", selection: $viewModel.genre) {
                 ForEach(BookGenre.allCases) { genre in
-                    Text(genre.rawValue.capitalized)
+                    Text(genre.rawValue)
                 }
             }
             Picker("State", selection: $viewModel.state) {
                 ForEach(BookState.allCases) { state in
-                    Text(state.rawValue.capitalized)
+                    Text(state.rawValue)
                 }
             }
             TextField("BookPrice", value: $viewModel.price, format: .currency(code: "USD"), prompt: Text("Book's price"))
