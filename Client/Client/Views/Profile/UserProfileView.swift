@@ -9,10 +9,9 @@ import SwiftUI
 
 struct UserProfileView: View {
     @ObservedObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
-    var linkNames = LinkNames.allCases
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(linkNames) { linkName in
+            ForEach(LinkNames.allCases) { linkName in
                 ProfileRow(linkName: linkName.rawValue)
             }
             Spacer()

@@ -9,9 +9,9 @@ import Foundation
 
 enum LinkNames: String, CaseIterable, Identifiable {
     case friends = "Friends"
-    case booksByFavoriteAuthor = "Available books by your favorite author"
+    case booksByFavoriteAuthor = "Favorite author's books"
     case likes = "Likes"
-    case myKart = "Your Kart"
+    case myKart = "Kart"
     case purchases = "Purchases"
     case soldBooks = "Sold books"
     var id: Self {

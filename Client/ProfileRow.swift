@@ -15,7 +15,7 @@ struct ProfileRow: View {
                 Text(linkName)
                     .font(.body)
                 Spacer()
-                Image(systemName: "chevron.right")
+                Image(systemName: "chevron.right.circle.fill")
                     .foregroundColor(Color(.systemGray3))
                     .font(.system(size: 20))
             }

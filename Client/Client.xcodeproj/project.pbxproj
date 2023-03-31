@@ -140,6 +140,8 @@
 			isa = PBXGroup;
 			children = (
 				A4BDB5DC29D5CE9D00C973CE /* ProfileRow.swift */,
+				A44D59BE29A407C800FF7F22 /* LikesView.swift */,
+				A4AF589F29CC653D003F03AD /* KartView.swift */,
 				A44D59BC29A4077E00FF7F22 /* UserProfileView.swift */,
 				A4AF589D29CC6529003F03AD /* CreateAccountView.swift */,
 				A4AF589B29CC6522003F03AD /* SignInView.swift */,
@@ -250,8 +252,6 @@
 			children = (
 				A413CB3F29BD406800FDB528 /* Book */,
 				A413CB4029BD40A300FDB528 /* Profile */,
-				A44D59BE29A407C800FF7F22 /* LikesView.swift */,
-				A4AF589F29CC653D003F03AD /* KartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
