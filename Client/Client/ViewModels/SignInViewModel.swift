@@ -33,7 +33,7 @@ final class SignInViewModel: ObservableObject {
                     self?.hasError = true
                 } else if let data = data {
                     do {
-                        let signInResponse = try JSONDecoder().decode(SignInResponse.self, from: data)
+                        let signInResponse = try JSONDecoder().decode(UserToken.self, from: data)
                         print(signInResponse)
                     } catch {
                         print("Unable to Decode Response \(error.localizedDescription)")
@@ -45,6 +45,9 @@ final class SignInViewModel: ObservableObject {
     }
 }
 
-struct SignInResponse: Decodable {
-    let accessToken: String
+struct UserToken: Decodable {
+    let value: String
+    let id: UUID
+    let user: UUID
 }
+

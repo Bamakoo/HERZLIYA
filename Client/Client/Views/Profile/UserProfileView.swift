@@ -10,11 +10,31 @@ import SwiftUI
 struct UserProfileView: View {
     @ObservedObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
     var body: some View {
-        VStack(spacing: 0) {
-            ForEach(LinkNames.allCases) { linkName in
-                ProfileRow(linkName: linkName.rawValue)
+        NavigationStack {
+            List(LinkNames.allCases) { linkName in
+                NavigationLink(linkName.rawValue) {
+                    ProfileDetail(linkName: linkName.rawValue)
+                } 
             }
-            Spacer()
+            .listStyle(.sidebar)
+            .navigationTitle("My Profile")
+            .navigationBarTitleDisplayMode(.large)
+            .navigationDestination(for: LinkNames.self) { linkName in
+                switch linkName {
+                case .booksByFavoriteAuthor:
+                    BooksByMyFavoriteAuthorView()
+                case .friends:
+                    MyFriendsView()
+                case .likes:
+                    LikesView()
+                case .myKart:
+                    KartView()
+                case .purchases:
+                    MyPurchases()
+                case .soldBooks:
+                    SoldBooks()
+                }
+            }
         }
     }
 }

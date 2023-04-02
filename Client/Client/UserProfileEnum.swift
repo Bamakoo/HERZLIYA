@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum LinkNames: String, CaseIterable, Identifiable {
+enum LinkNames: String, CaseIterable, Identifiable, Hashable {
     case friends = "Friends"
     case booksByFavoriteAuthor = "Favorite author's books"
     case likes = "Likes"
