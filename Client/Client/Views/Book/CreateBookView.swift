@@ -33,7 +33,6 @@ struct CreateBookView: View {
                     }
                 }
                 TextField("Description", text: $viewModel.description, prompt: Text("Description"))
-                
             }
             Button {
                 Task {

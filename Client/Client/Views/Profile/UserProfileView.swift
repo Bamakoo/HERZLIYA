@@ -14,7 +14,7 @@ struct UserProfileView: View {
             List(LinkNames.allCases) { linkName in
                 NavigationLink(linkName.rawValue) {
                     ProfileDetail(linkName: linkName.rawValue)
-                } 
+                }
             }
             .listStyle(.sidebar)
             .navigationTitle("My Profile")
