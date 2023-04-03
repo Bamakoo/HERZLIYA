@@ -9,6 +9,7 @@ struct BookController: RouteCollection {
             .grouped(UserToken.guardMiddleware())
         tokenProtectedBooks.post("books", use: create)
         tokenProtectedBooks.put("books", use: update)
+        // TODO: proper routing search feature with filters
         tokenProtectedBooks.group("books", ":bookID") { book in
             book.delete(use: delete)
         }
