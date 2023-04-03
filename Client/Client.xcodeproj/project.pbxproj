@@ -86,7 +86,7 @@
 		A4AF589B29CC6522003F03AD /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		A4AF589D29CC6529003F03AD /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		A4AF589F29CC653D003F03AD /* KartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KartView.swift; sourceTree = "<group>"; };
-		A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserProfileEnum.swift; path = Client/UserProfileEnum.swift; sourceTree = SOURCE_ROOT; };
+		A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserProfileEnum.swift; path = Client/Utilities/User/UserProfileEnum.swift; sourceTree = SOURCE_ROOT; };
 		A4BDB5DC29D5CE9D00C973CE /* ProfileRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRow.swift; sourceTree = SOURCE_ROOT; };
 		A4C98638299FB843003CF879 /* Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4C9863B299FB843003CF879 /* ClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientApp.swift; sourceTree = "<group>"; };
@@ -231,14 +231,9 @@
 		A4C98665299FD178003CF879 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */,
-				A43C72DD29CDD80700CDF56B /* UserNetworkManager.swift */,
-				A4C98666299FD187003CF879 /* HttpClient.swift */,
-				A4C98668299FD8DD003CF879 /* Networking.swift */,
-				A4C9866A299FDB68003CF879 /* BooksNetworkManager.swift */,
-				A44D59CC29ACB33200FF7F22 /* KartsNetworkManager.swift */,
-				A4C9866C29A10835003CF879 /* Constants.swift */,
-				A4DD9DB929DAC95C0063DD9B /* KeychainHelper.swift */,
+				A4DD9DC029DB2D2D0063DD9B /* NetworkManager */,
+				A4DD9DBF29DB2CD60063DD9B /* Networking */,
+				A4DD9DBD29DB2CB10063DD9B /* User */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -275,6 +270,35 @@
 				A413CB4029BD40A300FDB528 /* Profile */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A4DD9DBD29DB2CB10063DD9B /* User */ = {
+			isa = PBXGroup;
+			children = (
+				A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */,
+				A43C72DD29CDD80700CDF56B /* UserNetworkManager.swift */,
+				A4DD9DB929DAC95C0063DD9B /* KeychainHelper.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		A4DD9DBF29DB2CD60063DD9B /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				A4C98666299FD187003CF879 /* HttpClient.swift */,
+				A4C98668299FD8DD003CF879 /* Networking.swift */,
+				A4C9866C29A10835003CF879 /* Constants.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		A4DD9DC029DB2D2D0063DD9B /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				A4C9866A299FDB68003CF879 /* BooksNetworkManager.swift */,
+				A44D59CC29ACB33200FF7F22 /* KartsNetworkManager.swift */,
+			);
+			path = NetworkManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
