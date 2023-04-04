@@ -41,7 +41,6 @@
 		A4C9867029A10B5F003CF879 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9866F29A10B5F003CF879 /* Book.swift */; };
 		A4C9867329A1198F003CF879 /* BooksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867229A1198F003CF879 /* BooksViewModel.swift */; };
 		A4C9867829A11EFC003CF879 /* BooksList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867729A11EFC003CF879 /* BooksList.swift */; };
-		A4DD9DAE29D8B2450063DD9B /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DAD29D8B2450063DD9B /* UserToken.swift */; };
 		A4DD9DB029D9D2C40063DD9B /* ProfileDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DAF29D9D2C40063DD9B /* ProfileDetail.swift */; };
 		A4DD9DB229D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DB129D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift */; };
 		A4DD9DB429D9D50B0063DD9B /* MyFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DB329D9D50B0063DD9B /* MyFriendsView.swift */; };
@@ -105,7 +104,6 @@
 		A4C9866F29A10B5F003CF879 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		A4C9867229A1198F003CF879 /* BooksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksViewModel.swift; sourceTree = "<group>"; };
 		A4C9867729A11EFC003CF879 /* BooksList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksList.swift; sourceTree = "<group>"; };
-		A4DD9DAD29D8B2450063DD9B /* UserToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserToken.swift; path = Client/ViewModels/UserToken.swift; sourceTree = SOURCE_ROOT; };
 		A4DD9DAF29D9D2C40063DD9B /* ProfileDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetail.swift; sourceTree = SOURCE_ROOT; };
 		A4DD9DB129D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksByMyFavoriteAuthorView.swift; sourceTree = SOURCE_ROOT; };
 		A4DD9DB329D9D50B0063DD9B /* MyFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsView.swift; sourceTree = "<group>"; };
@@ -255,7 +253,6 @@
 			isa = PBXGroup;
 			children = (
 				A43C72DF29CF8DF900CDF56B /* SignInViewModel.swift */,
-				A4DD9DAD29D8B2450063DD9B /* UserToken.swift */,
 				A43C72DB29CDD3DF00CDF56B /* UsersViewModel.swift */,
 				A4C9867229A1198F003CF879 /* BooksViewModel.swift */,
 				A44D59C629ACAFC800FF7F22 /* KartViewModel.swift */,
@@ -477,7 +474,6 @@
 				A4BDB5DD29D5CE9D00C973CE /* ProfileRow.swift in Sources */,
 				A4AF589829CC61F3003F03AD /* Kart.swift in Sources */,
 				A44D59BF29A407C800FF7F22 /* LikesView.swift in Sources */,
-				A4DD9DAE29D8B2450063DD9B /* UserToken.swift in Sources */,
 				A44D59AF29A3722500FF7F22 /* CreateBookView.swift in Sources */,
 				A4AF589A29CC628E003F03AD /* Rating.swift in Sources */,
 				A4AF589629CC617A003F03AD /* Comment.swift in Sources */,
