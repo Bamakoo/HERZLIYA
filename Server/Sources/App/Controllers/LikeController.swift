@@ -11,6 +11,7 @@ struct LikeController: RouteCollection {
         tokenProtectedLikes.group("likes", ":likeID") { like in
             like.delete(use: delete)
         }
+        
     }
 
     func index(req: Request) async throws -> [Like] {

@@ -9,12 +9,22 @@ struct BookController: RouteCollection {
             .grouped(UserToken.guardMiddleware())
         tokenProtectedBooks.post("books", use: create)
         tokenProtectedBooks.put("books", use: update)
-        // TODO: proper routing search feature with filters
         tokenProtectedBooks.group("books", ":bookID") { book in
             book.delete(use: delete)
         }
+        tokenProtectedBooks.group("search", "books", ":search") { bookSearch in
+            bookSearch.get(use: searchHandler)
+        }
     }
-
+    func searchHandler(req: Request) async throws -> [Book] {
+        guard let searchTerm = req.parameters.get("search") else {
+            throw Abort(.badRequest)
+        }
+        let books = try await Book.query(on: req.db)
+            .filter(\.$title =~ searchTerm)
+            .all()
+        return books
+    }
     func index(req: Request) async throws -> [Book] {
         try await Book.query(on: req.db).all()
     }
