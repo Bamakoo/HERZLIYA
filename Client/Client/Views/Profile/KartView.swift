@@ -9,7 +9,7 @@ import SwiftUI
 
 struct KartView: View {
     var body: some View {
-        Text("display the users kart")
+        Text("display the users' kart")
     }
 }
 

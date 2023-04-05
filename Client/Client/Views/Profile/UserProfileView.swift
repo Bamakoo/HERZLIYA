@@ -11,16 +11,17 @@ struct UserProfileView: View {
     @ObservedObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
     var body: some View {
         NavigationStack {
-            List(LinkNames.allCases) { linkName in
-                NavigationLink(linkName.rawValue) {
-                    ProfileDetail(linkName: linkName.rawValue)
+            List(navigationItems) { item in
+                NavigationLink(value: item) {
+                    Label(item.title, systemImage: item.icon)
+                        .foregroundColor(.primary)
                 }
             }
             .listStyle(.sidebar)
             .navigationTitle("My Profile")
             .navigationBarTitleDisplayMode(.large)
-            .navigationDestination(for: LinkNames.self) { linkName in
-                switch linkName {
+            .navigationDestination(for: NavigationItem.self) { item in
+                switch item.menu {
                 case .booksByFavoriteAuthor:
                     BooksByMyFavoriteAuthorView()
                 case .friends:

@@ -19,14 +19,14 @@ final class SignInViewModel: ObservableObject {
             return
         }
         var request = URLRequest(url: url)
-
+        
         request.httpMethod = HttpMethods.POST.rawValue
-
+        
         let authData = (username + ":" + password).data(using: .utf8)!.base64EncodedString()
         request.addValue("Basic \(authData)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
-
+        
         isSigningIn.toggle()
-
+        
         URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             DispatchQueue.main.async {
                 if error != nil || (response as! HTTPURLResponse).statusCode != 200 {

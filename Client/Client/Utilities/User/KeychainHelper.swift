@@ -11,6 +11,15 @@ import Security
 final class KeychainHelper {
     static let standard = KeychainHelper()
     private init() {}
+    
+    enum KeychainError: Error {
+        case noPassword
+        case unexpectedPasswordData
+        case unexpectedItemData
+        case unhandledError(status: OSStatus)
+    }
+
+    
     func create(_ data: Data, service: String, account: String) {
         // Create query
         let query = [

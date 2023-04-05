@@ -273,7 +273,6 @@
 			isa = PBXGroup;
 			children = (
 				A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */,
-				A43C72DD29CDD80700CDF56B /* UserNetworkManager.swift */,
 				A4DD9DB929DAC95C0063DD9B /* KeychainHelper.swift */,
 			);
 			path = User;
@@ -293,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				A4C9866A299FDB68003CF879 /* BooksNetworkManager.swift */,
+				A43C72DD29CDD80700CDF56B /* UserNetworkManager.swift */,
 				A44D59CC29ACB33200FF7F22 /* KartsNetworkManager.swift */,
 			);
 			path = NetworkManager;
