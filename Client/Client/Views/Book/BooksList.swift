@@ -11,7 +11,6 @@ struct BooksList: View {
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var selection: Book?
     @State private var searchText: String = ""
-    
     var body: some View {
         NavigationSplitView {
             List(viewModel.books, selection: $selection) { book in

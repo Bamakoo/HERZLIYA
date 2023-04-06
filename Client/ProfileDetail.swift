@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProfileDetail: View {
     let linkName: String
-
     var body: some View {
         Text(linkName)
     }

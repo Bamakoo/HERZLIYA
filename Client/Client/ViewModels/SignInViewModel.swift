@@ -44,10 +44,3 @@ final class SignInViewModel: ObservableObject {
         }.resume()
     }
 }
-
-struct UserToken: Decodable {
-    let value: String
-    let id: UUID
-    let user: UUID
-}
-
