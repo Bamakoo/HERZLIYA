@@ -7,7 +7,7 @@
 
 import Foundation
 import Security
-
+// TODO: use keychain to add the user token at login, get the token to login, 
 struct Keychain {
     enum KeychainError: Error {
         case noToken
@@ -15,7 +15,7 @@ struct Keychain {
         case unhandledError(status: OSStatus)
     }
     let userToken = UserToken(value: "", id: UUID(), user: UUID())
-    func addToken() {
+    func addToken() throws {
         let account = userToken.user
         let token = userToken.value.data(using: String.Encoding.utf8)!
         var query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
@@ -25,7 +25,7 @@ struct Keychain {
         let status = SecItemAdd(query as CFDictionary, nil)
         guard status == errSecSuccess else { throw KeychainError.unhandledError(status: status) }
     }
-    func search() {
+    func search() throws {
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                     kSecAttrServer as String: Request.baseURL,
                                     kSecMatchLimit as String: kSecMatchLimitOne,
@@ -44,7 +44,7 @@ struct Keychain {
         }
         let userToken = UserToken(value: "", id: UUID(), user: UUID())
     }
-    func update() {
+    func update() throws {
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                     kSecAttrServer as String: Request.baseURL]
         let account = userToken.user
@@ -55,7 +55,7 @@ struct Keychain {
         guard status != errSecItemNotFound else { throw KeychainError.noToken }
         guard status == errSecSuccess else { throw KeychainError.unhandledError(status: status) }
     }
-    func delete() {
+    func delete() throws {
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                     kSecAttrServer as String: Request.baseURL]
         let account = userToken.user

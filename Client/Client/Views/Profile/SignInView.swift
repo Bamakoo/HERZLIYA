@@ -1,5 +1,7 @@
 // swiftlint:disable all
-
+// TODO: 
+// transform into Form
+// login, create my account, forgot my password
 import SwiftUI
 
 struct SignInView: View {

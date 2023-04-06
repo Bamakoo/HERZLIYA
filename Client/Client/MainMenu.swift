@@ -4,7 +4,7 @@
 //
 //  Created by Emma Gaubert on 17/02/2023.
 //
-
+// TODO: add environment objects
 import SwiftUI
 
 struct MainMenu: View {
