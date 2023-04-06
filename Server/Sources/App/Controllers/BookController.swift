@@ -1,6 +1,6 @@
 import Fluent
 import Vapor
-
+// TODO: Perform Patch operations
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let unprotectedBooks = routes.grouped("books")
@@ -55,7 +55,6 @@ struct BookController: RouteCollection {
         try await bookFromDB.update(on: req.db)
         return bookFromDB
     }
-
     func delete(req: Request) async throws -> HTTPStatus {
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
             print("unable to delete book")
