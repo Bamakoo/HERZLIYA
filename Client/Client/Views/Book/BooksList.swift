@@ -4,12 +4,13 @@
 //
 //  Created by Emma Gaubert on 18/02/2023.
 //
-
+// TODO: three tier NavigationSplitView
 import SwiftUI
 
 struct BooksList: View {
-    @ObservedObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
+    @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var selection: Book?
+    @State private var searchText: String = ""
     var body: some View {
         NavigationSplitView {
             List(viewModel.books, selection: $selection) { book in
@@ -26,6 +27,7 @@ struct BooksList: View {
                 Text("Pick a book")
             }
         }
+        .searchable(text: $searchText, prompt: "Search for your favorite book")
         .onAppear {
             Task {
                 await viewModel.fetchBooks()

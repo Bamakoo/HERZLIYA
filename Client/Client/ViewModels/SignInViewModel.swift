@@ -19,21 +19,21 @@ final class SignInViewModel: ObservableObject {
             return
         }
         var request = URLRequest(url: url)
-
+        
         request.httpMethod = HttpMethods.POST.rawValue
-
+        
         let authData = (username + ":" + password).data(using: .utf8)!.base64EncodedString()
         request.addValue("Basic \(authData)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
-
+        
         isSigningIn.toggle()
-
+        
         URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             DispatchQueue.main.async {
                 if error != nil || (response as! HTTPURLResponse).statusCode != 200 {
                     self?.hasError = true
                 } else if let data = data {
                     do {
-                        let signInResponse = try JSONDecoder().decode(SignInResponse.self, from: data)
+                        let signInResponse = try JSONDecoder().decode(UserToken.self, from: data)
                         print(signInResponse)
                     } catch {
                         print("Unable to Decode Response \(error.localizedDescription)")
@@ -43,8 +43,4 @@ final class SignInViewModel: ObservableObject {
             }
         }.resume()
     }
-}
-
-struct SignInResponse: Decodable {
-    let accessToken: String
 }

@@ -12,26 +12,26 @@ struct BookDetail: View {
     var book: Book
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     var body: some View {
-            TextField("BookTitle", text: $viewModel.title, prompt: Text(book.title).bold())
-            TextField("BookPrice", value: $viewModel.price, format: .currency(code: "USD"), prompt: Text(String(book.price)))
-                .background(Color.white)
-                .keyboardType(.numberPad)
-            TextField("Author", text: $viewModel.author, prompt: Text(book.author).bold())
-                .background(Color.white)
-            Button {
-                Task {
-//                    try await viewModel.updateBook()
-                }
-            } label: {
-                Text("Purchase book \(book.title)")
+        TextField("BookTitle", text: $viewModel.title, prompt: Text(book.title).bold())
+        TextField("BookPrice", value: $viewModel.price, format: .currency(code: "USD"), prompt: Text(String(book.price)))
+            .background(Color.white)
+            .keyboardType(.numberPad)
+        TextField("Author", text: $viewModel.author, prompt: Text(book.author).bold())
+            .background(Color.white)
+        Button {
+            Task {
+                //                    try await viewModel.updateBook()
             }
-            Button {
-                Task {
-                    print("added \(book.title) to kart")
-                }
-            } label: {
-                Text("Add to kart")
+        } label: {
+            Text("Purchase book \(book.title)")
+        }
+        Button {
+            Task {
+                print("added \(book.title) to kart")
             }
+        } label: {
+            Text("Add to kart")
+        }
         
         .navigationBarTitle(book.title, displayMode: .inline)
         .toolbar {

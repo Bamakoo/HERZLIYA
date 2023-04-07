@@ -1,5 +1,5 @@
 import Fluent
-
+// TODO: Create Friends table, run migrations
 struct CreateUser: AsyncMigration {
     func prepare(on database: Database) async throws {
         try await database.schema("users")

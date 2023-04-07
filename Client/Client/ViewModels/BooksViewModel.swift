@@ -6,9 +6,8 @@
 //
 
 import Foundation
-
+// TODO: PUT and DELETE operations
 final class BooksViewModel: ObservableObject {
-
     @Published var title = ""
     @Published var author = ""
     @Published var description = ""
@@ -49,7 +48,7 @@ final class BooksViewModel: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethods.POST.rawValue
         // TODO: fix token so it's not hard coded
-        let token = "Ns4HizdQGxnA2oxcA6ke/Q=="
+        let token = "wbj4h8R4YPh0AATndgk4eg=="
         request.setValue(("Bearer \(token)"), forHTTPHeaderField: HttpHeaders.authorization.rawValue)
         let data = Book(id: nil,
                         author: author,
@@ -105,6 +104,7 @@ final class BooksViewModel: ObservableObject {
             }
         }.resume()
     }
+    
 //    func updateBook() {
 //        guard let url = URL(string: Request.baseURL + Endpoint.books) else {
 //            print("unable to create an URL to perform POST operation on Books table")
