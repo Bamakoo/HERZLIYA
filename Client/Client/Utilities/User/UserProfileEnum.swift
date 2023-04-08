@@ -7,27 +7,27 @@
 
 import Foundation
 
-struct NavigationItem: Identifiable, Hashable {
-    var id = UUID()
-    var title: String
-    var icon: String
-    var menu: Menu
-}
-
-var navigationItems = [
-    NavigationItem(title: "Friends", icon: "person.3.sequence.fill", menu: .friends),
-    NavigationItem(title: "Books by my favorite author", icon: "bookmark.fill", menu: .booksByFavoriteAuthor),
-    NavigationItem(title: "Likes", icon: "heart.circle.fill", menu: .likes),
-    NavigationItem(title: "Cart", icon: "cart.fill", menu: .myKart),
-    NavigationItem(title: "Purchases", icon: "basket.fill", menu: .purchases),
-    NavigationItem(title: "Books I've sold", icon: "arrow.up.circle.fill", menu: .soldBooks)
-]
-
-enum Menu: String {
-    case friends
-    case booksByFavoriteAuthor
-    case likes
-    case myKart
-    case purchases
-    case soldBooks
+enum Menu: Identifiable, CaseIterable {
+    case friends, booksByFavoriteAuthor, likes, myKart, purchases, soldBooks
+    var id: Self { self }
+    var title: String {
+        switch self {
+        case .friends: return "Friends"
+        case .booksByFavoriteAuthor: return "Books by favorite author"
+        case .likes: return "Likes"
+        case .myKart: return "Cart"
+        case .purchases: return "Purchased books"
+        case .soldBooks: return "Sold books"
+        }
+    }
+    var image: String {
+        switch self {
+        case .friends: return "tree.fill"
+        case .booksByFavoriteAuthor: return "tree.fill"
+        case .likes: return "tree.fill"
+        case .myKart: return "tree.fill"
+        case .purchases: return "tree.fill"
+        case .soldBooks: return "tree.fill"
+        }
+    }
 }

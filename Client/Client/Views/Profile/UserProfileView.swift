@@ -9,19 +9,20 @@ import SwiftUI
 
 struct UserProfileView: View {
     @ObservedObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
+    @State private var menu: [Menu] = Menu.allCases
     var body: some View {
         NavigationStack {
-            List(navigationItems) { item in
+            List(menu) { item in
                 NavigationLink(value: item) {
-                    Label(item.title, systemImage: item.icon)
+                    Label(item.title, systemImage: item.image)
                         .foregroundColor(.primary)
                 }
             }
             .listStyle(.sidebar)
             .navigationTitle("My Profile")
             .navigationBarTitleDisplayMode(.large)
-            .navigationDestination(for: NavigationItem.self) { item in
-                switch item.menu {
+            .navigationDestination(for: Menu.self) { item in
+                switch item {
                 case .booksByFavoriteAuthor:
                     BooksByMyFavoriteAuthorView()
                 case .friends:
