@@ -22,15 +22,7 @@ struct MainMenu: View {
                 .tabItem {
                     Label("Profile", systemImage: "person.crop.circle.fill")
                 }
-            LikesView()
-                .tabItem {
-                    Label("Likes", systemImage: "heart.fill")
-                }
-            CreateAccountView()
-                .tabItem {
-                    Label("Create an Account", systemImage: "person.fill.badge.plus")
-                }
-            SignInView(viewModel: SignInViewModel())
+            LoginChoiceScreen()
                 .tabItem {
                     Label("Sign in", systemImage: "person.badge.shield.checkmark.fill")
                 }

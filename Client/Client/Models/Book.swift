@@ -7,9 +7,33 @@
 
 import Foundation
 
-enum BookGenre: String, Identifiable, CaseIterable, Codable {
+enum BookGenre: String, Identifiable, Codable, Hashable, Equatable, CaseIterable {
     case fantasy, scienceFiction, action, mystery, horror, romance, realism, biography
     var id: Self { self }
+    var title: String {
+        switch self {
+        case .fantasy: return "Fantasy"
+        case .scienceFiction: return "Science Fiction"
+        case .action: return "Action"
+        case .mystery: return "Mystery"
+        case .horror: return "Horror"
+        case .romance: return "Romance"
+        case .realism: return "Realism"
+        case .biography: return "Biography"
+        }
+    }
+    var image: String {
+        switch self {
+        case .fantasy: return "tree.fill"
+        case .scienceFiction: return "burst.fill"
+        case .action: return "suitcase.fill"
+        case .mystery: return "dice.fill"
+        case .horror: return "theatermasks.fill"
+        case .romance: return "heart.circle.fill"
+        case .realism: return "books.vertical.fill"
+        case .biography: return "books.vertical.circle"
+        }
+    }
 }
 
 enum BookState: String, Identifiable, CaseIterable, Codable {

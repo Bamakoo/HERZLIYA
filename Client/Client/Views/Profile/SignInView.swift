@@ -1,40 +1,25 @@
 // swiftlint:disable all
-// TODO: 
-// transform into Form
-// login, create my account, forgot my password
+
 import SwiftUI
 
 struct SignInView: View {
     
-    @ObservedObject var viewModel: SignInViewModel
+    @ObservedObject var viewModel = SignInViewModel()
     
     var body: some View {
-        HStack {
-            Spacer()
-            VStack {
-                VStack(alignment: .leading) {
-                    TextField("Username", text: $viewModel.username, prompt: Text("Username"))
-                        .autocapitalization(.none)
-                        .keyboardType(.emailAddress)
-                        .disableAutocorrection(true)
-                    SecureField("Password", text: $viewModel.password, prompt: Text("Password"))
-                }
-                .textFieldStyle(.roundedBorder)
-                .disabled(viewModel.isSigningIn)
-                if viewModel.isSigningIn {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                } else {
-                    Button("Sign In") {
-                        viewModel.signIn()
-                    }
-                }
-                Spacer()
+        Form {
+            TextField("Username", text: $viewModel.username, prompt: Text("Username"))
+                .autocapitalization(.none)
+                .keyboardType(.emailAddress)
+                .disableAutocorrection(true)
+            SecureField("Password", text: $viewModel.password, prompt: Text("Password"))
+            Button("Sign In") {
+                viewModel.signIn()
             }
-            .padding()
-            .frame(maxWidth: 400.0)
-            Spacer()
+            .buttonStyle(.borderedProminent)
         }
+        .textFieldStyle(.roundedBorder)
+        .disabled(viewModel.isSigningIn)
         .alert(isPresented: $viewModel.hasError) {
             Alert(
                 title: Text("Sign In Failed"),

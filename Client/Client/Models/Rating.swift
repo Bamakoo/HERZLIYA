@@ -11,5 +11,5 @@ struct Rating: Identifiable, Codable, Hashable, Equatable {
     let id: UUID?
     let userWhoRates: User
     let ratedUser: User
-    let rating: Float 
+    let rating: Float
 }

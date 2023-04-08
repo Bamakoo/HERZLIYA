@@ -7,7 +7,8 @@
 
 import Foundation
 import Security
-// TODO: use keychain to add the user token at login, get the token to login, 
+// TODO: use keychain to add the user token at login, get the token to login,
+// TODO: change password
 struct Keychain {
     enum KeychainError: Error {
         case noToken

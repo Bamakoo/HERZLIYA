@@ -47,7 +47,7 @@ final class BooksViewModel: ObservableObject {
         }
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethods.POST.rawValue
-        // TODO: fix token so it's not hard coded
+        // TODO: fix token so it's not hard coded with Keychain 
         let token = "wbj4h8R4YPh0AATndgk4eg=="
         request.setValue(("Bearer \(token)"), forHTTPHeaderField: HttpHeaders.authorization.rawValue)
         let data = Book(id: nil,
