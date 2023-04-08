@@ -22,12 +22,12 @@ enum Menu: Identifiable, CaseIterable {
     }
     var image: String {
         switch self {
-        case .friends: return "tree.fill"
-        case .booksByFavoriteAuthor: return "tree.fill"
-        case .likes: return "tree.fill"
-        case .myKart: return "tree.fill"
-        case .purchases: return "tree.fill"
-        case .soldBooks: return "tree.fill"
+        case .friends: return "magazine.fill"
+        case .booksByFavoriteAuthor: return "magazine.fill"
+        case .likes: return "magazine.fill"
+        case .myKart: return "magazine.fill"
+        case .purchases: return "magazine.fill"
+        case .soldBooks: return "magazine.fill"
         }
     }
 }

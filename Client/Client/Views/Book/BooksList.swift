@@ -6,7 +6,6 @@
 //
 // TODO: three tier NavigationSplitView
 // TODO: clean up all my TODOs
-// TODO: refactor enums
 // TODO: finish implementing search function
 import SwiftUI
 

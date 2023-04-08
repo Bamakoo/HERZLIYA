@@ -7,21 +7,23 @@
 
 import Foundation
 
-struct MenuNavigationItem: Identifiable, Hashable {
-    var id = UUID()
-    var title: String
-    var icon: String
-    var menu: MenuItem
-}
-
-var menuNavigationItems = [
-    MenuNavigationItem(title: "Log In", icon: "trophy.circle", menu: .logIn),
-    MenuNavigationItem(title: "Create an account", icon: "person.crop.circle.fill.badge.plus", menu: .createAccount),
-    MenuNavigationItem(title: "Forgot my password", icon: "bolt.circle.fill", menu: .forgottenPassword)
-]
-
-enum MenuItem: String {
+enum MenuItem: Identifiable, CaseIterable {
     case forgottenPassword
     case logIn
     case createAccount
+    var id: Self { self }
+    var title: String {
+        switch self {
+            case .forgottenPassword: return "Forgot my password"
+            case .logIn: return "Log in"
+            case .createAccount: return "Create Account"
+        }
+    }
+    var image: String {
+        switch self {
+        case .forgottenPassword: return "bolt.circle.fill"
+        case .logIn: return "trophy.circle"
+        case .createAccount: return "person.crop.circle.fill.badge.plus"
+        }
+    }
 }
