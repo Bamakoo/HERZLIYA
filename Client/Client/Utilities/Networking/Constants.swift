@@ -5,7 +5,7 @@
 //  Created by Emma Gaubert on 18/02/2023.
 //
 import Foundation
-
+// TODO: refactor so it's a struct with nested enum 
 enum Request {
     static let baseURL = "http://127.0.0.1:8080/"
 }

@@ -4,7 +4,6 @@
 //
 //  Created by Emma Gaubert on 18/02/2023.
 //
-// TODO: three tier NavigationSplitView
 // TODO: clean up all my TODOs
 // TODO: finish implementing search function
 import SwiftUI
@@ -29,8 +28,17 @@ struct BooksList: View {
                     BookRow(book: book)
                 }
             }
-            .navigationTitle(selectedBookGenre?.rawValue ?? "Books")
+            .navigationTitle(selectedBookGenre?.title ?? "Books")
             .listStyle(.grouped)
+            .toolbar { 
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        print("add a book")
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
         } detail: {
             if let book = selectedBook {
                 BookDetail(book: book)
@@ -40,7 +48,7 @@ struct BooksList: View {
         }
         .searchable(text: $searchText, prompt: "Search for your favorite book")
         .task {
-                await viewModel.fetchBooks()
+            await viewModel.fetchBooks()
         }
     }
 }

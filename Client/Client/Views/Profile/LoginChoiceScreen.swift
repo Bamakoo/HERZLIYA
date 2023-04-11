@@ -4,7 +4,7 @@
 //
 //  Created by Emma Gaubert on 06/04/2023.
 //
-
+// TODO: change password/profile 
 import SwiftUI
 
 struct LoginChoiceScreen: View {
