@@ -1,6 +1,8 @@
 import Fluent
 import Vapor
 // TODO: Perform Patch operations
+// TODO: Search books by category
+
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let unprotectedBooks = routes.grouped("books")
@@ -8,7 +10,7 @@ struct BookController: RouteCollection {
         let tokenProtectedBooks = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
         tokenProtectedBooks.post("books", use: create)
-        tokenProtectedBooks.put("books", use: update)
+        tokenProtectedBooks.patch("books", use: update)
         tokenProtectedBooks.group("books", ":bookID") { book in
             book.delete(use: delete)
         }
@@ -37,23 +39,39 @@ struct BookController: RouteCollection {
     }
     
     func update(req: Request) async throws -> Book {
-        let book = try req.content.decode(Book.self)
-        guard let bookFromDB =  try await Book.find(book.id, on: req.db) else {
+        let patchBook = try req.content.decode(PatchBook.self)
+        guard let book  =  try await Book.find(patchBook.id, on: req.db) else {
             throw Abort(.notFound)
         }
-        bookFromDB.id = book.id
-        bookFromDB.description = book.description
-        bookFromDB.state = book.state
-        bookFromDB.seller = book.seller
-        bookFromDB.buyer = book.buyer
-        bookFromDB.kart = book.kart
-        bookFromDB.status = book.status
-        bookFromDB.title = book.title
-        bookFromDB.price = book.price
-        bookFromDB.author = book.author
-        bookFromDB.genre = book.genre
-        try await bookFromDB.update(on: req.db)
-        return bookFromDB
+        if let buyerID = patchBook.buyerID {
+            book.$buyer.id = buyerID
+        }
+        if let kartID = patchBook.kartID {
+            book.$kart.id = kartID
+        }
+        if let title = patchBook.title {
+            book.title = title
+        }
+        if let description = patchBook.description {
+            book.description = description
+        }
+        if let state = patchBook.state {
+            book.state = state
+        }
+        if let status = patchBook.status {
+            book.status = status
+        }
+        if let price = patchBook.price {
+            book.price = price
+        }
+        if let author = patchBook.author {
+            book.author = author
+        }
+        if let genre = patchBook.genre {
+            book.genre = genre
+        }
+        try await book.update(on: req.db)
+        return book
     }
     func delete(req: Request) async throws -> HTTPStatus {
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {

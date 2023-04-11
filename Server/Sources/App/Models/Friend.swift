@@ -1,8 +1,25 @@
+//import Fluent
+//import Vapor
 //
-//  File.swift
-//  
+//final class Friend: Model, Content {
+//    static let schema = "friends"
+//    
+//    @ID(key: .id)
+//    var id: UUID?
+//    
+//    @Parent(key: "user_id")
+//    var user: User
+//    
+//    @Field(key: "friend")
+//    var friendedUser: Int
+//    
+//    init() { }
 //
-//  Created by Emma Gaubert on 07/04/2023.
-//
-
-import Foundation
+//    init(id: UUID? = nil,
+//         userID: User.IDValue,
+//         total: Int) {
+//        self.id = id
+//        self.$user.id = userID
+//        self.total = total
+//    }
+//}

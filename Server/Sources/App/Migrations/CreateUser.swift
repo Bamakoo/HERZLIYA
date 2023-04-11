@@ -1,5 +1,8 @@
 import Fluent
 // TODO: Create Friends table, run migrations
+// TODO: remove password_hash so it doesn't fall into the wrong hands
+// TODO: use siblings relations
+// TODO: use Group
 struct CreateUser: AsyncMigration {
     func prepare(on database: Database) async throws {
         try await database.schema("users")
