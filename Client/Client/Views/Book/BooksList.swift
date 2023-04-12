@@ -14,6 +14,8 @@ struct BooksList: View {
     @State private var selectedBook: Book?
     @State private var selectedBookGenre: BookGenre?
     @State private var searchText: String = ""
+    @State private var showSheet = false
+
     var body: some View {
         NavigationSplitView {
             List(bookGenres, selection: $selectedBookGenre) { genre in
@@ -30,12 +32,15 @@ struct BooksList: View {
             }
             .navigationTitle(selectedBookGenre?.title ?? "Books")
             .listStyle(.grouped)
-            .toolbar { 
+            .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        print("add a book")
+                        showSheet.toggle()
                     } label: {
                         Image(systemName: "plus")
+                    }
+                    .sheet(isPresented: $showSheet) {
+                        CreateBookView()
                     }
                 }
             }
