@@ -8,7 +8,7 @@ struct UserController: RouteCollection {
         let tokenProtectedUsers = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
         tokenProtectedUsers.get("users", use: index)
-        tokenProtectedUsers.put("users", use: update)
+        tokenProtectedUsers.patch("users", use: update)
         tokenProtectedUsers.group("users", ":userID") { user in
             user.delete(use: delete)
         }
@@ -38,21 +38,37 @@ struct UserController: RouteCollection {
     }
     
     func update(req: Request) async throws -> User {
-        let user = try req.content.decode(User.self)
+        let patchUser = try req.content.decode(PatchUser.self)
         
-        guard let userFromDB =  try await User.find(user.id, on: req.db) else {
+        guard let user =  try await User.find(patchUser.id, on: req.db) else {
             throw Abort(.notFound)
         }
-        userFromDB.username = user.username
-        userFromDB.passwordHash = user.passwordHash
-        userFromDB.email = user.email
-        userFromDB.favoriteBook = user.favoriteBook
-        userFromDB.country = user.country
-        userFromDB.city = user.city
-        userFromDB.favoriteAuthor = user.favoriteAuthor
+        if let username = patchUser.username {
+            user.username = username
+        }
+    
+        if let email = patchUser.email {
+            user.email = email
+        }
         
-        try await userFromDB.update(on: req.db)
-        return userFromDB
+        if let favoriteBook = patchUser.email {
+            user.favoriteBook = favoriteBook
+        }
+        
+        if let country = patchUser.country {
+            user.country = country
+        }
+        
+        if let city = patchUser.city {
+            user.city = city
+        }
+        
+        if let favoriteAuthor = patchUser.favoriteAuthor {
+            user.favoriteAuthor = favoriteAuthor
+        }
+
+        try await user.update(on: req.db)
+        return user
     }
 
     func delete(req: Request) async throws -> HTTPStatus {
