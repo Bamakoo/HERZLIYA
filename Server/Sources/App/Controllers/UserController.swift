@@ -51,7 +51,7 @@ struct UserController: RouteCollection {
             user.email = email
         }
         
-        if let favoriteBook = patchUser.email {
+        if let favoriteBook = patchUser.favoriteBook {
             user.favoriteBook = favoriteBook
         }
         
