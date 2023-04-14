@@ -15,7 +15,7 @@ struct BooksList: View {
     @State private var selectedBookGenre: BookGenre?
     @State private var searchText: String = ""
     @State private var showSheet = false
-
+    
     var body: some View {
         NavigationSplitView {
             List(bookGenres, selection: $selectedBookGenre) { genre in
@@ -32,6 +32,9 @@ struct BooksList: View {
             }
             .navigationTitle(selectedBookGenre?.title ?? "Books")
             .listStyle(.grouped)
+            .task {
+                await viewModel.fetchBooks()
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -52,8 +55,5 @@ struct BooksList: View {
             }
         }
         .searchable(text: $searchText, prompt: "Search for your favorite book")
-        .task {
-            await viewModel.fetchBooks()
-        }
     }
 }

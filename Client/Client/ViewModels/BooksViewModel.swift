@@ -6,7 +6,7 @@
 //
 
 import Foundation
-// TODO: PUT and DELETE operations
+// TODO: PATCH and DELETE operations
 final class BooksViewModel: ObservableObject {
     @Published var title = ""
     @Published var author = ""
@@ -14,7 +14,7 @@ final class BooksViewModel: ObservableObject {
     @Published var genre: BookGenre = .action
     @Published var state: BookState = .acceptable
     @Published var price = 0
-    @Published var seller: User = User.testUser
+//    @Published var seller: User = User.testUser
     @Published var status: BookStatus = .purchased
     @Published var books = [Book]()
     private let networkManager: BooksNetworkManager
@@ -48,7 +48,7 @@ final class BooksViewModel: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethods.POST.rawValue
         // TODO: fix token so it's not hard coded with Keychain 
-        let token = "wbj4h8R4YPh0AATndgk4eg=="
+        let token = "QUv/8OeYwXS/Zi0C9keFCQ=="
         request.setValue(("Bearer \(token)"), forHTTPHeaderField: HttpHeaders.authorization.rawValue)
         let data = Book(id: nil,
                         author: author,

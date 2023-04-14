@@ -9,16 +9,31 @@
 import Foundation
 
 final class Networking: HttpClient {
+    /// <#Description#>
+    /// - Parameter url: <#url description#>
+    /// - Returns: <#description#>
     func fetch<T: Codable>(url: URL) async throws -> [T] {
         let (data, response) = try await URLSession.shared.data(from: url)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw HttpError.badResponse
         }
-        guard let object = try? JSONDecoder().decode([T].self, from: data) else {
-            throw HttpError.errorDecodingData
+        guard let httpURLResponse = response as? HTTPURLResponse else {
+            throw HttpError.badResponse
         }
-        return object
+        if httpURLResponse.statusCode == 200 {
+            guard let object = try? JSONDecoder().decode([T].self, from: data) else {
+                throw HttpError.errorDecodingData
+            }
+            return object
+        } else if httpURLResponse.statusCode == 401 {
+            throw HttpError.unauthorized
+        } else {
+            throw HttpError.badResponse
+        }
     }
+    /// <#Description#>
+    /// - Parameter url: <#url description#>
+    /// - Returns: <#description#>
     func fetchSingleObject<T: Codable>(url: URL) async throws -> T {
         let (data, response) = try await URLSession.shared.data(from: url)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
@@ -29,6 +44,11 @@ final class Networking: HttpClient {
         }
         return object
     }
+    /// <#Description#>
+    /// - Parameters:
+    ///   - url: <#url description#>
+    ///   - object: <#object description#>
+    ///   - httpMethod: <#httpMethod description#>
     func sendData<T: Codable>(to url: URL, object: T, httpMethod: String) async throws {
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
@@ -40,6 +60,8 @@ final class Networking: HttpClient {
             throw HttpError.badResponse
         }
     }
+    /// <#Description#>
+    /// - Parameter url: <#url description#>
     func delete(url: URL) async throws {
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethods.DELETE.rawValue
@@ -48,6 +70,7 @@ final class Networking: HttpClient {
             throw HttpError.badResponse
         }
     }
+    // TODO: remove update data
     func updateData<T: Codable>(to url: URL, object: T, httpMethod: String ) async throws {
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod

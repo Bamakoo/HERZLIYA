@@ -17,7 +17,10 @@ struct CreateBookView: View {
                     .background(Color.white)
                 TextField("Author", text: $viewModel.author, prompt: Text("Author's Name"))
                     .background(Color.white)
-                TextField("BookPrice", value: $viewModel.price, format: .currency(code: "USD"), prompt: Text("Book's price"))
+                TextField("BookPrice",
+                          value: $viewModel.price,
+                          format: .currency(code: "USD"),
+                          prompt: Text("Book's price"))
                     .background(Color.white)
                     .keyboardType(.decimalPad)
             }

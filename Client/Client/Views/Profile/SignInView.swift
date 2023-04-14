@@ -5,7 +5,8 @@ import SwiftUI
 struct SignInView: View {
     
     @ObservedObject var viewModel = SignInViewModel()
-    
+    @State private var forgotMyPassword = false
+    @State private var createAnAccount = false
     var body: some View {
         Form {
             TextField("Username", text: $viewModel.username, prompt: Text("Username"))
@@ -17,6 +18,18 @@ struct SignInView: View {
                 viewModel.signIn()
             }
             .buttonStyle(.borderedProminent)
+            Button("Create an account"){
+                createAnAccount.toggle()
+            }
+            Button("Forgot my password"){
+                forgotMyPassword.toggle()
+            }
+        }
+        .sheet(isPresented: $forgotMyPassword) {
+            ForgotMyPasswordView()
+        }
+        .sheet(isPresented: $createAnAccount) {
+            CreateAccountView()
         }
         .textFieldStyle(.roundedBorder)
         .disabled(viewModel.isSigningIn)
