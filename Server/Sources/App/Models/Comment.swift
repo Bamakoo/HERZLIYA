@@ -18,12 +18,12 @@ final class Comment: Model, Content {
     var commentedOnBook: Book
     
     init() { }
-
+    
     init(id: UUID? = nil,
          comment: String,
          userWhoCommentedID: User.IDValue,
          commentedOnBookID: Book.IDValue
-        ) {
+    ) {
         self.id = id
         self.comment = comment
         self.$userWhoCommented.id = userWhoCommentedID

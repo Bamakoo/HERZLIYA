@@ -1,12 +1,27 @@
 import Fluent
 import Vapor
-
+// TODO: check all relationships SQL
+// TODO: test all endpoints
 enum BookGenre: String, Codable {
-    case fantasy, scienceFiction, action, mystery, horror, romance, realism, biography
+    case fantasy
+    case scienceFiction
+    case action
+    case mystery
+    case horror
+    case romance
+    case realism
+    case biography
 }
 
 enum BookState: String, Codable {
-    case horrendous, bad, okay, passable, acceptable, good, excellent, brandNew
+    case horrendous
+    case bad
+    case okay
+    case passable
+    case acceptable
+    case good
+    case excellent
+    case brandNew
 }
 
 enum BookStatus: String, Codable {
