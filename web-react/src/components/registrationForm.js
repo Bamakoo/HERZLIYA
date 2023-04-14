@@ -41,7 +41,7 @@ function RegistrationForm() {
     }
 
     const handleSubmit  = (e) => {
-        console.log(username,email,password,confirmPassword,favoriteBook,favoriteAuthor,city,country);
+       // console.log(username,email,password,confirmPassword,favoriteBook,favoriteAuthor,city,country);
 
       createUser({name : username, email : email, password : password, favoriteBook : favoriteBook, favoriteAuthor : favoriteAuthor, city : city, country : country})
       .then(response => {
