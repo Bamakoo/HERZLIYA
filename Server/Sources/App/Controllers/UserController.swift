@@ -14,8 +14,11 @@ struct UserController: RouteCollection {
         }
     }
 
-    func index(req: Request) async throws -> [User] {
-        try await User.query(on: req.db).all()
+    func index(req: Request) async throws -> [GetUser] {
+        let users = try await User.query(on: req.db).all()
+        return try users.map { user in
+            try GetUser(id: user.requireID(), username: user.username, favoriteBook: user.favoriteBook, country: user.country, city: user.city, favoriteAuthor: user.favoriteAuthor)
+        }
     }
 
     func create(req: Request) async throws -> User {

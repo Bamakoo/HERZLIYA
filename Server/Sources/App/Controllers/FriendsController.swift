@@ -1,8 +1,14 @@
-//
-//  File.swift
-//  
-//
-//  Created by Emma Gaubert on 15/04/2023.
-//
+import Fluent
+import Vapor
+// TODO: finish writing the controller for friends
 
-import Foundation
+struct FriendsController: RouteCollection {
+    func boot(routes: RoutesBuilder) throws {
+        let passwordProtected = routes.grouped(User.authenticator())
+            .grouped(UserToken.guardMiddleware())
+        passwordProtected.get("friends", use: index)
+    }
+        func index(req: Request) async throws -> [Friend] {
+            try await Friend.query(on: req.db).all()
+        }
+    }

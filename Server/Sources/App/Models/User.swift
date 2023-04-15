@@ -41,6 +41,9 @@ final class User: Authenticatable, Model, Content {
     var emittedRatings: [Rating]
     
     @Children(for: \.$user)
+    var usersFriends: [Friend]
+
+    @Children(for: \.$user)
     var likes: [Like]
     
     @Children(for: \.$userWhoCommented)

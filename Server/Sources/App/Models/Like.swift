@@ -7,7 +7,7 @@
 
 import Fluent
 import Vapor
-
+// TODO: fix Like + relationships
 final class Like: Model, Content {
     static let schema = "likes"
     

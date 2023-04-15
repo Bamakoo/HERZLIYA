@@ -1,12 +1,13 @@
 import Fluent
 import Vapor
-
+// TODO: query to get all of a specific books comments
+// TODO: browse all the comments I've left + books I've left them on
 struct CommentController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let tokenProtectedComments = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
         tokenProtectedComments.get("comments", use: index)
-        tokenProtectedComments.put("comments", use: update)
+        tokenProtectedComments.patch("comments", use: update)
         tokenProtectedComments.post("comments", use: create)
         tokenProtectedComments.group("comments", ":commentID") { comment in
             comment.delete(use: delete)
@@ -24,14 +25,24 @@ struct CommentController: RouteCollection {
     }
     
     func update(req: Request) async throws -> Comment {
-        let comment = try req.content.decode(Comment.self)
+        let patchComment = try req.content.decode(PatchComment.self)
         
-        guard let commentFromDB =  try await Comment.find(comment.id, on: req.db) else {
+        guard let commentFromDB =  try await Comment.find(patchComment.id, on: req.db) else {
             throw Abort(.notFound)
         }
         
-        commentFromDB.comment = comment.comment
-
+        if let comment = patchComment.comment {
+            commentFromDB.comment = comment
+        }
+        
+        if let userID = patchComment.userID {
+            commentFromDB.$userWhoCommented.id = userID
+        }
+        
+        if let bookID = patchComment.bookID {
+            commentFromDB.$commentedOnBook.id = bookID
+        }
+        
         try await commentFromDB.update(on: req.db)
         return commentFromDB
     }

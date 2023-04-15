@@ -25,7 +25,10 @@ enum BookState: String, Codable {
 }
 
 enum BookStatus: String, Codable {
-    case available, purchased, inTransit, delivered
+    case available
+    case purchased
+    case inTransit
+    case delivered
 }
 
 final class Book: Model, Content {
@@ -33,7 +36,7 @@ final class Book: Model, Content {
     
     @ID(key: .id)
     var id: UUID?
-
+    
     @Field(key: "title")
     var title: String
     
@@ -72,7 +75,7 @@ final class Book: Model, Content {
     
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?
-
+    
     @Timestamp(key: "updated_at", on: .update)
     var updatedAt: Date?
     
@@ -80,7 +83,7 @@ final class Book: Model, Content {
     var deletedAt: Date?
     
     init() { }
-
+    
     init(id: UUID? = nil,
          title: String,
          author: String,

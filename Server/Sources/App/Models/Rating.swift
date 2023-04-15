@@ -7,7 +7,7 @@
 
 import Fluent
 import Vapor
-
+// TODO: fix the relationship one to many or many to many?
 final class Rating: Model, Content {
     static let schema = "ratings"
     

@@ -11,8 +11,5 @@ extension User {
         var country: String
         var city: String
         var favoriteAuthor: String
-        var createdAt: Date?
-        var updatedAt: Date?
-        var deletedAt: Date?
     }
 }

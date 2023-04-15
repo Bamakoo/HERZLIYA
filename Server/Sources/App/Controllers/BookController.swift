@@ -1,7 +1,8 @@
 import Fluent
 import Vapor
-// TODO: Perform Patch operations
+// TODO: Perform Patch operations on all tables
 // TODO: Search books by category
+// TODO: exclude books I'm currently selling from the list of books I could purchase
 
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
@@ -21,16 +22,18 @@ struct BookController: RouteCollection {
             searchBookByGenre.get(use: categorySearchHandler)
         }
     }
-    func searchHandler(req: Request) async throws -> [Book] {
+    func searchHandler(req: Request) async throws -> [GetBook] {
         guard let searchTerm = req.parameters.get("search") else {
             throw Abort(.badRequest)
         }
         let books = try await Book.query(on: req.db).group(.or) { group in
             group.filter(\.$title =~ searchTerm).filter(\.$author =~ searchTerm)}
             .all()
-        return books
+        return try books.map { book in
+            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price)
+        }
     }
-    func categorySearchHandler(req: Request) async throws -> [Book] {
+    func categorySearchHandler(req: Request) async throws -> [GetBook] {
         guard let searchGenre = req.parameters.get("genre"),
               let realBookGenre = BookGenre(rawValue: searchGenre)
         else {
@@ -40,7 +43,9 @@ struct BookController: RouteCollection {
         let books = try await Book.query(on: req.db)
             .filter(\.$genre == realBookGenre)
             .all()
-        return books
+        return try books.map { book in
+            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price)
+        }
     }
     func index(req: Request) async throws -> [GetBook] {
         let books = try await Book.query(on: req.db).all()
@@ -57,7 +62,7 @@ struct BookController: RouteCollection {
     }
     
     func update(req: Request) async throws -> Book {
-        // TODO: make it so that a user can't
+        // TODO: make it so that a user can't change a book if it's token doesn't belong to the user who sold the book
         let patchBook = try req.content.decode(PatchBook.self)
         guard let book  =  try await Book.find(patchBook.id, on: req.db) else {
             throw Abort(.notFound)
