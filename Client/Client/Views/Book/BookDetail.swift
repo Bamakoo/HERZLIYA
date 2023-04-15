@@ -32,7 +32,6 @@ struct BookDetail: View {
         } label: {
             Text("Add to kart")
         }
-        
         .navigationBarTitle(book.title, displayMode: .inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

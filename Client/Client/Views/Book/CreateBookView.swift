@@ -7,12 +7,12 @@
 
 import Foundation
 import SwiftUI
-
+// TODO: style form with headers and footers for Sections
 struct CreateBookView: View {
     @ObservedObject var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     var body: some View {
         Form {
-            Section("Title & author") {
+            Section {
                 TextField("BookTitle", text: $viewModel.title, prompt: Text("Book's title"))
                     .background(Color.white)
                 TextField("Author", text: $viewModel.author, prompt: Text("Author's Name"))
@@ -21,9 +21,16 @@ struct CreateBookView: View {
                           value: $viewModel.price,
                           format: .currency(code: "USD"),
                           prompt: Text("Book's price"))
-                    .background(Color.white)
-                    .keyboardType(.decimalPad)
+                .background(Color.white)
+                .keyboardType(.decimalPad)
             }
+        header: {
+            Text("Author, Title & price")
+                .foregroundColor(.black)
+        } footer: {
+            Text("Think long and hard about price")
+                .foregroundColor(.black)
+        }
             Section("Books genre and state") {
                 Picker("State", selection: $viewModel.state) {
                     ForEach(BookState.allCases) { state in

@@ -5,7 +5,9 @@
 //  Created by Emma Gaubert on 18/02/2023.
 //
 // TODO: clean up all my TODOs
-// TODO: finish implementing search function
+// TODO: finish implementing search function for the NavigationSplitView
+// TODO: refactor so there are three views
+// TODO: call function with specific genre to filter for
 import SwiftUI
 
 struct BooksList: View {
@@ -15,7 +17,6 @@ struct BooksList: View {
     @State private var selectedBookGenre: BookGenre?
     @State private var searchText: String = ""
     @State private var showSheet = false
-    
     var body: some View {
         NavigationSplitView {
             List(bookGenres, selection: $selectedBookGenre) { genre in
