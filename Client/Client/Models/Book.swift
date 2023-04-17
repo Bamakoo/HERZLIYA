@@ -76,3 +76,11 @@ struct Book: Identifiable, Codable, Hashable, Equatable {
     let updatedAt: Date?
     let deletedAt: Date?
 }
+
+struct GetBook: Identifiable, Codable, Hashable, Equatable {
+    var id: UUID?
+    var title: String
+    var author: String
+    var price: Int
+    var state: BookState
+}

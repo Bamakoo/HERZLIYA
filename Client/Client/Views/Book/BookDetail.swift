@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct BookDetail: View {
-    var book: Book
+    var book: GetBook
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     var body: some View {
         TextField("BookTitle", text: $viewModel.title, prompt: Text(book.title).bold())
@@ -20,7 +20,7 @@ struct BookDetail: View {
             .background(Color.white)
         Button {
             Task {
-                //                    try await viewModel.updateBook()
+                print("update book with new seller ID")
             }
         } label: {
             Text("Purchase book \(book.title)")

@@ -26,6 +26,7 @@ enum HttpError: Error {
     case badURL
     case badResponse
     case errorDecodingData
+    case internalServerError
     case unauthorized
     case requestFailed(description: String)
     case invalidData
@@ -51,7 +52,6 @@ enum HttpError: Error {
 protocol HttpClient {
     func fetch<T: Codable>(url: URL) async throws -> [T]
     func fetchSingleObject<T: Codable>(url: URL) async throws -> T
-    func sendData<T: Codable>(to url: URL, object: T, httpMethod: String) async throws
+    func sendData<T: Codable>(to url: URL, object: T, httpMethod: String) async throws -> T
     func delete(url: URL) async throws
-    func updateData<T: Codable>(to url: URL, object: T, httpMethod: String ) async throws
 }
