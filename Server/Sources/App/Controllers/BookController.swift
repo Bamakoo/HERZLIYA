@@ -3,11 +3,15 @@ import Vapor
 // TODO: Perform Patch operations on all tables
 // TODO: Search books by category
 // TODO: exclude books I'm currently selling from the list of books I could purchase
+// TODO: when a book status is purchased change status from available to purchased
 
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let unprotectedBooks = routes.grouped("books")
         unprotectedBooks.get(use: index)
+        let unprotectedCategorySearch = routes.grouped("search", "books", "by-category", ":genre")
+    
+        unprotectedCategorySearch.get(use: categorySearchHandler)
         let tokenProtectedBooks = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
         tokenProtectedBooks.post("books", use: create)
@@ -18,47 +22,49 @@ struct BookController: RouteCollection {
         tokenProtectedBooks.group("search", "books", ":search") { bookSearch in
             bookSearch.get(use: searchHandler)
         }
-        tokenProtectedBooks.group("search", "books", "by-category", ":genre") { searchBookByGenre in
-            searchBookByGenre.get(use: categorySearchHandler)
-        }
     }
+
     func searchHandler(req: Request) async throws -> [GetBook] {
         guard let searchTerm = req.parameters.get("search") else {
             throw Abort(.badRequest)
         }
         let books = try await Book.query(on: req.db).group(.or) { group in
-            group.filter(\.$title =~ searchTerm).filter(\.$author =~ searchTerm)}
+            group.filter(\.$title =~ searchTerm).filter(\.$author =~ searchTerm)
+        }
+            .filter(\.$status == .available)
             .all()
         return try books.map { book in
-            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price)
+            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
         }
     }
     func categorySearchHandler(req: Request) async throws -> [GetBook] {
-        guard let searchGenre = req.parameters.get("genre"),
-              let realBookGenre = BookGenre(rawValue: searchGenre)
+        guard let realBookGenre = BookGenre(rawValue: req.parameters.get("genre") ?? "")
         else {
             throw Abort(.badRequest)
         }
-        
-        let books = try await Book.query(on: req.db)
-            .filter(\.$genre == realBookGenre)
-            .all()
+        let books = try await Book.query(on: req.db).group(.and) { group in
+            group.filter(\.$genre == realBookGenre).filter(\.$status == .available)
+        } .all()
         return try books.map { book in
-            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price)
+            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
         }
     }
     func index(req: Request) async throws -> [GetBook] {
         let books = try await Book.query(on: req.db).all()
         return try books.map { book in
-            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price)
+            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
         }
     }
     
-    func create(req: Request) async throws -> Book {
+    func create(req: Request) async throws -> ClientResponse {
         try Book.validate(content: req)
         let book = try req.content.decode(Book.self)
         try await book.save(on: req.db)
-        return book
+        guard let data = try? JSONEncoder().encode(book) else {
+            return ClientResponse(status: .internalServerError, headers: [:], body: nil)
+        }
+        let byteBuffer = ByteBuffer(data: data)
+        return ClientResponse(status: .created, headers: [:], body: byteBuffer)
     }
     
     func update(req: Request) async throws -> Book {

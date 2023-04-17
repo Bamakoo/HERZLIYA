@@ -13,4 +13,5 @@ struct GetBook: Content {
     var title: String
     var author: String
     var price: Int
+    var state: BookState
 }
