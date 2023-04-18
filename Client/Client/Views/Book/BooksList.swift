@@ -6,10 +6,10 @@
 //
 // TODO: clean up all my TODOs
 // TODO: finish implementing search function for the NavigationSplitView
-// TODO: refactor so there are three views
 // TODO: refactor so there are no more @State private var
 // TODO: call function with specific genre to filter for
 // TODO: filter by state like donut app
+// TODO: do some UIKit so show that I can do some UIKit
 import SwiftUI
 
 struct BooksList: View {

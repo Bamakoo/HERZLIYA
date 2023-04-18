@@ -9,20 +9,16 @@ final class Kart: Model, Content {
     
     @Parent(key: "user_id")
     var user: User
-
-    @Children(for: \.$kart)
-    var books: [Book]
     
-    @Field(key: "total")
-    var total: Int
+    @Siblings(through: KartBook.self, from: \.$kart, to: \.$book)
+    public var books: [Book]
     
     init() { }
 
     init(id: UUID? = nil,
-         userID: User.IDValue,
-         total: Int) {
+         userID: User.IDValue
+         ) {
         self.id = id
         self.$user.id = userID
-        self.total = total
     }
 }

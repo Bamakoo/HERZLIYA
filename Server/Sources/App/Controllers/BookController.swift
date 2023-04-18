@@ -1,9 +1,11 @@
 import Fluent
 import Vapor
+
 // TODO: Perform Patch operations on all tables
 // TODO: Search books by category
 // TODO: exclude books I'm currently selling from the list of books I could purchase
 // TODO: when a book status is purchased change status from available to purchased
+// TODO: ask team wether operations should be supported on a particular book w/ :bookID
 
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {

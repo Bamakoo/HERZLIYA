@@ -7,18 +7,17 @@
 
 import Fluent
 import Vapor
-// TODO: fix the relationship one to many or many to many?
-final class Rating: Model, Content {
-    static let schema = "ratings"
+final class UserUser: Model, Content {
+    static let schema = "user"
     
     @ID(key: .id)
     var id: UUID?
     
-    @Parent(key: "user_who_rates")
-    var userWhoRates: User
+    @Parent(key: "user_id")
+    var user: User
     
-    @Parent(key: "rated_user")
-    var ratedUser: User
+    @Parent(key: "user_id")
+    var user: User
     
     @Field(key: "rating")
     var rating: Float

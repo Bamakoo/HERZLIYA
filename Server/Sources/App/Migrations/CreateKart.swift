@@ -5,7 +5,6 @@ struct CreateKart: AsyncMigration {
         try await database.schema("karts")
             .id()
             .field("user_id", .uuid, .references("users", "id"))
-            .field("total", .int, .required)
             .create()
     }
 

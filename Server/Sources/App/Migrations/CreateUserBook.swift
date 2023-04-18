@@ -1,11 +1,12 @@
 import Fluent
 
-struct CreateLike: AsyncMigration {
+struct CreateUserBook: AsyncMigration {
     func prepare(on database: Database) async throws {
         try await database.schema("likes")
             .id()
-            .field("user", .uuid, .references("users", "id"))
-            .field("liked_book", .uuid, .references("books", "id"))
+            .field("user_id", .uuid, .references("users", "id"))
+            .field("book_id", .uuid, .references("books", "id"))
+            .unique(on: "user_id", "book_id")
             .create()
     }
     func revert(on database: Database) async throws {

@@ -22,10 +22,14 @@ final class BooksNetworkManager {
         return books
     }
     
-    func fetchBooksByCategory(_ forCategory: BookGenre) async throws -> [GetBook] {
-        let url = URL(string: Request.baseURL + Endpoint.bookSearchByCategory + forCategory.rawValue)!
-        print(url)
-        let books: [GetBook] = try await httpClient.fetch(url: url)
+    func fetchBooksByCategory(_ forCategory: BookGenre?) async throws -> [GetBook] {
+        guard let category = forCategory else {
+            print("unable to force unwrap category")
+        }
+        guard let url = URL(string: Request.baseURL + Endpoint.bookSearchByCategory + "\(category)") else {
+            print("unable to create url")
+        }
+ø        let books: [GetBook] = try await httpClient.fetch(url: url)
         return books
     }
     

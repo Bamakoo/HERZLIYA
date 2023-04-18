@@ -8,25 +8,26 @@
 import Fluent
 import Vapor
 // TODO: fix Like + relationships
+/// Pivot table that stores likes
 final class Like: Model, Content {
     static let schema = "likes"
     
     @ID(key: .id)
     var id: UUID?
     
-    @Parent(key: "user")
+    @Parent(key: "user_id")
     var user: User
     
-    @Parent(key: "liked_book")
-    var likedBook: Book
+    @Parent(key: "book_id")
+    var book: Book
     
     init() {}
     
     init(id: UUID? = nil,
-         userID: User.IDValue,
-         likedBookID: Book.IDValue) {
+         user: User,
+         book: Book) throws {
         self.id = id
-        self.$user.id = userID
-        self.$likedBook.id = likedBookID
+        self.$user.id = try user.requireID()
+        self.$book.id = try book.requireID()
     }
 }

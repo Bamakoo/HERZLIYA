@@ -31,7 +31,7 @@ final class BooksViewModel: ObservableObject {
     }
     @MainActor
 
-    func fetchBooksByCategory(_ forCategory: BookGenre) async {
+    func fetchBooksByCategory(_ forCategory: BookGenre?) async {
         do {
             books = try await networkManager.fetchBooksByCategory(forCategory)
         } catch {

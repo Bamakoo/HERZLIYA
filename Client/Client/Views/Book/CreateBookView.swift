@@ -31,7 +31,7 @@ struct CreateBookView: View {
             Text("Think long and hard about the price")
                 .foregroundColor(.black)
         }
-            Section("Books genre and state") {
+            Section {
                 Picker("State", selection: $viewModel.state) {
                     ForEach(BookState.allCases) { state in
                         Text(state.rawValue)
@@ -44,6 +44,13 @@ struct CreateBookView: View {
                 }
                 TextField("Description", text: $viewModel.description, prompt: Text("Description"))
             }
+        header: {
+            Text("Books genre and state")
+                .foregroundColor(.black)
+        } footer: {
+            Text("Think long and hard about the price")
+                .foregroundColor(.black)
+        }
             Button {
                 Task {
                     try await viewModel.createBook()

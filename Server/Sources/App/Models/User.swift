@@ -43,8 +43,8 @@ final class User: Authenticatable, Model, Content {
     @Children(for: \.$user)
     var usersFriends: [Friend]
 
-    @Children(for: \.$user)
-    var likes: [Like]
+    @Siblings(through: Like.self, from: \.$user, to: \.$book)
+    public var books: [Book]
     
     @Children(for: \.$userWhoCommented)
     var comments: [Comment]
