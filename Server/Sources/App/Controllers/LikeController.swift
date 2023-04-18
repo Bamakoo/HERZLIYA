@@ -30,9 +30,7 @@ struct LikeController: RouteCollection {
             throw Abort(.notFound)
         }
         
-        likeFromDB.id = like.id
         likeFromDB.user = like.user
-        likeFromDB.likedBook = like.likedBook
 
         try await likeFromDB.update(on: req.db)
         return likeFromDB

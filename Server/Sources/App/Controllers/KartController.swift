@@ -1,6 +1,7 @@
 import Fluent
 import Vapor
 // TODO: get a single users' kart
+// TODO: understand how to query many to many relationships, build the controllers for the tables
 struct KartController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let tokenProtectedKarts = routes.grouped(UserToken.authenticator())
@@ -32,7 +33,6 @@ struct KartController: RouteCollection {
         
         kartFromDB.id = kart.id
         kartFromDB.user = kart.user
-        kartFromDB.total = kart.total
         
 
         try await kartFromDB.update(on: req.db)
