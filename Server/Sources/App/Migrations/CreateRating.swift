@@ -7,6 +7,7 @@ struct CreateRating: AsyncMigration {
             .field("user_who_rates", .uuid, .references("users", "id"))
             .field("rated_user", .uuid, .references("users", "id"))
             .field("rating", .float, .required)
+            .unique(on: "user_who_rates", "rated_user")
             .create()
     }
     func revert(on database: Database) async throws {

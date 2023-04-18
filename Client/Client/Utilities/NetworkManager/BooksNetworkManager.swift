@@ -29,7 +29,7 @@ final class BooksNetworkManager {
         guard let url = URL(string: Request.baseURL + Endpoint.bookSearchByCategory + "\(category)") else {
             print("unable to create url")
         }
-ø        let books: [GetBook] = try await httpClient.fetch(url: url)
+        let books: [GetBook] = try await httpClient.fetch(url: url)
         return books
     }
     

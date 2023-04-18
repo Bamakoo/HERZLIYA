@@ -10,12 +10,17 @@ final class Friend: Model, Content {
     @Parent(key: "user_id")
     var user: User
     
+    @Parent(key: "users_friend_id")
+    var usersFriend: User
+    
     init() { }
 
     init(id: UUID? = nil,
-         userID: User.IDValue
-         ) {
+         user: User,
+         usersFriend: User
+         ) throws {
         self.id = id
-        self.$user.id = userID
+        self.$user.id = try user.requireID()
+        self.$usersFriend.id = try usersFriend.requireID()
     }
 }
