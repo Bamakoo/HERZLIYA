@@ -26,6 +26,6 @@ public func configure(_ app: Application) throws {
     app.migrations.add(CreateComment())
     app.migrations.add(CreateUserToken())
     app.migrations.add(CreateFriends())
-    // register routes
+    app.migrations.add(CreateKartBook())
     try routes(app)
 }

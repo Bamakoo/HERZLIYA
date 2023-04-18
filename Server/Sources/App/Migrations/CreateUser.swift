@@ -1,6 +1,6 @@
 import Fluent
 // TODO: Create Friends table, run migrations
-// TODO: remove password_hash so it doesn't fall into the wrong hands
+// TODO: Add DD SDK to protect the App
 // TODO: use siblings relations
 // TODO: use Group
 struct CreateUser: AsyncMigration {
@@ -17,8 +17,7 @@ struct CreateUser: AsyncMigration {
             .field("created_at", .date)
             .field("updated_at", .date)
             .field("deleted_at", .date)
-            .unique(on: "email")
-            .unique(on: "username")
+            .unique(on: "email", "username")
             .create()
     }
 

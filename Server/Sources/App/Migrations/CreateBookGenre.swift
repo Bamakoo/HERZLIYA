@@ -11,7 +11,7 @@ struct CreateBookGenre: AsyncMigration {
     func prepare(on database: Database) async throws {
         try await database.enum("book_genre")
             .case("fantasy")
-            .case("science_fiction")
+            .case("scienceFiction")
             .case("action")
             .case("mystery")
             .case("horror")

@@ -67,8 +67,8 @@ final class Book: Model, Content {
     @Enum(key: "book_status")
     var status: BookStatus
     
-    @Children(for: \.$commentedOnBook)
-    var commentsOnBooks: [Comment]
+    @Siblings(through: Comment.self, from: \.$commentedOnBook, to: \.$userWhoCommented)
+    public var userWhoCommented: [User]
     
     @Siblings(through: Like.self, from: \.$book, to: \.$user)
     public var users: [User]

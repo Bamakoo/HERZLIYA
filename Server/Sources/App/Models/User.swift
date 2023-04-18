@@ -49,9 +49,9 @@ final class User: Authenticatable, Model, Content {
     @Siblings(through: Like.self, from: \.$user, to: \.$book)
     public var books: [Book]
     
-    @Children(for: \.$userWhoCommented)
-    var comments: [Comment]
-    
+    @Siblings(through: Comment.self, from: \.$userWhoCommented, to: \.$commentedOnBook)
+    public var commentedOnBook: [Book]
+
     @Children(for: \.$user)
     var tokens: [UserToken]
     
