@@ -12,7 +12,7 @@ struct BookController: RouteCollection {
         let unprotectedBooks = routes.grouped("books")
         unprotectedBooks.get(use: index)
         let unprotectedCategorySearch = routes.grouped("search", "books", "by-category", ":genre")
-    
+        
         unprotectedCategorySearch.get(use: categorySearchHandler)
         let tokenProtectedBooks = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
@@ -25,7 +25,7 @@ struct BookController: RouteCollection {
             bookSearch.get(use: searchHandler)
         }
     }
-
+    
     func searchHandler(req: Request) async throws -> [GetBook] {
         guard let searchTerm = req.parameters.get("search") else {
             throw Abort(.badRequest)
@@ -45,16 +45,27 @@ struct BookController: RouteCollection {
             throw Abort(.badRequest)
         }
         let books = try await Book.query(on: req.db).group(.and) { group in
-            group.filter(\.$genre == realBookGenre).filter(\.$status == .available)
+            group.filter(\.$genre == realBookGenre)
+                .filter(\.$status == .available)
         } .all()
         return try books.map { book in
             try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
         }
     }
+    
     func index(req: Request) async throws -> [GetBook] {
-        let books = try await Book.query(on: req.db).all()
-        return try books.map { book in
-            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+        do {
+            let search = try req.query.decode(Book.QueryFilter.self)
+            print(search)
+            let books = try await Book.query(on: req.db).group(.or) { group in
+                group.filter(\.$genre == search.genre)
+                    .filter(\.$status == .available)
+            } .all()
+            return try books.map { book in
+                try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+            }
+        } catch {
+            throw Abort(.badRequest)
         }
     }
     
@@ -77,9 +88,6 @@ struct BookController: RouteCollection {
         }
         if let buyerID = patchBook.buyerID {
             book.$buyer.id = buyerID
-        }
-        if let kartID = patchBook.kartID {
-            book.$kart.id = kartID
         }
         if let title = patchBook.title {
             book.title = title

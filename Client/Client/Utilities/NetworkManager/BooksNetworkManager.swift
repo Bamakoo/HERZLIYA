@@ -26,9 +26,12 @@ final class BooksNetworkManager {
         guard let category = forCategory else {
             print("unable to force unwrap category")
         }
+        print(category)
+        print(forCategory)
         guard let url = URL(string: Request.baseURL + Endpoint.bookSearchByCategory + "\(category)") else {
             print("unable to create url")
         }
+        print(url)
         let books: [GetBook] = try await httpClient.fetch(url: url)
         return books
     }
@@ -63,8 +66,8 @@ final class BooksNetworkManager {
                            updatedAt: nil,
                            deletedAt: nil)
         _ = try await httpClient.sendData(to: url,
-                                                        object: newBook,
-                                                        httpMethod: HttpMethods.POST.rawValue)
+                                          object: newBook,
+                                          httpMethod: HttpMethods.POST.rawValue)
     }
     func updateBook(id: UUID, author: String, description: String, genre: BookGenre, state: BookState, seller: User, buyer: User?, status: BookStatus, title: String, price: Int) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.books) else {
@@ -89,6 +92,7 @@ final class BooksNetworkManager {
                                         object: updatedBook,
                                         httpMethod: HttpMethods.PUT.rawValue)
     }
+    
     func deleteBook(id: UUID) async throws {
         let url = URL(string: Request.baseURL + Endpoint.books + "/\(id)")!
         try await httpClient.delete(url: url)

@@ -31,9 +31,9 @@ final class Networking: HttpClient {
             throw HttpError.badResponse
         }
     }
-    /// <#Description#>
-    /// - Parameter url: <#url description#>
-    /// - Returns: <#description#>
+    /// Get request to return a single instance of an object
+    /// - Parameter url: the URL to get the object
+    /// - Returns: the request object
     func fetchSingleObject<T: Codable>(url: URL) async throws -> T {
         let (data, response) = try await URLSession.shared.data(from: url)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
@@ -44,7 +44,7 @@ final class Networking: HttpClient {
         }
         return object
     }
-    /// Generic function to send data to the API.
+    /// Generic function to send data to the API ie perform PUT, PATCH and POST requests
     /// - Parameters:
     ///   - url: the specific URL to send data to the server
     ///   - object: the object sent to the server
@@ -75,8 +75,8 @@ final class Networking: HttpClient {
             throw HttpError.badResponse
         }
     }
-    /// <#Description#>
-    /// - Parameter url: <#url description#>
+    /// A generic function, used to delete a single Object in the Table
+    /// - Parameter url: the URL to send the delete request to, this also contains the identifier for the object we want to delete
     func delete(url: URL) async throws {
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethods.DELETE.rawValue

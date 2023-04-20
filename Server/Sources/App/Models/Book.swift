@@ -1,8 +1,7 @@
 import Fluent
 import Vapor
-// TODO: check all relationships SQL
 // TODO: test all endpoints
-enum BookGenre: String, Codable {
+enum BookGenre: String, Codable, CaseIterable {
     case fantasy
     case scienceFiction
     case action
@@ -61,9 +60,6 @@ final class Book: Model, Content {
     @OptionalParent(key: "buyer_id")
     var buyer: User?
     
-    @OptionalParent(key: "kart_id")
-    var kart: Kart?
-    
     @Enum(key: "book_status")
     var status: BookStatus
     
@@ -96,7 +92,6 @@ final class Book: Model, Content {
          price: Int,
          sellerID: User.IDValue,
          buyerID: User.IDValue?,
-         kartID: Kart.IDValue?,
          status: BookStatus,
          createdAt: Date? = nil,
          updatedAt: Date? = nil,
@@ -108,7 +103,6 @@ final class Book: Model, Content {
         self.genre = genre
         self.state = state
         self.price = price
-        self.$kart.id = kartID ?? UUID()
         self.$seller.id = sellerID
         self.$buyer.id = buyerID
         self.status = status
