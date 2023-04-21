@@ -16,6 +16,7 @@ struct BookController: RouteCollection {
         unprotectedCategorySearch.get(use: categorySearchHandler)
         let tokenProtectedBooks = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
+        tokenProtectedBooks.get("book", ":userID", use: getUserBoughtBooks)
         tokenProtectedBooks.post("books", use: create)
         tokenProtectedBooks.patch("books", use: update)
         tokenProtectedBooks.group("books", ":bookID") { book in
@@ -26,6 +27,13 @@ struct BookController: RouteCollection {
         tokenProtectedBooks.group("search", "books", ":search") { bookSearch in
             bookSearch.get(use: searchHandler)
         }
+    }
+    
+    func getUserBoughtBooks(req: Request) async throws -> [Book] {
+        guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
+            throw Abort(.notFound, reason: "unable to get the user ID for the baught books")
+        }
+        return try await user.$baughtBooks.get(on: req.db)
     }
     
     func getAParticularBook(req: Request) async throws -> Book {
