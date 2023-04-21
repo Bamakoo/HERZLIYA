@@ -45,14 +45,14 @@ final class BooksViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    @MainActor
-    func createBook() async throws {
-        do {
-            networkManager.createBook(id: <#T##UUID?#>, author: <#T##String#>, description: <#T##String#>, genre: <#T##BookGenre#>, state: <#T##BookState#>, seller: <#T##User#>, status: <#T##BookStatus#>, title: <#T##String#>, price: <#T##Int#>)
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
+//    @MainActor
+//    func createBook() async throws {
+//        do {
+//            networkManager.createBook(id: <#T##UUID?#>, author: <#T##String#>, description: <#T##String#>, genre: <#T##BookGenre#>, state: <#T##BookState#>, seller: <#T##User#>, status: <#T##BookStatus#>, title: <#T##String#>, price: <#T##Int#>)
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//    }
     
     
 //        guard !title.isEmpty && !author.isEmpty else {

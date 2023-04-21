@@ -24,11 +24,13 @@ final class BooksNetworkManager {
     
     func fetchBooksByCategory(_ forCategory: BookGenre?) async throws -> [GetBook] {
         guard let category = forCategory else {
+            throw HttpError.badURL
             print("unable to force unwrap category")
         }
         print(category)
         print(forCategory)
         guard let url = URL(string: Request.baseURL + Endpoint.bookSearchByCategory + "\(category)") else {
+            throw HttpError.badURL
             print("unable to create url")
         }
         print(url)

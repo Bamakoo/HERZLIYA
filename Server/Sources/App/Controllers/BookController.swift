@@ -6,24 +6,34 @@ import Vapor
 // TODO: exclude books I'm currently selling from the list of books I could purchase
 // TODO: when a book status is purchased change status from available to purchased
 // TODO: ask team wether operations should be supported on a particular book w/ :bookID
+// TODO: refactor with routes.grouped("api", "acronyms")
 
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let unprotectedBooks = routes.grouped("books")
         unprotectedBooks.get(use: index)
         let unprotectedCategorySearch = routes.grouped("search", "books", "by-category", ":genre")
-        
         unprotectedCategorySearch.get(use: categorySearchHandler)
         let tokenProtectedBooks = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
         tokenProtectedBooks.post("books", use: create)
         tokenProtectedBooks.patch("books", use: update)
         tokenProtectedBooks.group("books", ":bookID") { book in
+            book.get(use: getAParticularBook)
+            book.patch(use: update)
             book.delete(use: delete)
         }
         tokenProtectedBooks.group("search", "books", ":search") { bookSearch in
             bookSearch.get(use: searchHandler)
         }
+    }
+    
+    func getAParticularBook(req: Request) async throws -> Book {
+        guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
+            print("unable to delete book")
+            throw Abort(.notFound)
+        }
+        return book
     }
     
     func searchHandler(req: Request) async throws -> [GetBook] {
@@ -72,7 +82,7 @@ struct BookController: RouteCollection {
                 if let price = search.price {
                     group.filter(\.$price == price)
                 }
-                    group.filter(\.$status == .available)
+                group.filter(\.$status == .available)
             } .all()
             return try books.map { book in
                 try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
@@ -84,9 +94,18 @@ struct BookController: RouteCollection {
     
     func create(req: Request) async throws -> ClientResponse {
         try Book.validate(content: req)
-        let book = try req.content.decode(Book.self)
-        try await book.save(on: req.db)
-        guard let data = try? JSONEncoder().encode(book) else {
+        let book = try req.content.decode(CreateBookData.self)
+        let realBook = Book(title: book.title,
+                                author: book.author,
+                                description: book.description,
+                                genre: book.genre,
+                                state: book.state,
+                                price: book.price,
+                                sellerID: book.sellerID,
+                                buyerID: book.buyerID,
+                                status: book.status)
+        try await realBook.save(on: req.db)
+        guard let data = try? JSONEncoder().encode(realBook) else {
             return ClientResponse(status: .internalServerError, headers: [:], body: nil)
         }
         let byteBuffer = ByteBuffer(data: data)
