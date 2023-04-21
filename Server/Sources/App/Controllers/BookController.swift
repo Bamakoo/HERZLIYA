@@ -56,10 +56,23 @@ struct BookController: RouteCollection {
     func index(req: Request) async throws -> [GetBook] {
         do {
             let search = try req.query.decode(Book.QueryFilter.self)
-            print(search)
-            let books = try await Book.query(on: req.db).group(.or) { group in
-                group.filter(\.$genre == search.genre)
-                    .filter(\.$status == .available)
+            let books = try await Book.query(on: req.db).group(.and) { group in
+                if let genre = search.genre {
+                    group.filter(\.$genre == genre)
+                }
+                if let state = search.state {
+                    group.filter(\.$state == state)
+                }
+                if let title = search.title {
+                    group.filter(\.$title == title)
+                }
+                if let author = search.author {
+                    group.filter(\.$author == author)
+                }
+                if let price = search.price {
+                    group.filter(\.$price == price)
+                }
+                    group.filter(\.$status == .available)
             } .all()
             return try books.map { book in
                 try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)

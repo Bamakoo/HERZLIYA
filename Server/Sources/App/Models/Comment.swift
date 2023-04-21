@@ -12,21 +12,21 @@ final class Comment: Model, Content {
     var comment: String
     
     @Parent(key: "user_id")
-    var userWhoCommented: User
+    var user: User
     
     @Parent(key: "book_id")
-    var commentedOnBook: Book
+    var book: Book
     
     init() { }
     
     init(id: UUID? = nil,
          comment: String,
-         userWhoCommented: User,
-         commentedOnBook: Book
+         user: User,
+         book: Book
     ) throws {
         self.id = id
         self.comment = comment
-        self.$userWhoCommented.id = try userWhoCommented.requireID()
-        self.$commentedOnBook.id = try commentedOnBook.requireID()
+        self.$user.id = try user.requireID()
+        self.$book.id = try book.requireID()
     }
 }

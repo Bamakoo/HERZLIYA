@@ -1,19 +1,43 @@
 import Fluent
 import Vapor
-// TODO: query to get all of a specific books comments
-// TODO: browse all the comments I've left + books I've left them on
+// TODO: query all comments on a book
+// TODO: query all comments left by a particular user on any book
 struct CommentController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let tokenProtectedComments = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
         tokenProtectedComments.get("comments", use: index)
+        tokenProtectedComments.get("all-comments-on-book", ":bookID", use: getAllBookComments)
+        tokenProtectedComments.get("all-users-comments", ":userID", use: getAllUsersComments)
         tokenProtectedComments.patch("comments", use: update)
         tokenProtectedComments.post("comments", use: create)
         tokenProtectedComments.group("comments", ":commentID") { comment in
             comment.delete(use: delete)
         }
     }
-
+    
+    func getAllBookComments(req: Request) async throws -> [Comment] {
+        guard let bookID = req.parameters.get("bookID", as: UUID.self) else {
+            throw Abort(.badRequest, reason: "Invalid book ID")
+        }
+        return try await Comment.query(on: req.db)
+            .filter(\.$book.$id == bookID)
+            .with(\.$book)
+            .with(\.$user)
+            .all()
+    }
+    
+    func getAllUsersComments(req: Request) async throws -> [Comment] {
+        guard let userID = req.parameters.get("userID", as: UUID.self) else {
+            throw Abort(.badRequest, reason: "Invalid book ID")
+        }
+        return try await Comment.query(on: req.db)
+            .filter(\.$user.$id == userID)
+            .with(\.$user)
+            .with(\.$book)
+            .all()
+    }
+    
     func index(req: Request) async throws -> [Comment] {
         try await Comment.query(on: req.db).all()
     }
@@ -36,11 +60,11 @@ struct CommentController: RouteCollection {
         }
         
         if let userID = patchComment.userID {
-            commentFromDB.$userWhoCommented.id = userID
+            commentFromDB.$user.id = userID
         }
         
         if let bookID = patchComment.bookID {
-            commentFromDB.$commentedOnBook.id = bookID
+            commentFromDB.$book.id = bookID
         }
         
         try await commentFromDB.update(on: req.db)
