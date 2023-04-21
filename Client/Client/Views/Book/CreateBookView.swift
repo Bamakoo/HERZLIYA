@@ -12,7 +12,7 @@ struct CreateBookView: View {
     @ObservedObject var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     var body: some View {
         Form {
-            Section {
+        Section {
                 TextField("BookTitle", text: $viewModel.title, prompt: Text("Book's title"))
                     .background(Color.white)
                 TextField("Author", text: $viewModel.author, prompt: Text("Author's Name"))
@@ -62,3 +62,4 @@ struct CreateBookView: View {
         }
     }
 }
+

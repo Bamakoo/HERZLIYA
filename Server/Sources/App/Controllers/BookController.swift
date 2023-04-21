@@ -7,6 +7,9 @@ import Vapor
 // TODO: when a book status is purchased change status from available to purchased
 // TODO: ask team wether operations should be supported on a particular book w/ :bookID
 // TODO: refactor with routes.grouped("api", "acronyms")
+// TODO: check that people can't buy their own books
+// TODO: Use DataDome SDK
+// TODO: change password feature
 
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
@@ -16,7 +19,9 @@ struct BookController: RouteCollection {
         unprotectedCategorySearch.get(use: categorySearchHandler)
         let tokenProtectedBooks = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
-        tokenProtectedBooks.get("book", ":userID", use: getUserBoughtBooks)
+        tokenProtectedBooks.get("bought-books", ":userID", use: getUserBoughtBooks)
+        tokenProtectedBooks.get("sold-books", ":userID", use: getUserSoldBooks)
+        tokenProtectedBooks.get("favorite-authors-books", ":userID", use: getMyFavoriteAuthorsBooks)
         tokenProtectedBooks.post("books", use: create)
         tokenProtectedBooks.patch("books", use: update)
         tokenProtectedBooks.group("books", ":bookID") { book in
@@ -29,6 +34,22 @@ struct BookController: RouteCollection {
         }
     }
     
+    /// The function that handles all GET requests to the /favorite-authors-books/:userID endpoint
+    /// - Parameter req: the incoming HTTP request
+    /// - Returns: an array of books written by a user's favorite author
+    func getMyFavoriteAuthorsBooks(req: Request) async throws -> [Book] {
+        guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
+            throw Abort(.notFound, reason: "unable to get the user ID to retrive all the currently available books for your favorite author")
+        }
+        return try await Book.query(on: req.db).group(.and) { group in
+            group.filter(\.$author == user.favoriteAuthor)
+                .filter(\.$status == .available)
+        } .all()
+    }
+    
+    /// The function called by the controller when the /book/:userID route is called
+    /// - Parameter req: the incoming request, sent from the Client to the Server
+    /// - Returns: An array of books the user has purchased
     func getUserBoughtBooks(req: Request) async throws -> [Book] {
         guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
             throw Abort(.notFound, reason: "unable to get the user ID for the baught books")
@@ -36,9 +57,19 @@ struct BookController: RouteCollection {
         return try await user.$baughtBooks.get(on: req.db)
     }
     
+    /// The function called by the controller when the /book/:userID route is called
+    /// - Parameter req: the incoming request, received by the server
+    /// - Returns: an array of Book objects the user has sold
+    func getUserSoldBooks(req: Request) async throws -> [Book] {
+        guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
+            throw Abort(.notFound, reason: "unable to locate the UserID to get the users sold books")
+        }
+        return try await user.$soldBooks.get(on: req.db)
+    }
+    
     func getAParticularBook(req: Request) async throws -> Book {
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
-            print("unable to delete book")
+            print("unable to get a specific book")
             throw Abort(.notFound)
         }
         return book
@@ -104,14 +135,14 @@ struct BookController: RouteCollection {
         try Book.validate(content: req)
         let book = try req.content.decode(CreateBookData.self)
         let realBook = Book(title: book.title,
-                                author: book.author,
-                                description: book.description,
-                                genre: book.genre,
-                                state: book.state,
-                                price: book.price,
-                                sellerID: book.sellerID,
-                                buyerID: book.buyerID,
-                                status: book.status)
+                            author: book.author,
+                            description: book.description,
+                            genre: book.genre,
+                            state: book.state,
+                            price: book.price,
+                            sellerID: book.sellerID,
+                            buyerID: book.buyerID,
+                            status: book.status)
         try await realBook.save(on: req.db)
         guard let data = try? JSONEncoder().encode(realBook) else {
             return ClientResponse(status: .internalServerError, headers: [:], body: nil)
