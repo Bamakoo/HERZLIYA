@@ -11,5 +11,8 @@ func routes(_ app: Application) throws {
     try app.register(collection: RatingController())
     try app.register(collection: LikeController())
     try app.register(collection: CommentController())
+    try app.register(collection: FriendsController())
+    try app.register(collection: KartBookController())
+    
 }
 

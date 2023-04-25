@@ -16,6 +16,9 @@ struct CommentController: RouteCollection {
         }
     }
     
+    /// When called by the route handler, this function returns an array containing all the comment objects for a particular book
+    /// - Parameter req: the incoming request
+    /// - Returns: an array containing all the comments on a book
     func getAllBookComments(req: Request) async throws -> [Comment] {
         guard let bookID = req.parameters.get("bookID", as: UUID.self) else {
             throw Abort(.badRequest, reason: "Invalid book ID")
@@ -27,9 +30,12 @@ struct CommentController: RouteCollection {
             .all()
     }
     
+    /// When called by the route handler, this function returns an array containing all the comments dropped by a particular user
+    /// - Parameter req: the incoming request
+    /// - Returns: all the comments a particular user has posted
     func getAllUsersComments(req: Request) async throws -> [Comment] {
         guard let userID = req.parameters.get("userID", as: UUID.self) else {
-            throw Abort(.badRequest, reason: "Invalid book ID")
+            throw Abort(.badRequest, reason: "Invalid user ID")
         }
         return try await Comment.query(on: req.db)
             .filter(\.$user.$id == userID)

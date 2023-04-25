@@ -6,13 +6,28 @@ struct LikeController: RouteCollection {
         let tokenProtectedLikes = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
         tokenProtectedLikes.get("likes", use: index)
+        tokenProtectedLikes.get("likes", ":userID", use: getAllUserLikes)
         tokenProtectedLikes.put("likes", use: update)
         tokenProtectedLikes.post("likes", use: create)
         tokenProtectedLikes.group("likes", ":likeID") { like in
             like.delete(use: delete)
         }
     }
-
+    
+    /// When called by the route handler this function returns an array of Like objects corresponding to a particular users' ID
+    /// - Parameter req: the incoming GET request on /likes/:userID
+    /// - Returns: an array of Like objects that a particular user has done
+    func getAllUserLikes(req: Request) async throws -> [Like] {
+        guard let userID = req.parameters.get("userID", as: UUID.self) else {
+            throw Abort(.badRequest, reason: "Invalid user ID to get a user's likes")
+        }
+        return try await Like.query(on: req.db)
+            .filter(\.$user.$id == userID)
+            .with(\.$user)
+            .with(\.$book)
+            .all()
+    }
+    
     func index(req: Request) async throws -> [Like] {
         try await Like.query(on: req.db).all()
     }

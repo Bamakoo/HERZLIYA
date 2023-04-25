@@ -2,6 +2,7 @@ import Fluent
 import Vapor
 
 // TODO: Perform Patch operations on all tables
+// TODO: DTOs for all tables
 // TODO: Search books by category
 // TODO: exclude books I'm currently selling from the list of books I could purchase
 // TODO: when a book status is purchased change status from available to purchased
@@ -9,29 +10,57 @@ import Vapor
 // TODO: refactor with routes.grouped("api", "acronyms")
 // TODO: check that people can't buy their own books
 // TODO: Use DataDome SDK
+// TODO: CI/CD w/ Bitrise
 // TODO: change password feature
 
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        let unprotectedBooks = routes.grouped("books")
-        unprotectedBooks.get(use: index)
-        let unprotectedCategorySearch = routes.grouped("search", "books", "by-category", ":genre")
-        unprotectedCategorySearch.get(use: categorySearchHandler)
-        let tokenProtectedBooks = routes.grouped(UserToken.authenticator())
-            .grouped(UserToken.guardMiddleware())
-        tokenProtectedBooks.get("bought-books", ":userID", use: getUserBoughtBooks)
-        tokenProtectedBooks.get("sold-books", ":userID", use: getUserSoldBooks)
-        tokenProtectedBooks.get("favorite-authors-books", ":userID", use: getMyFavoriteAuthorsBooks)
-        tokenProtectedBooks.post("books", use: create)
-        tokenProtectedBooks.patch("books", use: update)
-        tokenProtectedBooks.group("books", ":bookID") { book in
-            book.get(use: getAParticularBook)
-            book.patch(use: update)
-            book.delete(use: delete)
+        /// collection of /books endpoints
+        let bookRoutes = routes.grouped("books")
+        bookRoutes.get(use: index)
+        bookRoutes.get(":bookID", use: getAParticularBook)
+        bookRoutes.get("search", "genres", ":genre", use: categorySearchHandler)
+        bookRoutes.get("search", ":search", use: searchHandler)
+        let tokenAuthenticator = UserToken.authenticator()
+        let tokenMiddleware = UserToken.guardMiddleware()
+        let tokenAuth = bookRoutes.grouped(tokenAuthenticator, tokenMiddleware)
+        tokenAuth.get("bought", ":userID", use: getUserBoughtBooks)
+        tokenAuth.get("kart", ":userID",  use: getBooksInKart)
+        tokenAuth.get("likes", ":userID", use: getUsersLikedBooks)
+        tokenAuth.get("sold", ":userID", use: getUserSoldBooks)
+        tokenAuth.get("favorite-author", ":userID", use: getMyFavoriteAuthorsBooks)
+        tokenAuth.post(use: create)
+        // FIXME: patch a particular user
+        tokenAuth.patch(use: update)
+        tokenAuth.delete(":bookID", use: delete)
+    }
+    
+    /// This function returns all the books in a user's kart
+    /// - Parameter req: the incoming GET request
+    /// - Returns: all the books a user has added to her kart
+    func getBooksInKart (req: Request) async throws -> [Book] {
+        /// get the user's ID
+        guard let userID = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
+            throw Abort(.notFound, reason: "unable to locate the UserID")
         }
-        tokenProtectedBooks.group("search", "books", ":search") { bookSearch in
-            bookSearch.get(use: searchHandler)
+        /// FIXME: use the user's ID to get the user's kart
+       guard let kart = try await Kart.query(on: req.db)
+        .first()
+        else {
+           throw Abort(.notFound)
+       }
+        /// return all the books associated to the kart
+        return try await kart.$books.get(on: req.db)
+    }
+    
+    /// When called by the route handler, this function fetches all the books that a particular user has liked
+    /// - Parameter req: the incoming GET request
+    /// - Returns: an array of all the book objects liked by a single user
+    func getUsersLikedBooks(req: Request) async throws -> [Book] {
+        guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
+            throw Abort(.notFound, reason: "unable to locate the UserID")
         }
+        return try await user.$books.get(on: req.db)
     }
     
     /// The function that handles all GET requests to the /favorite-authors-books/:userID endpoint
@@ -184,6 +213,7 @@ struct BookController: RouteCollection {
         try await book.update(on: req.db)
         return book
     }
+    
     func delete(req: Request) async throws -> HTTPStatus {
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
             print("unable to delete book")

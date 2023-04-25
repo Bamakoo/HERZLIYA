@@ -7,7 +7,7 @@
 
 import Fluent
 import Vapor
-// TODO: fix Like + relationships
+
 /// Pivot table that stores likes
 final class Like: Model, Content {
     static let schema = "likes"

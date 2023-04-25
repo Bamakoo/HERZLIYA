@@ -10,6 +10,7 @@ import Foundation
 import Vapor
 
 extension Book {
+    /// Used to filter URL parameters 
     struct QueryFilter: Content {
         let genre: BookGenre?
         let state: BookState?

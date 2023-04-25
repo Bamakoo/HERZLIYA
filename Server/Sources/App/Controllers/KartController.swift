@@ -1,7 +1,9 @@
 import Fluent
 import Vapor
-// TODO: get a single users' kart
-// TODO: understand how to query many to many relationships, build the controllers for the tables
+// TODO: get all the books in a users kart
+// TODO: add a book to a kart
+// TODO: Build the controllers for all the tables
+
 struct KartController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let tokenProtectedKarts = routes.grouped(UserToken.authenticator())
@@ -23,7 +25,7 @@ struct KartController: RouteCollection {
         try await kart.save(on: req.db)
         return kart
     }
-    
+    // TODO: implement patch on a kart object
     func update(req: Request) async throws -> Kart {
         let kart = try req.content.decode(Kart.self)
         
@@ -33,7 +35,6 @@ struct KartController: RouteCollection {
         
         kartFromDB.id = kart.id
         kartFromDB.user = kart.user
-        
 
         try await kartFromDB.update(on: req.db)
         return kartFromDB
