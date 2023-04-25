@@ -1,57 +1,65 @@
 import Fluent
 import Vapor
-// TODO: query all comments on a book
-// TODO: query all comments left by a particular user on any book
+
 struct CommentController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        let tokenProtectedComments = routes.grouped(UserToken.authenticator())
-            .grouped(UserToken.guardMiddleware())
-        tokenProtectedComments.get("comments", use: index)
-        tokenProtectedComments.get("all-comments-on-book", ":bookID", use: getAllBookComments)
-        tokenProtectedComments.get("all-users-comments", ":userID", use: getAllUsersComments)
-        tokenProtectedComments.patch("comments", use: update)
-        tokenProtectedComments.post("comments", use: create)
-        tokenProtectedComments.group("comments", ":commentID") { comment in
-            comment.delete(use: delete)
+        let commentRoutes = routes.grouped("comments")
+        commentRoutes.get(use: index)
+        let tokenAuthenticator = UserToken.authenticator()
+        let tokenMiddleware = UserToken.guardMiddleware()
+        let tokenAuthComment = commentRoutes.grouped(tokenAuthenticator, tokenMiddleware)
+        tokenAuthComment.get(":bookID", use: getAllBookComments)
+        tokenAuthComment.get("users", ":userID", use: getAllUsersComments)
+        tokenAuthComment.patch(":commentID", use: update)
+        tokenAuthComment.post(use: create)
+        tokenAuthComment.delete(":commentID", use: delete)
         }
     }
     
     /// When called by the route handler, this function returns an array containing all the comment objects for a particular book
-    /// - Parameter req: the incoming request
+    /// - Parameter req: the incoming GET request
     /// - Returns: an array containing all the comments on a book
-    func getAllBookComments(req: Request) async throws -> [Comment] {
+    func getAllBookComments(req: Request) async throws -> [GetComment] {
         guard let bookID = req.parameters.get("bookID", as: UUID.self) else {
             throw Abort(.badRequest, reason: "Invalid book ID")
         }
-        return try await Comment.query(on: req.db)
+        let comments = try await Comment.query(on: req.db)
             .filter(\.$book.$id == bookID)
             .with(\.$book)
             .with(\.$user)
             .all()
+        return try comments.map { comment in
+            try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.book.requireID(), userID: comment.user.requireID())
+        }
     }
     
-    /// When called by the route handler, this function returns an array containing all the comments dropped by a particular user
+    /// When called by the route handler, this function returns an array containing all the comments dropped by a particular user on any book
     /// - Parameter req: the incoming request
     /// - Returns: all the comments a particular user has posted
-    func getAllUsersComments(req: Request) async throws -> [Comment] {
+    func getAllUsersComments(req: Request) async throws -> [GetComment] {
         guard let userID = req.parameters.get("userID", as: UUID.self) else {
             throw Abort(.badRequest, reason: "Invalid user ID")
         }
-        return try await Comment.query(on: req.db)
+        let comments = try await Comment.query(on: req.db)
             .filter(\.$user.$id == userID)
             .with(\.$user)
             .with(\.$book)
             .all()
+        return try comments.map { comment in
+            try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.book.requireID(), userID: comment.user.requireID())
+        }
     }
     
     func index(req: Request) async throws -> [Comment] {
-        try await Comment.query(on: req.db).all()
+        try await Comment.query(on: req.db)
+            .all()
     }
 
     func create(req: Request) async throws -> Comment {
-        let comment = try req.content.decode(Comment.self)
-        try await comment.save(on: req.db)
-        return comment
+        let comment = try req.content.decode(PostComment.self)
+        let realComment = try Comment(comment: comment.comment, user: comment.userID, book: comment.bookID)
+        try await realComment.save(on: req.db)
+        return realComment
     }
     
     func update(req: Request) async throws -> Comment {
@@ -84,4 +92,4 @@ struct CommentController: RouteCollection {
         try await comment.delete(on: req.db)
         return .ok
     }
-}
+

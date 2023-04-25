@@ -6,12 +6,11 @@ import Vapor
 // TODO: Search books by category
 // TODO: exclude books I'm currently selling from the list of books I could purchase
 // TODO: when a book status is purchased change status from available to purchased
-// TODO: ask team wether operations should be supported on a particular book w/ :bookID
-// TODO: refactor with routes.grouped("api", "acronyms")
 // TODO: check that people can't buy their own books
 // TODO: Use DataDome SDK
 // TODO: CI/CD w/ Bitrise
 // TODO: change password feature
+// TODO: Stream feature moddled after Twitter's For You Page
 
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
