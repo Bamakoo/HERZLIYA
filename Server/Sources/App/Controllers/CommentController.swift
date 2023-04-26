@@ -55,11 +55,11 @@ struct CommentController: RouteCollection {
             .all()
     }
 
-    func create(req: Request) async throws -> Comment {
+    func create(req: Request) async throws -> GetComment {
         let comment = try req.content.decode(PostComment.self)
-        let realComment = try Comment(comment: comment.comment, user: comment.userID, book: comment.bookID)
+        let realComment = try Comment(comment: comment.comment, userID: comment.userID, bookID: comment.bookID)
         try await realComment.save(on: req.db)
-        return realComment
+        return try GetComment(id: realComment.requireID(), comment: realComment.comment, bookID: realComment.$book.id, userID: realComment.$user.id)
     }
     
     func update(req: Request) async throws -> Comment {

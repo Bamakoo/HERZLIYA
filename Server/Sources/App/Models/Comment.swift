@@ -21,12 +21,12 @@ final class Comment: Model, Content {
     
     init(id: UUID? = nil,
          comment: String,
-         user: User,
-         book: Book
+         userID: User.IDValue,
+         bookID: Book.IDValue
     ) throws {
         self.id = id
         self.comment = comment
-        self.$user.id = try user.requireID()
-        self.$book.id = try book.requireID()
+        self.$user.id = userID
+        self.$book.id = bookID
     }
 }
