@@ -17,6 +17,8 @@ struct CreateAccountView: View {
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
                 SecureField("Confirm Password", text: $viewModel.confirmPassword, prompt: Text("Confirm Password"))
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
             }
             Section("Favorite Book & Author") {
                 Text("We'll use your favorite author and book as an extra security layer")

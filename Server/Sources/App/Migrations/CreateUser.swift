@@ -1,8 +1,5 @@
 import Fluent
-// TODO: Create Friends table, run migrations
-// TODO: Add DD SDK to protect the App
-// TODO: use siblings relations
-// TODO: use Group
+
 struct CreateUser: AsyncMigration {
     func prepare(on database: Database) async throws {
         try await database.schema("users")

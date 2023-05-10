@@ -1,9 +1,5 @@
 import Fluent
 import Vapor
-// TODO: finish writing the controller for friends
-// TODO: Add a friend, delete a friend
-// TODO: Get all of a particular users friends
-// TODO: add created at, updated at and deleted at to tables
 
 struct FriendsController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {

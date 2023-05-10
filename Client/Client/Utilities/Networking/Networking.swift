@@ -4,8 +4,6 @@
 //
 //  Created by Emma Gaubert on 17/02/2023.
 //
-// TODO: delete update since it's just send data except put
-// TODO: rebuild networking with Protocols
 import Foundation
 
 final class Networking: HttpClient {

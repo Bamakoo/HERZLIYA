@@ -7,12 +7,12 @@
 
 import Foundation
 import SwiftUI
-// TODO: style form with headers and footers for all Sections
+
 struct CreateBookView: View {
-    @ObservedObject var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
+    @StateObject var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     var body: some View {
         Form {
-        Section {
+            Section {
                 TextField("BookTitle", text: $viewModel.title, prompt: Text("Book's title"))
                     .background(Color.white)
                 TextField("Author", text: $viewModel.author, prompt: Text("Author's Name"))
@@ -47,19 +47,15 @@ struct CreateBookView: View {
         header: {
             Text("Books genre and state")
                 .foregroundColor(.black)
-        } footer: {
-            Text("Think long and hard about the price")
-                .foregroundColor(.black)
-        }
             Button {
                 Task {
-                    try await viewModel.createBook()
+                    // try await viewModel.createBook()
                 }
             } label: {
                 Text("Sell book")
             }
             .disabled(viewModel.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
         }
+        }
     }
 }
-

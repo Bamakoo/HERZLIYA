@@ -4,12 +4,6 @@
 //
 //  Created by Emma Gaubert on 18/02/2023.
 //
-// TODO: clean up all my TODOs
-// TODO: finish implementing search function for the NavigationSplitView
-// TODO: refactor so there are no more @State private var
-// TODO: call function with specific genre to filter for
-// TODO: filter by state like donut app
-// TODO: do some UIKit so show that I can do some UIKit
 import SwiftUI
 
 struct BooksList: View {
@@ -27,9 +21,6 @@ struct BooksList: View {
                 }
             }
             .navigationTitle("Search books by genre")
-            .task {
-                await viewModel.fetchBooks()
-            }
         } content: {
             List(viewModel.books, selection: $selectedBook) { book in
                 NavigationLink(value: book) {
@@ -38,6 +29,12 @@ struct BooksList: View {
             }
             .navigationTitle(selectedBookGenre?.title ?? "Books")
             .listStyle(.grouped)
+            .onChange(of: selectedBookGenre) { bookGenre in
+                Task {
+                    guard let selectedBookGenre else { return }
+                    await viewModel.fetchBooksByCategory(selectedBookGenre)
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

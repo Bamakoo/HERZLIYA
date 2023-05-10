@@ -1,8 +1,5 @@
 import Fluent
 import Vapor
-// TODO: get all the books in a users kart
-// TODO: add a book to a kart
-// TODO: Build the controllers for all the tables
 
 struct KartController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {

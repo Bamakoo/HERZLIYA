@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserProfileView: View {
-    @ObservedObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
+    @StateObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
     @State private var menu: [Menu] = Menu.allCases
     var body: some View {
         NavigationStack {

@@ -1,6 +1,6 @@
 import Fluent
 import Vapor
-// TODO: test all endpoints
+
 enum BookGenre: String, Codable, CaseIterable {
     case fantasy
     case scienceFiction

@@ -1,17 +1,6 @@
 import Fluent
 import Vapor
 
-// TODO: Perform Patch operations on all tables
-// TODO: DTOs for all tables
-// TODO: Search books by category
-// TODO: exclude books I'm currently selling from the list of books I could purchase
-// TODO: when a book status is purchased change status from available to purchased
-// TODO: check that people can't buy their own books
-// TODO: Use DataDome SDK
-// TODO: CI/CD w/ Bitrise
-// TODO: change password feature
-// TODO: Stream feature moddled after Twitter's For You Page
-
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         /// collection of /books endpoints
@@ -180,7 +169,7 @@ struct BookController: RouteCollection {
     }
     
     func update(req: Request) async throws -> Book {
-        // TODO: make it so that a user can't change a book if it's token doesn't belong to the user who sold the book
+
         let patchBook = try req.content.decode(PatchBook.self)
         guard let book  =  try await Book.find(patchBook.id, on: req.db) else {
             throw Abort(.notFound)
