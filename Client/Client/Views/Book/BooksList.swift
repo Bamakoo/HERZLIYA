@@ -54,7 +54,7 @@ struct BooksList: View {
             }
         } detail: {
             if let book = selectedBook {
-                BookDetail(book: book)
+                BookDetail(book: $selectedBook)
             } else {
                 Text("Pick a book")
             }
