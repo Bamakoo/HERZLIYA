@@ -21,7 +21,7 @@ struct UserController: RouteCollection {
         }
     }
 
-    func create(req: Request) async throws -> User {
+    func create(req: Request) async throws -> ClientResponse {
         try User.Create.validate(content: req)
         let newUser = try req.content.decode(User.Create.self)
         guard newUser.password == newUser.confirmPassword else {
@@ -37,7 +37,11 @@ struct UserController: RouteCollection {
             favoriteAuthor: newUser.favoriteAuthor
         )
         try await user.save(on: req.db)
-        return user
+        guard let data = try? JSONEncoder().encode(user) else {
+            return ClientResponse(status: .internalServerError, headers: [:], body: nil)
+        }
+        let byteBuffer = ByteBuffer(data: data)
+        return ClientResponse(status: .created, headers: [:], body: byteBuffer)
     }
     
     func update(req: Request) async throws -> User {
