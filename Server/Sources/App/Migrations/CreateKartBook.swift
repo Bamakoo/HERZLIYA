@@ -6,6 +6,9 @@ struct CreateKartBook: AsyncMigration {
             .id()
             .field("kart_id", .uuid, .references("karts", "id"))
             .field("book_id", .uuid, .references("books", "id"))
+            .field("created_at", .date)
+            .field("updated_at", .date)
+            .field("deleted_at", .date)
             .unique(on: "kart_id", "book_id")
             .create()
     }
