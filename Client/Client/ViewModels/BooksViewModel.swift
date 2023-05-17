@@ -6,6 +6,7 @@
 //
 
 import Foundation
+@MainActor
 final class BooksViewModel: ObservableObject {
     @Published var title = ""
     @Published var author = ""
@@ -13,14 +14,14 @@ final class BooksViewModel: ObservableObject {
     @Published var genre: BookGenre = .action
     @Published var state: BookState = .acceptable
     @Published var price = 0
-//    @Published var seller: User = User.testUser
-    @Published var status: BookStatus = .purchased
+    @Published var seller: User = User.testUser
+    @Published var status: BookStatus = .available
     @Published var books = [GetBook]()
+    @Published var purchasedBooks = [GetBook]()
     private let networkManager: BooksNetworkManager
     init(networkManager: BooksNetworkManager) {
         self.networkManager = networkManager
     }
-    @MainActor
     func fetchBooks() async {
         do {
             books = try await networkManager.fetchBooks()
@@ -28,7 +29,15 @@ final class BooksViewModel: ObservableObject {
             print("unable to fetch books because of : \(error.localizedDescription)")
         }
     }
-    @MainActor
+    func fetchPurchasedBooks() async {
+        do {
+            print("starting to fetch purchased books")
+            purchasedBooks = try await networkManager.fetchPurchasedBooks()
+            print(purchasedBooks)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
     func fetchBooksByCategory(_ forCategory: BookGenre) async {
         do {
             books = try await networkManager.fetchBooksByCategory(forCategory)
@@ -36,7 +45,29 @@ final class BooksViewModel: ObservableObject {
             print("unable to fetch books because of : \(error.localizedDescription)")
         }
     }
-    @MainActor
+    func createBook() async {
+        do {
+            try await networkManager.createBook(title: title,
+                                                author: author,
+                                                description: description,
+                                                genre: genre,
+                                                state: state,
+                                                status: status, sellerID: "",
+                                                price: price)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    func purchaseBook(bookID: UUID) async {
+        do {
+            let id = bookID.uuidString
+            print(id)
+            try await networkManager.purchaseBook(bookID: id)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     func deleteBook(id: UUID) async throws {
         do {
             try await networkManager.deleteBook(id: id)

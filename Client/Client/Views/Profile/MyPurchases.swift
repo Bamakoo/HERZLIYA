@@ -8,8 +8,17 @@
 import SwiftUI
 
 struct MyPurchases: View {
+    @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
+    @State private var selectedBook: GetBook?
     var body: some View {
-        Text("display previous purchases")
+        List(viewModel.purchasedBooks, selection: $selectedBook) { book in
+            NavigationLink(value: book) {
+                BookRow(book: book)
+            }
+        }
+        .task {
+            await viewModel.fetchPurchasedBooks()
+        }
     }
 }
 

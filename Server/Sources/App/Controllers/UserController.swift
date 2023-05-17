@@ -37,7 +37,8 @@ struct UserController: RouteCollection {
             favoriteAuthor: newUser.favoriteAuthor
         )
         try await user.save(on: req.db)
-        guard let data = try? JSONEncoder().encode(user) else {
+        let returnedUser = try GetUser(id: user.requireID(), username: user.username, favoriteBook: user.favoriteBook, country: user.country, city: user.city, favoriteAuthor: user.favoriteAuthor)
+        guard let data = try? JSONEncoder().encode(returnedUser) else {
             return ClientResponse(status: .internalServerError, headers: [:], body: nil)
         }
         let byteBuffer = ByteBuffer(data: data)

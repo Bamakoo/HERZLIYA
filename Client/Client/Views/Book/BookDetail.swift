@@ -13,18 +13,17 @@ struct BookDetail: View {
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     var body: some View {
         Form {
-            TextField("BookTitle", text: $viewModel.title, prompt: Text(book!.title).bold())
-            TextField("BookPrice", value: $viewModel.price, format: .currency(code: "USD"), prompt: Text(String(book!.price)))
+            Text(book!.title)
+            Text(String(book!.price))
                 .background(Color.white)
-                .keyboardType(.numberPad)
-            TextField("Author", text: $viewModel.author, prompt: Text(book!.author).bold())
+            Text(book!.author).bold()
                 .background(Color.white)
             Button {
                 Task {
-                    print("update book with new seller ID")
+                    try await viewModel.purchaseBook(bookID: (book?.id)!)
                 }
             } label: {
-                Text("Purchase book \(book!.title)")
+                Text("Purchase \(book!.title)")
             }
             Button {
                 Task {
@@ -48,4 +47,3 @@ struct BookDetail: View {
         }
     }
 }
-

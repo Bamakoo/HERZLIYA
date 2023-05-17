@@ -1,6 +1,5 @@
 import Foundation
 // swiftlint:disable all
-
 final class SignInViewModel: ObservableObject {
     @Published var username = ""
     @Published var password = ""
@@ -9,8 +8,9 @@ final class SignInViewModel: ObservableObject {
     var canSignIn: Bool {
         !username.isEmpty && !password.isEmpty
     }
-    func signIn() {
-        guard !username.isEmpty && !password.isEmpty else {
+    @MainActor
+    func signIn() async throws {
+        guard canSignIn else {
             print("Email or password are empty")
             return
         }
@@ -24,23 +24,29 @@ final class SignInViewModel: ObservableObject {
         
         let authData = (username + ":" + password).data(using: .utf8)!.base64EncodedString()
         request.addValue("Basic \(authData)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
-        
+        request.addValue(MIMEType.JSON.rawValue,
+                         forHTTPHeaderField: HttpHeaders.contentType.rawValue)
         isSigningIn.toggle()
         
-        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-            DispatchQueue.main.async {
-                if error != nil || (response as! HTTPURLResponse).statusCode != 200 {
-                    self?.hasError = true
-                } else if let data = data {
-                    do {
-                        let signInResponse = try JSONDecoder().decode(UserToken.self, from: data)
-                        print(signInResponse)
-                    } catch {
-                        print("Unable to Decode Response \(error.localizedDescription)")
-                    }
-                }
-                self?.isSigningIn = false
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpURLResponse = response as? HTTPURLResponse else {
+            throw HttpError.badResponse
+        }
+        if httpURLResponse.statusCode == 200 {
+            do {
+                let decoder = JSONDecoder()
+                let userToken = try decoder.decode(UserToken.self, from: data)
+                print(userToken)
+                try Keychain.addToken(userToken: userToken)
+            } catch {
+                print(error.localizedDescription)
             }
-        }.resume()
+        }
+        else if httpURLResponse.statusCode == 401 {
+            throw HttpError.unauthorized
+        } else {
+            throw HttpError.badResponse
+        }
     }
 }
+

@@ -33,84 +33,45 @@ final class UsersViewModel: ObservableObject {
     }
     func createANewUser() async throws {
         do {
-            try await networkManager.createUser(username: username,
-                                                email: email,
-                                                password: password,
-                                                confirmPassword: confirmPassword,
-                                                favoriteBook: favoriteBook,
-                                                favoriteAuthor: favoriteAuthor,
-                                                city: city,
-                                                country: country)
-        } catch {
-            print(error)
+            guard let url = URL(string: Request.baseURL + Endpoint.users) else {
+                print("unable to generate an URL to create a new user")
+                return
+            }
+            var request = URLRequest(url: url)
+            request.httpMethod = HttpMethods.POST.rawValue
+            request.addValue(MIMEType.JSON.rawValue,
+                             forHTTPHeaderField: HttpHeaders.contentType.rawValue)
+            let encoder = JSONEncoder()
+            let newUser = NewUser(username: username,
+                                  email: email,
+                                  password: password,
+                                  confirmPassword: confirmPassword,
+                                  favoriteBook: favoriteBook,
+                                  favoriteAuthor: favoriteAuthor,
+                                  city: city, country: country)
+            request.httpBody = try? encoder.encode(newUser)
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpURLResponse = response as? HTTPURLResponse else {
+                throw HttpError.badResponse
+            }
+            if httpURLResponse.statusCode == 201 {
+                do {
+                    let decoder = JSONDecoder()
+                    let user = try decoder.decode(GetUser.self, from: data)
+                    var userID = "\(user.id)"
+                    UserDefaults.standard.set(userID, forKey: "userID")
+                } catch {
+                    print(error.localizedDescription)
+                }
+            } else if httpURLResponse.statusCode == 401 {
+                throw HttpError.unauthorized
+            } else {
+                    throw HttpError.badResponse
+                }
+            } catch {
+            print(error.localizedDescription)
         }
     }
-    //    func updateUserProfile(){
-    //        guard let url = URL(string: Request.baseURL + Endpoint.users) else {
-    //            print("Error: cannot create URL")
-    //            return
-    //        }
-    //
-    //        let updatedProfile = User(id: nil,
-    //                                  username: <#T##String#>,
-    //                                  email: <#T##String#>,
-    //                                  password_hash: nil,
-    //                                  password: <#T##String#>,
-    //                                  confirmPassword: <#T##String#>,
-    //                                  favoriteBook: <#T##String#>,
-    //                                  country: <#T##String#>,
-    //                                  city: <#T##String#>,
-    //                                  favoriteAuthor: <#T##String#>,
-    //                                  createdAt: nil,
-    //                                  updatedAt: nil,
-    //                                  deletedAt: nil)
-    //
-    //        guard let jsonData = try? JSONEncoder().encode(updatedProfile) else {
-    //            print("Error: Trying to convert model to JSON data")
-    //            return
-    //        }
-    //
-    //        var request = URLRequest(url: url)
-    //        request.httpMethod = "PUT"
-    //        request.setValue("application/json", forHTTPHeaderField: HttpHeaders.contentType.rawValue)
-    //        let token = "mysuperSecretToken"
-    //        request.addValue(("Bearer \(token)"), forHTTPHeaderField: HttpHeaders.authentication.rawValue)
-    //        request.httpBody = jsonData
-    //        URLSession.shared.dataTask(with: request) { data, response, error in
-    //            guard error == nil else {
-    //                print("Error: error calling PUT")
-    //                print(error!)
-    //                return
-    //            }
-    //            guard let data = data else {
-    //                print("Error: Did not receive data")
-    //                return
-    //            }
-    //            guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
-    //                print("Error: HTTP request failed")
-    //                return
-    //            }
-    //            do {
-    //                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-    //                    print("Error: Cannot convert data to JSON object")
-    //                    return
-    //                }
-    //                guard let prettyJsonData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted) else {
-    //                    print("Error: Cannot convert JSON object to Pretty JSON data")
-    //                    return
-    //                }
-    //                guard let prettyPrintedJson = String(data: prettyJsonData, encoding: .utf8) else {
-    //                    print("Error: Could print JSON in String")
-    //                    return
-    //                }
-    //                print(prettyPrintedJson)
-    //            } catch {
-    //                print("Error: Trying to convert JSON data to string")
-    //                return
-    //            }
-    //        }.resume()
-    //    }
-    
     func deleteUserProfile(id: UUID) async throws {
         do {
             try await networkManager.deleteProfile(id: id)

@@ -20,7 +20,7 @@ struct BooksList: View {
                     Label(genre.title, systemImage: genre.image)
                 }
             }
-            .navigationTitle("Search books by genre")
+            .navigationTitle("Books")
         } content: {
             List(viewModel.books, selection: $selectedBook) { book in
                 NavigationLink(value: book) {
@@ -46,6 +46,7 @@ struct BooksList: View {
                         CreateBookView()
                             .onDisappear {
                                 Task {
+                                    print("vanished")
                                     await viewModel.fetchBooks()
                                 }
                             }
@@ -59,6 +60,6 @@ struct BooksList: View {
                 Text("Pick a book")
             }
         }
-        .searchable(text: $searchText, prompt: "Search for your favorite book")
+        .searchable(text: $searchText, prompt: "Search")
     }
 }

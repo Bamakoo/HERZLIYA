@@ -15,7 +15,9 @@ struct SignInView: View {
                 .disableAutocorrection(true)
             SecureField("Password", text: $viewModel.password, prompt: Text("Password"))
             Button("Sign In") {
-                viewModel.signIn()
+                Task {
+                    try await viewModel.signIn()
+                }
             }
             .buttonStyle(.borderedProminent)
             Button("Create an account"){

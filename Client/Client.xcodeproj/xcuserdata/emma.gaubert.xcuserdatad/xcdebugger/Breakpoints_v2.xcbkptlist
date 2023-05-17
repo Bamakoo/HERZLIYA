@@ -101,54 +101,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "60B2F450-3DE7-4D52-B616-1F2DD6816DD3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Client/Views/Profile/UsersViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "UsersViewModel"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "60B2F450-3DE7-4D52-B616-1F2DD6816DD3 - 1543124c1457152"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Client.UsersViewModel.__allocating_init(networkManager: Client.UserNetworkManager) -&gt; Client.UsersViewModel"
-                  moduleName = "Client"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emma.gaubert/HERZLIYA/Client/Client/Views/Profile/UsersViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  uuid = "60B2F450-3DE7-4D52-B616-1F2DD6816DD3 - 725e58179adb547f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Client.UsersViewModel.init(networkManager: Client.UserNetworkManager) -&gt; Client.UsersViewModel"
-                  moduleName = "Client"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emma.gaubert/HERZLIYA/Client/Client/Views/Profile/UsersViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "272">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E7410232-BA4E-4B0F-8CF0-88FF791BC006"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -188,8 +140,8 @@
             filePath = "Client/Utilities/NetworkManager/BooksNetworkManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
             landmarkName = "fetchBooksByCategory(_:)"
             landmarkType = "7">
             <Locations>

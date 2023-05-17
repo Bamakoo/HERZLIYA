@@ -84,3 +84,14 @@ struct GetBook: Identifiable, Codable, Hashable, Equatable {
     var price: Int
     var state: BookState
 }
+
+struct CreateBookData: Codable {
+    var title: String
+    var author: String
+    var description: String
+    var genre: BookGenre
+    var state: BookState
+    var status: BookStatus
+    var sellerID: String
+    var price: Int
+}

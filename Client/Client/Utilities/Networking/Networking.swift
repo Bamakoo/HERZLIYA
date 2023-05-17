@@ -11,7 +11,14 @@ final class Networking: HttpClient {
     /// - Parameter url: the URL we're going to send the request to
     /// - Returns: an array of whatever object Type we're fetching from the API
     func fetch<T: Codable>(url: URL) async throws -> [T] {
+        var request = URLRequest(url: url)
+        print(request)
+        let token = try Keychain.search()
+        print(token)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
+        print(request.allHTTPHeaderFields)
         let (data, response) = try await URLSession.shared.data(from: url)
+        print(data, response)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw HttpError.badResponse
         }
@@ -48,30 +55,37 @@ final class Networking: HttpClient {
     ///   - object: the object sent to the server
     ///   - httpMethod: the method used to send the data
     func sendData<T: Codable>(to url: URL, object: T, httpMethod: String) async throws -> T {
+        print("sending data")
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
         request.addValue(MIMEType.JSON.rawValue,
                          forHTTPHeaderField: HttpHeaders.contentType.rawValue)
+        let token = try Keychain.search()
+        request.setValue("Bearer \(token)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
         request.httpBody = try? JSONEncoder().encode(object)
         let (data, response) = try await URLSession.shared.data(for: request)
         guard let httpURLResponse = response as? HTTPURLResponse else {
             throw HttpError.badResponse
         }
         if httpURLResponse.statusCode == 201 && httpMethod == HttpMethods.POST.rawValue {
+            print("The response code is \(httpURLResponse.statusCode)")
             let decoder = JSONDecoder()
             let returnedObject = try decoder.decode(T.self, from: data)
             return returnedObject
         } else if httpURLResponse.statusCode == 200 && httpMethod == HttpMethods.PUT.rawValue {
+            print("The response code is \(httpURLResponse.statusCode)")
             let decoder = JSONDecoder()
             let returnedObject = try decoder.decode(T.self, from: data)
             return returnedObject
         } else if httpURLResponse.statusCode == 401 {
+            print("The response code is \(httpURLResponse.statusCode)")
             throw HttpError.unauthorized
         } else if httpURLResponse.statusCode == 500 {
             throw HttpError.internalServerError
         } else {
             throw HttpError.badResponse
         }
+        print("The response code is \(httpURLResponse.statusCode)")
     }
     /// A generic function, used to delete a single Object in the Table
     /// - Parameter url: the URL to send the delete request to, this also contains the identifier for the object we want to delete

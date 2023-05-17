@@ -24,13 +24,6 @@ struct CreateBookView: View {
                 .background(Color.white)
                 .keyboardType(.decimalPad)
             }
-        header: {
-            Text("Author, Title & price")
-                .foregroundColor(.black)
-        } footer: {
-            Text("Think long and hard about the price")
-                .foregroundColor(.black)
-        }
             Section {
                 Picker("State", selection: $viewModel.state) {
                     ForEach(BookState.allCases) { state in
@@ -44,18 +37,15 @@ struct CreateBookView: View {
                 }
                 TextField("Description", text: $viewModel.description, prompt: Text("Description"))
             }
-        header: {
-            Text("Books genre and state")
-                .foregroundColor(.black)
             Button {
                 Task {
-                    // try await viewModel.createBook()
+                    print("hi!")
+                    await viewModel.createBook()
                 }
             } label: {
                 Text("Sell book")
             }
             .disabled(viewModel.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-        }
         }
     }
 }

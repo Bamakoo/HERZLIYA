@@ -67,11 +67,14 @@ struct BookController: RouteCollection {
     /// The function called by the controller when the /book/:userID route is called
     /// - Parameter req: the incoming request, sent from the Client to the Server
     /// - Returns: An array of books the user has purchased
-    func getUserBoughtBooks(req: Request) async throws -> [Book] {
+    func getUserBoughtBooks(req: Request) async throws -> [GetBook] {
         guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
             throw Abort(.notFound, reason: "unable to get the user ID for the baught books")
         }
-        return try await user.$baughtBooks.get(on: req.db)
+        let books = try await user.$baughtBooks.get(on: req.db)
+        return try books.map { book in
+            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+        }
     }
     
     /// The function called by the controller when the /book/:userID route is called
