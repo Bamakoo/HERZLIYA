@@ -11,7 +11,7 @@ struct BooksList: View {
     @State private var bookGenres: [BookGenre] = BookGenre.allCases
     @State private var selectedBook: GetBook?
     @State private var selectedBookGenre: BookGenre?
-    @State private var searchText: String = ""
+
     @State private var showSheet = false
     var body: some View {
         NavigationSplitView {
@@ -35,7 +35,18 @@ struct BooksList: View {
                     await viewModel.fetchBooksByCategory(selectedBookGenre)
                 }
             }
-            .searchable(text: $searchText, prompt: "Search")
+            .searchable(text: $viewModel.searchText, prompt: "Search")
+            .submitLabel(.send)
+            .onSubmit(of: .search) {
+                Task {
+                    print("Search submitted")
+                    await viewModel.search()
+                    viewModel.books = viewModel.searchResults
+                    print(viewModel.books, viewModel.searchResults)
+                    viewModel.searchResults = [GetBook]()
+                    
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

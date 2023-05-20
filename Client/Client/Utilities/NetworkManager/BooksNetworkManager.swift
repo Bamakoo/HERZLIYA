@@ -16,6 +16,17 @@ final class BooksNetworkManager {
         self.httpClient = httpClient
     }
     
+    func searchBooks(_ searchText: String) async throws -> [GetBook] {
+        print("in the network manager")
+        print(searchText)
+        let url = URL(string: Request.baseURL + Endpoint.books + "?title=\(searchText)")!
+        print(url)
+        let searchResults: [GetBook] = try await httpClient.fetch(url: url)
+        print(searchResults)
+        print("working on the search bar")
+        return searchResults
+    }
+    
     func fetchBooks() async throws -> [GetBook] {
         let url = URL(string: Request.baseURL + Endpoint.books)!
         let books: [GetBook] = try await httpClient.fetch(url: url)

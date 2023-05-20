@@ -8,6 +8,7 @@
 import Foundation
 @MainActor
 final class BooksViewModel: ObservableObject {
+    
     @Published var title = ""
     @Published var author = ""
     @Published var description = ""
@@ -19,9 +20,25 @@ final class BooksViewModel: ObservableObject {
     @Published var books = [GetBook]()
     @Published var purchasedBooks = [GetBook]()
     @Published var booksByUsersFavoriteAuthor = [GetBook]()
+    @Published var searchText: String = ""
+    @Published var searchResults = [GetBook]()
+
     private let networkManager: BooksNetworkManager
     init(networkManager: BooksNetworkManager) {
         self.networkManager = networkManager
+    }
+    
+    func search() async {
+        do {
+            print(searchText)
+            guard !searchText.isEmpty else { return }
+            print(searchText)
+            print(searchText.isEmpty)
+            searchResults = try await networkManager.searchBooks(searchText)
+            print(searchResults)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     func fetchBooks() async {
         do {
