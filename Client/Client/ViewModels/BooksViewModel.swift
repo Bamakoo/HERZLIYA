@@ -18,6 +18,7 @@ final class BooksViewModel: ObservableObject {
     @Published var status: BookStatus = .available
     @Published var books = [GetBook]()
     @Published var purchasedBooks = [GetBook]()
+    @Published var booksByUsersFavoriteAuthor = [GetBook]()
     private let networkManager: BooksNetworkManager
     init(networkManager: BooksNetworkManager) {
         self.networkManager = networkManager
@@ -27,6 +28,13 @@ final class BooksViewModel: ObservableObject {
             books = try await networkManager.fetchBooks()
         } catch {
             print("unable to fetch books because of : \(error.localizedDescription)")
+        }
+    }
+    func bookByUsersFavoriteAuthor() async {
+        do {
+            booksByUsersFavoriteAuthor = try await networkManager.fetchBookByUsersFavoriteAuthor()
+        } catch {
+            print(error.localizedDescription)
         }
     }
     func fetchPurchasedBooks() async {
@@ -67,7 +75,6 @@ final class BooksViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
     func deleteBook(id: UUID) async throws {
         do {
             try await networkManager.deleteBook(id: id)

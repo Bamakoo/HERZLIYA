@@ -35,6 +35,7 @@ struct BooksList: View {
                     await viewModel.fetchBooksByCategory(selectedBookGenre)
                 }
             }
+            .searchable(text: $searchText, prompt: "Search")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -43,13 +44,13 @@ struct BooksList: View {
                         Image(systemName: "plus")
                     }
                     .sheet(isPresented: $showSheet) {
+                        Task {
+                            guard let selectedBookGenre else { return }
+                            print("vanished")
+                            await viewModel.fetchBooksByCategory(selectedBookGenre)
+                        }
+                    } content: {
                         CreateBookView()
-                            .onDisappear {
-                                Task {
-                                    print("vanished")
-                                    await viewModel.fetchBooks()
-                                }
-                            }
                     }
                 }
             }
@@ -60,6 +61,5 @@ struct BooksList: View {
                 Text("Pick a book")
             }
         }
-        .searchable(text: $searchText, prompt: "Search")
     }
 }

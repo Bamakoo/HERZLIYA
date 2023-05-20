@@ -11,8 +11,11 @@ final class Networking: HttpClient {
     /// - Parameter url: the URL we're going to send the request to
     /// - Returns: an array of whatever object Type we're fetching from the API
     func fetch<T: Codable>(url: URL) async throws -> [T] {
+        print("fetching data")
         var request = URLRequest(url: url)
         print(request)
+        request.httpMethod = HttpMethods.GET.rawValue
+
         let token = try Keychain.search()
         print(token)
         request.setValue("Bearer \(token)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
@@ -57,16 +60,24 @@ final class Networking: HttpClient {
     func sendData<T: Codable>(to url: URL, object: T, httpMethod: String) async throws -> T {
         print("sending data")
         var request = URLRequest(url: url)
+        print(request)
         request.httpMethod = httpMethod
+        print(request.httpMethod)
         request.addValue(MIMEType.JSON.rawValue,
                          forHTTPHeaderField: HttpHeaders.contentType.rawValue)
+        print(request.allHTTPHeaderFields)
         let token = try Keychain.search()
+        print(token)
         request.setValue("Bearer \(token)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
+        print(request.allHTTPHeaderFields)
         request.httpBody = try? JSONEncoder().encode(object)
+        print(request.httpBody)
         let (data, response) = try await URLSession.shared.data(for: request)
+        print(data, response)
         guard let httpURLResponse = response as? HTTPURLResponse else {
             throw HttpError.badResponse
         }
+        print(httpURLResponse)
         if httpURLResponse.statusCode == 201 && httpMethod == HttpMethods.POST.rawValue {
             print("The response code is \(httpURLResponse.statusCode)")
             let decoder = JSONDecoder()

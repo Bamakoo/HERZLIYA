@@ -1,35 +1,6 @@
 import Fluent
 import Vapor
 
-enum BookGenre: String, Codable, CaseIterable {
-    case fantasy
-    case scienceFiction
-    case action
-    case mystery
-    case horror
-    case romance
-    case realism
-    case biography
-}
-
-enum BookState: String, Codable {
-    case horrendous
-    case bad
-    case okay
-    case passable
-    case acceptable
-    case good
-    case excellent
-    case brandNew
-}
-
-enum BookStatus: String, Codable {
-    case available
-    case purchased
-    case inTransit
-    case delivered
-}
-
 final class Book: Model, Content {
     static let schema = "books"
     

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CreateBookView: View {
     @StateObject var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         Form {
             Section {
@@ -39,8 +40,8 @@ struct CreateBookView: View {
             }
             Button {
                 Task {
-                    print("hi!")
                     await viewModel.createBook()
+                    dismiss()
                 }
             } label: {
                 Text("Sell book")

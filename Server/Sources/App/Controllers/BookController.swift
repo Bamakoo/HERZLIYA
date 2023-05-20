@@ -54,14 +54,17 @@ struct BookController: RouteCollection {
     /// The function that handles all GET requests to the /favorite-authors-books/:userID endpoint
     /// - Parameter req: the incoming HTTP request
     /// - Returns: an array of books written by a user's favorite author
-    func getMyFavoriteAuthorsBooks(req: Request) async throws -> [Book] {
+    func getMyFavoriteAuthorsBooks(req: Request) async throws -> [GetBook] {
         guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
             throw Abort(.notFound, reason: "unable to get the user ID to retrive all the currently available books for your favorite author")
         }
-        return try await Book.query(on: req.db).group(.and) { group in
+        let books = try await Book.query(on: req.db).group(.and) { group in
             group.filter(\.$author == user.favoriteAuthor)
                 .filter(\.$status == .available)
         } .all()
+        return try books.map { book in
+            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+        }
     }
     
     /// The function called by the controller when the /book/:userID route is called

@@ -21,6 +21,12 @@ final class BooksNetworkManager {
         let books: [GetBook] = try await httpClient.fetch(url: url)
         return books
     }
+    func fetchBookByUsersFavoriteAuthor() async throws -> [GetBook] {
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        guard let url = URL(string: Request.baseURL + Endpoint.books + "/favorite-author/\(userID)" ) else { throw HttpError.badURL }
+        let booksByUsersFavoriteAuthor: [GetBook] = try await httpClient.fetch(url: url)
+        return booksByUsersFavoriteAuthor
+    }
     func fetchPurchasedBooks() async throws -> [GetBook] {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
         print(userID)
