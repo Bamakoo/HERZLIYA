@@ -17,10 +17,15 @@ final class BooksNetworkManager {
     }
     
     func searchBooks(_ searchText: String) async throws -> [GetBook] {
-        print("in the network manager")
+        let trueSearch = searchText.replacingOccurrences(of: " ", with: "+")
         print(searchText)
-        let url = URL(string: Request.baseURL + Endpoint.books + "?title=\(searchText)")!
-        print(url)
+        print(trueSearch)
+        let stringUrl = Request.baseURL + Endpoint.books + "?title=\(trueSearch)"
+        guard let url = URL(string: stringUrl)
+        else {
+            print("unable to create URL for searching books")
+            throw HttpError.badURL
+        }
         let searchResults: [GetBook] = try await httpClient.fetch(url: url)
         print(searchResults)
         print("working on the search bar")
@@ -65,7 +70,7 @@ final class BooksNetworkManager {
                     status: BookStatus,
                     sellerID: String,
                     price: Int
-            ) async throws {
+    ) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.books) else {
             print("Unable to create valid URL for creating the book")
             return
@@ -92,7 +97,7 @@ final class BooksNetworkManager {
         }
         let newBook = PatchPurchaseBook(id: bookID, buyerID: buyerID)
         print(newBook)
-                try await httpClient.sendData(to: url, object: newBook, httpMethod: HttpMethods.PATCH.rawValue)
+        try await httpClient.sendData(to: url, object: newBook, httpMethod: HttpMethods.PATCH.rawValue)
     }
     
     func updateBook(id: UUID, author: String, description: String, genre: BookGenre, state: BookState, seller: User, buyer: User?, status: BookStatus, title: String, price: Int) async throws {
@@ -115,8 +120,8 @@ final class BooksNetworkManager {
                                updatedAt: nil,
                                deletedAt: nil)
         try await httpClient.sendData(to: url,
-                                        object: updatedBook,
-                                        httpMethod: HttpMethods.PUT.rawValue)
+                                      object: updatedBook,
+                                      httpMethod: HttpMethods.PUT.rawValue)
     }
     
     func deleteBook(id: UUID) async throws {
