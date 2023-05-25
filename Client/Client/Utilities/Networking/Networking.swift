@@ -15,7 +15,8 @@ final class Networking: HttpClient {
         var request = URLRequest(url: url)
         print(request)
         request.httpMethod = HttpMethods.GET.rawValue
-
+        request.addValue(MIMEType.JSON.rawValue,
+                         forHTTPHeaderField: HttpHeaders.contentType.rawValue)
         let token = try Keychain.search()
         print(token)
         request.setValue("Bearer \(token)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)

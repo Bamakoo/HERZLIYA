@@ -140,13 +140,13 @@
             filePath = "Client/Utilities/NetworkManager/BooksNetworkManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "fetchBooksByCategory(_:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "5BD475DA-B04C-4509-8E91-7AC4432A8D31 - 94b1d19ebe07487c"
+                  uuid = "5BD475DA-B04C-4509-8E91-7AC4432A8D31 - 94b1d19ebe0734b9"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -156,12 +156,12 @@
                   urlString = "file:///Users/emma.gaubert/HERZLIYA/Client/Client/Utilities/NetworkManager/BooksNetworkManager.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "25"
-                  endingLineNumber = "25"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
                   offsetFromSymbolStart = "212">
                </Location>
                <Location
-                  uuid = "5BD475DA-B04C-4509-8E91-7AC4432A8D31 - 5547418427a478da"
+                  uuid = "5BD475DA-B04C-4509-8E91-7AC4432A8D31 - 5547418427a4041f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -171,11 +171,27 @@
                   urlString = "file:///Users/emma.gaubert/HERZLIYA/Client/Client/Utilities/NetworkManager/BooksNetworkManager.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "25"
-                  endingLineNumber = "25"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
                   offsetFromSymbolStart = "136">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4DF3821A-81AC-42F7-8F83-74455519D65D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Client/Utilities/Networking/Networking.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "fetch(url:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -20,7 +20,7 @@ struct BookDetail: View {
                 .background(Color.white)
             Button {
                 Task {
-                    try await viewModel.purchaseBook(bookID: (book?.id)!)
+                    await viewModel.purchaseBook(bookID: (book?.id)!)
                 }
             } label: {
                 Text("Purchase \(book!.title)")
@@ -44,6 +44,10 @@ struct BookDetail: View {
                     }
                 }
             }
+        }
+        .onDisappear {
+            // Task { await viewModel.fetchBooksByCategory(genre!) }
+            print("book detail vanishes")
         }
     }
 }

@@ -21,6 +21,7 @@ struct MainMenu: View {
                 .tabItem {
                     Image(systemName: "plus.circle.fill")
                         .font(.system(size: 100))
+                        .imageScale(.large)
                 }
             KartView()
                 .tabItem {

@@ -11,8 +11,8 @@ struct BooksList: View {
     @State private var bookGenres: [BookGenre] = BookGenre.allCases
     @State private var selectedBook: GetBook?
     @State private var selectedBookGenre: BookGenre?
-
     @State private var showSheet = false
+    
     var body: some View {
         NavigationSplitView {
             List(bookGenres, selection: $selectedBookGenre) { genre in
@@ -44,8 +44,13 @@ struct BooksList: View {
                     viewModel.books = viewModel.searchResults
                     print(viewModel.books, viewModel.searchResults)
                     viewModel.searchResults = [GetBook]()
-                    
                 }
+            }
+            .refreshable {
+                print("REFRESHED")
+                guard let selectedBookGenre else { return }
+                await viewModel.fetchBooksByCategory(selectedBookGenre)
+                print("REFRESHED")
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
