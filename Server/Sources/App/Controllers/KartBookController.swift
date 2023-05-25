@@ -22,10 +22,10 @@ struct KartBookController: RouteCollection {
     /// The function used to add a book to a user's kart
     /// - Parameter req: the incoming request, containing a Kart and a Book object
     /// - Returns: a KartBook object, ie the KartID and the bookID that the kart contains
-    func create(req: Request) async throws -> KartBook {
+    func create(req: Request) async throws -> Response {
         let kartBook = try req.content.decode(KartBook.self)
         try await kartBook.save(on: req.db)
-        return kartBook
+        return try await kartBook.encodeResponse(status: .created, for: req)
     }
     
     func update(req: Request) async throws -> KartBook {

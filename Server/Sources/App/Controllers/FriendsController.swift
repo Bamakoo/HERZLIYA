@@ -23,9 +23,9 @@ struct FriendsController: RouteCollection {
         try await Friend.query(on: req.db).all()
     }
     
-    func create(req: Request) async throws -> Friend {
+    func create(req: Request) async throws -> Response {
         let friend = try req.content.decode(Friend.self)
         try await friend.save(on: req.db)
-        return friend
+        return try await friend.encodeResponse(status: .created, for: req)
     }
 }

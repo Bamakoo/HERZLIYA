@@ -17,10 +17,10 @@ struct RatingController: RouteCollection {
         try await Rating.query(on: req.db).all()
     }
 
-    func create(req: Request) async throws -> Rating {
+    func create(req: Request) async throws -> Response {
         let rating = try req.content.decode(Rating.self)
         try await rating.save(on: req.db)
-        return rating
+        return try await rating.encodeResponse(status: .created, for: req)
     }
     
     func update(req: Request) async throws -> Rating {

@@ -17,10 +17,10 @@ struct KartController: RouteCollection {
         try await Kart.query(on: req.db).all()
     }
 
-    func create(req: Request) async throws -> Kart {
+    func create(req: Request) async throws -> Response {
         let kart = try req.content.decode(Kart.self)
         try await kart.save(on: req.db)
-        return kart
+        return try await kart.encodeResponse(status: .created, for: req)
     }
     // TODO: implement patch on a kart object
     func update(req: Request) async throws -> Kart {

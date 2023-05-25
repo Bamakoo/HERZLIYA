@@ -32,10 +32,10 @@ struct LikeController: RouteCollection {
         try await Like.query(on: req.db).all()
     }
 
-    func create(req: Request) async throws -> Like {
+    func create(req: Request) async throws -> Response {
         let like = try req.content.decode(Like.self)
         try await like.save(on: req.db)
-        return like
+        return try await like.encodeResponse(status: .created, for: req)
     }
     
     func update(req: Request) async throws -> Like {

@@ -65,11 +65,9 @@ func create(req: Request) async throws -> Response {
     
     func update(req: Request) async throws -> Comment {
         let patchComment = try req.content.decode(PatchComment.self)
-        
         guard let commentFromDB =  try await Comment.find(patchComment.id, on: req.db) else {
             throw Abort(.notFound)
         }
-        
         if let comment = patchComment.comment {
             commentFromDB.comment = comment
         }
