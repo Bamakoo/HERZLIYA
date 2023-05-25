@@ -8,7 +8,6 @@
 import Foundation
 @MainActor
 final class BooksViewModel: ObservableObject {
-    
     @Published var title = ""
     @Published var author = ""
     @Published var description = ""
@@ -22,12 +21,12 @@ final class BooksViewModel: ObservableObject {
     @Published var booksByUsersFavoriteAuthor = [GetBook]()
     @Published var searchText: String = ""
     @Published var searchResults = [GetBook]()
+    @Published var soldBooks = [GetBook]()
 
     private let networkManager: BooksNetworkManager
     init(networkManager: BooksNetworkManager) {
         self.networkManager = networkManager
     }
-    
     func search() async {
         do {
             print(searchText)
@@ -50,6 +49,13 @@ final class BooksViewModel: ObservableObject {
     func bookByUsersFavoriteAuthor() async {
         do {
             booksByUsersFavoriteAuthor = try await networkManager.fetchBookByUsersFavoriteAuthor()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    func soldBooks() async {
+        do {
+            soldBooks = try await networkManager.soldBooks()
         } catch {
             print(error.localizedDescription)
         }
@@ -77,7 +83,8 @@ final class BooksViewModel: ObservableObject {
                                                 description: description,
                                                 genre: genre,
                                                 state: state,
-                                                status: status, sellerID: "",
+                                                status: status,
+                                                sellerID: "",
                                                 price: price)
         } catch {
             print(error.localizedDescription)

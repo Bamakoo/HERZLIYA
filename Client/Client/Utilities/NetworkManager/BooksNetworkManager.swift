@@ -16,6 +16,13 @@ final class BooksNetworkManager {
         self.httpClient = httpClient
     }
     
+    func soldBooks() async throws -> [GetBook] {
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        guard let url = URL(string: Request.baseURL + Endpoint.books + "/sold/" + userID) else { throw HttpError.badURL }
+        let books: [GetBook] = try await httpClient.fetch(url: url)
+        return books
+    }
+    
     func searchBooks(_ searchText: String) async throws -> [GetBook] {
         let trueSearch = searchText.replacingOccurrences(of: " ", with: "+")
         print(searchText)

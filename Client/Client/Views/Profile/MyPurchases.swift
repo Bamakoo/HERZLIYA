@@ -20,7 +20,7 @@ struct MyPurchases: View {
             .navigationTitle("Books I've Purchased")
             .listStyle(.grouped)
         } detail: {
-            if let book = selection {
+            if selection != nil {
                 BookDetail(book: $selection)
             } else {
                 Text("Pick a book")
