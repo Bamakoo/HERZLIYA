@@ -5,14 +5,13 @@
 //  Created by Emma Gaubert on 18/02/2023.
 //
 import SwiftUI
-
 struct BooksList: View {
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var bookGenres: [BookGenre] = BookGenre.allCases
     @State private var selectedBook: GetBook?
     @State private var selectedBookGenre: BookGenre?
     @State private var showSheet = false
-    
+    @Environment(\.isSearching) private var isSearching
     var body: some View {
         NavigationSplitView {
             List(bookGenres, selection: $selectedBookGenre) { genre in
@@ -22,7 +21,7 @@ struct BooksList: View {
             }
             .navigationTitle("Books")
         } content: {
-            List(viewModel.books, selection: $selectedBook) { book in
+            List(isSearching ? viewModel.searchResults : viewModel.books, selection: $selectedBook) { book in
                 NavigationLink(value: book) {
                     BookRow(book: book)
                 }
@@ -39,11 +38,9 @@ struct BooksList: View {
             .submitLabel(.send)
             .onSubmit(of: .search) {
                 Task {
-                    print("Search submitted")
                     await viewModel.search()
-                    viewModel.books = viewModel.searchResults
-                    print(viewModel.books, viewModel.searchResults)
-                    viewModel.searchResults = [GetBook]()
+                    print(isSearching)
+
                 }
             }
             .refreshable {

@@ -160,7 +160,7 @@ struct BookController: RouteCollection {
         }
     }
     
-    func create(req: Request) async throws -> ClientResponse {
+    func create(req: Request) async throws -> Response {
         try Book.validate(content: req)
         let book = try req.content.decode(CreateBookData.self)
         let realBook = Book(title: book.title,
@@ -173,11 +173,8 @@ struct BookController: RouteCollection {
                             buyerID: book.buyerID,
                             status: book.status)
         try await realBook.save(on: req.db)
-        guard let data = try? JSONEncoder().encode(realBook) else {
-            return ClientResponse(status: .internalServerError, headers: [:], body: nil)
-        }
-        let byteBuffer = ByteBuffer(data: data)
-        return ClientResponse(status: .created, headers: [:], body: byteBuffer)
+        let getBook = GetBook(id: try realBook.requireID(), title: realBook.title, author: realBook.author, price: realBook.price, state: realBook.state)
+        return try await getBook.encodeResponse(status: .created, for: req)
     }
     
     func update(req: Request) async throws -> Book {
