@@ -17,6 +17,11 @@ struct MainMenu: View {
                 .tabItem {
                     Label("Profile", systemImage: "person.crop.circle.fill")
                 }
+            CreateBookView()
+                .tabItem {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 100))
+                }
             KartView()
                 .tabItem {
                     Label("Cart", systemImage: "cart.circle")

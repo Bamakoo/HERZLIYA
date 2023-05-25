@@ -22,6 +22,10 @@ enum HttpHeaders: String {
     case authentication = "Authentication"
 }
 
+enum UserError: Error {
+    case unableToGetID
+}
+
 enum HttpError: Error {
     case badURL
     case badResponse

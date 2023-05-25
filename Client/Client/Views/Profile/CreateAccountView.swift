@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CreateAccountView: View {
     @ObservedObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         Form {
             Section("Username & email") {
@@ -40,6 +41,7 @@ struct CreateAccountView: View {
             Button {
                 Task {
                     try await viewModel.createANewUser()
+                    dismiss()
                 }
             } label: {
                 Text("Create Account")

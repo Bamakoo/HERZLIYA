@@ -27,7 +27,6 @@
 		A4AF589E29CC6529003F03AD /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589D29CC6529003F03AD /* CreateAccountView.swift */; };
 		A4AF58A029CC653D003F03AD /* KartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589F29CC653D003F03AD /* KartView.swift */; };
 		A4BDB5DB29D5BD4500C973CE /* UserProfileEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */; };
-		A4BDB5DD29D5CE9D00C973CE /* ProfileRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDB5DC29D5CE9D00C973CE /* ProfileRow.swift */; };
 		A4C9863C299FB843003CF879 /* ClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9863B299FB843003CF879 /* ClientApp.swift */; };
 		A4C9863E299FB843003CF879 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9863D299FB843003CF879 /* MainMenu.swift */; };
 		A4C98640299FB844003CF879 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4C9863F299FB844003CF879 /* Assets.xcassets */; };
@@ -42,7 +41,6 @@
 		A4C9867029A10B5F003CF879 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9866F29A10B5F003CF879 /* Book.swift */; };
 		A4C9867329A1198F003CF879 /* BooksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867229A1198F003CF879 /* BooksViewModel.swift */; };
 		A4C9867829A11EFC003CF879 /* BooksList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867729A11EFC003CF879 /* BooksList.swift */; };
-		A4DD9DB029D9D2C40063DD9B /* ProfileDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DAF29D9D2C40063DD9B /* ProfileDetail.swift */; };
 		A4DD9DB229D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DB129D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift */; };
 		A4DD9DB429D9D50B0063DD9B /* MyFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DB329D9D50B0063DD9B /* MyFriendsView.swift */; };
 		A4DD9DB629D9D54F0063DD9B /* MyPurchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DB529D9D54F0063DD9B /* MyPurchases.swift */; };
@@ -52,6 +50,9 @@
 		A4DD9DC429DF12B50063DD9B /* LoginChoiceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DC329DF12B40063DD9B /* LoginChoiceScreen.swift */; };
 		A4DD9DC629DF14630063DD9B /* LoginEnum .swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DC529DF14630063DD9B /* LoginEnum .swift */; };
 		A4DD9DC829DF24E40063DD9B /* ForgotMyPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DC729DF24E40063DD9B /* ForgotMyPassword.swift */; };
+		A4DEA2752A128E4000FE6EB3 /* NewUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEA2742A128E4000FE6EB3 /* NewUser.swift */; };
+		A4DEA2772A1373D400FE6EB3 /* GetUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEA2762A1373D400FE6EB3 /* GetUser.swift */; };
+		A4DEA2792A1511DE00FE6EB3 /* PatchPurchaseBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEA2782A1511DE00FE6EB3 /* PatchPurchaseBook.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,7 +93,6 @@
 		A4AF589D29CC6529003F03AD /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		A4AF589F29CC653D003F03AD /* KartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KartView.swift; sourceTree = "<group>"; };
 		A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserProfileEnum.swift; path = Client/Utilities/User/UserProfileEnum.swift; sourceTree = SOURCE_ROOT; };
-		A4BDB5DC29D5CE9D00C973CE /* ProfileRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRow.swift; sourceTree = SOURCE_ROOT; };
 		A4C98638299FB843003CF879 /* Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4C9863B299FB843003CF879 /* ClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientApp.swift; sourceTree = "<group>"; };
 		A4C9863D299FB843003CF879 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -110,7 +110,6 @@
 		A4C9866F29A10B5F003CF879 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		A4C9867229A1198F003CF879 /* BooksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksViewModel.swift; sourceTree = "<group>"; };
 		A4C9867729A11EFC003CF879 /* BooksList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksList.swift; sourceTree = "<group>"; };
-		A4DD9DAF29D9D2C40063DD9B /* ProfileDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetail.swift; sourceTree = SOURCE_ROOT; };
 		A4DD9DB129D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksByMyFavoriteAuthorView.swift; sourceTree = SOURCE_ROOT; };
 		A4DD9DB329D9D50B0063DD9B /* MyFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsView.swift; sourceTree = "<group>"; };
 		A4DD9DB529D9D54F0063DD9B /* MyPurchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchases.swift; sourceTree = "<group>"; };
@@ -120,6 +119,9 @@
 		A4DD9DC329DF12B40063DD9B /* LoginChoiceScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginChoiceScreen.swift; sourceTree = "<group>"; };
 		A4DD9DC529DF14630063DD9B /* LoginEnum .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "LoginEnum .swift"; path = "Client/Views/Profile/LoginEnum .swift"; sourceTree = SOURCE_ROOT; };
 		A4DD9DC729DF24E40063DD9B /* ForgotMyPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotMyPassword.swift; sourceTree = "<group>"; };
+		A4DEA2742A128E4000FE6EB3 /* NewUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUser.swift; sourceTree = "<group>"; };
+		A4DEA2762A1373D400FE6EB3 /* GetUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUser.swift; sourceTree = "<group>"; };
+		A4DEA2782A1511DE00FE6EB3 /* PatchPurchaseBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchPurchaseBook.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,8 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				A4DD9DB129D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift */,
-				A4DD9DAF29D9D2C40063DD9B /* ProfileDetail.swift */,
-				A4BDB5DC29D5CE9D00C973CE /* ProfileRow.swift */,
 				A44D59BE29A407C800FF7F22 /* LikesView.swift */,
 				A4AF589F29CC653D003F03AD /* KartView.swift */,
 				A44D59BC29A4077E00FF7F22 /* UserProfileView.swift */,
@@ -252,10 +252,13 @@
 			isa = PBXGroup;
 			children = (
 				A4DD9DC129DED1220063DD9B /* UserToken.swift */,
+				A4DEA2782A1511DE00FE6EB3 /* PatchPurchaseBook.swift */,
+				A4DEA2762A1373D400FE6EB3 /* GetUser.swift */,
 				A43EDBEA29ED438D00573A2C /* Identifier.swift */,
 				A4C9866F29A10B5F003CF879 /* Book.swift */,
 				A4AF589529CC617A003F03AD /* Comment.swift */,
 				A4AF589729CC61F3003F03AD /* Kart.swift */,
+				A4DEA2742A128E4000FE6EB3 /* NewUser.swift */,
 				A44D59C829ACB05A00FF7F22 /* Like.swift */,
 				A4AF589929CC628E003F03AD /* Rating.swift */,
 				A44D59CA29ACB0D000FF7F22 /* User.swift */,
@@ -480,6 +483,7 @@
 				A4AF589E29CC6529003F03AD /* CreateAccountView.swift in Sources */,
 				A4C9867029A10B5F003CF879 /* Book.swift in Sources */,
 				A4DD9DC429DF12B50063DD9B /* LoginChoiceScreen.swift in Sources */,
+				A4DEA2752A128E4000FE6EB3 /* NewUser.swift in Sources */,
 				A4DD9DB629D9D54F0063DD9B /* MyPurchases.swift in Sources */,
 				A44D59C329A4C59600FF7F22 /* BookDetail.swift in Sources */,
 				A44D59CB29ACB0D000FF7F22 /* User.swift in Sources */,
@@ -488,14 +492,12 @@
 				A4C98669299FD8DD003CF879 /* Networking.swift in Sources */,
 				A44D59BD29A4077E00FF7F22 /* UserProfileView.swift in Sources */,
 				A44D59CD29ACB33200FF7F22 /* KartsNetworkManager.swift in Sources */,
-				A4BDB5DD29D5CE9D00C973CE /* ProfileRow.swift in Sources */,
 				A4DD9DC829DF24E40063DD9B /* ForgotMyPassword.swift in Sources */,
 				A4AF589829CC61F3003F03AD /* Kart.swift in Sources */,
 				A44D59BF29A407C800FF7F22 /* LikesView.swift in Sources */,
 				A44D59AF29A3722500FF7F22 /* CreateBookView.swift in Sources */,
 				A4AF589A29CC628E003F03AD /* Rating.swift in Sources */,
 				A4AF589629CC617A003F03AD /* Comment.swift in Sources */,
-				A4DD9DB029D9D2C40063DD9B /* ProfileDetail.swift in Sources */,
 				A4DD9DC629DF14630063DD9B /* LoginEnum .swift in Sources */,
 				A4DD9DB229D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift in Sources */,
 				A4C9866B299FDB68003CF879 /* BooksNetworkManager.swift in Sources */,
@@ -503,7 +505,9 @@
 				A44D59C729ACAFC800FF7F22 /* KartViewModel.swift in Sources */,
 				A44D59C129A4C21A00FF7F22 /* BookRow.swift in Sources */,
 				A4DD9DB429D9D50B0063DD9B /* MyFriendsView.swift in Sources */,
+				A4DEA2772A1373D400FE6EB3 /* GetUser.swift in Sources */,
 				A4DD9DC229DED1220063DD9B /* UserToken.swift in Sources */,
+				A4DEA2792A1511DE00FE6EB3 /* PatchPurchaseBook.swift in Sources */,
 				A4C9866D29A10835003CF879 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

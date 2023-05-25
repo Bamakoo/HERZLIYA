@@ -11,7 +11,7 @@ struct BooksList: View {
     @State private var bookGenres: [BookGenre] = BookGenre.allCases
     @State private var selectedBook: GetBook?
     @State private var selectedBookGenre: BookGenre?
-    @State private var searchText: String = ""
+
     @State private var showSheet = false
     var body: some View {
         NavigationSplitView {
@@ -20,7 +20,7 @@ struct BooksList: View {
                     Label(genre.title, systemImage: genre.image)
                 }
             }
-            .navigationTitle("Search books by genre")
+            .navigationTitle("Books")
         } content: {
             List(viewModel.books, selection: $selectedBook) { book in
                 NavigationLink(value: book) {
@@ -35,6 +35,18 @@ struct BooksList: View {
                     await viewModel.fetchBooksByCategory(selectedBookGenre)
                 }
             }
+            .searchable(text: $viewModel.searchText, prompt: "Search")
+            .submitLabel(.send)
+            .onSubmit(of: .search) {
+                Task {
+                    print("Search submitted")
+                    await viewModel.search()
+                    viewModel.books = viewModel.searchResults
+                    print(viewModel.books, viewModel.searchResults)
+                    viewModel.searchResults = [GetBook]()
+                    
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -43,12 +55,13 @@ struct BooksList: View {
                         Image(systemName: "plus")
                     }
                     .sheet(isPresented: $showSheet) {
+                        Task {
+                            guard let selectedBookGenre else { return }
+                            print("vanished")
+                            await viewModel.fetchBooksByCategory(selectedBookGenre)
+                        }
+                    } content: {
                         CreateBookView()
-                            .onDisappear {
-                                Task {
-                                    await viewModel.fetchBooks()
-                                }
-                            }
                     }
                 }
             }
@@ -59,6 +72,5 @@ struct BooksList: View {
                 Text("Pick a book")
             }
         }
-        .searchable(text: $searchText, prompt: "Search for your favorite book")
     }
 }

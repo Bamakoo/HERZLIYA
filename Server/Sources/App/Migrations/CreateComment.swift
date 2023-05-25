@@ -7,6 +7,9 @@ struct CreateComment: AsyncMigration {
             .field("comment", .string, .required)
             .field("user_id", .uuid, .references("users", "id"))
             .field("book_id", .uuid, .references("books", "id"))
+            .field("created_at", .date)
+            .field("updated_at", .date)
+            .field("deleted_at", .date)
             .unique(on: "user_id", "book_id")
             .create()
     }

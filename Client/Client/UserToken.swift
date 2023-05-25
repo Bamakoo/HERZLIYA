@@ -9,6 +9,5 @@ import Foundation
 
 struct UserToken: Decodable {
     let value: String
-    let id: UUID
-    let user: UUID
+    let userID: String
 }

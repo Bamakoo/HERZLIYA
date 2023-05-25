@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CreateBookView: View {
     @StateObject var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         Form {
             Section {
@@ -24,13 +25,6 @@ struct CreateBookView: View {
                 .background(Color.white)
                 .keyboardType(.decimalPad)
             }
-        header: {
-            Text("Author, Title & price")
-                .foregroundColor(.black)
-        } footer: {
-            Text("Think long and hard about the price")
-                .foregroundColor(.black)
-        }
             Section {
                 Picker("State", selection: $viewModel.state) {
                     ForEach(BookState.allCases) { state in
@@ -44,18 +38,15 @@ struct CreateBookView: View {
                 }
                 TextField("Description", text: $viewModel.description, prompt: Text("Description"))
             }
-        header: {
-            Text("Books genre and state")
-                .foregroundColor(.black)
             Button {
                 Task {
-                    // try await viewModel.createBook()
+                    await viewModel.createBook()
+                    dismiss()
                 }
             } label: {
                 Text("Sell book")
             }
             .disabled(viewModel.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-        }
         }
     }
 }

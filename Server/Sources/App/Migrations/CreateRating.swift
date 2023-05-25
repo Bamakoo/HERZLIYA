@@ -7,6 +7,9 @@ struct CreateRating: AsyncMigration {
             .field("user_who_rates", .uuid, .references("users", "id"))
             .field("rated_user", .uuid, .references("users", "id"))
             .field("rating", .float, .required)
+            .field("created_at", .date)
+            .field("updated_at", .date)
+            .field("deleted_at", .date)
             .unique(on: "user_who_rates", "rated_user")
             .create()
     }
