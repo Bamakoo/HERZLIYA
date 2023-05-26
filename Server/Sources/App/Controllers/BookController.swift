@@ -25,7 +25,7 @@ struct BookController: RouteCollection {
     /// This function returns all the books in a user's kart
     /// - Parameter req: the incoming GET request
     /// - Returns: all the books a user has added to her kart
-    func getBooksInKart (req: Request) async throws -> [Book] {
+    func getBooksInKart (req: Request) async throws -> [GetBook] {
         /// get the user's ID
         guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db),
               let userID = user.id else {
@@ -40,7 +40,10 @@ struct BookController: RouteCollection {
         }
         
         /// return all the books associated to the kart
-        return try await kart.$books.get(on: req.db)
+        let books = try await kart.$books.get(on: req.db)
+        return try books.map { book in
+            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+        }
     }
     
     /// When called by the route handler, this function fetches all the books that a particular user has liked
