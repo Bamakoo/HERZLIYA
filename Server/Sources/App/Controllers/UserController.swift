@@ -37,6 +37,8 @@ struct UserController: RouteCollection {
             favoriteAuthor: newUser.favoriteAuthor
         )
         try await user.save(on: req.db)
+        let kart = try Kart(userID: user.requireID())
+        try await kart.save(on: req.db)
         let returnedUser = try GetUser(id: user.requireID(), username: user.username, favoriteBook: user.favoriteBook, country: user.country, city: user.city, favoriteAuthor: user.favoriteAuthor)
         return try await returnedUser.encodeResponse(status: .created, for: req)
     }

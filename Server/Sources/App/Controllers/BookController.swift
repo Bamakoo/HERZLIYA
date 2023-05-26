@@ -31,6 +31,7 @@ struct BookController: RouteCollection {
         guard let userID = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
             throw Abort(.notFound, reason: "unable to locate the UserID")
         }
+        print(userID)
         /// FIXME: use the user's ID to get the user's kart
        guard let kart = try await Kart.query(on: req.db)
         .first()
