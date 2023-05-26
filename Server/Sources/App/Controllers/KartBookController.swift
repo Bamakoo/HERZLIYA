@@ -23,8 +23,9 @@ struct KartBookController: RouteCollection {
     /// - Parameter req: the incoming request, containing a Kart and a Book object
     /// - Returns: a KartBook object, ie the KartID and the bookID that the kart contains
     func create(req: Request) async throws -> Response {
-        let kartBook = try req.content.decode(KartBook.self)
-        try await kartBook.save(on: req.db)
+        let kartBook = try req.content.decode(CreateKartBookData.self)
+        let realKartBook = KartBook(kartID: kartBook.kartID, bookID: kartBook.bookID)
+        try await realKartBook.save(on: req.db)
         return try await kartBook.encodeResponse(status: .created, for: req)
     }
     

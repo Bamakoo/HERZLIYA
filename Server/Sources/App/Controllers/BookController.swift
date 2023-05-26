@@ -18,7 +18,6 @@ struct BookController: RouteCollection {
         tokenAuth.get("sold", ":userID", use: getUserSoldBooks)
         tokenAuth.get("favorite-author", ":userID", use: getMyFavoriteAuthorsBooks)
         tokenAuth.post(use: create)
-        // FIXME: patch a particular user
         tokenAuth.patch(use: update)
         tokenAuth.delete(":bookID", use: delete)
     }
@@ -28,16 +27,18 @@ struct BookController: RouteCollection {
     /// - Returns: all the books a user has added to her kart
     func getBooksInKart (req: Request) async throws -> [Book] {
         /// get the user's ID
-        guard let userID = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
-            throw Abort(.notFound, reason: "unable to locate the UserID")
+        guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db),
+              let userID = user.id else {
+            throw Abort(.notFound, reason: "unable to locate the User")
         }
-        print(userID)
-        /// FIXME: use the user's ID to get the user's kart
-       guard let kart = try await Kart.query(on: req.db)
-        .first()
+
+        guard let kart = try await Kart.query(on: req.db)
+            .filter(\.$user.$id == userID)
+            .first()
         else {
-           throw Abort(.notFound)
-       }
+            throw Abort(.notFound, reason: "unable to find kart")
+        }
+        
         /// return all the books associated to the kart
         return try await kart.$books.get(on: req.db)
     }
@@ -181,8 +182,12 @@ struct BookController: RouteCollection {
     func update(req: Request) async throws -> Book {
 
         let patchBook = try req.content.decode(PatchBook.self)
+         
         guard let book  =  try await Book.find(patchBook.id, on: req.db) else {
             throw Abort(.notFound)
+        }
+        guard patchBook.buyerID != book.$seller.id else {
+            throw Abort(.badRequest, reason: "you can't buy your own book")
         }
         if let buyerID = patchBook.buyerID {
             book.$buyer.id = buyerID

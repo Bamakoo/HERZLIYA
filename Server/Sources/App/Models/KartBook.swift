@@ -25,15 +25,15 @@ final class KartBook: Model, Content {
     init() { }
 
     init(id: UUID? = nil,
-         kart: Kart,
-         book: Book,
+         kartID: Kart.IDValue,
+         bookID: Book.IDValue,
          createdAt: Date? = nil,
          updatedAt: Date? = nil,
          deletedAt: Date? = nil
-         ) throws {
+         ) {
         self.id = id
-        self.$kart.id = try kart.requireID()
-        self.$book.id = try kart.requireID()
+        self.$kart.id = kartID
+        self.$book.id = bookID
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.deletedAt = deletedAt
