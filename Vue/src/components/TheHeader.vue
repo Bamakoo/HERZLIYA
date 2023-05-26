@@ -1,20 +1,33 @@
 <template>
-  <header class="w-full min-h-max fixed inset-0 bg-gray-500 flex p-2 justify-between align-middle">
-    <div class="flex space-x-2">
-      <div class="rounded-full aspect-square p-2 bg-gray-400">
-        <img src="" alt="logo Herzliya" class="cover h-11 w-11" />
-      </div>
-      <input
-        type="search"
-        dir="ltr"
-        aria-autocomplete="list"
-        aria-label="Tapez votre recherche"
-        class="rounded-3xl bg-gray-400 max-w-lg h-11 focus:ring focus:ring-gray-600 focus:ring-offset-0 focus:ring-offset-black p-3 text-gray-700"
-      />
+  <header class="w-full max-h-max sticky top-0 bg-gray-500 flex p-2 align-middle">
+    <div class="flex space-x-2 px-2 items-center w-1/5">
+      <RouterLink to="../">
+        <div class="rounded-full aspect-square bg-gray-400">
+          <img src="" alt="logo Herzliya" class="cover h-14 w-14" />
+        </div>
+      </RouterLink>
+      <label
+        class="hidden md:visible md:flex items-center rounded-xl bg-gray-400 min-w-full focus:ring-offset-0 focus:border-none px-2 text-gray-700"
+      >
+        <div class="inline mr-2"><MagnifyingGlassIcon class="h-6 w-6" /></div>
+        <input
+          type="search"
+          dir="ltr"
+          aria-autocomplete="list"
+          aria-label="Tapez votre recherche"
+          class="p-2 border-0 focus:ring-0 bg-transparent placeholder:Rechercher placeholder:text-gray-900 w-full"
+        />
+      </label>
     </div>
-    <nav class="grid grid-cols-4 gap-x-4 w-96">
+    <nav class="hidden md:flex items-center mx-auto space-x-12">
       <RouterLink v-for="(nav, index) in navigation" :to="nav.to" :key="index">
-        <component :is="nav.icon" class="h-7 w-7 text-gray-700" />
+        <component
+          :is="nav.icon"
+          :class="[
+            'h-12 w-12 text-gray-700',
+            { 'text-gray-900 border-b-2 border-b-gray-900': selected }
+          ]"
+        />
         <!-- On Hover apparait en dessous de l'icône
         <div
           :aria-describedby="nav.title"
@@ -28,7 +41,10 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import {
+  MagnifyingGlassIcon,
+  HomeIcon,
   BookOpenIcon,
   PlusCircleIcon,
   UserCircleIcon,
@@ -36,9 +52,15 @@ import {
 } from '@heroicons/vue/24/outline/index.js'
 
 const navigation = [
-  { icon: BookOpenIcon, title: 'Livres', to: '../pages/books.vue' },
-  { icon: PlusCircleIcon, title: 'Vendre mon livre', to: '../pages/addBook.vue' },
-  { icon: UserCircleIcon, title: 'Mon Compte', to: '../pages/account.vue' },
-  { icon: ShoppingCartIcon, title: 'Panier', to: '../pages/kart.vue' }
+  {
+    icon: BookOpenIcon, //ou HomeIcon pour faire comprendre qu'on est à l'accueil
+    title: 'Livres',
+    to: '/'
+  },
+  { icon: PlusCircleIcon, title: 'Vendre mon livre', to: '/add' },
+  { icon: UserCircleIcon, title: 'Mon Compte', to: '/account' },
+  { icon: ShoppingCartIcon, title: 'Panier', to: '/cart' }
 ]
+
+const selected = ref(false)
 </script>
