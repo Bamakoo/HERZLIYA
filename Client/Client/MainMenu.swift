@@ -13,7 +13,7 @@ struct MainMenu: View {
                 .tabItem {
                     Label("Books", systemImage: "books.vertical.circle.fill")
                 }
-            UserProfileView()
+            ProfileSwitch()
                 .tabItem {
                     Label("Profile", systemImage: "person.crop.circle.fill")
                 }
@@ -26,10 +26,6 @@ struct MainMenu: View {
             KartView()
                 .tabItem {
                     Label("Cart", systemImage: "cart.circle")
-                }
-            SignInView()
-                .tabItem {
-                    Label("Sign in", systemImage: "person.badge.shield.checkmark.fill")
                 }
         }
     }

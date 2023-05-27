@@ -20,6 +20,8 @@
 		A44D59C929ACB05A00FF7F22 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D59C829ACB05A00FF7F22 /* Like.swift */; };
 		A44D59CB29ACB0D000FF7F22 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D59CA29ACB0D000FF7F22 /* User.swift */; };
 		A44D59CD29ACB33200FF7F22 /* KartsNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D59CC29ACB33200FF7F22 /* KartsNetworkManager.swift */; };
+		A499DCD12A22ABFA00777B8F /* ProfileSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCD02A22ABFA00777B8F /* ProfileSwitch.swift */; };
+		A499DCD32A22AD0B00777B8F /* Oups.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCD22A22AD0B00777B8F /* Oups.swift */; };
 		A4AF589629CC617A003F03AD /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589529CC617A003F03AD /* Comment.swift */; };
 		A4AF589829CC61F3003F03AD /* Kart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589729CC61F3003F03AD /* Kart.swift */; };
 		A4AF589A29CC628E003F03AD /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589929CC628E003F03AD /* Rating.swift */; };
@@ -86,6 +88,8 @@
 		A44D59C829ACB05A00FF7F22 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		A44D59CA29ACB0D000FF7F22 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A44D59CC29ACB33200FF7F22 /* KartsNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KartsNetworkManager.swift; sourceTree = "<group>"; };
+		A499DCD02A22ABFA00777B8F /* ProfileSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSwitch.swift; sourceTree = "<group>"; };
+		A499DCD22A22AD0B00777B8F /* Oups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Oups.swift; sourceTree = "<group>"; };
 		A4AF589529CC617A003F03AD /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		A4AF589729CC61F3003F03AD /* Kart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kart.swift; sourceTree = "<group>"; };
 		A4AF589929CC628E003F03AD /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
@@ -164,6 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				A4DD9DB129D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift */,
+				A499DCD02A22ABFA00777B8F /* ProfileSwitch.swift */,
+				A499DCD22A22AD0B00777B8F /* Oups.swift */,
 				A44D59BE29A407C800FF7F22 /* LikesView.swift */,
 				A4AF589F29CC653D003F03AD /* KartView.swift */,
 				A44D59BC29A4077E00FF7F22 /* UserProfileView.swift */,
@@ -472,6 +478,7 @@
 				A4BDB5DB29D5BD4500C973CE /* UserProfileEnum.swift in Sources */,
 				A43C72DC29CDD3DF00CDF56B /* UsersViewModel.swift in Sources */,
 				A4C9867829A11EFC003CF879 /* BooksList.swift in Sources */,
+				A499DCD32A22AD0B00777B8F /* Oups.swift in Sources */,
 				A44D59C929ACB05A00FF7F22 /* Like.swift in Sources */,
 				A4C9867329A1198F003CF879 /* BooksViewModel.swift in Sources */,
 				A43EDBEB29ED438D00573A2C /* Identifier.swift in Sources */,
@@ -499,6 +506,7 @@
 				A4AF589A29CC628E003F03AD /* Rating.swift in Sources */,
 				A4AF589629CC617A003F03AD /* Comment.swift in Sources */,
 				A4DD9DC629DF14630063DD9B /* LoginEnum .swift in Sources */,
+				A499DCD12A22ABFA00777B8F /* ProfileSwitch.swift in Sources */,
 				A4DD9DB229D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift in Sources */,
 				A4C9866B299FDB68003CF879 /* BooksNetworkManager.swift in Sources */,
 				A4DD9DBA29DAC95C0063DD9B /* Keychain.swift in Sources */,

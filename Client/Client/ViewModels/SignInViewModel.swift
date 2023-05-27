@@ -38,6 +38,7 @@ final class SignInViewModel: ObservableObject {
                 let userToken = try decoder.decode(UserToken.self, from: data)
                 print(userToken)
                 try Keychain.addToken(userToken: userToken)
+                UserDefaults.standard.set(true, forKey: "isLoggedIn")
             } catch {
                 print(error.localizedDescription)
             }
