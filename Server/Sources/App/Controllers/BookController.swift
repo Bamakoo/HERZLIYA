@@ -103,8 +103,7 @@ struct BookController: RouteCollection {
     
     func getAParticularBook(req: Request) async throws -> Book {
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
-            print("unable to get a specific book")
-            throw Abort(.notFound)
+            throw Abort(.notFound, reason:"unable to get a specific book")
         }
         return book
     }
