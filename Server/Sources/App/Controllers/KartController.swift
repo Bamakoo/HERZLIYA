@@ -10,9 +10,29 @@ struct KartController: RouteCollection {
         tokenProtectedKarts.post("karts", use: create)
         tokenProtectedKarts.post("add", "book", ":bookID", "user-kart", ":userID", use: addBookToUserKart)
         tokenProtectedKarts.post("karts", "add-book", use: addBookToKart)
+        tokenProtectedKarts.post("karts", "remove-book", use: removeBookFromKart)
         tokenProtectedKarts.group("karts", ":kartID") { kart in
             kart.delete(use: delete)
         }
+    }
+    
+    func removeBookFromKart(req: Request) async throws -> HTTPStatus {
+        let removeBookFromKartDTO = try req.content.decode(AddBookToKartDTO.self)
+        guard let kart = try await Kart.query(on: req.db)
+            .filter(\.$user.$id == removeBookFromKartDTO.userID)
+            .first(),
+              let kartID = kart.id
+        else {
+            throw Abort(.notFound, reason: "unable to find kart")
+        }
+        guard let kartBook = try await KartBook.query(on: req.db)
+            .filter(\.$kart.$id == kartID)
+            .first()
+        else {
+            throw Abort(.notFound, reason: "unable to find kartBook")
+        }
+        try await kartBook.delete(on: req.db)
+        return .ok
     }
     
     func addBookToKart(req: Request) async throws -> Response {
