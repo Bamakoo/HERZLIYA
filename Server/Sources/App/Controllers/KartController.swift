@@ -10,7 +10,7 @@ struct KartController: RouteCollection {
         tokenProtectedKarts.post("karts", use: create)
         tokenProtectedKarts.post("add", "book", ":bookID", "user-kart", ":userID", use: addBookToUserKart)
         tokenProtectedKarts.post("karts", "add-book", use: addBookToKart)
-        tokenProtectedKarts.post("karts", "remove-book", use: removeBookFromKart)
+        tokenProtectedKarts.delete("karts", "remove-book", use: removeBookFromKart)
         tokenProtectedKarts.group("karts", ":kartID") { kart in
             kart.delete(use: delete)
         }
