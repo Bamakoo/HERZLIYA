@@ -9,9 +9,24 @@ struct KartController: RouteCollection {
         tokenProtectedKarts.put("karts", use: update)
         tokenProtectedKarts.post("karts", use: create)
         tokenProtectedKarts.post("add", "book", ":bookID", "user-kart", ":userID", use: addBookToUserKart)
+        tokenProtectedKarts.post("karts", "add-book", use: addBookToKart)
         tokenProtectedKarts.group("karts", ":kartID") { kart in
             kart.delete(use: delete)
         }
+    }
+    
+    func addBookToKart(req: Request) async throws -> Response {
+        let addBookToKartDTO = try req.content.decode(AddBookToKartDTO.self)
+        guard let kart = try await Kart.query(on: req.db)
+            .filter(\.$user.$id == addBookToKartDTO.userID)
+            .first(),
+              let kartID = kart.id
+        else {
+            throw Abort(.notFound, reason: "unable to find kart")
+        }
+        let kartBook = KartBook(kartID: kartID, bookID: addBookToKartDTO.bookID)
+        try await kartBook.save(on: req.db)
+        return try await addBookToKartDTO.encodeResponse(status: .ok, for: req)
     }
     
     func addBookToUserKart(req: Request) async throws -> Response {
