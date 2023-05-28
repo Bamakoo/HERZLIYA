@@ -16,6 +16,16 @@ final class BooksNetworkManager {
         self.httpClient = httpClient
     }
     
+    func addBookToKart(_ bookID: UUID) async throws {
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        print(userID)
+        guard let url = URL(string: Request.baseURL + Endpoint.addBookToKart) else {
+            throw HttpError.badURL
+        }
+        let kartBook = AddBookToKartDTO(userID: userID, bookID: bookID)
+        try await httpClient.sendData(to: url, object: kartBook, httpMethod: HttpMethods.POST.rawValue)
+    }
+    
     func soldBooks() async throws -> [GetBook] {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
         guard let url = URL(string: Request.baseURL + Endpoint.books + "/sold/" + userID) else { throw HttpError.badURL }

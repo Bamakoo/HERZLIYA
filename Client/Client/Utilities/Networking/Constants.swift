@@ -17,4 +17,5 @@ enum Endpoint {
     static let login = "login"
     static let karts = "karts"
     static let bookSearchByCategory = "search/books/by-category/"
+    static let addBookToKart = "karts/add-book"
 }

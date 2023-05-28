@@ -27,6 +27,15 @@ final class BooksViewModel: ObservableObject {
     init(networkManager: BooksNetworkManager) {
         self.networkManager = networkManager
     }
+    
+    func addBookToKart(_ bookID: UUID) async {
+        do {
+            try await networkManager.addBookToKart(bookID)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     func search() async {
         do {
             print(searchText)
