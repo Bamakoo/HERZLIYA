@@ -12,10 +12,9 @@ enum Request {
 
 enum Endpoint: String {
     case soldBooks = "books/sold/"
-    
     static let books = "books"
     static let sold = "/sold/"
-    static let me = "me"
+    static let myself = "me"
     static let users = "users"
     static let login = "login"
     static let karts = "karts"

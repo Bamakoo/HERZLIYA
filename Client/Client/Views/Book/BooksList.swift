@@ -11,6 +11,7 @@ struct BooksList: View {
     @State private var selectedBook: GetBook?
     @State private var selectedBookGenre: BookGenre?
     @State private var showSheet = false
+    @State private var showSearch = false
     @Environment(\.isSearching) private var isSearching
     var body: some View {
         NavigationSplitView {
@@ -19,7 +20,22 @@ struct BooksList: View {
                     Label(genre.title, systemImage: genre.image)
                 }
             }
-            .navigationTitle("Books")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showSearch.toggle()
+                    } label: {
+                        Image(systemName: "magnifyingglass.circle.fill")
+                    }
+                    .sheet(isPresented: $showSearch) {
+                        Task {
+                            print("Searching ...")
+                        }
+                    } content: {
+                        SearchBook()
+                    }
+                }
+            }
         } content: {
             List(isSearching ? viewModel.searchResults : viewModel.books, selection: $selectedBook) { book in
                 NavigationLink(value: book) {
@@ -28,7 +44,7 @@ struct BooksList: View {
             }
             .navigationTitle(selectedBookGenre?.title ?? "Books")
             .listStyle(.grouped)
-            .onChange(of: selectedBookGenre) { bookGenre in
+            .onChange(of: selectedBookGenre) { _ in
                 Task {
                     guard let selectedBookGenre else { return }
                     await viewModel.fetchBooksByCategory(selectedBookGenre)
@@ -40,7 +56,6 @@ struct BooksList: View {
                 Task {
                     await viewModel.search()
                     print(isSearching)
-                    
                 }
             }
             .refreshable {
@@ -54,7 +69,7 @@ struct BooksList: View {
                     Button {
                         showSheet.toggle()
                     } label: {
-                        Image(systemName: "plus")
+                        Image(systemName: "plus.square")
                     }
                     .sheet(isPresented: $showSheet) {
                         Task {
@@ -68,7 +83,7 @@ struct BooksList: View {
                 }
             }
         } detail: {
-            if let book = selectedBook {
+            if selectedBook != nil {
                 BookDetail(book: $selectedBook)
             } else {
                 Text("Pick a book")

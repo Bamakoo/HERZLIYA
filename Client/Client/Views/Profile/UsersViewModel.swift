@@ -23,7 +23,6 @@ final class UsersViewModel: ObservableObject {
         self.networkManager = networkManager
     }
     @MainActor
-    
     func createANewUser() async throws {
         do {
             guard let url = URL(string: Request.baseURL + Endpoint.users) else {
@@ -51,7 +50,7 @@ final class UsersViewModel: ObservableObject {
                 do {
                     let decoder = JSONDecoder()
                     let user = try decoder.decode(GetUser.self, from: data)
-                    var userID = "\(user.id)"
+                    let userID = "\(user.id)"
                     UserDefaults.standard.set(userID, forKey: "userID")
                 } catch {
                     print(error.localizedDescription)

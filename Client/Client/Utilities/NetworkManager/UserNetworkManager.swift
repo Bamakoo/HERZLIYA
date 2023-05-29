@@ -15,7 +15,7 @@ final class UserNetworkManager {
         self.httpClient = httpClient
     }
     func getMe() async throws -> User {
-        let url = URL(string: Request.baseURL + Endpoint.me)!
+        let url = URL(string: Request.baseURL + Endpoint.myself)!
         let myProfile: User = try await httpClient.fetchSingleObject(url: url)
         return myProfile
     }
@@ -44,7 +44,7 @@ final class UserNetworkManager {
                            createdAt: nil,
                            updatedAt: nil,
                            deletedAt: nil)
-        try await httpClient.sendData(to: url, object: newUser, httpMethod: HttpMethods.POST.rawValue)
+        _ = try await httpClient.sendData(to: url, object: newUser, httpMethod: HttpMethods.POST.rawValue)
     }
     
     func deleteProfile(id: UUID) async throws {

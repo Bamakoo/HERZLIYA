@@ -140,8 +140,8 @@
             filePath = "Client/Utilities/NetworkManager/BooksNetworkManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "fetchBooksByCategory(_:)"
             landmarkType = "7">
             <Locations>
