@@ -9,23 +9,26 @@ import SwiftUI
 struct MainMenu: View {
     var body: some View {
         TabView {
+            Homepage()
+                .tabItem {
+                    Image(systemName: "house.circle.fill")
+                }
             BooksList()
                 .tabItem {
-                    Label("Books", systemImage: "books.vertical.circle.fill")
-                }
-            ProfileSwitch()
-                .tabItem {
-                    Label("Profile", systemImage: "person.crop.circle.fill")
+                    Image(systemName: "books.vertical.circle.fill")
                 }
             CreateBookView()
                 .tabItem {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 100))
-                        .imageScale(.large)
+                    Image(systemName: "plus.square")
                 }
+            ProfileSwitch()
+                .tabItem {
+                    Image(systemName: "person.crop.circle.fill")
+                }
+
             KartView()
                 .tabItem {
-                    Label("Cart", systemImage: "cart.circle")
+                    Image(systemName: "cart")
                 }
         }
     }

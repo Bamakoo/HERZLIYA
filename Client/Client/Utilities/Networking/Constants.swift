@@ -10,8 +10,11 @@ enum Request {
     static let baseURL = "http://127.0.0.1:8080/"
 }
 
-enum Endpoint {
+enum Endpoint: String {
+    case soldBooks = "books/sold/"
+    
     static let books = "books"
+    static let sold = "/sold/"
     static let me = "me"
     static let users = "users"
     static let login = "login"

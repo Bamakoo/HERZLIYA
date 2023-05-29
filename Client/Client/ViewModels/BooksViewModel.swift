@@ -14,7 +14,6 @@ final class BooksViewModel: ObservableObject {
     @Published var genre: BookGenre = .action
     @Published var state: BookState = .acceptable
     @Published var price = 0
-    @Published var seller: User = User.testUser
     @Published var status: BookStatus = .available
     @Published var books = [GetBook]()
     @Published var purchasedBooks = [GetBook]()

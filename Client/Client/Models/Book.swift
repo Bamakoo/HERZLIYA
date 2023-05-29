@@ -33,12 +33,12 @@ enum BookGenre: String, Identifiable, Codable, Hashable, Equatable, CaseIterable
         switch self {
         case .fantasy: return "crown.fill"
         case .scienceFiction: return "burst.fill"
-        case .action: return "suitcase.fill"
+        case .action: return "figure.run"
         case .mystery: return "dice.fill"
         case .horror: return "theatermasks.fill"
         case .romance: return "heart.circle.fill"
         case .realism: return "books.vertical.fill"
-        case .biography: return "books.vertical.circle"
+        case .biography: return "figure.wave"
         }
     }
 }

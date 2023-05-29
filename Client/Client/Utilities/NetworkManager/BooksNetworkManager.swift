@@ -1,5 +1,5 @@
 //
-//  SettingsNetworkManager.swift
+//  BooksNetworkManager.swift
 //  Client
 //
 //  Created by Emma Gaubert on 17/02/2023.
@@ -28,7 +28,7 @@ final class BooksNetworkManager {
     
     func soldBooks() async throws -> [GetBook] {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        guard let url = URL(string: Request.baseURL + Endpoint.books + "/sold/" + userID) else { throw HttpError.badURL }
+        guard let url = URL(string: Request.baseURL + Endpoint.soldBooks.rawValue + userID) else { throw HttpError.badURL }
         let books: [GetBook] = try await httpClient.fetch(url: url)
         return books
     }

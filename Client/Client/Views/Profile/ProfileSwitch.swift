@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ProfileSwitch: View {
-    @State private var isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
+    @StateObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
+    // @State private var isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
+    // @State private var isLoggedIn = User.isLoggedIn
     var body: some View {
-        if isLoggedIn { UserProfileView() } else { Oups() }
+        if viewModel.isLoggedIn { UserProfileView() } else { Oups() }
     }
 }
 
