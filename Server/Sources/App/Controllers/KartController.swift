@@ -17,7 +17,9 @@ struct KartController: RouteCollection {
     }
     
     func removeBookFromKart(req: Request) async throws -> HTTPStatus {
+        // get the user's ID and the book's ID
         let removeBookFromKartDTO = try req.content.decode(AddBookToKartDTO.self)
+        // get the user's Kart
         guard let kart = try await Kart.query(on: req.db)
             .filter(\.$user.$id == removeBookFromKartDTO.userID)
             .first(),
@@ -25,13 +27,13 @@ struct KartController: RouteCollection {
         else {
             throw Abort(.notFound, reason: "unable to find kart")
         }
-        guard let kartBook = try await KartBook.query(on: req.db)
-            .filter(\.$kart.$id == kartID)
-            .first()
-        else {
-            throw Abort(.notFound, reason: "unable to find kartBook")
+        // find the book and the quart
+        let kartBook = KartBook.query(on: req.db).group(.and) { group in
+            group.filter(\.$kart.$id == kartID)
+                .filter(\.$book.$id == removeBookFromKartDTO.bookID)
+                .all()
         }
-        try await kartBook.delete(on: req.db)
+        try await kartBook.delete()
         return .ok
     }
     

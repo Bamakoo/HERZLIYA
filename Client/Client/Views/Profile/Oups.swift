@@ -15,7 +15,7 @@ struct Oups: View {
         VStack(alignment: .leading) {
             Text("Oups")
             Text("That's on us!")
-            Text("Profiles are only accessible to users")
+            Text("Profiles are only accessible to logged in users")
             Button("Create an account") {
                 createAnAccount.toggle()
             }

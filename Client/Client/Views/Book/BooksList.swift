@@ -20,6 +20,7 @@ struct BooksList: View {
                     Label(genre.title, systemImage: genre.image)
                 }
             }
+            .listStyle(.automatic)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -55,7 +56,6 @@ struct BooksList: View {
             .onSubmit(of: .search) {
                 Task {
                     await viewModel.search()
-                    print(isSearching)
                 }
             }
             .refreshable {
