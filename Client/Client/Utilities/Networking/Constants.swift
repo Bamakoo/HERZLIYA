@@ -12,6 +12,7 @@ enum Request {
 
 enum Endpoint: String {
     case soldBooks = "books/sold/"
+    case booksInKart = "books/kart/"
     static let books = "books"
     static let sold = "/sold/"
     static let myself = "me"

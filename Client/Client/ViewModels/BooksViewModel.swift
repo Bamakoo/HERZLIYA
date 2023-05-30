@@ -17,6 +17,7 @@ final class BooksViewModel: ObservableObject {
     @Published var status: BookStatus = .available
     @Published var books = [GetBook]()
     @Published var purchasedBooks = [GetBook]()
+    @Published var kartBooks = [GetBook]()
     @Published var booksByUsersFavoriteAuthor = [GetBook]()
     @Published var searchText: String = ""
     @Published var searchResults = [GetBook]()
@@ -25,6 +26,13 @@ final class BooksViewModel: ObservableObject {
     private let networkManager: BooksNetworkManager
     init(networkManager: BooksNetworkManager) {
         self.networkManager = networkManager
+    }
+    func getBooksInKart() async {
+        do {
+            kartBooks = try await networkManager.getBooksInKart()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     func addBookToKart(_ bookID: UUID) async {
         do {

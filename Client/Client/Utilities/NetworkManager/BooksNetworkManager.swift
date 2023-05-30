@@ -12,6 +12,15 @@ let httpClient: HttpClient
 init(httpClient: HttpClient) {
         self.httpClient = httpClient
     }
+    func getBooksInKart() async throws -> [GetBook] {
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        guard let url = URL(string: Request.baseURL + Endpoint.booksInKart.rawValue + userID) else {
+            throw HttpError.badURL
+        }
+        print(url)
+        let booksInUserKart: [GetBook] = try await httpClient.fetch(url: url)
+        return booksInUserKart
+    }
     func addBookToKart(_ bookID: UUID) async throws {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
         print(userID)
