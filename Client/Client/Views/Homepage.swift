@@ -8,8 +8,26 @@
 import SwiftUI
 
 struct Homepage: View {
+    @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
+    @State private var selectedBook: GetBook?
     var body: some View {
-        Text("Homepage!")
+        NavigationSplitView {
+            List(viewModel.books, selection: $selectedBook) { book in
+                NavigationLink(value: book) {
+                    BookRow(book: book)
+                }
+            }
+            .listStyle(.grouped)
+        } detail: {
+            if selectedBook != nil {
+                BookDetail(book: $selectedBook)
+            } else {
+                Text("Pick a book")
+            }
+        }
+        .task {
+                await viewModel.fetchBooks()
+        }
     }
 }
 
