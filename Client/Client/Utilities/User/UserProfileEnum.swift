@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Menu: Identifiable, CaseIterable {
+enum ProfileMenu: Identifiable, CaseIterable {
     case friends, booksByFavoriteAuthor, likes, myKart, purchases, soldBooks
     var id: Self { self }
     var title: String {

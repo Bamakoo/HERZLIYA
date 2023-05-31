@@ -1,5 +1,5 @@
 //
-//  Homeage.swift
+//  Homepage.swift
 //  Client
 //
 //  Created by Emma Gaubert on 29/05/2023.
@@ -19,14 +19,48 @@ struct Homepage: View {
             }
             .toolbarRole(.browser)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        print("filtered")
-                    } label: {
-                        Image(systemName: "line.3.horizontal.decrease.circle.fill")
-                    }
-                }
-            }
+                ToolbarItem(placement: .primaryAction) {
+                                Menu {
+                                    Menu("Display") {
+                                        Button("Books") {
+                                            print("Displaying books")
+                                        }
+                                        Button("Comments") {
+                                            print("Displaying comments")
+                                        }
+                                        Button("Ratings") {
+                                            print("Displaying comments")
+                                        }
+                                    }
+                                    Menu("Sort") {
+                                        Button("By title") {
+                                            print("Displaying sorted XYZ by title")
+                                        }
+                                        Button("By Author") {
+                                            print("Displaying sorted XYZ by title")
+                                        }
+                                        Button("Price") {
+                                            print("Sorting by price")
+                                        }
+                                    }
+                                    Menu("Filter") {
+                                        Button("By title") {
+                                            print("Displaying sorted XYZ by title")
+                                        }
+                                        Button("By Author") {
+                                            print("Displaying sorted XYZ by title")
+                                        }
+                                        Button("Price") {
+                                            print("Sorting by price")
+                                        }
+
+                                    }
+                                }
+                                label: {
+                                    Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                                }
+                            }
+                        }
             .listStyle(.grouped)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Homepage")
