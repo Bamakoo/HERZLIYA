@@ -12,3 +12,10 @@ enum HomepageMenuSelector: String {
     case sort = "Sort"
     case filter = "Filter"
 }
+
+enum HomepageSubMenuSelector: String {
+    case books = "Books"
+    case comments = "Comments"
+    case ratings = "Ratings"
+    case users = "Users"
+}

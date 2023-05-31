@@ -22,17 +22,21 @@ struct Homepage: View {
                 ToolbarItem(placement: .primaryAction) {
                                 Menu {
                                     Menu(HomepageMenuSelector.display.rawValue) {
-                                        Button("Books") {
-                                            print("Displaying books")
+                                        Button(HomepageSubMenuSelector.books.rawValue) {
+                                            viewModel.selectedMenu = .display
+                                            viewModel.selectedSubMenu = .books
                                         }
-                                        Button("Comments") {
-                                            print("Displaying comments")
+                                        Button(HomepageSubMenuSelector.comments.rawValue) {
+                                            viewModel.selectedMenu = .display
+                                            viewModel.selectedSubMenu = .comments
                                         }
-                                        Button("Ratings") {
-                                            print("Displaying comments")
+                                        Button(HomepageSubMenuSelector.ratings.rawValue) {
+                                            viewModel.selectedMenu = .display
+                                            viewModel.selectedSubMenu = .ratings
                                         }
-                                        Button("Users") {
-                                            print("Displaying users")
+                                        Button(HomepageSubMenuSelector.users.rawValue) {
+                                            viewModel.selectedMenu = .display
+                                            viewModel.selectedSubMenu = .users
                                         }
                                     }
                                     Menu(HomepageMenuSelector.sort.rawValue) {

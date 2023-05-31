@@ -10,7 +10,8 @@ import Foundation
 @MainActor
 final class HomepageViewModel: ObservableObject {
     @Published var books = [GetBook]()
-
+    @Published var selectedMenu: HomepageMenuSelector = .display
+    @Published var selectedSubMenu: HomepageSubMenuSelector = .books
     private let networkManager: HomepageNetworkManager
     init(networkManager: HomepageNetworkManager) {
         self.networkManager = networkManager
