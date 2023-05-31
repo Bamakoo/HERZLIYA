@@ -25,7 +25,7 @@ final class HomepageViewModel: ObservableObject {
     }
     func sortFilterHandler() async {
         do {
-            books = try await networkManager
+            books = try await networkManager.sortFilterHandler(selectedMenu, selectedSubMenu)
         } catch {
             print(error.localizedDescription)
         }

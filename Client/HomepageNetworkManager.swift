@@ -17,4 +17,13 @@ final class HomepageNetworkManager {
         let books: [GetBook] = try await httpClient.fetch(url: url)
         return books
     }
+    func sortFilterHandler(_ sortOrFilter: HomepageMenuSelector, _ sortOrFilterBy: HomepageSubMenuSelector ) async throws -> [GetBook] {
+        var url = URL(string: Request.baseURL)
+        switch sortOrFilter {
+        case .filter :
+            
+        case .sort :
+        default :
+        }
+    }
 }

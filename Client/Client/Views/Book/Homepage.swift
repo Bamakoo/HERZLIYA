@@ -25,19 +25,30 @@ struct Homepage: View {
                             Button(HomepageSubMenuSelector.books.rawValue) {
                                 viewModel.selectedMenu = .display
                                 viewModel.selectedSubMenu = .books
-                                viewModel.sortFilterHandler()
+                                Task {
+                                    await viewModel.sortFilterHandler()
+                                }
                             }
                             Button(HomepageSubMenuSelector.comments.rawValue) {
                                 viewModel.selectedMenu = .display
                                 viewModel.selectedSubMenu = .comments
+                                Task {
+                                    await viewModel.sortFilterHandler()
+                                }
                             }
                             Button(HomepageSubMenuSelector.ratings.rawValue) {
                                 viewModel.selectedMenu = .display
                                 viewModel.selectedSubMenu = .ratings
+                                Task {
+                                    await viewModel.sortFilterHandler()
+                                }
                             }
                             Button(HomepageSubMenuSelector.users.rawValue) {
                                 viewModel.selectedMenu = .display
                                 viewModel.selectedSubMenu = .users
+                                Task {
+                                    await viewModel.sortFilterHandler()
+                                }
                             }
                         }
                         if viewModel.selectedSubMenu == .books {
@@ -45,32 +56,53 @@ struct Homepage: View {
                                 Button(HomepageSubMenuSelector.title.rawValue) {
                                     viewModel.selectedMenu = .sort
                                     viewModel.selectedSubMenu = .title
+                                    Task {
+                                        await viewModel.sortFilterHandler()
+                                    }
                                 }
                                 Button(HomepageSubMenuSelector.author.rawValue) {
                                     viewModel.selectedMenu = .sort
                                     viewModel.selectedSubMenu = .author
+                                    Task {
+                                        await viewModel.sortFilterHandler()
+                                    }
                                 }
                                 Button(HomepageSubMenuSelector.price.rawValue) {
                                     viewModel.selectedMenu = .sort
                                     viewModel.selectedSubMenu = .price
+                                    Task {
+                                        await viewModel.sortFilterHandler()
+                                    }
                                 }
                                 Button(HomepageSubMenuSelector.state.rawValue) {
                                     viewModel.selectedMenu = .sort
                                     viewModel.selectedSubMenu = .state
+                                    Task {
+                                        await viewModel.sortFilterHandler()
+                                    }
                                 }
                             }
                             Menu(HomepageMenuSelector.filter.rawValue) {
                                 Button(HomepageSubMenuSelector.title.rawValue) {
                                     viewModel.selectedMenu = .filter
                                     viewModel.selectedSubMenu = .title
+                                    Task {
+                                        await viewModel.sortFilterHandler()
+                                    }
                                 }
                                 Button(HomepageSubMenuSelector.author.rawValue) {
                                     viewModel.selectedMenu = .filter
                                     viewModel.selectedSubMenu = .author
+                                    Task {
+                                        await viewModel.sortFilterHandler()
+                                    }
                                 }
                                 Button(HomepageSubMenuSelector.price.rawValue) {
                                     viewModel.selectedMenu = .filter
                                     viewModel.selectedSubMenu = .price
+                                    Task {
+                                        await viewModel.sortFilterHandler()
+                                    }
                                 }
                             }
                         }
