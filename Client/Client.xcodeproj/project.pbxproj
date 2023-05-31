@@ -25,6 +25,8 @@
 		A499DCD52A23FA6C00777B8F /* BookKart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCD42A23FA6C00777B8F /* BookKart.swift */; };
 		A499DCD72A2496B800777B8F /* Homepage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCD62A2496B800777B8F /* Homepage.swift */; };
 		A499DCD92A24A46400777B8F /* SearchBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCD82A24A46400777B8F /* SearchBook.swift */; };
+		A499DCDB2A2749E500777B8F /* HomepageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCDA2A2749E500777B8F /* HomepageViewModel.swift */; };
+		A499DCDD2A274CA900777B8F /* HomepageNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCDC2A274CA900777B8F /* HomepageNetworkManager.swift */; };
 		A4AF589629CC617A003F03AD /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589529CC617A003F03AD /* Comment.swift */; };
 		A4AF589829CC61F3003F03AD /* Kart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589729CC61F3003F03AD /* Kart.swift */; };
 		A4AF589A29CC628E003F03AD /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589929CC628E003F03AD /* Rating.swift */; };
@@ -96,6 +98,8 @@
 		A499DCD42A23FA6C00777B8F /* BookKart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BookKart.swift; path = Client/Views/Book/BookKart.swift; sourceTree = SOURCE_ROOT; };
 		A499DCD62A2496B800777B8F /* Homepage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homepage.swift; sourceTree = "<group>"; };
 		A499DCD82A24A46400777B8F /* SearchBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBook.swift; sourceTree = "<group>"; };
+		A499DCDA2A2749E500777B8F /* HomepageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewModel.swift; sourceTree = "<group>"; };
+		A499DCDC2A274CA900777B8F /* HomepageNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageNetworkManager.swift; sourceTree = SOURCE_ROOT; };
 		A4AF589529CC617A003F03AD /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		A4AF589729CC61F3003F03AD /* Kart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kart.swift; sourceTree = "<group>"; };
 		A4AF589929CC628E003F03AD /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 		A4C9867129A1196D003CF879 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				A499DCDA2A2749E500777B8F /* HomepageViewModel.swift */,
 				A43C72DF29CF8DF900CDF56B /* SignInViewModel.swift */,
 				A43C72DB29CDD3DF00CDF56B /* UsersViewModel.swift */,
 				A4C9867229A1198F003CF879 /* BooksViewModel.swift */,
@@ -324,6 +329,7 @@
 		A4DD9DC029DB2D2D0063DD9B /* NetworkManager */ = {
 			isa = PBXGroup;
 			children = (
+				A499DCDC2A274CA900777B8F /* HomepageNetworkManager.swift */,
 				A4C9866A299FDB68003CF879 /* BooksNetworkManager.swift */,
 				A43C72DD29CDD80700CDF56B /* UserNetworkManager.swift */,
 				A44D59CC29ACB33200FF7F22 /* KartsNetworkManager.swift */,
@@ -513,9 +519,11 @@
 				A4DD9DC829DF24E40063DD9B /* ForgotMyPassword.swift in Sources */,
 				A4AF589829CC61F3003F03AD /* Kart.swift in Sources */,
 				A44D59BF29A407C800FF7F22 /* LikesView.swift in Sources */,
+				A499DCDB2A2749E500777B8F /* HomepageViewModel.swift in Sources */,
 				A44D59AF29A3722500FF7F22 /* CreateBookView.swift in Sources */,
 				A4AF589A29CC628E003F03AD /* Rating.swift in Sources */,
 				A499DCD92A24A46400777B8F /* SearchBook.swift in Sources */,
+				A499DCDD2A274CA900777B8F /* HomepageNetworkManager.swift in Sources */,
 				A4AF589629CC617A003F03AD /* Comment.swift in Sources */,
 				A4DD9DC629DF14630063DD9B /* LoginEnum .swift in Sources */,
 				A499DCD12A22ABFA00777B8F /* ProfileSwitch.swift in Sources */,

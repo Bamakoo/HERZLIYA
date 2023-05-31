@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Homepage: View {
-    @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
+    @StateObject private var viewModel = HomepageViewModel(networkManager: HomepageNetworkManager(httpClient: Networking()))
     @State private var selectedBook: GetBook?
     var body: some View {
         NavigationSplitView {
@@ -31,6 +31,10 @@ struct Homepage: View {
                                         Button("Ratings") {
                                             print("Displaying comments")
                                         }
+                                        Button("Users") {
+                                            print("Displaying users")
+                                        }
+
                                     }
                                     Menu("Sort") {
                                         Button("By title") {
@@ -41,6 +45,9 @@ struct Homepage: View {
                                         }
                                         Button("Price") {
                                             print("Sorting by price")
+                                        }
+                                        Button("State") {
+                                            print("Sorting by state")
                                         }
                                     }
                                     Menu("Filter") {
