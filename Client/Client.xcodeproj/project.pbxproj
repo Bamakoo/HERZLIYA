@@ -168,6 +168,7 @@
 		A413CB3F29BD406800FDB528 /* Book */ = {
 			isa = PBXGroup;
 			children = (
+				A499DCD62A2496B800777B8F /* Homepage.swift */,
 				A44D59C029A4C21A00FF7F22 /* BookRow.swift */,
 				A4C9867729A11EFC003CF879 /* BooksList.swift */,
 				A44D59AE29A3722500FF7F22 /* CreateBookView.swift */,
@@ -312,7 +313,6 @@
 			children = (
 				A413CB3F29BD406800FDB528 /* Book */,
 				A413CB4029BD40A300FDB528 /* Profile */,
-				A499DCD62A2496B800777B8F /* Homepage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

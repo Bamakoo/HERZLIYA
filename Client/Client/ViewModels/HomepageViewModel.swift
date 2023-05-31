@@ -11,7 +11,7 @@ import Foundation
 final class HomepageViewModel: ObservableObject {
     @Published var books = [GetBook]()
     @Published var selectedMenu: HomepageMenuSelector = .display
-    @Published var selectedSubMenu: HomepageSubMenuSelector = .books
+    @Published var selectedSubMenu: HomepageSubMenuSelector = .author
     private let networkManager: HomepageNetworkManager
     init(networkManager: HomepageNetworkManager) {
         self.networkManager = networkManager
@@ -21,6 +21,13 @@ final class HomepageViewModel: ObservableObject {
             books = try await networkManager.fetchBooks()
         } catch {
             print("unable to fetch books because of : \(error.localizedDescription)")
+        }
+    }
+    func sortFilterHandler() async {
+        do {
+            books = try await networkManager
+        } catch {
+            print(error.localizedDescription)
         }
     }
 }
