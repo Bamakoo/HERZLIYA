@@ -17,7 +17,6 @@ final class HomepageViewModel: ObservableObject {
     }
     func fetchBooks() async {
         do {
-            print("I'm using the NEW VM")
             books = try await networkManager.fetchBooks()
         } catch {
             print("unable to fetch books because of : \(error.localizedDescription)")

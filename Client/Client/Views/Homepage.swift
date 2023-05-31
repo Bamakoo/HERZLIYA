@@ -21,7 +21,7 @@ struct Homepage: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                                 Menu {
-                                    Menu("Display") {
+                                    Menu(HomepageMenuSelector.display.rawValue) {
                                         Button("Books") {
                                             print("Displaying books")
                                         }
@@ -34,9 +34,8 @@ struct Homepage: View {
                                         Button("Users") {
                                             print("Displaying users")
                                         }
-
                                     }
-                                    Menu("Sort") {
+                                    Menu(HomepageMenuSelector.sort.rawValue) {
                                         Button("By title") {
                                             print("Displaying sorted XYZ by title")
                                         }
@@ -50,7 +49,7 @@ struct Homepage: View {
                                             print("Sorting by state")
                                         }
                                     }
-                                    Menu("Filter") {
+                                    Menu(HomepageMenuSelector.filter.rawValue) {
                                         Button("By title") {
                                             print("Displaying sorted XYZ by title")
                                         }
