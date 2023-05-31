@@ -9,8 +9,8 @@ import Foundation
 
 enum HomepageMenuSelector: String {
     case display = "Display"
-    case sort = "Sort"
-    case filter = "Filter"
+    case sort = "Sort by"
+    case filter = "Filter by"
 }
 
 enum HomepageSubMenuSelector: String {
@@ -18,4 +18,9 @@ enum HomepageSubMenuSelector: String {
     case comments = "Comments"
     case ratings = "Ratings"
     case users = "Users"
+    
+    case title = "Title"
+    case author = "Author"
+    case price = "Price"
+    case state = "State"
 }

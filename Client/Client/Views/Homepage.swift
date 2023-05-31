@@ -40,28 +40,35 @@ struct Homepage: View {
                                         }
                                     }
                                     Menu(HomepageMenuSelector.sort.rawValue) {
-                                        Button("By title") {
-                                            print("Displaying sorted XYZ by title")
+                                        Button(HomepageSubMenuSelector.title.rawValue) {
+                                            viewModel.selectedMenu = .sort
+                                            viewModel.selectedSubMenu = .title
                                         }
-                                        Button("By Author") {
-                                            print("Displaying sorted XYZ by title")
+                                        Button(HomepageSubMenuSelector.author.rawValue) {
+                                            viewModel.selectedMenu = .sort
+                                            viewModel.selectedSubMenu = .author
                                         }
-                                        Button("Price") {
-                                            print("Sorting by price")
+                                        Button(HomepageSubMenuSelector.price.rawValue) {
+                                            viewModel.selectedMenu = .sort
+                                            viewModel.selectedSubMenu = .price
                                         }
-                                        Button("State") {
-                                            print("Sorting by state")
+                                        Button(HomepageSubMenuSelector.state.rawValue) {
+                                            viewModel.selectedMenu = .sort
+                                            viewModel.selectedSubMenu = .state
                                         }
                                     }
                                     Menu(HomepageMenuSelector.filter.rawValue) {
-                                        Button("By title") {
-                                            print("Displaying sorted XYZ by title")
+                                        Button(HomepageSubMenuSelector.title.rawValue) {
+                                            viewModel.selectedMenu = .filter
+                                            viewModel.selectedSubMenu = .title
                                         }
-                                        Button("By Author") {
-                                            print("Displaying sorted XYZ by title")
+                                        Button(HomepageSubMenuSelector.author.rawValue) {
+                                            viewModel.selectedMenu = .filter
+                                            viewModel.selectedSubMenu = .author
                                         }
-                                        Button("Price") {
-                                            print("Sorting by price")
+                                        Button(HomepageSubMenuSelector.price.rawValue) {
+                                            viewModel.selectedMenu = .filter
+                                            viewModel.selectedSubMenu = .price
                                         }
 
                                     }
