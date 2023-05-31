@@ -34,7 +34,7 @@ enum BookGenre: String, Identifiable, Codable, Hashable, Equatable, CaseIterable
         case .fantasy: return "crown.fill"
         case .scienceFiction: return "burst.fill"
         case .action: return "figure.run"
-        case .mystery: return "dice.fill"
+        case .mystery: return "person.fill.questionmark"
         case .horror: return "theatermasks.fill"
         case .romance: return "heart.circle.fill"
         case .realism: return "books.vertical.fill"

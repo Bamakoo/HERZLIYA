@@ -17,7 +17,19 @@ struct Homepage: View {
                     BookRow(book: book)
                 }
             }
+            .toolbarRole(.browser)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        print("filtered")
+                    } label: {
+                        Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                    }
+                }
+            }
             .listStyle(.grouped)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Homepage")
         } detail: {
             if selectedBook != nil {
                 BookDetail(book: $selectedBook)
@@ -26,7 +38,11 @@ struct Homepage: View {
             }
         }
         .task {
-                await viewModel.fetchBooks()
+            await viewModel.fetchBooks()
+        }
+        .refreshable {
+            await viewModel.fetchBooks()
+            print("feeling fresh")
         }
     }
 }

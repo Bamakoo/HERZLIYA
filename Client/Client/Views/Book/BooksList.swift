@@ -56,6 +56,7 @@ struct BooksList: View {
             .onSubmit(of: .search) {
                 Task {
                     await viewModel.search()
+                    viewModel.books = viewModel.searchResults
                 }
             }
             .refreshable {
