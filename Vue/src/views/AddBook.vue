@@ -3,6 +3,7 @@
     <h1 class="mb-10 text-4xl text-center font-semibold">Ajouter un livre</h1>
     <TwForm :onSubmit="onSubmit" :onCancel="onCancel">
       <div class="border-b border-gray-900/10 pb-12">
+        <span>Tous les champs sont obligatoires</span>
         <div class="mt-10 grid gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="sm:col-span-3">
             <label for="title" class="block text-sm font-medium leading-6 text-gray-900"
@@ -14,6 +15,7 @@
                 type="text"
                 name="title"
                 autocomplete="on"
+                required
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -29,6 +31,7 @@
                 type="text"
                 name="author"
                 autocomplete="on"
+                required
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -46,6 +49,7 @@
                 name="price"
                 type="number"
                 autocomplete="price"
+                required
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -60,6 +64,7 @@
                 v-model="selectedGenre"
                 name="genre"
                 autocomplete="genre-name"
+                required
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 <option v-for="(genre, index) in genres" :key="index" :value="genre.value">
@@ -77,6 +82,7 @@
                 v-model="selectedState"
                 name="state"
                 autocomplete="state-name"
+                required
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 <option v-for="(state, index) in states" :key="index" :value="state.value">
@@ -93,6 +99,7 @@
               <textarea
                 v-model.trim="datas.description"
                 name="description"
+                required
                 rows="3"
                 class="block w-full h-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 resize-none"
               ></textarea>
@@ -107,6 +114,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { TwForm } from '@/libs/ui/index.vue'
+import { fetchBook } from '@/api/axios/books.routes'
+import type { Books } from '@/libs/interfaces/books'
 
 const selectedGenre = ref('')
 const selectedState = ref('')
@@ -133,33 +142,29 @@ const states = [
 ]
 
 const datas = ref<{
-  title: string | null
-  author: string | null
-  state: string | null
-  genres: string | null
-  price: number | null
-  description: string | undefined
-}>({
-  title: null,
-  author: null,
-  state: null,
-  genres: null,
-  price: null,
-  description: undefined
-})
+  title: Books['title']
+  author: Books['author']
+  state: Books['state']
+  genre: Books['genre']
+  price: Books['price']
+  description: Books['description']
+}>()
 
+const { create } = await fetchBook()
 const onSubmit = async () => {
-  //retourne les infos
-  //fetch
-  //await des datas
-  console.log(datas.value)
-  return {
-    title: datas.value?.title,
-    author: datas.value?.author,
-    state: (datas.value.state = selectedState.value),
-    genres: (datas.value.genres = selectedGenre.value),
-    price: datas.value?.price,
-    description: datas.value?.description
+  try {
+    const newBook = await create({
+      title: datas.value?.title,
+      author: datas.value?.author,
+      state: (datas.value.state = selectedState.value),
+      genre: (datas.value.genre = selectedGenre.value),
+      price: datas.value?.price,
+      description: datas.value?.description
+    })
+    return newBook
+  } catch (error) {
+    console.error((error as Error).message)
+    return error
   }
 }
 const onCancel = () => {

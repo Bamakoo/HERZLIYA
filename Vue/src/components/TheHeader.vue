@@ -45,7 +45,7 @@ import { ref } from 'vue'
 import {
   MagnifyingGlassIcon,
   HomeIcon,
-  BookOpenIcon,
+  // BookOpenIcon,
   PlusCircleIcon,
   UserCircleIcon,
   ShoppingCartIcon
@@ -53,7 +53,7 @@ import {
 
 const navigation = [
   {
-    icon: BookOpenIcon, //ou HomeIcon pour faire comprendre qu'on est à l'accueil
+    icon: HomeIcon, //ou HomeIcon pour faire comprendre qu'on est à l'accueil
     title: 'Livres',
     to: '/'
   },
