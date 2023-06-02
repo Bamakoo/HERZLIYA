@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto max-w-3xl my-20 p-4">
     <h1 class="mb-10 text-4xl text-center font-semibold">Ajouter un livre</h1>
-    <TwForm>
+    <TwForm :onSubmit="onSubmit" :onCancel="onCancel">
       <div class="border-b border-gray-900/10 pb-12">
         <div class="mt-10 grid gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="sm:col-span-3">
@@ -10,10 +10,10 @@
             >
             <div class="mt-2">
               <input
+                v-model.trim="datas.title"
                 type="text"
                 name="title"
-                id="title"
-                autocomplete="title"
+                autocomplete="on"
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -25,10 +25,10 @@
             >
             <div class="mt-2">
               <input
+                v-model.trim="datas.author"
                 type="text"
                 name="author"
-                id="author"
-                autocomplete="author"
+                autocomplete="on"
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -40,7 +40,9 @@
             >
             <div class="mt-2">
               <input
-                id="price"
+                v-model.number="datas.price"
+                step="0.01"
+                min="0"
                 name="price"
                 type="number"
                 autocomplete="price"
@@ -55,12 +57,12 @@
             >
             <div class="mt-2">
               <select
-                id="genre"
+                v-model="selectedGenre"
                 name="genre"
                 autocomplete="genre-name"
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
-                <option v-for="(genre, index) in genres" :key="index">
+                <option v-for="(genre, index) in genres" :key="index" :value="genre.value">
                   {{ genre.name }}
                 </option>
               </select>
@@ -72,12 +74,14 @@
             >
             <div class="mt-2">
               <select
-                id="state"
+                v-model="selectedState"
                 name="state"
                 autocomplete="state-name"
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
-                <option v-for="(state, index) in states" :key="index">{{ state.name }}</option>
+                <option v-for="(state, index) in states" :key="index" :value="state.value">
+                  {{ state.name }}
+                </option>
               </select>
             </div>
           </div>
@@ -87,7 +91,7 @@
             >
             <div class="mt-2">
               <textarea
-                id="description"
+                v-model.trim="datas.description"
                 name="description"
                 rows="3"
                 class="block w-full h-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 resize-none"
@@ -96,32 +100,69 @@
           </div>
         </div>
       </div>
-      <template #actions>
-        <TwButton type="button">Annuler</TwButton>
-        <TwButton type="submit">Vendre un nouveau livre</TwButton>
-      </template>
     </TwForm>
   </div>
 </template>
 
 <script setup lang="ts">
-import { TwForm, TwButton } from '@/libs/ui/index.vue'
+import { ref } from 'vue'
+import { TwForm } from '@/libs/ui/index.vue'
 
+const selectedGenre = ref('')
+const selectedState = ref('')
 const genres = [
   { value: 'fantasy', name: 'Fantaisie' },
-  { value: 'thriller', name: 'Thriller' },
-  { value: 'fantastic', name: 'Fantastique' },
+  { value: 'scienceFiction', name: 'Science-Fiction' },
+  { value: 'action', name: 'Action' },
+  { value: 'mystery', name: 'Mystère' },
+  { value: 'horror', name: 'Horreur' },
   { value: 'romance', name: 'Romance' },
-  { value: 'non_fiction', name: 'Non-Fiction' },
-  { value: 'children', name: 'Enfants' },
-  { value: 'learning', name: 'Études' }
+  { value: 'realism', name: 'Non-Fiction' },
+  { value: 'biography', name: 'Biographie' }
 ]
 
 const states = [
-  { value: 'new', name: 'Neuf' },
-  { value: 'like_new', name: 'Comme Neuf' },
-  { value: 'very_good', name: 'Très Bon État' },
+  { value: 'horrendous', name: 'Horrible' },
+  { value: 'bad', name: 'Mauvais' },
+  { value: 'okay', name: 'Okay' },
+  { value: 'passable', name: 'Passable' },
+  { value: 'acceptable', name: 'Acceptable' },
   { value: 'good', name: 'Bon État' },
-  { value: 'fair', name: 'Passable' }
+  { value: 'excellent', name: 'Excellent' },
+  { value: 'brandNew', name: 'Neuf' }
 ]
+
+const datas = ref<{
+  title: string | null
+  author: string | null
+  state: string | null
+  genres: string | null
+  price: number | null
+  description: string | undefined
+}>({
+  title: null,
+  author: null,
+  state: null,
+  genres: null,
+  price: null,
+  description: undefined
+})
+
+const onSubmit = async () => {
+  //retourne les infos
+  //fetch
+  //await des datas
+  console.log(datas.value)
+  return {
+    title: datas.value?.title,
+    author: datas.value?.author,
+    state: (datas.value.state = selectedState.value),
+    genres: (datas.value.genres = selectedGenre.value),
+    price: datas.value?.price,
+    description: datas.value?.description
+  }
+}
+const onCancel = () => {
+  return
+}
 </script>

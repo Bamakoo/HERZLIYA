@@ -1,13 +1,51 @@
 <template>
-  <form>
+  <form @submit.prevent="submit()">
     <div class="space-y-12">
       <slot></slot>
     </div>
 
-    <div class="mt-6 flex items-center justify-end gap-x-6">
-      <slot name="actions"></slot>
+    <div v-if="onSubmit || onCancel" class="mt-6 flex items-center justify-end gap-x-6">
+      <TwButton type="button" @click="cancel">Annuler</TwButton>
+      <TwButton type="submit">Vendre un nouveau livre</TwButton>
     </div>
   </form>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { TwButton } from './index.vue'
+
+const props = defineProps<{
+  onSubmit?: () => Promise<unknown>
+  onCancel?: () => Promise<unknown> | unknown
+}>()
+
+const isLoading = ref(false)
+const isDisabled = ref(false)
+
+const submit = async (e?: SubmitEvent) => {
+  e?.preventDefault()
+  if (!props.onSubmit) return
+  try {
+    isLoading.value = true
+    isDisabled.value = true
+    await props.onSubmit()
+  } catch (err) {
+    throw new Error(`${(err as Error).message}`)
+  } finally {
+    isLoading.value = false
+    isDisabled.value = false
+  }
+}
+const cancel = async () => {
+  if (!props.onCancel) return
+  try {
+    isDisabled.value = true
+    await props.onCancel()
+  } catch (error) {
+    throw new Error(`${(error as Error).message}`)
+  } finally {
+    isDisabled.value = false
+  }
+}
+</script>

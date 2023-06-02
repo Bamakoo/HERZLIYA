@@ -7,7 +7,7 @@
         </div>
       </RouterLink>
       <label
-        class="hidden md:visible md:flex items-center rounded-xl bg-gray-400 min-w-full focus:ring-offset-0 focus:border-none px-2 text-gray-700"
+        class="focus-within:ring hidden md:visible md:flex items-center rounded-xl bg-gray-400 min-w-full focus:ring-offset-0 focus:border-none px-2 text-gray-700"
       >
         <div class="inline mr-2"><MagnifyingGlassIcon class="h-6 w-6" /></div>
         <input
