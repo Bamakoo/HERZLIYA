@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UserProfileView: View {
     @StateObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
-    @State private var menu: [Menu] = Menu.allCases
+    @State private var menu: [ProfileMenu] = ProfileMenu.allCases
     var body: some View {
         NavigationStack {
             List(menu) { item in
@@ -18,10 +18,20 @@ struct UserProfileView: View {
                         .foregroundColor(.primary)
                 }
             }
+            .toolbar {
+                ToolbarItem {
+                    Button(action: {
+
+                    }, label: {
+                            Image(systemName: "gear")
+                        })
+                    }
+                }
+            }
             .listStyle(.sidebar)
             .navigationTitle("My Profile")
             .navigationBarTitleDisplayMode(.large)
-            .navigationDestination(for: Menu.self) { item in
+            .navigationDestination(for: ProfileMenu.self) { item in
                 switch item {
                 case .booksByFavoriteAuthor:
                     BooksByMyFavoriteAuthorView()
@@ -39,7 +49,7 @@ struct UserProfileView: View {
             }
         }
     }
-}
+
 
 struct UserProfileView_Previews: PreviewProvider {
     static var previews: some View {

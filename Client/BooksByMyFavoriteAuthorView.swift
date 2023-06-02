@@ -23,7 +23,7 @@ struct BooksByMyFavoriteAuthorView: View {
             .navigationTitle("Buy books by my favorite author")
             .listStyle(.grouped)
         } detail: {
-            if let book = selection {
+            if selection != nil {
                 BookDetail(book: $selection)
             } else {
                 Text("Pick a book")

@@ -34,7 +34,6 @@ struct Keychain {
                                     kSecReturnAttributes as String: true,
                                     kSecReturnData as String: true] as CFDictionary
         var item: CFTypeRef?
-        print(query, item)
         let status = SecItemCopyMatching(query, &item)
         print(status)
         guard status != errSecItemNotFound else { throw KeychainError.noToken }

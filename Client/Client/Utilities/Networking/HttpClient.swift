@@ -38,7 +38,7 @@ enum HttpError: Error {
     case jsonConversionFailure(description: String)
     case jsonParsingFailure
     case failedSerialization
-    case noInternet    
+    case noInternet
     var customDescription: String {
         switch self {
         case let .requestFailed(description): return "Request Failed: \(description)"

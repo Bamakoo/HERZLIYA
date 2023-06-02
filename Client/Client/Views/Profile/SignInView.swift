@@ -7,6 +7,7 @@ struct SignInView: View {
     @ObservedObject var viewModel = SignInViewModel()
     @State private var forgotMyPassword = false
     @State private var createAnAccount = false
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         Form {
             TextField("Username", text: $viewModel.username, prompt: Text("Username"))
@@ -17,6 +18,7 @@ struct SignInView: View {
             Button("Sign In") {
                 Task {
                     try await viewModel.signIn()
+                    dismiss()
                 }
             }
             .buttonStyle(.borderedProminent)

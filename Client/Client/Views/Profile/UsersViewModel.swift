@@ -17,20 +17,12 @@ final class UsersViewModel: ObservableObject {
     @Published var favoriteAuthor = ""
     @Published var city = ""
     @Published var country = ""
-    @Published var myProfile = User.testUser
-    @Published var isLoggedIn: Bool = false
+    @Published var isLoggedIn = User.isLoggedIn
     private let networkManager: UserNetworkManager
     init(networkManager: UserNetworkManager) {
         self.networkManager = networkManager
     }
     @MainActor
-    func getMyProfile() async {
-        do {
-            myProfile = try await networkManager.getMe()
-        } catch {
-            print(error.localizedDescription )
-        }
-    }
     func createANewUser() async throws {
         do {
             guard let url = URL(string: Request.baseURL + Endpoint.users) else {
@@ -58,7 +50,7 @@ final class UsersViewModel: ObservableObject {
                 do {
                     let decoder = JSONDecoder()
                     let user = try decoder.decode(GetUser.self, from: data)
-                    var userID = "\(user.id)"
+                    let userID = "\(user.id)"
                     UserDefaults.standard.set(userID, forKey: "userID")
                 } catch {
                     print(error.localizedDescription)

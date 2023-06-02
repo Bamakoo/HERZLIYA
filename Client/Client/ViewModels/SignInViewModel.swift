@@ -37,12 +37,17 @@ final class SignInViewModel: ObservableObject {
                 let decoder = JSONDecoder()
                 let userToken = try decoder.decode(UserToken.self, from: data)
                 print(userToken)
+                // UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                User.isLoggedIn = true
                 try Keychain.addToken(userToken: userToken)
+                
             } catch {
+                hasError.toggle()
                 print(error.localizedDescription)
             }
         }
         else if httpURLResponse.statusCode == 401 {
+            hasError.toggle()
             throw HttpError.unauthorized
         } else {
             throw HttpError.badResponse

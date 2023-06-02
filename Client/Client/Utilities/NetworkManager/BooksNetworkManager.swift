@@ -1,29 +1,43 @@
 //
-//  SettingsNetworkManager.swift
+//  BooksNetworkManager.swift
 //  Client
 //
 //  Created by Emma Gaubert on 17/02/2023.
 //
-// swiftlint:disable all
 
 import Foundation
 
 final class BooksNetworkManager {
-    
-    let httpClient: HttpClient
-    
-    init(httpClient: HttpClient) {
+let httpClient: HttpClient
+init(httpClient: HttpClient) {
         self.httpClient = httpClient
     }
-    
+    func getBooksInKart() async throws -> [GetBook] {
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        guard let url = URL(string: Request.baseURL + Endpoint.booksInKart.rawValue + userID) else {
+            throw HttpError.badURL
+        }
+        print(url)
+        let booksInUserKart: [GetBook] = try await httpClient.fetch(url: url)
+        return booksInUserKart
+    }
+    func addBookToKart(_ bookID: UUID) async throws {
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        print(userID)
+        guard let url = URL(string: Request.baseURL + Endpoint.addBookToKart) else {
+            throw HttpError.badURL
+        }
+        let kartBook = AddBookToKartDTO(userID: userID, bookID: bookID)
+        _ = try await httpClient.sendData(to: url, object: kartBook, httpMethod: HttpMethods.POST.rawValue)
+    }
     func soldBooks() async throws -> [GetBook] {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        guard let url = URL(string: Request.baseURL + Endpoint.books + "/sold/" + userID) else { throw HttpError.badURL }
+        guard let url = URL(string: Request.baseURL + Endpoint.soldBooks.rawValue + userID)
+        else { throw HttpError.badURL }
         let books: [GetBook] = try await httpClient.fetch(url: url)
         return books
     }
-    
-    func searchBooks(_ searchText: String) async throws -> [GetBook] {
+func searchBooks(_ searchText: String) async throws -> [GetBook] {
         let trueSearch = searchText.replacingOccurrences(of: " ", with: "+")
         print(searchText)
         print(trueSearch)
@@ -38,7 +52,6 @@ final class BooksNetworkManager {
         print("working on the search bar")
         return searchResults
     }
-    
     func fetchBooks() async throws -> [GetBook] {
         let url = URL(string: Request.baseURL + Endpoint.books)!
         let books: [GetBook] = try await httpClient.fetch(url: url)
@@ -46,14 +59,16 @@ final class BooksNetworkManager {
     }
     func fetchBookByUsersFavoriteAuthor() async throws -> [GetBook] {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        guard let url = URL(string: Request.baseURL + Endpoint.books + "/favorite-author/\(userID)" ) else { throw HttpError.badURL }
+        guard let url = URL(string: Request.baseURL + Endpoint.books + "/favorite-author/\(userID)" )
+        else { throw HttpError.badURL }
         let booksByUsersFavoriteAuthor: [GetBook] = try await httpClient.fetch(url: url)
         return booksByUsersFavoriteAuthor
     }
     func fetchPurchasedBooks() async throws -> [GetBook] {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
         print(userID)
-        guard let url = URL(string: Request.baseURL + Endpoint.books + "/bought/\(userID)") else { throw HttpError.badURL }
+        guard let url = URL(string: Request.baseURL + Endpoint.books + "/bought/\(userID)")
+        else { throw HttpError.badURL }
         print(url)
         let purchasedBooks: [GetBook] = try await httpClient.fetch(url: url)
         print(purchasedBooks)
@@ -68,7 +83,6 @@ final class BooksNetworkManager {
         let books: [GetBook] = try await httpClient.fetch(url: url)
         return books
     }
-    
     func createBook(title: String,
                     author: String,
                     description: String,
@@ -86,13 +100,15 @@ final class BooksNetworkManager {
             print("unable to get the seller's ID")
             return
         }
-        let newBook = CreateBookData(title: title, author: author, description: description, genre: genre, state: state, status: status, sellerID: sellerID, price: price)
+        let newBook = CreateBookData(title: title, author: author,
+                                     description: description, genre: genre,
+                                     state: state, status: status,
+                                     sellerID: sellerID, price: price)
         print(newBook)
         _ = try await httpClient.sendData(to: url,
                                           object: newBook,
                                           httpMethod: HttpMethods.POST.rawValue)
     }
-    
     func purchaseBook(bookID: String) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.books) else {
             print("unable to generate an URL to purchase a book")
@@ -104,33 +120,9 @@ final class BooksNetworkManager {
         }
         let newBook = PatchPurchaseBook(id: bookID, buyerID: buyerID)
         print(newBook)
-        try await httpClient.sendData(to: url, object: newBook, httpMethod: HttpMethods.PATCH.rawValue)
+        _ = try await httpClient.sendData(to: url, object: newBook, httpMethod: HttpMethods.PATCH.rawValue)
     }
-    
-    func updateBook(id: UUID, author: String, description: String, genre: BookGenre, state: BookState, seller: User, buyer: User?, status: BookStatus, title: String, price: Int) async throws {
-        guard let url = URL(string: Request.baseURL + Endpoint.books) else {
-            print("Unable to create valid URL for updating the book")
-            return
-        }
-        let updatedBook = Book(id: id,
-                               author: author,
-                               description: description,
-                               genre: genre,
-                               state: state,
-                               seller: seller,
-                               buyer: buyer,
-                               kart: nil,
-                               status: status,
-                               title: title,
-                               price: price,
-                               createdAt: nil,
-                               updatedAt: nil,
-                               deletedAt: nil)
-        try await httpClient.sendData(to: url,
-                                      object: updatedBook,
-                                      httpMethod: HttpMethods.PUT.rawValue)
-    }
-    
+
     func deleteBook(id: UUID) async throws {
         let url = URL(string: Request.baseURL + Endpoint.books + "/\(id)")!
         try await httpClient.delete(url: url)

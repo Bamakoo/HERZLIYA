@@ -133,54 +133,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5BD475DA-B04C-4509-8E91-7AC4432A8D31"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Client/Utilities/NetworkManager/BooksNetworkManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "fetchBooksByCategory(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5BD475DA-B04C-4509-8E91-7AC4432A8D31 - 94b1d19ebe0734b9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Client.BooksNetworkManager.fetchBooksByCategory(Client.BookGenre) async throws -&gt; Swift.Array&lt;Client.GetBook&gt;"
-                  moduleName = "Client"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emma.gaubert/HERZLIYA/Client/Client/Utilities/NetworkManager/BooksNetworkManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "212">
-               </Location>
-               <Location
-                  uuid = "5BD475DA-B04C-4509-8E91-7AC4432A8D31 - 5547418427a4041f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for Client.BooksNetworkManager.fetchBooksByCategory(Client.BookGenre) async throws -&gt; Swift.Array&lt;Client.GetBook&gt;"
-                  moduleName = "Client"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emma.gaubert/HERZLIYA/Client/Client/Utilities/NetworkManager/BooksNetworkManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "136">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "4DF3821A-81AC-42F7-8F83-74455519D65D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -192,6 +144,22 @@
             endingLineNumber = "22"
             landmarkName = "fetch(url:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6F208DE8-7C55-4517-9127-BB458D0BD15A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BooksByMyFavoriteAuthorView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

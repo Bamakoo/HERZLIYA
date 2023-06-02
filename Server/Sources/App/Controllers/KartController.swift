@@ -8,19 +8,80 @@ struct KartController: RouteCollection {
         tokenProtectedKarts.get("karts", use: index)
         tokenProtectedKarts.put("karts", use: update)
         tokenProtectedKarts.post("karts", use: create)
+        tokenProtectedKarts.post("add", "book", ":bookID", "user-kart", ":userID", use: addBookToUserKart)
+        tokenProtectedKarts.post("karts", "add-book", use: addBookToKart)
+        tokenProtectedKarts.delete("karts", "remove-book", use: removeBookFromKart)
         tokenProtectedKarts.group("karts", ":kartID") { kart in
             kart.delete(use: delete)
         }
+    }
+    
+    func removeBookFromKart(req: Request) async throws -> HTTPStatus {
+        // get the user's ID and the book's ID
+        let removeBookFromKartDTO = try req.content.decode(AddBookToKartDTO.self)
+        // get the user's Kart
+        guard let kart = try await Kart.query(on: req.db)
+            .filter(\.$user.$id == removeBookFromKartDTO.userID)
+            .first(),
+              let kartID = kart.id
+        else {
+            throw Abort(.notFound, reason: "unable to find kart")
+        }
+        // find the book and the quart
+        let kartBook = KartBook.query(on: req.db).group(.and) { group in
+            group.filter(\.$kart.$id == kartID)
+                .filter(\.$book.$id == removeBookFromKartDTO.bookID)
+                .all()
+        }
+        try await kartBook.delete()
+        return .ok
+    }
+    
+    func addBookToKart(req: Request) async throws -> Response {
+        let addBookToKartDTO = try req.content.decode(AddBookToKartDTO.self)
+        guard let kart = try await Kart.query(on: req.db)
+            .filter(\.$user.$id == addBookToKartDTO.userID)
+            .first(),
+              let kartID = kart.id
+        else {
+            throw Abort(.notFound, reason: "unable to find kart")
+        }
+        let kartBook = KartBook(kartID: kartID, bookID: addBookToKartDTO.bookID)
+        try await kartBook.save(on: req.db)
+        return try await addBookToKartDTO.encodeResponse(status: .ok, for: req)
+    }
+    
+    func addBookToUserKart(req: Request) async throws -> Response {
+        guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db),
+              let userID = user.id else {
+            throw Abort(.notFound, reason: "unable to locate the User")
+        }
+        guard let kart = try await Kart.query(on: req.db)
+            .filter(\.$user.$id == userID)
+            .first(),
+              let kartID = kart.id
+        else {
+            throw Abort(.notFound, reason: "unable to find kart")
+        }
+        guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db),
+              let bookID = book.id
+        else {
+            print("unable to delete book")
+            throw Abort(.notFound)
+        }
+        let kartBook = KartBook(kartID: kartID, bookID: bookID)
+        try await kartBook.save(on: req.db)
+        return try await kartBook.encodeResponse(status: .ok, for: req)
     }
 
     func index(req: Request) async throws -> [Kart] {
         try await Kart.query(on: req.db).all()
     }
 
-    func create(req: Request) async throws -> Kart {
+    func create(req: Request) async throws -> Response {
         let kart = try req.content.decode(Kart.self)
         try await kart.save(on: req.db)
-        return kart
+        return try await kart.encodeResponse(status: .created, for: req)
     }
     // TODO: implement patch on a kart object
     func update(req: Request) async throws -> Kart {

@@ -15,13 +15,15 @@ struct UserController: RouteCollection {
     }
 
     func index(req: Request) async throws -> [GetUser] {
-        let users = try await User.query(on: req.db).all()
+        let users = try await User.query(on: req.db)
+            // .sort(\.$username, )
+                        .all()
         return try users.map { user in
             try GetUser(id: user.requireID(), username: user.username, favoriteBook: user.favoriteBook, country: user.country, city: user.city, favoriteAuthor: user.favoriteAuthor)
         }
     }
 
-    func create(req: Request) async throws -> ClientResponse {
+    func create(req: Request) async throws -> Response {
         try User.Create.validate(content: req)
         let newUser = try req.content.decode(User.Create.self)
         guard newUser.password == newUser.confirmPassword else {
@@ -37,12 +39,10 @@ struct UserController: RouteCollection {
             favoriteAuthor: newUser.favoriteAuthor
         )
         try await user.save(on: req.db)
+        let kart = try Kart(userID: user.requireID())
+        try await kart.save(on: req.db)
         let returnedUser = try GetUser(id: user.requireID(), username: user.username, favoriteBook: user.favoriteBook, country: user.country, city: user.city, favoriteAuthor: user.favoriteAuthor)
-        guard let data = try? JSONEncoder().encode(returnedUser) else {
-            return ClientResponse(status: .internalServerError, headers: [:], body: nil)
-        }
-        let byteBuffer = ByteBuffer(data: data)
-        return ClientResponse(status: .created, headers: [:], body: byteBuffer)
+        return try await returnedUser.encodeResponse(status: .created, for: req)
     }
     
     func update(req: Request) async throws -> User {

@@ -23,11 +23,12 @@ struct BookDetail: View {
                     await viewModel.purchaseBook(bookID: (book?.id)!)
                 }
             } label: {
+                
                 Text("Purchase \(book!.title)")
             }
             Button {
                 Task {
-                    print("added \(book!.title) to kart")
+                    await viewModel.addBookToKart((book?.id)!)
                 }
             } label: {
                 Text("Add to kart")

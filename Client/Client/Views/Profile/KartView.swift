@@ -8,8 +8,27 @@
 import SwiftUI
 
 struct KartView: View {
+    @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
+    @State private var selection: GetBook?
     var body: some View {
-        Text("display the users' kart")
+        NavigationSplitView {
+            List(viewModel.kartBooks, selection: $selection) { book in
+                NavigationLink(value: book) {
+                    BookRow(book: book)
+                }
+            }
+            .task {
+                    await viewModel.getBooksInKart()
+            }
+            .navigationTitle("My Cart")
+            .listStyle(.grouped)
+        } detail: {
+            if selection != nil {
+                BookDetail(book: $selection)
+            } else {
+                Text("Pick a book")
+            }
+        }
     }
 }
 

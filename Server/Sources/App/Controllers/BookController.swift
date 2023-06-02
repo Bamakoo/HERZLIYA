@@ -18,7 +18,6 @@ struct BookController: RouteCollection {
         tokenAuth.get("sold", ":userID", use: getUserSoldBooks)
         tokenAuth.get("favorite-author", ":userID", use: getMyFavoriteAuthorsBooks)
         tokenAuth.post(use: create)
-        // FIXME: patch a particular user
         tokenAuth.patch(use: update)
         tokenAuth.delete(":bookID", use: delete)
     }
@@ -26,19 +25,25 @@ struct BookController: RouteCollection {
     /// This function returns all the books in a user's kart
     /// - Parameter req: the incoming GET request
     /// - Returns: all the books a user has added to her kart
-    func getBooksInKart (req: Request) async throws -> [Book] {
+    func getBooksInKart (req: Request) async throws -> [GetBook] {
         /// get the user's ID
-        guard let userID = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
-            throw Abort(.notFound, reason: "unable to locate the UserID")
+        guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db),
+              let userID = user.id else {
+            throw Abort(.notFound, reason: "unable to locate the User")
         }
-        /// FIXME: use the user's ID to get the user's kart
-       guard let kart = try await Kart.query(on: req.db)
-        .first()
+
+        guard let kart = try await Kart.query(on: req.db)
+            .filter(\.$user.$id == userID)
+            .first()
         else {
-           throw Abort(.notFound)
-       }
+            throw Abort(.notFound, reason: "unable to find kart")
+        }
+        
         /// return all the books associated to the kart
-        return try await kart.$books.get(on: req.db)
+        let books = try await kart.$books.get(on: req.db)
+        return try books.map { book in
+            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+        }
     }
     
     /// When called by the route handler, this function fetches all the books that a particular user has liked
@@ -159,7 +164,7 @@ struct BookController: RouteCollection {
         }
     }
     
-    func create(req: Request) async throws -> ClientResponse {
+    func create(req: Request) async throws -> Response {
         try Book.validate(content: req)
         let book = try req.content.decode(CreateBookData.self)
         let realBook = Book(title: book.title,
@@ -172,18 +177,19 @@ struct BookController: RouteCollection {
                             buyerID: book.buyerID,
                             status: book.status)
         try await realBook.save(on: req.db)
-        guard let data = try? JSONEncoder().encode(realBook) else {
-            return ClientResponse(status: .internalServerError, headers: [:], body: nil)
-        }
-        let byteBuffer = ByteBuffer(data: data)
-        return ClientResponse(status: .created, headers: [:], body: byteBuffer)
+        let getBook = GetBook(id: try realBook.requireID(), title: realBook.title, author: realBook.author, price: realBook.price, state: realBook.state)
+        return try await getBook.encodeResponse(status: .created, for: req)
     }
     
     func update(req: Request) async throws -> Book {
 
         let patchBook = try req.content.decode(PatchBook.self)
+         
         guard let book  =  try await Book.find(patchBook.id, on: req.db) else {
             throw Abort(.notFound)
+        }
+        guard patchBook.buyerID != book.$seller.id else {
+            throw Abort(.badRequest, reason: "you can't buy your own book")
         }
         if let buyerID = patchBook.buyerID {
             book.$buyer.id = buyerID
