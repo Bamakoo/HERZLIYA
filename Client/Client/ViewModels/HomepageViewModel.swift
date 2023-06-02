@@ -10,6 +10,9 @@ import Foundation
 @MainActor
 final class HomepageViewModel: ObservableObject {
     @Published var books = [GetBook]()
+    @Published var selectedDisplay: WhatToDisplay = .books
+    @Published var sortOrFilter: SortOrFilter = .filter
+    @Published var selectedFilter: Filters = .genre(.action)
     @Published var selectedMenu: HomepageMenuSelector = .display
     @Published var selectedSubMenu: HomepageSubMenuSelector = .author
     private let networkManager: HomepageNetworkManager
@@ -23,9 +26,17 @@ final class HomepageViewModel: ObservableObject {
             print("unable to fetch books because of : \(error.localizedDescription)")
         }
     }
-    func sortFilterHandler() async {
+    func sort() async {
         do {
-            books = try await networkManager.sortFilterHandler(selectedMenu, selectedSubMenu)
+            books = try await networkManager.sort(selectedMenu, selectedSubMenu)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func filter() async {
+        do {
+            books = try await networkManager.sort(selectedMenu, selectedSubMenu)
         } catch {
             print(error.localizedDescription)
         }
