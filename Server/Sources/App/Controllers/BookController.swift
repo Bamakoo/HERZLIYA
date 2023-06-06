@@ -7,6 +7,7 @@ struct BookController: RouteCollection {
         let bookRoutes = routes.grouped("books")
         bookRoutes.get(use: index)
         bookRoutes.get(":bookID", use: getAParticularBook)
+        bookRoutes.get("sort", use: sort)
         bookRoutes.get("search", "genres", ":genre", use: categorySearchHandler)
         bookRoutes.get("search", ":search", use: searchHandler)
         let tokenAuthenticator = UserToken.authenticator()
@@ -22,6 +23,125 @@ struct BookController: RouteCollection {
         tokenAuth.delete(":bookID", use: delete)
     }
     
+    func sort(req: Request) async throws -> [GetBook] {
+        do {
+            let search = try req.query.decode(SortedBooksDTO.self)
+            guard let searchBy = search.by,
+                  let searchBool = search.ascending
+            else {
+                throw Abort(.badRequest, reason: "unable to get the url parameters")
+            }
+            switch (searchBy, searchBool) {
+            case (SortBy.title.rawValue, true):
+                let books = try await Book.query(on: req.db)
+                    .filter(\.$status == .available)
+                    .sort(\.$title, .ascending)
+                    .all()
+                return try books.map { book in
+                    try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                }
+            case (SortBy.title.rawValue, false):
+                let books = try await Book.query(on: req.db)
+                    .filter(\.$status == .available)
+                    .sort(\.$title, .descending)
+                    .all()
+                return try books.map { book in
+                    try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                }
+            case (SortBy.state.rawValue, true):
+                let books = try await Book.query(on: req.db)
+                    .filter(\.$status == .available)
+                    .sort(\.$state, .ascending)
+                    .all()
+                return try books.map { book in
+                    try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                }
+            case (SortBy.state.rawValue, false):
+                let books = try await Book.query(on: req.db)
+                    .filter(\.$status == .available)
+                    .sort(\.$state, .descending)
+                    .all()
+                return try books.map { book in
+                    try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                }
+            case (SortBy.price.rawValue, true):
+                let books = try await Book.query(on: req.db)
+                    .filter(\.$status == .available)
+                    .sort(\.$price, .ascending)
+                    .all()
+                return try books.map { book in
+                    try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                }
+            case (SortBy.price.rawValue, false):
+                let books = try await Book.query(on: req.db)
+                    .filter(\.$status == .available)
+                    .sort(\.$price, .descending)
+                    .all()
+                return try books.map { book in
+                    try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                }
+            case (SortBy.genre.rawValue, true):
+                let books = try await Book.query(on: req.db)
+                    .filter(\.$status == .available)
+                    .sort(\.$genre, .ascending)
+                    .all()
+                return try books.map { book in
+                    try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                }
+            case (SortBy.genre.rawValue, false):
+                let books = try await Book.query(on: req.db)
+                    .filter(\.$status == .available)
+                    .sort(\.$genre, .descending)
+                    .all()
+                return try books.map { book in
+                    try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                }
+            case (SortBy.author.rawValue, true):
+                let books = try await Book.query(on: req.db)
+                    .filter(\.$status == .available)
+                    .sort(\.$author, .ascending)
+                    .all()
+                return try books.map { book in
+                    try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                }
+            case (SortBy.author.rawValue, false):
+                let books = try await Book.query(on: req.db)
+                    .filter(\.$status == .available)
+                    .sort(\.$author, .descending)
+                    .all()
+                return try books.map { book in
+                    try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                }
+            case (SortBy.date.rawValue, true):
+                let books = try await Book.query(on: req.db)
+                    .filter(\.$status == .available)
+                    .sort(\.$createdAt, .ascending)
+                    .all()
+                return try books.map { book in
+                    try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                }
+            case (SortBy.date.rawValue, false):
+                let books = try await Book.query(on: req.db)
+                    .filter(\.$status == .available)
+                    .sort(\.$createdAt, .descending)
+                    .all()
+                return try books.map { book in
+                    try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                }
+            default:
+                print("DEFAULTED")
+                let books = try await Book.query(on: req.db)
+                    .filter(\.$status == .available)
+                    .all()
+                return try books.map { book in
+                    try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                }
+            }
+        } catch {
+            throw Abort(.badRequest)
+        }
+    }
+    
     /// This function returns all the books in a user's kart
     /// - Parameter req: the incoming GET request
     /// - Returns: all the books a user has added to her kart
@@ -31,7 +151,7 @@ struct BookController: RouteCollection {
               let userID = user.id else {
             throw Abort(.notFound, reason: "unable to locate the User")
         }
-
+        
         guard let kart = try await Kart.query(on: req.db)
             .filter(\.$user.$id == userID)
             .first()
@@ -182,9 +302,9 @@ struct BookController: RouteCollection {
     }
     
     func update(req: Request) async throws -> Book {
-
+        
         let patchBook = try req.content.decode(PatchBook.self)
-         
+        
         guard let book  =  try await Book.find(patchBook.id, on: req.db) else {
             throw Abort(.notFound)
         }

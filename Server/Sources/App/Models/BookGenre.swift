@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import Fluent
+import Vapor
 
-enum BookGenre: String, Codable, CaseIterable {
+enum BookGenre: String, Content, Codable, CaseIterable {
     case fantasy
     case scienceFiction
     case action

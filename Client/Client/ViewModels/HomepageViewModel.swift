@@ -13,6 +13,7 @@ final class HomepageViewModel: ObservableObject {
     @Published var selectedDisplay: WhatToDisplay = .books
     @Published var sortOrFilter: SortOrFilter = .filter
     @Published var selectedFilter: Filters = .genre(.action)
+    @Published var selectedSort: SortBy = .genre(.ascending)
     @Published var selectedMenu: HomepageMenuSelector = .display
     @Published var selectedSubMenu: HomepageSubMenuSelector = .author
     private let networkManager: HomepageNetworkManager
@@ -28,15 +29,16 @@ final class HomepageViewModel: ObservableObject {
     }
     func sort() async {
         do {
-            books = try await networkManager.sort(selectedMenu, selectedSubMenu)
+            print("hello sort")
+            books = try await networkManager.sort(selectedSort)
+            print(books)
         } catch {
             print(error.localizedDescription)
         }
     }
-    
     func filter() async {
         do {
-            books = try await networkManager.sort(selectedMenu, selectedSubMenu)
+            books = try await networkManager.sort(selectedSort)
         } catch {
             print(error.localizedDescription)
         }

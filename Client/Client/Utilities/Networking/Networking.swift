@@ -14,12 +14,15 @@ final class Networking: HttpClient {
         print("fetching data")
         var request = URLRequest(url: url)
         print(request)
-        request.httpMethod = HttpMethods.GET.rawValue
+        let token = try Keychain.search()
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+
         request.addValue(MIMEType.JSON.rawValue,
                          forHTTPHeaderField: HttpHeaders.contentType.rawValue)
-        let token = try Keychain.search()
+
         print(token)
-        request.setValue("Bearer \(token)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
+
         print(request.allHTTPHeaderFields)
         let (data, response) = try await URLSession.shared.data(from: url)
         print(data, response)

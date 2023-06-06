@@ -28,12 +28,12 @@ enum Filters {
 }
 
 enum SortBy {
-    case username(AscendingOrDescending)
-    case title(AscendingOrDescending)
-    case state(AscendingOrDescending)
-    case price(AscendingOrDescending)
-    case genre(AscendingOrDescending)
-    case author(AscendingOrDescending)
+    case seller(ascending: Bool)
+    case title(ascending: Bool)
+    case state(ascending: Bool)
+    case price(ascending: Bool)
+    case genre(ascending: Bool)
+    case author(ascending: Bool)
 }
 
 enum AscendingOrDescending: String {

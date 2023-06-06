@@ -29,6 +29,7 @@
 		A499DCDD2A274CA900777B8F /* HomepageNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCDC2A274CA900777B8F /* HomepageNetworkManager.swift */; };
 		A499DCE02A274DFC00777B8F /* HomepageMenuSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCDF2A274DFC00777B8F /* HomepageMenuSelector.swift */; };
 		A499DCE22A2A17E800777B8F /* ProfileSwitchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCE12A2A17E800777B8F /* ProfileSwitchViewModel.swift */; };
+		A499DCE62A2F27B700777B8F /* SortedBooksDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCE52A2F27B700777B8F /* SortedBooksDTO.swift */; };
 		A4AF589629CC617A003F03AD /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589529CC617A003F03AD /* Comment.swift */; };
 		A4AF589829CC61F3003F03AD /* Kart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589729CC61F3003F03AD /* Kart.swift */; };
 		A4AF589A29CC628E003F03AD /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589929CC628E003F03AD /* Rating.swift */; };
@@ -104,6 +105,7 @@
 		A499DCDC2A274CA900777B8F /* HomepageNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageNetworkManager.swift; sourceTree = SOURCE_ROOT; };
 		A499DCDF2A274DFC00777B8F /* HomepageMenuSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageMenuSelector.swift; sourceTree = "<group>"; };
 		A499DCE12A2A17E800777B8F /* ProfileSwitchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSwitchViewModel.swift; sourceTree = "<group>"; };
+		A499DCE52A2F27B700777B8F /* SortedBooksDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedBooksDTO.swift; sourceTree = "<group>"; };
 		A4AF589529CC617A003F03AD /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		A4AF589729CC61F3003F03AD /* Kart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kart.swift; sourceTree = "<group>"; };
 		A4AF589929CC628E003F03AD /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 		A4C9866E29A10AEB003CF879 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A499DCE52A2F27B700777B8F /* SortedBooksDTO.swift */,
 				A499DCD42A23FA6C00777B8F /* BookKart.swift */,
 				A4DD9DC129DED1220063DD9B /* UserToken.swift */,
 				A4DEA2782A1511DE00FE6EB3 /* PatchPurchaseBook.swift */,
@@ -528,6 +531,7 @@
 				A4C9863C299FB843003CF879 /* ClientApp.swift in Sources */,
 				A4AF58A029CC653D003F03AD /* KartView.swift in Sources */,
 				A4C98669299FD8DD003CF879 /* Networking.swift in Sources */,
+				A499DCE62A2F27B700777B8F /* SortedBooksDTO.swift in Sources */,
 				A44D59BD29A4077E00FF7F22 /* UserProfileView.swift in Sources */,
 				A44D59CD29ACB33200FF7F22 /* KartsNetworkManager.swift in Sources */,
 				A4DD9DC829DF24E40063DD9B /* ForgotMyPassword.swift in Sources */,

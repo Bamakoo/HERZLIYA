@@ -16,7 +16,6 @@ struct UserController: RouteCollection {
 
     func index(req: Request) async throws -> [GetUser] {
         let users = try await User.query(on: req.db)
-            // .sort(\.$username, )
                         .all()
         return try users.map { user in
             try GetUser(id: user.requireID(), username: user.username, favoriteBook: user.favoriteBook, country: user.country, city: user.city, favoriteAuthor: user.favoriteAuthor)
