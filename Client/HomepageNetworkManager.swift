@@ -4,7 +4,6 @@
 //
 //  Created by Emma Gaubert on 31/05/2023.
 //
-// swiftlint:disable cyclomatic_complexity
 import Foundation
 
 final class HomepageNetworkManager {
@@ -17,8 +16,27 @@ final class HomepageNetworkManager {
         let books: [GetBook] = try await httpClient.fetch(url: url)
         return books
     }
-    func sort(){
-
+    func sort(_ sortBy: SortBy) async throws -> [GetBook] {
+        switch sortBy {
+        case .title(ascending: true):
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=title&ascending=true")!
+            print(url)
+            let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+            print(sortedBooks)
+            return sortedBooks
+        case .title(ascending: false):
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=title&ascending=false")!
+            print(url)
+            let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+            print(sortedBooks)
+            return sortedBooks
+        default:
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=title&ascending=false")!
+            print(url)
+            let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+            print(sortedBooks)
+            return sortedBooks
+        }
     }
     
 //    func sort(_ sortOrFilter: HomepageMenuSelector, _ by: HomepageSubMenuSelector ) async throws -> [GetBook] {

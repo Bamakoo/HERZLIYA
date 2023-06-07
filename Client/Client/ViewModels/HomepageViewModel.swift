@@ -13,7 +13,7 @@ final class HomepageViewModel: ObservableObject {
     @Published var selectedDisplay: WhatToDisplay = .books
     @Published var sortOrFilter: SortOrFilter = .filter
     @Published var selectedFilter: Filters = .genre(.action)
-    @Published var selectedSort: SortBy = .genre(.ascending)
+    @Published var selectedSort: SortBy = .genre(ascending: true)
     @Published var selectedMenu: HomepageMenuSelector = .display
     @Published var selectedSubMenu: HomepageSubMenuSelector = .author
     private let networkManager: HomepageNetworkManager
@@ -36,11 +36,11 @@ final class HomepageViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    func filter() async {
-        do {
-            books = try await networkManager.sort(selectedSort)
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
+//    func filter() async {
+//        do {
+//            books = try await networkManager.sort(selectedSort)
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//    }
 }

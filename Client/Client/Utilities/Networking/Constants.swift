@@ -13,7 +13,7 @@ enum Request {
 enum Endpoint: String {
     case soldBooks = "books/sold/"
     case booksInKart = "books/kart/"
-    case sortBooks = "books/sort"
+    case sortBooks = "books/sort?"
     static let books = "books"
     static let sold = "/sold/"
     static let myself = "me"
