@@ -10,6 +10,8 @@ import Foundation
 @MainActor
 final class HomepageViewModel: ObservableObject {
     @Published var books = [GetBook]()
+    @Published var sortedBooks = [GetBook]()
+    @Published var isSorting: Bool = false 
     @Published var selectedDisplay: WhatToDisplay = .books
     @Published var sortOrFilter: SortOrFilter = .filter
     @Published var selectedFilter: Filters = .genre(.action)
@@ -30,8 +32,9 @@ final class HomepageViewModel: ObservableObject {
     func sort() async {
         do {
             print("hello sort")
-            books = try await networkManager.sort(selectedSort)
-            print(books)
+            isSorting = true
+            sortedBooks = try await networkManager.sort(selectedSort)
+            print(sortedBooks)
         } catch {
             print(error.localizedDescription)
         }

@@ -30,6 +30,7 @@
 		A499DCE02A274DFC00777B8F /* HomepageMenuSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCDF2A274DFC00777B8F /* HomepageMenuSelector.swift */; };
 		A499DCE22A2A17E800777B8F /* ProfileSwitchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCE12A2A17E800777B8F /* ProfileSwitchViewModel.swift */; };
 		A499DCE62A2F27B700777B8F /* SortedBooksDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCE52A2F27B700777B8F /* SortedBooksDTO.swift */; };
+		A499DCE82A307A7C00777B8F /* HomepageToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCE72A307A7C00777B8F /* HomepageToolbar.swift */; };
 		A4AF589629CC617A003F03AD /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589529CC617A003F03AD /* Comment.swift */; };
 		A4AF589829CC61F3003F03AD /* Kart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589729CC61F3003F03AD /* Kart.swift */; };
 		A4AF589A29CC628E003F03AD /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589929CC628E003F03AD /* Rating.swift */; };
@@ -106,6 +107,7 @@
 		A499DCDF2A274DFC00777B8F /* HomepageMenuSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageMenuSelector.swift; sourceTree = "<group>"; };
 		A499DCE12A2A17E800777B8F /* ProfileSwitchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSwitchViewModel.swift; sourceTree = "<group>"; };
 		A499DCE52A2F27B700777B8F /* SortedBooksDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedBooksDTO.swift; sourceTree = "<group>"; };
+		A499DCE72A307A7C00777B8F /* HomepageToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomepageToolbar.swift; path = Client/Views/HomepageToolbar.swift; sourceTree = SOURCE_ROOT; };
 		A4AF589529CC617A003F03AD /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		A4AF589729CC61F3003F03AD /* Kart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kart.swift; sourceTree = "<group>"; };
 		A4AF589929CC628E003F03AD /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				A499DCD62A2496B800777B8F /* Homepage.swift */,
+				A499DCE72A307A7C00777B8F /* HomepageToolbar.swift */,
 				A44D59C029A4C21A00FF7F22 /* BookRow.swift */,
 				A4C9867729A11EFC003CF879 /* BooksList.swift */,
 				A44D59AE29A3722500FF7F22 /* CreateBookView.swift */,
@@ -531,6 +534,7 @@
 				A4C9863C299FB843003CF879 /* ClientApp.swift in Sources */,
 				A4AF58A029CC653D003F03AD /* KartView.swift in Sources */,
 				A4C98669299FD8DD003CF879 /* Networking.swift in Sources */,
+				A499DCE82A307A7C00777B8F /* HomepageToolbar.swift in Sources */,
 				A499DCE62A2F27B700777B8F /* SortedBooksDTO.swift in Sources */,
 				A44D59BD29A4077E00FF7F22 /* UserProfileView.swift in Sources */,
 				A44D59CD29ACB33200FF7F22 /* KartsNetworkManager.swift in Sources */,

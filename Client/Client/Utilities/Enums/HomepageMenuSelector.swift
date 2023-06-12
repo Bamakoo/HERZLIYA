@@ -34,6 +34,7 @@ enum SortBy {
     case price(ascending: Bool)
     case genre(ascending: Bool)
     case author(ascending: Bool)
+    case date(ascending: Bool)
 }
 
 enum AscendingOrDescending: String {

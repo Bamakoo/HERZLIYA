@@ -30,8 +30,68 @@ final class HomepageNetworkManager {
             let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
             print(sortedBooks)
             return sortedBooks
+        case .state(ascending: true):
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=state&ascending=true")!
+            print(url)
+            let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+            print(sortedBooks)
+            return sortedBooks
+        case .state(ascending: false):
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=state&ascending=false")!
+            print(url)
+            let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+            print(sortedBooks)
+            return sortedBooks
+        case .price(ascending: true):
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=price&ascending=true")!
+            print(url)
+            let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+            print(sortedBooks)
+            return sortedBooks
+        case .price(ascending: false):
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=price&ascending=false")!
+            print(url)
+            let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+            print(sortedBooks)
+            return sortedBooks
+        case .genre(ascending: true):
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=genre&ascending=true")!
+            print(url)
+            let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+            print(sortedBooks)
+            return sortedBooks
+        case .genre(ascending: false):
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=genre&ascending=false")!
+            print(url)
+            let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+            print(sortedBooks)
+            return sortedBooks
+        case .author(ascending: true):
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=author&ascending=true")!
+            print(url)
+            let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+            print(sortedBooks)
+            return sortedBooks
+        case .author(ascending: false):
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=author&ascending=false")!
+            print(url)
+            let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+            print(sortedBooks)
+            return sortedBooks
+        case .date(ascending: true):
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=date&ascending=true")!
+            print(url)
+            let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+            print(sortedBooks)
+            return sortedBooks
+        case .date(ascending: false):
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=date&ascending=false")!
+            print(url)
+            let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+            print(sortedBooks)
+            return sortedBooks
         default:
-            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=title&ascending=false")!
+            let url = URL(string: Request.baseURL + Endpoint.sortBooks.rawValue + "by=date&ascending=false")!
             print(url)
             let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
             print(sortedBooks)
