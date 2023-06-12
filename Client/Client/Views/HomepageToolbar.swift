@@ -13,61 +13,61 @@ struct HomepageToolbar: ToolbarContent {
         ToolbarItem(placement: .primaryAction) {
             Menu {
                 Button("Sort by title ascending") {
-                    viewModel.selectedSort = .title(ascending: true)
+                    viewModel.selectedSort = .title
                     Task {
                         await viewModel.sort()
                     }
                 }
                 Button("Sort by title descending") {
-                    viewModel.selectedSort = .title(ascending: false)
+                    viewModel.selectedSort = .title
                     Task {
                         await viewModel.sort()
                     }
                 }
                 Button("Sort by author descending") {
-                    viewModel.selectedSort = .author(ascending: false)
+                    viewModel.selectedSort = .author
                     Task {
                         await viewModel.sort()
                     }
                 }
                 Button("Sort by author ascending") {
-                    viewModel.selectedSort = .author(ascending: true)
+                    viewModel.selectedSort = .author
                     Task {
                         await viewModel.sort()
                     }
                 }
                 Button("Sort by genre descending") {
-                    viewModel.selectedSort = .genre(ascending: false)
+                    viewModel.selectedSort = .genre
                     Task {
                         await viewModel.sort()
                     }
                 }
                 Button("Sort by genre ascending") {
-                    viewModel.selectedSort = .genre(ascending: true)
+                    viewModel.selectedSort = .genre
                     Task {
                         await viewModel.sort()
                     }
                 }
                 Button("Sort by price descending") {
-                    viewModel.selectedSort = .price(ascending: false)
+                    viewModel.selectedSort = .price
                     Task {
                         await viewModel.sort()
                     }
                 }
                 Button("Sort by price ascending") {
-                    viewModel.selectedSort = .price(ascending: true)
+                    viewModel.selectedSort = .price
                     Task {
                         await viewModel.sort()
                     }
                 }
                 Button("Sort by state descending") {
-                    viewModel.selectedSort = .state(ascending: false)
+                    viewModel.selectedSort = .state
                     Task {
                         await viewModel.sort()
                     }
                 }
                 Button("Sort by state ascending") {
-                    viewModel.selectedSort = .state(ascending: true)
+                    viewModel.selectedSort = .state
                     Task {
                         await viewModel.sort()
                     }

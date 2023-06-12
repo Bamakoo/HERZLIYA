@@ -27,14 +27,14 @@ enum Filters {
     case genre(BookGenre)
 }
 
-enum SortBy {
-    case seller(ascending: Bool)
-    case title(ascending: Bool)
-    case state(ascending: Bool)
-    case price(ascending: Bool)
-    case genre(ascending: Bool)
-    case author(ascending: Bool)
-    case date(ascending: Bool)
+enum SortBy: String {
+    case seller
+    case title
+    case state
+    case price
+    case genre
+    case author
+    case date
 }
 
 enum AscendingOrDescending: String {
@@ -53,7 +53,6 @@ enum HomepageSubMenuSelector: String {
     case comments = "Comments"
     case ratings = "Ratings"
     case users = "Users"
-    
     case title = "Title"
     case author = "Author"
     case price = "Price"

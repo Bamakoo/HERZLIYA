@@ -11,11 +11,12 @@ import Foundation
 final class HomepageViewModel: ObservableObject {
     @Published var books = [GetBook]()
     @Published var sortedBooks = [GetBook]()
-    @Published var isSorting: Bool = false 
+    @Published var isSorting: Bool = false
+    @Published var sortAscending: Bool = false
     @Published var selectedDisplay: WhatToDisplay = .books
     @Published var sortOrFilter: SortOrFilter = .filter
     @Published var selectedFilter: Filters = .genre(.action)
-    @Published var selectedSort: SortBy = .genre(ascending: true)
+    @Published var selectedSort: SortBy = .genre
     @Published var selectedMenu: HomepageMenuSelector = .display
     @Published var selectedSubMenu: HomepageSubMenuSelector = .author
     private let networkManager: HomepageNetworkManager
@@ -32,8 +33,8 @@ final class HomepageViewModel: ObservableObject {
     func sort() async {
         do {
             print("hello sort")
-            isSorting = true
-            sortedBooks = try await networkManager.sort(selectedSort)
+            isSorting.toggle()
+            sortedBooks = try await networkManager.sort(selectedSort, sortAscending)
             print(sortedBooks)
         } catch {
             print(error.localizedDescription)

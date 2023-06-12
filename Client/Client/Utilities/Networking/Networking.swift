@@ -20,9 +20,7 @@ final class Networking: HttpClient {
 
         request.addValue(MIMEType.JSON.rawValue,
                          forHTTPHeaderField: HttpHeaders.contentType.rawValue)
-
         print(token)
-
         print(request.allHTTPHeaderFields)
         let (data, response) = try await URLSession.shared.data(from: url)
         print(data, response)
