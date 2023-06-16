@@ -21,7 +21,7 @@ struct MainMenu: View {
                 .tabItem {
                     Image(systemName: "plus.square")
                 }
-            UserProfileView()
+            ProfileSwitch()
                 .tabItem {
                     Image(systemName: "person.crop.circle.fill")
                 }

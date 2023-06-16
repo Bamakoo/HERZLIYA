@@ -10,108 +10,94 @@ import SwiftUI
 struct Homepage: View {
     @StateObject private var viewModel = HomepageViewModel(networkManager: HomepageNetworkManager(httpClient: Networking()))
     @State private var selectedBook: GetBook?
+    @State private var filterByUsername: String = ""
     var body: some View {
         NavigationSplitView {
-            List(viewModel.books, selection: $selectedBook) { book in
+            List(viewModel.isSorting ? viewModel.sortedBooks : viewModel.books, selection: $selectedBook) { book in
                 NavigationLink(value: book) {
                     BookRow(book: book)
                 }
             }
-            .toolbarRole(.browser)
+            .toolbarRole(.editor)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
-                        Menu(HomepageMenuSelector.display.rawValue) {
-                            Button(HomepageSubMenuSelector.books.rawValue) {
-                                viewModel.selectedMenu = .display
-                                viewModel.selectedSubMenu = .books
-                                Task {
-                                    await viewModel.sortFilterHandler()
-                                }
-                            }
-                            Button(HomepageSubMenuSelector.comments.rawValue) {
-                                viewModel.selectedMenu = .display
-                                viewModel.selectedSubMenu = .comments
-                                Task {
-                                    await viewModel.sortFilterHandler()
-                                }
-                            }
-                            Button(HomepageSubMenuSelector.ratings.rawValue) {
-                                viewModel.selectedMenu = .display
-                                viewModel.selectedSubMenu = .ratings
-                                Task {
-                                    await viewModel.sortFilterHandler()
-                                }
-                            }
-                            Button(HomepageSubMenuSelector.users.rawValue) {
-                                viewModel.selectedMenu = .display
-                                viewModel.selectedSubMenu = .users
-                                Task {
-                                    await viewModel.sortFilterHandler()
-                                }
+                        Button("Sort by title ascending") {
+                            Task {
+                                viewModel.selectedSort = .title
+                                viewModel.sortAscending = true
+                                await viewModel.sort()
                             }
                         }
-                        if viewModel.selectedSubMenu == .books {
-                            Menu(HomepageMenuSelector.sort.rawValue) {
-                                Button(HomepageSubMenuSelector.title.rawValue) {
-                                    viewModel.selectedMenu = .sort
-                                    viewModel.selectedSubMenu = .title
-                                    Task {
-                                        await viewModel.sortFilterHandler()
-                                    }
-                                }
-                                Button(HomepageSubMenuSelector.author.rawValue) {
-                                    viewModel.selectedMenu = .sort
-                                    viewModel.selectedSubMenu = .author
-                                    Task {
-                                        await viewModel.sortFilterHandler()
-                                    }
-                                }
-                                Button(HomepageSubMenuSelector.price.rawValue) {
-                                    viewModel.selectedMenu = .sort
-                                    viewModel.selectedSubMenu = .price
-                                    Task {
-                                        await viewModel.sortFilterHandler()
-                                    }
-                                }
-                                Button(HomepageSubMenuSelector.state.rawValue) {
-                                    viewModel.selectedMenu = .sort
-                                    viewModel.selectedSubMenu = .state
-                                    Task {
-                                        await viewModel.sortFilterHandler()
-                                    }
-                                }
+                        Button("Sort by title descending") {
+                            Task {
+                                viewModel.selectedSort = .title
+                                viewModel.sortAscending = false
+                                await viewModel.sort()
                             }
-                            Menu(HomepageMenuSelector.filter.rawValue) {
-                                Button(HomepageSubMenuSelector.title.rawValue) {
-                                    viewModel.selectedMenu = .filter
-                                    viewModel.selectedSubMenu = .title
-                                    Task {
-                                        await viewModel.sortFilterHandler()
-                                    }
-                                }
-                                Button(HomepageSubMenuSelector.author.rawValue) {
-                                    viewModel.selectedMenu = .filter
-                                    viewModel.selectedSubMenu = .author
-                                    Task {
-                                        await viewModel.sortFilterHandler()
-                                    }
-                                }
-                                Button(HomepageSubMenuSelector.price.rawValue) {
-                                    viewModel.selectedMenu = .filter
-                                    viewModel.selectedSubMenu = .price
-                                    Task {
-                                        await viewModel.sortFilterHandler()
-                                    }
-                                }
+                        }
+                        Button("Sort by author descending") {
+                            Task {
+                                viewModel.selectedSort = .author
+                                viewModel.sortAscending = false
+                                await viewModel.sort()
+                            }
+                        }
+                        Button("Sort by author ascending") {
+                            Task {
+                                viewModel.selectedSort = .author
+                                viewModel.sortAscending = true
+                                await viewModel.sort()
+                            }
+                        }
+                        Button("Sort by genre descending") {
+                            Task {
+                                viewModel.selectedSort = .genre
+                                viewModel.sortAscending = false
+                                await viewModel.sort()
+                            }
+                        }
+                        Button("Sort by genre ascending") {
+                            Task {
+                                viewModel.selectedSort = .genre
+                                viewModel.sortAscending = true
+                                await viewModel.sort()
+                            }
+                        }
+                        Button("Sort by price descending") {
+                            Task {
+                                viewModel.selectedSort = .price
+                                viewModel.sortAscending = false
+                                await viewModel.sort()
+                            }
+                        }
+                        Button("Sort by price ascending") {
+                            Task {
+                                viewModel.selectedSort = .price
+                                viewModel.sortAscending = true
+                                await viewModel.sort()
+                            }
+                        }
+                        Button("Sort by state descending") {
+                            Task {
+                                viewModel.selectedSort = .state
+                                viewModel.sortAscending = false
+                                await viewModel.sort()
+                            }
+                        }
+                        Button("Sort by state ascending") {
+                            Task {
+                                viewModel.selectedSort = .state
+                                viewModel.sortAscending = true
+                                await viewModel.sort()
                             }
                         }
                     }
-                                label: {
-                                    Image(systemName: "line.3.horizontal.decrease.circle.fill")
-                                }
-                            }
-                        }
+                label: {
+                    Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                }
+                }
+            }
             .listStyle(.grouped)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Homepage")
@@ -126,6 +112,7 @@ struct Homepage: View {
             await viewModel.fetchBooks()
         }
         .refreshable {
+            viewModel.isSorting.toggle()
             await viewModel.fetchBooks()
             print("feeling fresh")
         }
