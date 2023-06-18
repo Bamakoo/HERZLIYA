@@ -27,12 +27,28 @@ final class BooksViewModel: ObservableObject {
     init(networkManager: BooksNetworkManager) {
         self.networkManager = networkManager
     }
-    func getBooksInKart() async {
-        do {
-            kartBooks = try await networkManager.getBooksInKart()
-        } catch {
-            print(error.localizedDescription)
+    func getBooksInKart() async throws {
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        let token = try Keychain.search()
+        print(token)
+        print(userID)
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/kart/\(userID)")!,timeoutInterval: Double.infinity)
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        print(request)
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+               do {
+                  let books = try JSONDecoder().decode([GetBook].self, from: data)
+                   DispatchQueue.main.async {
+                       self.kartBooks.append(contentsOf: books)
+                   }
+               } catch let error {
+                   print(error.localizedDescription)
+               }
+            }
         }
+        task.resume()
     }
     func addBookToKart(_ bookID: UUID) async {
         do {

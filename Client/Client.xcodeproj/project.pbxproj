@@ -31,6 +31,7 @@
 		A499DCE22A2A17E800777B8F /* ProfileSwitchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCE12A2A17E800777B8F /* ProfileSwitchViewModel.swift */; };
 		A499DCE62A2F27B700777B8F /* SortedBooksDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCE52A2F27B700777B8F /* SortedBooksDTO.swift */; };
 		A499DCE82A307A7C00777B8F /* HomepageToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCE72A307A7C00777B8F /* HomepageToolbar.swift */; };
+		A499DCEA2A3774FE00777B8F /* UpdateProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCE92A3774FE00777B8F /* UpdateProfile.swift */; };
 		A4AF589629CC617A003F03AD /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589529CC617A003F03AD /* Comment.swift */; };
 		A4AF589829CC61F3003F03AD /* Kart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589729CC61F3003F03AD /* Kart.swift */; };
 		A4AF589A29CC628E003F03AD /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589929CC628E003F03AD /* Rating.swift */; };
@@ -108,6 +109,7 @@
 		A499DCE12A2A17E800777B8F /* ProfileSwitchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSwitchViewModel.swift; sourceTree = "<group>"; };
 		A499DCE52A2F27B700777B8F /* SortedBooksDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedBooksDTO.swift; sourceTree = "<group>"; };
 		A499DCE72A307A7C00777B8F /* HomepageToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomepageToolbar.swift; path = Client/Views/HomepageToolbar.swift; sourceTree = SOURCE_ROOT; };
+		A499DCE92A3774FE00777B8F /* UpdateProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProfile.swift; sourceTree = "<group>"; };
 		A4AF589529CC617A003F03AD /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		A4AF589729CC61F3003F03AD /* Kart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kart.swift; sourceTree = "<group>"; };
 		A4AF589929CC628E003F03AD /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				A44D59BE29A407C800FF7F22 /* LikesView.swift */,
 				A4AF589F29CC653D003F03AD /* KartView.swift */,
 				A44D59BC29A4077E00FF7F22 /* UserProfileView.swift */,
+				A499DCE92A3774FE00777B8F /* UpdateProfile.swift */,
 				A4DD9DC329DF12B40063DD9B /* LoginChoiceScreen.swift */,
 				A4DD9DC729DF24E40063DD9B /* ForgotMyPassword.swift */,
 				A4DD9DB729D9D56B0063DD9B /* SoldBooks.swift */,
@@ -552,6 +555,7 @@
 				A4DD9DB229D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift in Sources */,
 				A4C9866B299FDB68003CF879 /* BooksNetworkManager.swift in Sources */,
 				A4DD9DBA29DAC95C0063DD9B /* Keychain.swift in Sources */,
+				A499DCEA2A3774FE00777B8F /* UpdateProfile.swift in Sources */,
 				A44D59C729ACAFC800FF7F22 /* KartViewModel.swift in Sources */,
 				A44D59C129A4C21A00FF7F22 /* BookRow.swift in Sources */,
 				A4DD9DB429D9D50B0063DD9B /* MyFriendsView.swift in Sources */,
