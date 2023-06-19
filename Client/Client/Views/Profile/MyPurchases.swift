@@ -26,8 +26,10 @@ struct MyPurchases: View {
                 Text("Pick a book")
             }
         }
-        .task {
-                await viewModel.fetchPurchasedBooks()
+        .onAppear {
+            Task {
+                try await viewModel.fetchPurchasedBooks()
+            }
         }
     }
 }
