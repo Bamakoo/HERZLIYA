@@ -19,6 +19,9 @@ struct UserProfileView: View {
                         .foregroundColor(.primary)
                 }
             }
+            .listStyle(.sidebar)
+            .navigationTitle("My Profile")
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem {
                     Button(action: {
@@ -29,32 +32,27 @@ struct UserProfileView: View {
                     .sheet(isPresented: $updateProfile) {
                         UpdateProfile()
                     }
+                    .navigationDestination(for: ProfileMenu.self) { item in
+                        switch item {
+                        case .booksByFavoriteAuthor:
+                            BooksByMyFavoriteAuthorView()
+                        case .friends:
+                            MyFriendsView()
+                        case .likes:
+                            LikesView()
+                        case .myKart:
+                            KartView()
+                        case .purchases:
+                            MyPurchases()
+                        case .soldBooks:
+                            SoldBooks()
+                        }
+                    }
                 }
-            }
-        }
-        .listStyle(.sidebar)
-        .navigationTitle("My Profile")
-        .navigationBarTitleDisplayMode(.large)
-        .navigationDestination(for: ProfileMenu.self) { item in
-            switch item {
-            case .booksByFavoriteAuthor:
-                BooksByMyFavoriteAuthorView()
-            case .friends:
-                MyFriendsView()
-            case .likes:
-                LikesView()
-            case .myKart:
-                KartView()
-            case .purchases:
-                MyPurchases()
-            case .soldBooks:
-                SoldBooks()
             }
         }
     }
 }
-
-
 struct UserProfileView_Previews: PreviewProvider {
     static var previews: some View {
         UserProfileView()

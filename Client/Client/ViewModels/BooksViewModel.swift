@@ -76,12 +76,28 @@ final class BooksViewModel: ObservableObject {
             print("unable to fetch books because of : \(error.localizedDescription)")
         }
     }
-    func bookByUsersFavoriteAuthor() async {
-        do {
-            booksByUsersFavoriteAuthor = try await networkManager.fetchBookByUsersFavoriteAuthor()
-        } catch {
-            print(error.localizedDescription)
+    func bookByUsersFavoriteAuthor() async throws {
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        let token = try Keychain.search()
+        print(token)
+        print(userID)
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/favorite-author/\(userID)")!,timeoutInterval: Double.infinity)
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        print(request)
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+               do {
+                  let books = try JSONDecoder().decode([GetBook].self, from: data)
+                   DispatchQueue.main.async {
+                       self.booksByUsersFavoriteAuthor.append(contentsOf: books)
+                   }
+               } catch let error {
+                   print(error.localizedDescription)
+               }
+            }
         }
+        task.resume()
     }
     func soldBooks() async {
         do {
