@@ -3,7 +3,7 @@ import type { Users } from '@/libs/interfaces/users'
 
 export const fetchUsers = async () => {
   const listUsers = async () => {
-    const { data } = await axios.get('/users', {
+    const { data } = await axios.get('users', {
       headers: { 'Content-Type': 'application/json' }
     })
     return data
@@ -18,8 +18,8 @@ export const fetchUsers = async () => {
 
   const create = async (datas: Users) => {
     const res = await axios.post('/users', {
-      data: { datas },
-      headers: { 'Content-Type': 'application/json' }
+      data: datas
+      // headers: { 'Content-Type': 'application/json' }
     })
     return res
   }

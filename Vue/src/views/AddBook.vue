@@ -1,9 +1,9 @@
 <template>
   <div class="mx-auto max-w-3xl my-20 p-4">
     <h1 class="mb-10 text-4xl text-center font-semibold">Ajouter un livre</h1>
-    <TwForm :onSubmit="onSubmit" :onCancel="onCancel">
+    <TwForm :onSubmit="onSubmit" :onCancel="onCancel" action-text="Vendre mon livre">
       <div class="border-b border-gray-900/10 pb-12">
-        <span>Tous les champs sont obligatoires</span>
+        <span class="text-red-500 font-semibold">Tous les champs sont obligatoires</span>
         <div class="mt-10 grid gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="sm:col-span-3">
             <label for="title" class="block text-sm font-medium leading-6 text-gray-900"
@@ -48,7 +48,7 @@
                 min="0"
                 name="price"
                 type="number"
-                autocomplete="price"
+                autocomplete="on"
                 required
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -81,7 +81,7 @@
               <select
                 v-model="selectedState"
                 name="state"
-                autocomplete="state-name"
+                autocomplete="on"
                 required
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
@@ -101,8 +101,9 @@
                 name="description"
                 required
                 rows="3"
+                autocomplete="on"
                 class="block w-full h-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 resize-none"
-              ></textarea>
+              />
             </div>
           </div>
         </div>
@@ -140,27 +141,39 @@ const states = [
   { value: 'excellent', name: 'Excellent' },
   { value: 'brandNew', name: 'Neuf' }
 ]
+type NewBook = Omit<Books, 'id' | 'status' | 'updatedAt' | 'deletedAt'>
 
 const datas = ref<{
-  title: Books['title']
-  author: Books['author']
-  state: Books['state']
-  genre: Books['genre']
-  price: Books['price']
-  description: Books['description']
-}>()
+  title: NewBook['title']
+  author: NewBook['author']
+  state: NewBook['state']
+  genre: NewBook['genre']
+  price: NewBook['price']
+  description: NewBook['description']
+  createdAt: NewBook['createdAt']
+}>({
+  title: '',
+  author: '',
+  state: null,
+  genre: null,
+  price: 0,
+  description: '',
+  createdAt: new Date(Date.now())
+})
 
 const { create } = await fetchBook()
 const onSubmit = async () => {
   try {
-    const newBook = await create({
+    const newBookData: NewBook = {
       title: datas.value?.title,
       author: datas.value?.author,
-      state: (datas.value.state = selectedState.value),
-      genre: (datas.value.genre = selectedGenre.value),
+      state: datas.value?.state ?? null,
+      genre: datas.value?.genre ?? null,
       price: datas.value?.price,
-      description: datas.value?.description
-    })
+      description: datas.value?.description,
+      createdAt: datas.value.createdAt
+    }
+    const newBook = await create(newBookData)
     return newBook
   } catch (error) {
     console.error((error as Error).message)

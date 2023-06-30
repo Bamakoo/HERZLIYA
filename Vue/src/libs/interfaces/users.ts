@@ -1,11 +1,11 @@
 export interface Users {
-  id: string
-  username: string
-  email: string
-  favoriteBook?: string
-  country: string
-  city: string
-  favoriteAuthor?: string
+  id: string | null
+  username: string | null
+  email: string | null
+  favoriteBook?: string | null
+  country: string | null
+  city: string | null
+  favoriteAuthor?: string | null
   createdAt: Date
   updatedAt: Date
 }

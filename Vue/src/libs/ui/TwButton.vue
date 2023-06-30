@@ -17,7 +17,7 @@
 import { computed } from 'vue'
 import { TwSpinner } from '@/libs/ui/index.vue'
 const props = defineProps<{
-  type: 'button' | 'submit' | 'reset'
+  type?: 'button' | 'submit' | 'reset'
   size?: 's' | 'm' | 'l'
   disabled?: boolean
   loading?: boolean

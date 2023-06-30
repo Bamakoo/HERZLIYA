@@ -1,5 +1,7 @@
 <template>
-  <header class="w-full max-h-max sticky top-0 bg-gray-500 flex p-2 align-middle">
+  <header
+    class="relative w-full max-h-max top-0 bg-gray-500 flex p-2 justify-between items-center align-middle"
+  >
     <div class="flex space-x-2 px-2 items-center w-1/5">
       <RouterLink to="../">
         <div class="rounded-full aspect-square bg-gray-400">
@@ -19,29 +21,31 @@
         />
       </label>
     </div>
-    <nav class="hidden md:flex items-center mx-auto space-x-12">
-      <RouterLink v-for="(nav, index) in navigation" :to="nav.to" :key="index">
-        <component
-          :is="nav.icon"
-          :class="[
-            'h-12 w-12 text-gray-700',
-            { 'text-gray-900 border-b-2 border-b-gray-900': selected }
-          ]"
-        />
-        <!-- On Hover apparait en dessous de l'icône
-        <div
+    <nav class="hidden lg:flex lg:justify-center mx-auto space-x-4">
+      <RouterLink
+        v-for="(nav, index) in navigation"
+        :to="nav.to"
+        :key="index"
+        :active-class="'text-gray-900 border-b-2 border-b-gray-900'"
+        class="h-full w-24 text-gray-700 hover:bg-gray-700/25"
+      >
+        <component :is="nav.icon" class="p-1 h-12 w-12 mx-auto" />
+        <!-- On Hover apparait en dessous de l'icône -->
+        <!-- <span
           :aria-describedby="nav.title"
-          class="max-w-fit bg-gray-400 rounded-md text-gray-600 text-center p-2"
+          class="absolute max-w-fit bg-gray-400 rounded-md text-gray-600 text-center p-2"
         >
           {{ nav.title }}
-        </div>-->
+        </span> -->
       </RouterLink>
     </nav>
+    <TwMenu :items="navigation" class="text-right lg:hidden relative" />
   </header>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import TwMenu from './TwMenu.vue'
 import {
   MagnifyingGlassIcon,
   HomeIcon,
@@ -62,5 +66,12 @@ const navigation = [
   { icon: ShoppingCartIcon, title: 'Panier', to: '/cart' }
 ]
 
-const selected = ref(false)
+const visible = ref(false)
 </script>
+<style scoped>
+a:hover + span {
+  display: block;
+  color: #4287f5;
+  font-size: 20px;
+}
+</style>

@@ -1,1 +1,6 @@
-<template>page compte</template>
+<template>
+  <Login />
+</template>
+<script setup lang="ts">
+import Login from './Login.vue'
+</script>
