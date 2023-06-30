@@ -91,7 +91,7 @@ struct Homepage: View {
                                 viewModel.sortAscending = true
                                 await viewModel.sort()
                             }
-                        }
+                        } 
                     }
                 label: {
                     Image(systemName: "line.3.horizontal.decrease.circle.fill")

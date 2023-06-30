@@ -140,13 +140,13 @@
             filePath = "Client/Utilities/Networking/Networking.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
             landmarkName = "fetch(url:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "4DF3821A-81AC-42F7-8F83-74455519D65D - 80d523e7620244e5"
+                  uuid = "4DF3821A-81AC-42F7-8F83-74455519D65D - 80d523e762024480"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -156,12 +156,12 @@
                   urlString = "file:///Users/emma.gaubert/HERZLIYA/Client/Client/Utilities/Networking/Networking.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "24"
-                  endingLineNumber = "24"
-                  offsetFromSymbolStart = "1220">
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "1156">
                </Location>
                <Location
-                  uuid = "4DF3821A-81AC-42F7-8F83-74455519D65D - 89b1711c28db00eb"
+                  uuid = "4DF3821A-81AC-42F7-8F83-74455519D65D - 89b1711c28db008e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -171,8 +171,8 @@
                   urlString = "file:///Users/emma.gaubert/HERZLIYA/Client/Client/Utilities/Networking/Networking.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "24"
-                  endingLineNumber = "24"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
                   offsetFromSymbolStart = "1920">
                </Location>
             </Locations>
@@ -181,33 +181,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6F208DE8-7C55-4517-9127-BB458D0BD15A"
+            uuid = "993314D8-4309-49C9-A61F-8E2729E8ABF3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BooksByMyFavoriteAuthorView.swift"
+            filePath = "Client/Views/Profile/UserProfileView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "body"
             landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B4F86230-1EFD-4233-89EF-A5AA8F588002"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HomepageNetworkManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "sort(_:_:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

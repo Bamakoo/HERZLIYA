@@ -17,8 +17,10 @@ struct KartView: View {
                     BookRow(book: book)
                 }
             }
-            .task {
-                    await viewModel.getBooksInKart()
+            .onAppear {
+                Task {
+                    try await viewModel.getBooksInKart()
+                }
             }
             .navigationTitle("My Cart")
             .listStyle(.grouped)

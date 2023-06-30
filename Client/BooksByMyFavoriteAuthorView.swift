@@ -12,13 +12,15 @@ struct BooksByMyFavoriteAuthorView: View {
     @State private var selection: GetBook?
     var body: some View {
         NavigationSplitView {
-            List(viewModel.purchasedBooks, selection: $selection) { book in
+            List(viewModel.booksByUsersFavoriteAuthor, selection: $selection) { book in
                 NavigationLink(value: book) {
                     BookRow(book: book)
                 }
             }
-            .task {
-                    await viewModel.bookByUsersFavoriteAuthor()
+            .onAppear {
+                Task {
+                    try await viewModel.bookByUsersFavoriteAuthor()
+                }
             }
             .navigationTitle("Buy books by my favorite author")
             .listStyle(.grouped)

@@ -17,7 +17,7 @@ struct SoldBooks: View {
                     BookRow(book: book)
                 }
             }
-            .navigationTitle("Books I've Purchased")
+            .navigationTitle("Books I've sold")
             .listStyle(.grouped)
         } detail: {
             if selection != nil {
@@ -26,8 +26,10 @@ struct SoldBooks: View {
                 Text("Pick a book")
             }
         }
-        .task {
-                await viewModel.soldBooks()
+        .onAppear {
+            Task {
+                try await viewModel.soldBooks()
+            }
         }
     }
 }

@@ -17,9 +17,6 @@ final class Networking: HttpClient {
         let token = try Keychain.search()
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
-
-        request.addValue(MIMEType.JSON.rawValue,
-                         forHTTPHeaderField: HttpHeaders.contentType.rawValue)
         print(token)
         print(request.allHTTPHeaderFields)
         let (data, response) = try await URLSession.shared.data(from: url)
