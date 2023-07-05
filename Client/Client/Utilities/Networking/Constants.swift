@@ -11,6 +11,7 @@ enum Request {
 }
 
 enum Endpoint: String {
+    case likes = "likes"
     case soldBooks = "books/sold/"
     case booksInKart = "books/kart/"
     case sortBooks = "books/sort?"

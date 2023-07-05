@@ -17,6 +17,12 @@ struct Homepage: View {
                 NavigationLink(value: book) {
                     BookRow(book: book)
                 }
+                .swipeActions(edge: .trailing) {
+                    Button {
+                        Task { await viewModel.likeABook(book) }} label: {
+                        Image(systemName: "heart")
+                    }
+                }
             }
             .toolbarRole(.editor)
             .toolbar {

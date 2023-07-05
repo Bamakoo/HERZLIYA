@@ -33,8 +33,9 @@ struct LikeController: RouteCollection {
     }
 
     func create(req: Request) async throws -> Response {
-        let like = try req.content.decode(Like.self)
-        try await like.save(on: req.db)
+        let like = try req.content.decode(LikeDTO.self)
+        let realLike = try Like(userID: like.userID, bookID: like.bookID)
+        try await realLike.save(on: req.db)
         return try await like.encodeResponse(status: .created, for: req)
     }
     

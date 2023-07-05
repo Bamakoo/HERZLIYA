@@ -23,6 +23,15 @@ final class HomepageViewModel: ObservableObject {
     init(networkManager: HomepageNetworkManager) {
         self.networkManager = networkManager
     }
+    
+    func likeABook(_ book: GetBook) async {
+        do {
+            _ = try await networkManager.likeABook(book)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     func fetchBooks() async {
         do {
             books = try await networkManager.fetchBooks()
