@@ -27,16 +27,18 @@
         :to="nav.to"
         :key="index"
         :active-class="'text-gray-900 border-b-2 border-b-gray-900'"
-        class="h-full w-24 text-gray-700 hover:bg-gray-700/25"
+        :aria-label="nav.title"
+        class="h-full fl flex-col w-24 text-gray-700 hover:bg-gray-700/25"
       >
         <component :is="nav.icon" class="p-1 h-12 w-12 mx-auto" />
+
         <!-- On Hover apparait en dessous de l'icône -->
-        <!-- <span
+        <span
           :aria-describedby="nav.title"
-          class="absolute max-w-fit bg-gray-400 rounded-md text-gray-600 text-center p-2"
+          class="hidden hover:block absolute max-w-fit mt-2 bg-gray-400 rounded-md text-gray-600 text-center p-2 justify-center items-center"
         >
           {{ nav.title }}
-        </span> -->
+        </span>
       </RouterLink>
     </nav>
     <TwMenu :items="navigation" class="text-right lg:hidden relative" />
@@ -57,12 +59,12 @@ import {
 
 const navigation = [
   {
-    icon: HomeIcon, //ou HomeIcon pour faire comprendre qu'on est à l'accueil
+    icon: HomeIcon,
     title: 'Livres',
     to: '/'
   },
   { icon: PlusCircleIcon, title: 'Vendre mon livre', to: '/add' },
-  { icon: UserCircleIcon, title: 'Mon Compte', to: '/account' },
+  { icon: UserCircleIcon, title: 'Mon Compte', to: `/account/${account.id}` },
   { icon: ShoppingCartIcon, title: 'Panier', to: '/cart' }
 ]
 
@@ -73,5 +75,54 @@ a:hover + span {
   display: block;
   color: #4287f5;
   font-size: 20px;
+}
+
+.tooltip {
+  background-color: #ffaffc;
+  border-radius: 10px;
+  padding: 8px;
+  position: relative;
+  margin: 15px;
+  text-align: center;
+}
+
+.tooltip::after {
+  background-color: #333;
+  border-radius: 10px;
+  color: #b254ff;
+  display: none;
+  padding: 10px 15px;
+  position: absolute;
+  text-align: center;
+  z-index: 999;
+}
+.tooltip::before {
+  background-color: #333;
+
+  display: none;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  z-index: 999;
+}
+
+.tooltip:hover::after {
+  display: block;
+}
+
+.tooltip:hover::before {
+  display: block;
+}
+
+.tooltip.bottom::after {
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, calc(100% + 10px));
+}
+
+.tooltip.bottom::before {
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, calc(100% + 5px)) rotate(45deg);
 }
 </style>
