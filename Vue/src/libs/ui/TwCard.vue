@@ -1,5 +1,5 @@
 <template>
-  <a v-if="large" :href="link" rel="noopener">
+  <RouterLink v-if="large" :to="to">
     <div class="flex wax-w-2xl rounded-md overflow-hidden bg-white max-w-2xl h-28 border">
       <div class="aspect-w-1 aspect-h-1 w-1/3">
         <img :src="img" :alt="`${title}`" class="object-contain object-top shrink-0" />
@@ -12,9 +12,9 @@
         </div>
       </div>
     </div>
-  </a>
+  </RouterLink>
 
-  <a v-else :href="link" el="noopener">
+  <RouterLink v-else :to="to" el="noopener">
     <div class="bg rounded-lg max-w-sm p-3 bg-white border">
       <div class="aspect-w-3 rounded-md overflow-hidden aspect-h-1 w-full">
         <img :src="img" :alt="`${title} de ${author}`" class="object-contain object-top" />
@@ -28,7 +28,7 @@
         <span v-if="state" class="block">{{ state }}</span>
       </div>
     </div>
-  </a>
+  </RouterLink>
 </template>
 
 <script setup lang="ts">
@@ -47,6 +47,6 @@ const props = defineProps<{
     | 'good'
     | 'excellent'
     | 'brandNew'
-  link: string
+  to: string
 }>()
 </script>

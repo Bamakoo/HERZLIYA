@@ -18,9 +18,46 @@ const router = createRouter({
       component: () => import('@/views/AddBook.vue')
     },
     {
-      path: '/account',
-      name: 'account',
-      component: () => import('@/views/Account.vue')
+      path: '/account/:id',
+      name: 'account-parent',
+      component: () => import('@/views/Account.vue'),
+      children: [
+        {
+          path: '/profile',
+          component: () => import('@/components/User/UserProfile.vue'),
+          name: 'profile'
+        },
+        {
+          path: '/comments',
+          component: () => import('@/components/User/UserComments.vue'),
+          name: 'comments'
+        },
+        {
+          path: '/likes',
+          component: () => import('@/components/User/UserLikes.vue'),
+          name: 'likes'
+        },
+        {
+          path: '/sales',
+          component: () => import('@/components/User/UserSales.vue'),
+          name: 'sales'
+        },
+        {
+          path: '/purchases',
+          component: () => import('@/components/User/UserPurchases.vue'),
+          name: 'purchases'
+        },
+        {
+          path: '/favoriteauthor',
+          component: () => import('@/components/User/UserFavoriteAuthor.vue'),
+          name: 'favoriteauthor'
+        },
+        {
+          path: '/friends',
+          component: () => import('@/components/User/UserFriends.vue'),
+          name: 'friends'
+        }
+      ]
     },
     {
       path: '/cart',
@@ -28,7 +65,7 @@ const router = createRouter({
       component: () => import('@/views/Kart.vue')
     },
     {
-      path: '/book',
+      path: '/book/**/*.vue',
       name: 'book',
       components: {
         default: () => import('@/layouts/BookLayout.vue'),
