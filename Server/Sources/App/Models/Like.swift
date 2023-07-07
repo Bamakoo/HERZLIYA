@@ -33,15 +33,15 @@ final class Like: Model, Content {
     init() {}
     
     init(id: UUID? = nil,
-         user: User,
-         book: Book,
+         userID: User.IDValue,
+         bookID: Book.IDValue,
          createdAt: Date? = nil,
          updatedAt: Date? = nil,
          deletedAt: Date? = nil)
-    throws {
+     {
         self.id = id
-        self.$user.id = try user.requireID()
-        self.$book.id = try book.requireID()
+        self.$user.id = userID
+        self.$book.id = bookID
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.deletedAt = deletedAt

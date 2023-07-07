@@ -8,7 +8,7 @@
 import Foundation
 
 enum ProfileMenu: Identifiable, CaseIterable {
-    case friends, booksByFavoriteAuthor, likes, myKart, purchases, soldBooks
+    case friends, booksByFavoriteAuthor, likes, myKart, purchases, soldBooks, commentsOnMyBooks, myComments
     var id: Self { self }
     var title: String {
         switch self {
@@ -18,6 +18,8 @@ enum ProfileMenu: Identifiable, CaseIterable {
         case .myKart: return "Cart"
         case .purchases: return "Purchased books"
         case .soldBooks: return "Sold books"
+        case .commentsOnMyBooks: return "Comments on my books"
+        case .myComments: return "My comments"
         }
     }
     var image: String {
@@ -28,6 +30,8 @@ enum ProfileMenu: Identifiable, CaseIterable {
         case .myKart: return "cart.fill"
         case .purchases: return "purchased.circle.fill"
         case .soldBooks: return "book.closed"
+        case .commentsOnMyBooks: return "speaker.fill"
+        case .myComments: return "person.3.fill"
         }
     }
 }

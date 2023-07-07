@@ -16,6 +16,20 @@ final class HomepageNetworkManager {
         let books: [GetBook] = try await httpClient.fetch(url: url)
         return books
     }
+    
+    func likeABook(_ book: GetBook) async throws {
+        guard let url = URL(string: Request.baseURL + Endpoint.likes.rawValue) else {
+            print("unable to generate an URL to like a book")
+            return
+        }
+        guard let bookID = book.id else {
+            print("unable to get the book id")
+            return
+        }
+        let userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
+        let newLike = Like(userID: userID, bookID: bookID)
+        _ = try await httpClient.sendData(to: url, object: newLike, httpMethod: HttpMethods.POST.rawValue)
+    }
     func sort(_ sortBy: SortBy,
               _ sortAscending: Bool) async throws -> [GetBook] {
         var components = URLComponents()

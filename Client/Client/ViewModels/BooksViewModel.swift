@@ -19,17 +19,70 @@ final class BooksViewModel: ObservableObject {
     @Published var purchasedBooks = [GetBook]()
     @Published var kartBooks = [GetBook]()
     @Published var booksByUsersFavoriteAuthor = [GetBook]()
+    @Published var likedBooks = [GetBook]()
     @Published var searchText: String = ""
     @Published var searchResults = [GetBook]()
     @Published var soldBooks = [GetBook]()
+    @Published var commentsOnBook = [Comment]()
 
     private let networkManager: BooksNetworkManager
     init(networkManager: BooksNetworkManager) {
         self.networkManager = networkManager
     }
+    
+    func fetchLikedBooks() async throws {
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/likes/70935759-4231-43E4-8E54-92CA3A48E33B")!,timeoutInterval: Double.infinity)
+        request.addValue("Bearer N6VQVmeHL2pogji/R6dypA==", forHTTPHeaderField: "Authorization")
+
+        request.httpMethod = "GET"
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+               do {
+                  let books = try JSONDecoder().decode([GetBook].self, from: data)
+                   DispatchQueue.main.async {
+                       self.likedBooks.append(contentsOf: books)
+                   }
+               } catch let error {
+                   print(error.localizedDescription)
+               }
+            }
+        }
+        task.resume()
+    }
+    
+    func getCommentsOnBook(_ bookID: UUID) async throws {
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/comments/\(bookID)")!,timeoutInterval: Double.infinity)
+        request.addValue("Bearer N6VQVmeHL2pogji/R6dypA==", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+               do {
+                  let comments = try JSONDecoder().decode([Comment].self, from: data)
+                   DispatchQueue.main.async {
+                       self.commentsOnBook.append(contentsOf: comments)
+                   }
+               } catch let error {
+                   print(error.localizedDescription)
+               }
+            }
+        }
+        task.resume()
+    }
+    
+    func commentOnBook(_ bookID: UUID, _ comment: String) async throws {
+        do {
+            try await networkManager.commentOnBook(bookID, comment)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     func getBooksInKart() async throws {
-        guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        let token = try Keychain.search()
+        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        var token = try Keychain.search()
+        token = "N6VQVmeHL2pogji/R6dypA=="
+        var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
         print(token)
         print(userID)
         var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/kart/\(userID)")!,timeoutInterval: Double.infinity)
@@ -77,8 +130,10 @@ final class BooksViewModel: ObservableObject {
         }
     }
     func bookByUsersFavoriteAuthor() async throws {
-        guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        let token = try Keychain.search()
+        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        var token = try Keychain.search()
+        token = "N6VQVmeHL2pogji/R6dypA=="
+        var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
         print(token)
         print(userID)
         var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/favorite-author/\(userID)")!,timeoutInterval: Double.infinity)
@@ -100,8 +155,10 @@ final class BooksViewModel: ObservableObject {
         task.resume()
     }
     func soldBooks() async throws {
-        guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        let token = try Keychain.search()
+        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        var token = try Keychain.search()
+        token = "N6VQVmeHL2pogji/R6dypA=="
+        var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
         print(token)
         print(userID)
         var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/sold/\(userID)")!,timeoutInterval: Double.infinity)
@@ -124,11 +181,13 @@ final class BooksViewModel: ObservableObject {
         task.resume()
     }
     func fetchPurchasedBooks() async throws {
-        guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        let token = try Keychain.search()
+        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        var token = try Keychain.search()
+        token = "N6VQVmeHL2pogji/R6dypA=="
+        var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
         print(token)
         print(userID)
-        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/bought/\(userID)")!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/bought/\(userID)")!, timeoutInterval: Double.infinity)
 
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"

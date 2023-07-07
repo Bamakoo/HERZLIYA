@@ -46,6 +46,10 @@ struct UserProfileView: View {
                             MyPurchases()
                         case .soldBooks:
                             SoldBooks()
+                        case .commentsOnMyBooks:
+                            CommentsOnMyBooksView()
+                        case .myComments:
+                            MyComments()
                         }
                     }
                 }

@@ -12,6 +12,14 @@ let httpClient: HttpClient
 init(httpClient: HttpClient) {
         self.httpClient = httpClient
     }
+    func commentOnBook(_ bookID: UUID, _ comment: String) async throws {
+        guard let url = URL(string: Request.baseURL + "comments") else {
+            throw HttpError.badURL
+        }
+        let userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
+        let newComment = Comment(userID: userID, bookID: bookID, comment: comment)
+        _ = try await httpClient.sendData(to: url, object: newComment, httpMethod: HttpMethods.POST.rawValue)
+    }
     func getBooksInKart() async throws -> [GetBook] {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
         guard let url = URL(string: Request.baseURL + Endpoint.booksInKart.rawValue + userID) else {
@@ -22,7 +30,8 @@ init(httpClient: HttpClient) {
         return booksInUserKart
     }
     func addBookToKart(_ bookID: UUID) async throws {
-        guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        let userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
         print(userID)
         guard let url = URL(string: Request.baseURL + Endpoint.addBookToKart) else {
             throw HttpError.badURL
@@ -96,10 +105,11 @@ func searchBooks(_ searchText: String) async throws -> [GetBook] {
             print("Unable to create valid URL for creating the book")
             return
         }
-        guard let sellerID = UserDefaults.standard.string(forKey: "userID") else {
-            print("unable to get the seller's ID")
-            return
-        }
+        let sellerID = "70935759-4231-43E4-8E54-92CA3A48E33B"
+       // guard let sellerID = UserDefaults.standard.string(forKey: "userID") else {
+         //   print("unable to get the seller's ID")
+         //   return
+        ///}
         let newBook = CreateBookData(title: title, author: author,
                                      description: description, genre: genre,
                                      state: state, status: status,

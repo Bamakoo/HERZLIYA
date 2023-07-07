@@ -19,6 +19,7 @@ struct KartView: View {
             }
             .onAppear {
                 Task {
+                    viewModel.kartBooks = [GetBook]()
                     try await viewModel.getBooksInKart()
                 }
             }

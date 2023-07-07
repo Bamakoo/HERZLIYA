@@ -14,7 +14,10 @@ final class Networking: HttpClient {
         print("fetching data")
         var request = URLRequest(url: url)
         print(request)
-        let token = try Keychain.search()
+        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        var token = try Keychain.search()
+        token = "N6VQVmeHL2pogji/R6dypA=="
+        var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         print(token)
@@ -65,7 +68,10 @@ final class Networking: HttpClient {
         request.addValue(MIMEType.JSON.rawValue,
                          forHTTPHeaderField: HttpHeaders.contentType.rawValue)
         print(request.allHTTPHeaderFields)
-        let token = try Keychain.search()
+        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
+        var token = try Keychain.search()
+        token = "N6VQVmeHL2pogji/R6dypA=="
+        var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
         print(token)
         request.setValue("Bearer \(token)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
         print(request.allHTTPHeaderFields)
