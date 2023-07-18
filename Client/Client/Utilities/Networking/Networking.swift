@@ -7,16 +7,14 @@
 import Foundation
 
 final class Networking: HttpClient {
+    @TokenRepository<String>
+    var token: String?
     /// Generic function used to perform GET/READ requests to our Vapor API
     /// - Parameter url: the URL we're going to send the request to
     /// - Returns: an array of whatever object Type we're fetching from the API
     func fetch<T: Codable>(url: URL) async throws -> [T] {
-        print("fetching data")
         var request = URLRequest(url: url)
-        print(request)
         // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        var token = try Keychain.search()
-        token = "N6VQVmeHL2pogji/R6dypA=="
         var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
@@ -69,11 +67,11 @@ final class Networking: HttpClient {
                          forHTTPHeaderField: HttpHeaders.contentType.rawValue)
         print(request.allHTTPHeaderFields)
         // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        var token = try Keychain.search()
-        token = "N6VQVmeHL2pogji/R6dypA=="
+        
         var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        print(token)
-        request.setValue("Bearer \(token)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
+        if let token {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
+        }
         print(request.allHTTPHeaderFields)
         request.httpBody = try? JSONEncoder().encode(object)
         print(request.httpBody)

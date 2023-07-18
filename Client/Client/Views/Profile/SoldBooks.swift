@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SoldBooks: View {
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
-    @State private var selection: GetBook?
+    @State private var selection: Book?
     var body: some View {
         NavigationSplitView {
             List(viewModel.soldBooks, selection: $selection) { book in

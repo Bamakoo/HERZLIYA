@@ -42,6 +42,16 @@
 		A4AF589E29CC6529003F03AD /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589D29CC6529003F03AD /* CreateAccountView.swift */; };
 		A4AF58A029CC653D003F03AD /* KartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589F29CC653D003F03AD /* KartView.swift */; };
 		A4BDB5DB29D5BD4500C973CE /* UserProfileEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */; };
+		A4C782C92A55969B00AACE4E /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782C82A55969A00AACE4E /* HTTP.swift */; };
+		A4C782CB2A5596D600AACE4E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782CA2A5596D600AACE4E /* API.swift */; };
+		A4C782CF2A559FDB00AACE4E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782CE2A559FDB00AACE4E /* Endpoint.swift */; };
+		A4C782D12A55A6C800AACE4E /* HTTPRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782D02A55A6C800AACE4E /* HTTPRequestFactory.swift */; };
+		A4C782D32A56B1C000AACE4E /* ChangePasswordDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782D22A56B1C000AACE4E /* ChangePasswordDTO.swift */; };
+		A4C782D92A56D74400AACE4E /* TokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782D82A56D74400AACE4E /* TokenRepository.swift */; };
+		A4C782DB2A5C303B00AACE4E /* BooksAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782DA2A5C303B00AACE4E /* BooksAPI.swift */; };
+		A4C782DE2A5C378D00AACE4E /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782DD2A5C378D00AACE4E /* Book.swift */; };
+		A4C782E12A5C3DBF00AACE4E /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782E02A5C3DBF00AACE4E /* UseCase.swift */; };
+		A4C782E32A5C3DF700AACE4E /* BooksUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782E22A5C3DF700AACE4E /* BooksUseCase.swift */; };
 		A4C9863C299FB843003CF879 /* ClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9863B299FB843003CF879 /* ClientApp.swift */; };
 		A4C9863E299FB843003CF879 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9863D299FB843003CF879 /* MainMenu.swift */; };
 		A4C98640299FB844003CF879 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4C9863F299FB844003CF879 /* Assets.xcassets */; };
@@ -53,7 +63,7 @@
 		A4C98669299FD8DD003CF879 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C98668299FD8DD003CF879 /* Networking.swift */; };
 		A4C9866B299FDB68003CF879 /* BooksNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9866A299FDB68003CF879 /* BooksNetworkManager.swift */; };
 		A4C9866D29A10835003CF879 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9866C29A10835003CF879 /* Constants.swift */; };
-		A4C9867029A10B5F003CF879 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9866F29A10B5F003CF879 /* Book.swift */; };
+		A4C9867029A10B5F003CF879 /* OldBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9866F29A10B5F003CF879 /* OldBook.swift */; };
 		A4C9867329A1198F003CF879 /* BooksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867229A1198F003CF879 /* BooksViewModel.swift */; };
 		A4C9867829A11EFC003CF879 /* BooksList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867729A11EFC003CF879 /* BooksList.swift */; };
 		A4DD9DB229D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DB129D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift */; };
@@ -124,6 +134,16 @@
 		A4AF589D29CC6529003F03AD /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		A4AF589F29CC653D003F03AD /* KartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KartView.swift; sourceTree = "<group>"; };
 		A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserProfileEnum.swift; path = Client/Utilities/User/UserProfileEnum.swift; sourceTree = SOURCE_ROOT; };
+		A4C782C82A55969A00AACE4E /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HTTP.swift; path = Client/Utilities/Networking/HTTP/HTTP.swift; sourceTree = SOURCE_ROOT; };
+		A4C782CA2A5596D600AACE4E /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		A4C782CE2A559FDB00AACE4E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		A4C782D02A55A6C800AACE4E /* HTTPRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestFactory.swift; sourceTree = SOURCE_ROOT; };
+		A4C782D22A56B1C000AACE4E /* ChangePasswordDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordDTO.swift; sourceTree = "<group>"; };
+		A4C782D82A56D74400AACE4E /* TokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRepository.swift; sourceTree = "<group>"; };
+		A4C782DA2A5C303B00AACE4E /* BooksAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksAPI.swift; sourceTree = "<group>"; };
+		A4C782DD2A5C378D00AACE4E /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		A4C782E02A5C3DBF00AACE4E /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
+		A4C782E22A5C3DF700AACE4E /* BooksUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksUseCase.swift; sourceTree = "<group>"; };
 		A4C98638299FB843003CF879 /* Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4C9863B299FB843003CF879 /* ClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientApp.swift; sourceTree = "<group>"; };
 		A4C9863D299FB843003CF879 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -138,7 +158,7 @@
 		A4C98668299FD8DD003CF879 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		A4C9866A299FDB68003CF879 /* BooksNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksNetworkManager.swift; sourceTree = "<group>"; };
 		A4C9866C29A10835003CF879 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		A4C9866F29A10B5F003CF879 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		A4C9866F29A10B5F003CF879 /* OldBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldBook.swift; sourceTree = "<group>"; };
 		A4C9867229A1198F003CF879 /* BooksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksViewModel.swift; sourceTree = "<group>"; };
 		A4C9867729A11EFC003CF879 /* BooksList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksList.swift; sourceTree = "<group>"; };
 		A4DD9DB129D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksByMyFavoriteAuthorView.swift; sourceTree = SOURCE_ROOT; };
@@ -227,6 +247,60 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
+		A4C782CC2A559FB000AACE4E /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				A4C782D02A55A6C800AACE4E /* HTTPRequestFactory.swift */,
+				A4C782C82A55969A00AACE4E /* HTTP.swift */,
+			);
+			path = HTTP;
+			sourceTree = "<group>";
+		};
+		A4C782CD2A559FC400AACE4E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				A4C782DC2A5C377C00AACE4E /* Models */,
+				A4C782CA2A5596D600AACE4E /* API.swift */,
+				A4C782DA2A5C303B00AACE4E /* BooksAPI.swift */,
+				A4C782CE2A559FDB00AACE4E /* Endpoint.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		A4C782D42A56D6EA00AACE4E /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				A4DD9DB929DAC95C0063DD9B /* Keychain.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		A4C782D72A56D71F00AACE4E /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				A4C782D82A56D74400AACE4E /* TokenRepository.swift */,
+				A4C782D42A56D6EA00AACE4E /* Keychain */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		A4C782DC2A5C377C00AACE4E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A4C782DD2A5C378D00AACE4E /* Book.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A4C782DF2A5C3D2E00AACE4E /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				A4C782E02A5C3DBF00AACE4E /* UseCase.swift */,
+				A4C782E22A5C3DF700AACE4E /* BooksUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
 		A4C9862F299FB843003CF879 = {
 			isa = PBXGroup;
 			children = (
@@ -290,6 +364,8 @@
 		A4C98665299FD178003CF879 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A4C782DF2A5C3D2E00AACE4E /* UseCases */,
+				A4C782D72A56D71F00AACE4E /* Storage */,
 				A499DCDE2A274DEB00777B8F /* Enums */,
 				A4DD9DC029DB2D2D0063DD9B /* NetworkManager */,
 				A4DD9DBF29DB2CD60063DD9B /* Networking */,
@@ -302,12 +378,13 @@
 			isa = PBXGroup;
 			children = (
 				A499DCE52A2F27B700777B8F /* SortedBooksDTO.swift */,
+				A4C782D22A56B1C000AACE4E /* ChangePasswordDTO.swift */,
 				A499DCD42A23FA6C00777B8F /* BookKart.swift */,
 				A4DD9DC129DED1220063DD9B /* UserToken.swift */,
 				A4DEA2782A1511DE00FE6EB3 /* PatchPurchaseBook.swift */,
 				A4DEA2762A1373D400FE6EB3 /* GetUser.swift */,
 				A43EDBEA29ED438D00573A2C /* Identifier.swift */,
-				A4C9866F29A10B5F003CF879 /* Book.swift */,
+				A4C9866F29A10B5F003CF879 /* OldBook.swift */,
 				A4AF589529CC617A003F03AD /* Comment.swift */,
 				A4AF589729CC61F3003F03AD /* Kart.swift */,
 				A4DEA2742A128E4000FE6EB3 /* NewUser.swift */,
@@ -346,7 +423,6 @@
 			children = (
 				A4DD9DC529DF14630063DD9B /* LoginEnum .swift */,
 				A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */,
-				A4DD9DB929DAC95C0063DD9B /* Keychain.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -354,6 +430,8 @@
 		A4DD9DBF29DB2CD60063DD9B /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				A4C782CD2A559FC400AACE4E /* API */,
+				A4C782CC2A559FB000AACE4E /* HTTP */,
 				A4C98666299FD187003CF879 /* HttpClient.swift */,
 				A4C98668299FD8DD003CF879 /* Networking.swift */,
 				A4C9866C29A10835003CF879 /* Constants.swift */,
@@ -525,6 +603,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A45BDC522A531CC6003AB9FC /* CommentsOnMyBooksView.swift in Sources */,
+				A4C782DB2A5C303B00AACE4E /* BooksAPI.swift in Sources */,
+				A4C782C92A55969B00AACE4E /* HTTP.swift in Sources */,
 				A4C9863E299FB843003CF879 /* MainMenu.swift in Sources */,
 				A4BDB5DB29D5BD4500C973CE /* UserProfileEnum.swift in Sources */,
 				A43C72DC29CDD3DF00CDF56B /* UsersViewModel.swift in Sources */,
@@ -539,14 +619,17 @@
 				A499DCD72A2496B800777B8F /* Homepage.swift in Sources */,
 				A499DCD52A23FA6C00777B8F /* BookKart.swift in Sources */,
 				A4C98667299FD187003CF879 /* HttpClient.swift in Sources */,
+				A4C782D32A56B1C000AACE4E /* ChangePasswordDTO.swift in Sources */,
+				A4C782D12A55A6C800AACE4E /* HTTPRequestFactory.swift in Sources */,
 				A4DD9DB829D9D56B0063DD9B /* BoughtBooks.swift in Sources */,
 				A43C72E029CF8DF900CDF56B /* SignInViewModel.swift in Sources */,
 				A4AF589E29CC6529003F03AD /* CreateAccountView.swift in Sources */,
-				A4C9867029A10B5F003CF879 /* Book.swift in Sources */,
+				A4C9867029A10B5F003CF879 /* OldBook.swift in Sources */,
 				A4DD9DC429DF12B50063DD9B /* LoginChoiceScreen.swift in Sources */,
 				A4DEA2752A128E4000FE6EB3 /* NewUser.swift in Sources */,
 				A4DD9DB629D9D54F0063DD9B /* SoldBooks.swift in Sources */,
 				A44D59C329A4C59600FF7F22 /* BookDetail.swift in Sources */,
+				A4C782E12A5C3DBF00AACE4E /* UseCase.swift in Sources */,
 				A44D59CB29ACB0D000FF7F22 /* User.swift in Sources */,
 				A4C9863C299FB843003CF879 /* ClientApp.swift in Sources */,
 				A4AF58A029CC653D003F03AD /* KartView.swift in Sources */,
@@ -557,6 +640,7 @@
 				A44D59CD29ACB33200FF7F22 /* KartsNetworkManager.swift in Sources */,
 				A45BDC542A531D8D003AB9FC /* MyComments.swift in Sources */,
 				A4DD9DC829DF24E40063DD9B /* ForgotMyPassword.swift in Sources */,
+				A4C782CF2A559FDB00AACE4E /* Endpoint.swift in Sources */,
 				A4AF589829CC61F3003F03AD /* Kart.swift in Sources */,
 				A44D59BF29A407C800FF7F22 /* LikesView.swift in Sources */,
 				A499DCDB2A2749E500777B8F /* HomepageViewModel.swift in Sources */,
@@ -568,18 +652,22 @@
 				A4EF9CCD2A557DE700E7897B /* ChangeMyPassword.swift in Sources */,
 				A4DD9DC629DF14630063DD9B /* LoginEnum .swift in Sources */,
 				A499DCD12A22ABFA00777B8F /* ProfileSwitch.swift in Sources */,
+				A4C782D92A56D74400AACE4E /* TokenRepository.swift in Sources */,
 				A4DD9DB229D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift in Sources */,
 				A4C9866B299FDB68003CF879 /* BooksNetworkManager.swift in Sources */,
 				A4DD9DBA29DAC95C0063DD9B /* Keychain.swift in Sources */,
+				A4C782E32A5C3DF700AACE4E /* BooksUseCase.swift in Sources */,
 				A499DCEA2A3774FE00777B8F /* UpdateProfile.swift in Sources */,
 				A44D59C729ACAFC800FF7F22 /* KartViewModel.swift in Sources */,
 				A44D59C129A4C21A00FF7F22 /* BookRow.swift in Sources */,
+				A4C782CB2A5596D600AACE4E /* API.swift in Sources */,
 				A4DD9DB429D9D50B0063DD9B /* MyFriendsView.swift in Sources */,
 				A499DCE22A2A17E800777B8F /* ProfileSwitchViewModel.swift in Sources */,
 				A4DEA2772A1373D400FE6EB3 /* GetUser.swift in Sources */,
 				A499DCE02A274DFC00777B8F /* HomepageMenuSelector.swift in Sources */,
 				A4DD9DC229DED1220063DD9B /* UserToken.swift in Sources */,
 				A4DEA2792A1511DE00FE6EB3 /* PatchPurchaseBook.swift in Sources */,
+				A4C782DE2A5C378D00AACE4E /* Book.swift in Sources */,
 				A4C9866D29A10835003CF879 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

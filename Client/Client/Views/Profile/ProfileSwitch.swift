@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileSwitch: View {
     @StateObject private var viewModel = ProfileSwitchViewModel()
     var body: some View {
-        if viewModel.isLoggedIn() { UserProfileView() } else { Oups() }
+            if viewModel.isLoggedIn() { UserProfileView() } else { Oups() }
     }
 }
 

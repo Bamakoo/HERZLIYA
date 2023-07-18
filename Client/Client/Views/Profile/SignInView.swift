@@ -17,8 +17,14 @@ struct SignInView: View {
             SecureField("Password", text: $viewModel.password, prompt: Text("Password"))
             Button("Sign In") {
                 Task {
-                    try await viewModel.signIn()
-                    dismiss()
+                    if try await viewModel.signIn() {
+                        DispatchQueue.main.async {
+                            dismiss()
+                        }
+                    }
+                    else {
+                        print("alert")
+                    }
                 }
             }
             .buttonStyle(.borderedProminent)

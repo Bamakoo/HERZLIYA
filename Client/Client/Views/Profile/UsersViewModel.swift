@@ -9,6 +9,10 @@ import Foundation
 import SwiftUI
 
 final class UsersViewModel: ObservableObject {
+    @Published var currentPassword = ""
+    @Published var confirmCurrentPassword = ""
+    @Published var newPassword = ""
+    @Published var confirmNewPasswordd = ""
     @Published var username = ""
     @Published var email = ""
     @Published var password = ""
@@ -64,11 +68,27 @@ final class UsersViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
+    
+    func changeUserPassword() async throws {
+        do {
+            let patchedPassword = PatchPassword(id: "D9C1869E-1250-4610-B49C-5EC2E3949885",
+                                                currentPassword: currentPassword,
+                                                confirmCurrentPassword: confirmCurrentPassword,
+                                                newPassword: newPassword,
+                                                confirmNewPassword: confirmNewPasswordd,
+                                                favoriteAuthor: favoriteAuthor,
+                                                favoriteBook: favoriteBook)
+            try await networkManager.changePassword(with: patchedPassword)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     func deleteUserProfile(id: UUID) async throws {
         do {
             try await networkManager.deleteProfile(id: id)
         } catch {
-            print(error)
+            print(error.localizedDescription)
         }
     }
 }

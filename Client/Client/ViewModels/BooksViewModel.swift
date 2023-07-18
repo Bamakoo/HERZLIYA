@@ -8,6 +8,9 @@
 import Foundation
 @MainActor
 final class BooksViewModel: ObservableObject {
+    @TokenRepository<String>
+    var token: String?
+    
     @Published var title = ""
     @Published var author = ""
     @Published var description = ""
@@ -15,14 +18,14 @@ final class BooksViewModel: ObservableObject {
     @Published var state: BookState = .acceptable
     @Published var price = 0
     @Published var status: BookStatus = .available
-    @Published var books = [GetBook]()
-    @Published var purchasedBooks = [GetBook]()
-    @Published var kartBooks = [GetBook]()
-    @Published var booksByUsersFavoriteAuthor = [GetBook]()
-    @Published var likedBooks = [GetBook]()
+    @Published var books = [Book]()
+    @Published var purchasedBooks = [Book]()
+    @Published var kartBooks = [Book]()
+    @Published var booksByUsersFavoriteAuthor = [Book]()
+    @Published var likedBooks = [Book]()
     @Published var searchText: String = ""
-    @Published var searchResults = [GetBook]()
-    @Published var soldBooks = [GetBook]()
+    @Published var searchResults = [Book]()
+    @Published var soldBooks = [Book]()
     @Published var commentsOnBook = [Comment]()
 
     private let networkManager: BooksNetworkManager
@@ -39,7 +42,7 @@ final class BooksViewModel: ObservableObject {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                do {
-                  let books = try JSONDecoder().decode([GetBook].self, from: data)
+                  let books = try JSONDecoder().decode([Book].self, from: data)
                    DispatchQueue.main.async {
                        self.likedBooks.append(contentsOf: books)
                    }
@@ -80,8 +83,6 @@ final class BooksViewModel: ObservableObject {
     
     func getBooksInKart() async throws {
         // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        var token = try Keychain.search()
-        token = "N6VQVmeHL2pogji/R6dypA=="
         var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
         print(token)
         print(userID)
@@ -92,7 +93,7 @@ final class BooksViewModel: ObservableObject {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                do {
-                  let books = try JSONDecoder().decode([GetBook].self, from: data)
+                  let books = try JSONDecoder().decode([Book].self, from: data)
                    DispatchQueue.main.async {
                        self.kartBooks.append(contentsOf: books)
                    }
@@ -131,10 +132,8 @@ final class BooksViewModel: ObservableObject {
     }
     func bookByUsersFavoriteAuthor() async throws {
         // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        var token = try Keychain.search()
-        token = "N6VQVmeHL2pogji/R6dypA=="
+      
         var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        print(token)
         print(userID)
         var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/favorite-author/\(userID)")!,timeoutInterval: Double.infinity)
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
@@ -143,7 +142,7 @@ final class BooksViewModel: ObservableObject {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                do {
-                  let books = try JSONDecoder().decode([GetBook].self, from: data)
+                  let books = try JSONDecoder().decode([Book].self, from: data)
                    DispatchQueue.main.async {
                        self.booksByUsersFavoriteAuthor.append(contentsOf: books)
                    }
@@ -156,11 +155,8 @@ final class BooksViewModel: ObservableObject {
     }
     func soldBooks() async throws {
         // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        var token = try Keychain.search()
-        token = "N6VQVmeHL2pogji/R6dypA=="
         var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        print(token)
-        print(userID)
+      print(userID)
         var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/sold/\(userID)")!,timeoutInterval: Double.infinity)
 
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
@@ -169,7 +165,7 @@ final class BooksViewModel: ObservableObject {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                do {
-                  let books = try JSONDecoder().decode([GetBook].self, from: data)
+                  let books = try JSONDecoder().decode([Book].self, from: data)
                    DispatchQueue.main.async {
                        self.soldBooks.append(contentsOf: books)
                    }
@@ -181,12 +177,9 @@ final class BooksViewModel: ObservableObject {
         task.resume()
     }
     func fetchPurchasedBooks() async throws {
-        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        var token = try Keychain.search()
-        token = "N6VQVmeHL2pogji/R6dypA=="
+        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }        token = "N6VQVmeHL2pogji/R6dypA=="
         var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        print(token)
-        print(userID)
+
         var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/bought/\(userID)")!, timeoutInterval: Double.infinity)
 
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
@@ -195,7 +188,7 @@ final class BooksViewModel: ObservableObject {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                do {
-                  let books = try JSONDecoder().decode([GetBook].self, from: data)
+                  let books = try JSONDecoder().decode([Book].self, from: data)
                    DispatchQueue.main.async {
                        self.purchasedBooks.append(contentsOf: books)
                    }

@@ -43,47 +43,18 @@ enum BookGenre: String, Identifiable, Codable, Hashable, Equatable, CaseIterable
     }
 }
 
-enum BookState: String, Identifiable, CaseIterable, Codable {
-    case horrendous
-    case bad
-    case okay
-    case passable
-    case acceptable
-    case good
-    case excellent
-    case brandNew
-    var id: Self { self }
-}
-
 enum BookStatus: String, Identifiable, CaseIterable, Codable {
     case available, purchased, inTransit, delivered
     var id: Self { self }
 }
 
-struct Book: Identifiable, Codable, Hashable, Equatable {
-    let id: UUID?
-    let author: String
-    let description: String
-    let genre: BookGenre
-    let state: BookState
-    let seller: User
-    let buyer: User?
-    let kart: Kart?
-    let status: BookStatus
-    let title: String
-    let price: Int
-    let createdAt: Date?
-    let updatedAt: Date?
-    let deletedAt: Date?
-}
-
-struct GetBook: Identifiable, Codable, Hashable, Equatable {
-    var id: UUID?
-    var title: String
-    var author: String
-    var price: Int
-    var state: BookState
-}
+//struct GetBook: Identifiable, Codable, Hashable, Equatable {
+//    var id: UUID?
+//    var title: String
+//    var author: String
+//    var price: Int
+//    var state: BookState
+//}
 
 struct CreateBookData: Codable {
     var title: String

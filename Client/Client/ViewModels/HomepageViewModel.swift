@@ -9,8 +9,8 @@ import Foundation
 
 @MainActor
 final class HomepageViewModel: ObservableObject {
-    @Published var books = [GetBook]()
-    @Published var sortedBooks = [GetBook]()
+    @Published var books = [Book]()
+    @Published var sortedBooks = [Book]()
     @Published var isSorting: Bool = false
     @Published var sortAscending: Bool = false
     @Published var selectedDisplay: WhatToDisplay = .books
@@ -24,7 +24,7 @@ final class HomepageViewModel: ObservableObject {
         self.networkManager = networkManager
     }
     
-    func likeABook(_ book: GetBook) async {
+    func likeABook(_ book: Book) async {
         do {
             _ = try await networkManager.likeABook(book)
         } catch {
@@ -34,16 +34,16 @@ final class HomepageViewModel: ObservableObject {
     
     func fetchBooks() async {
         do {
-            books = try await networkManager.fetchBooks()
+            books = try await UseCase.Books.fetch()
         } catch {
             print("unable to fetch books because of : \(error.localizedDescription)")
         }
     }
     func sort() async {
         do {
-            print("hello sort")
-            isSorting.toggle()
-            sortedBooks = try await networkManager.sort(selectedSort, sortAscending)
+           
+            
+            books = try await networkManager.sort(selectedSort, sortAscending)
             print(sortedBooks)
         } catch {
             print(error.localizedDescription)

@@ -11,13 +11,13 @@ final class HomepageNetworkManager {
     init(httpClient: HttpClient) {
         self.httpClient = httpClient
     }
-    func fetchBooks() async throws -> [GetBook] {
+    func fetchBooks() async throws -> [Book] {
         let url = URL(string: Request.baseURL + Endpoint.books)!
-        let books: [GetBook] = try await httpClient.fetch(url: url)
+        let books: [Book] = try await httpClient.fetch(url: url)
         return books
     }
     
-    func likeABook(_ book: GetBook) async throws {
+    func likeABook(_ book: Book) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.likes.rawValue) else {
             print("unable to generate an URL to like a book")
             return
@@ -31,7 +31,7 @@ final class HomepageNetworkManager {
         _ = try await httpClient.sendData(to: url, object: newLike, httpMethod: HttpMethods.POST.rawValue)
     }
     func sort(_ sortBy: SortBy,
-              _ sortAscending: Bool) async throws -> [GetBook] {
+              _ sortAscending: Bool) async throws -> [Book] {
         var components = URLComponents()
         components.scheme = "http"
         components.host = "127.0.0.1"
@@ -42,7 +42,7 @@ final class HomepageNetworkManager {
             URLQueryItem(name: "ascending", value: String(sortAscending))
         ]
         let url = components.url!
-        let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+        let sortedBooks: [Book] = try await httpClient.fetch(url: url)
         return sortedBooks
     }
 }
