@@ -9,7 +9,6 @@ struct LoginController: RouteCollection {
             let user = try req.auth.require(User.self)
             let token = try user.generateToken()
             try await token.save(on: req.db)
-            print(token)
             return try await PostUserToken(userID: token.$user.id, value: token.value).encodeResponse(status: .created, for: req)
         }
     }

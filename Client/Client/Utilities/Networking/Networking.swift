@@ -16,9 +16,10 @@ final class Networking: HttpClient {
         var request = URLRequest(url: url)
         // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
         var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        if let token {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
         request.httpMethod = "GET"
-        print(token)
         print(request.allHTTPHeaderFields)
         let (data, response) = try await URLSession.shared.data(from: url)
         print(data, response)

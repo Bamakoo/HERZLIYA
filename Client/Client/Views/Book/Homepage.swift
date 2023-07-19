@@ -19,16 +19,19 @@ struct Homepage: View {
                 }
                 .swipeActions(edge: .trailing) {
                     Button {
-                        Task { await viewModel.likeABook(book) }} label: {
+                        Task {
+                            await viewModel.likeABook(book)
+                        }
+                    } label: {
                         Image(systemName: "heart")
                     }
-                        .tint(.red)
+                    .tint(.red)
                 }
                 .swipeActions(edge: .leading) {
                     Button {
-                        Task { print("add book to cart") }} label: {
-                        Image(systemName: "cart.badge.plus")
-                    }
+                        Task { await viewModel.addBookToKart((book.id)!) }} label: {
+                            Image(systemName: "cart.badge.plus")
+                        }
                         .tint(.mint)
                 }
             }
@@ -105,7 +108,7 @@ struct Homepage: View {
                                 viewModel.sortAscending = true
                                 await viewModel.sort()
                             }
-                        } 
+                        }
                     }
                 label: {
                     Image(systemName: "line.3.horizontal.decrease.circle.fill")

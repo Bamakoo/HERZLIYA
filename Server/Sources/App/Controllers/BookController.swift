@@ -287,6 +287,10 @@ struct BookController: RouteCollection {
     
     func create(req: Request) async throws -> Response {
         try Book.validate(content: req)
+        let user = try req.auth.require(User.self)
+        guard let userID = user.id else {
+            throw Abort(.badRequest, reason: "unable to get user")
+        }
         let book = try req.content.decode(CreateBookData.self)
         let realBook = Book(title: book.title,
                             author: book.author,
@@ -294,8 +298,8 @@ struct BookController: RouteCollection {
                             genre: book.genre,
                             state: book.state,
                             price: book.price,
-                            sellerID: book.sellerID,
-                            buyerID: book.buyerID,
+                            sellerID: userID,
+                            buyerID: nil,
                             status: book.status)
         try await realBook.save(on: req.db)
         let getBook = GetBook(id: try realBook.requireID(), title: realBook.title, author: realBook.author, price: realBook.price, state: realBook.state)

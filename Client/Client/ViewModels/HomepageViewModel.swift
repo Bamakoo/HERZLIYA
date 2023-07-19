@@ -34,26 +34,26 @@ final class HomepageViewModel: ObservableObject {
     
     func fetchBooks() async {
         do {
-            books = try await UseCase.Books.fetch()
+            books = try await networkManager.fetchBooks()
         } catch {
             print("unable to fetch books because of : \(error.localizedDescription)")
         }
     }
     func sort() async {
         do {
-           
-            
             books = try await networkManager.sort(selectedSort, sortAscending)
             print(sortedBooks)
         } catch {
             print(error.localizedDescription)
         }
     }
-//    func filter() async {
-//        do {
-//            books = try await networkManager.sort(selectedSort)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//    }
+    
+    func addBookToKart(_ bookID: UUID) async {
+        do {
+                try await networkManager.addBookToKart(bookID)
+            print("done adding book to kart")
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }
