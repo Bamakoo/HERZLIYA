@@ -26,8 +26,7 @@ final class HomepageNetworkManager {
             print("unable to get the book id")
             return
         }
-        let userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        let newLike = Like(userID: userID, bookID: bookID)
+        let newLike = Like(bookID: bookID)
         _ = try await httpClient.sendData(to: url, object: newLike, httpMethod: HttpMethods.POST.rawValue)
     }
     func sort(_ sortBy: SortBy,

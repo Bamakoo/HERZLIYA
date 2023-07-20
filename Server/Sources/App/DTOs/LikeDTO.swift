@@ -11,5 +11,4 @@ import Vapor
 
 struct LikeDTO: Content {
     var bookID: UUID
-    var userID: UUID
 }

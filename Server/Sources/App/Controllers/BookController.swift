@@ -15,9 +15,9 @@ struct BookController: RouteCollection {
         let tokenAuth = bookRoutes.grouped(tokenAuthenticator, tokenMiddleware)
         tokenAuth.get("bought", use: getUserBoughtBooks)
         tokenAuth.get("kart", use: getBooksInKart)
-        tokenAuth.get("likes", ":userID", use: getUsersLikedBooks)
+        tokenAuth.get("likes", use: getUsersLikedBooks)
         tokenAuth.get("sold", use: getUserSoldBooks)
-        tokenAuth.get("favorite-author", ":userID", use: getMyFavoriteAuthorsBooks)
+        tokenAuth.get("favorite-author", use: getMyFavoriteAuthorsBooks)
         tokenAuth.post(use: create)
         tokenAuth.patch(use: update)
         tokenAuth.delete(":bookID", use: delete)
@@ -170,9 +170,7 @@ struct BookController: RouteCollection {
     /// - Parameter req: the incoming GET request
     /// - Returns: an array of all the book objects liked by a single user
     func getUsersLikedBooks(req: Request) async throws -> [GetBook] {
-        guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
-            throw Abort(.notFound, reason: "unable to locate the UserID")
-        }
+        let user = try req.auth.require(User.self)
         let books = try await user.$books.get(on: req.db)
         return try books.map { book in
             try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
@@ -183,9 +181,7 @@ struct BookController: RouteCollection {
     /// - Parameter req: the incoming HTTP request
     /// - Returns: an array of books written by a user's favorite author
     func getMyFavoriteAuthorsBooks(req: Request) async throws -> [GetBook] {
-        guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
-            throw Abort(.notFound, reason: "unable to get the user ID to retrive all the currently available books for your favorite author")
-        }
+        let user = try req.auth.require(User.self)
         let books = try await Book.query(on: req.db).group(.and) { group in
             group.filter(\.$author == user.favoriteAuthor)
                 .filter(\.$status == .available)
@@ -200,9 +196,7 @@ struct BookController: RouteCollection {
     /// - Returns: An array of books the user has purchased
     func getUserBoughtBooks(req: Request) async throws -> [GetBook] {
         let user = try req.auth.require(User.self)
-        print(user)
         let books = try await user.$baughtBooks.get(on: req.db)
-        print(books)
         return try books.map { book in
             try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
         }

@@ -47,9 +47,7 @@ struct UserController: RouteCollection {
     
     func changePassword(req: Request) async throws -> Response {
         let passwordPatch = try req.content.decode(PatchPassword.self)
-        guard let user =  try await User.find(passwordPatch.id, on: req.db) else {
-            throw Abort(.notFound)
-        }
+        let user = try req.auth.require(User.self)
         guard passwordPatch.currentPassword == passwordPatch.confirmCurrentPassword else {
             throw Abort(.badRequest, reason: "passwords did not match")
         }

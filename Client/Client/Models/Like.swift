@@ -8,6 +8,5 @@
 import Foundation
 
 struct Like: Codable, Hashable, Equatable {
-    let userID: String
     let bookID: UUID
 }

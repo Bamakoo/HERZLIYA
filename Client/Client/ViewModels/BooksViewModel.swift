@@ -35,7 +35,7 @@ final class BooksViewModel: ObservableObject {
     
     func fetchLikedBooks() async throws {
         likedBooks = [Book]()
-        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/likes/70935759-4231-43E4-8E54-92CA3A48E33B")!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/likes")!,timeoutInterval: Double.infinity)
         if let token {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
@@ -133,10 +133,8 @@ final class BooksViewModel: ObservableObject {
     }
     
     func bookByUsersFavoriteAuthor() async throws {
-        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
         booksByUsersFavoriteAuthor = [Book]()
-        var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/favorite-author/\(userID)")!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/favorite-author")!,timeoutInterval: Double.infinity)
         if let token {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }

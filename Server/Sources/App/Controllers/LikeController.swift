@@ -34,7 +34,11 @@ struct LikeController: RouteCollection {
 
     func create(req: Request) async throws -> Response {
         let like = try req.content.decode(LikeDTO.self)
-        let realLike = Like(userID: like.userID, bookID: like.bookID)
+        let user = try req.auth.require(User.self)
+        guard let userID = user.id else {
+            throw Abort(.badRequest, reason: "unable to get user")
+        }
+        let realLike = Like(userID: userID, bookID: like.bookID)
         try await realLike.save(on: req.db)
         return try await like.encodeResponse(status: .created, for: req)
     }
