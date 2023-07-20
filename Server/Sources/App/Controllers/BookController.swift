@@ -16,7 +16,7 @@ struct BookController: RouteCollection {
         tokenAuth.get("bought", use: getUserBoughtBooks)
         tokenAuth.get("kart", use: getBooksInKart)
         tokenAuth.get("likes", ":userID", use: getUsersLikedBooks)
-        tokenAuth.get("sold", ":userID", use: getUserSoldBooks)
+        tokenAuth.get("sold", use: getUserSoldBooks)
         tokenAuth.get("favorite-author", ":userID", use: getMyFavoriteAuthorsBooks)
         tokenAuth.post(use: create)
         tokenAuth.patch(use: update)
@@ -212,9 +212,7 @@ struct BookController: RouteCollection {
     /// - Parameter req: the incoming request, received by the server
     /// - Returns: an array of Book objects the user has sold
     func getUserSoldBooks(req: Request) async throws -> [GetBook] {
-        guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db) else {
-            throw Abort(.notFound, reason: "unable to locate the UserID to get the users sold books")
-        }
+        let user = try req.auth.require(User.self)
         let books = try await user.$soldBooks.get(on: req.db)
         return try books.map { book in
             try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)

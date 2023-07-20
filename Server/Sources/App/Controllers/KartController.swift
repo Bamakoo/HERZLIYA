@@ -24,7 +24,6 @@ struct KartController: RouteCollection {
         guard let userID = user.id else {
             throw Abort(.badRequest, reason: "unable to get user")
         }
-
         guard let kart = try await Kart.query(on: req.db)
             .filter(\.$user.$id == userID)
             .first(),
