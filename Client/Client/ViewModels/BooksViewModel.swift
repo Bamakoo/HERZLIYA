@@ -184,9 +184,7 @@ final class BooksViewModel: ObservableObject {
     
     func fetchPurchasedBooks() async throws {
         purchasedBooks = [Book]()
-        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }        token = "N6VQVmeHL2pogji/R6dypA=="
-        var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/bought/\(userID)")!, timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/bought")!, timeoutInterval: Double.infinity)
         if let token {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
@@ -222,7 +220,6 @@ final class BooksViewModel: ObservableObject {
                                                 genre: genre,
                                                 state: state,
                                                 status: status,
-                    
                                                 price: price)
         } catch {
             print(error.localizedDescription)
@@ -232,7 +229,6 @@ final class BooksViewModel: ObservableObject {
     func purchaseBook(bookID: UUID) async {
         do {
             let id = bookID.uuidString
-            print(id)
             try await networkManager.purchaseBook(bookID: id)
         } catch {
             print(error.localizedDescription)
