@@ -109,22 +109,17 @@ final class BooksNetworkManager {
                     genre: BookGenre,
                     state: BookState,
                     status: BookStatus,
-                    sellerID: String,
                     price: Int
     ) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.books) else {
             print("Unable to create valid URL for creating the book")
             return
         }
-        let sellerID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        // guard let sellerID = UserDefaults.standard.string(forKey: "userID") else {
-        //   print("unable to get the seller's ID")
-        //   return
-        ///}
+
         let newBook = CreateBookData(title: title, author: author,
                                      description: description, genre: genre,
                                      state: state, status: status,
-                                     sellerID: sellerID, price: price)
+                        price: price)
         print(newBook)
         _ = try await httpClient.sendData(to: url,
                                           object: newBook,

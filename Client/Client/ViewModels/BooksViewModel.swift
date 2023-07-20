@@ -222,7 +222,7 @@ final class BooksViewModel: ObservableObject {
                                                 genre: genre,
                                                 state: state,
                                                 status: status,
-                                                sellerID: "",
+                    
                                                 price: price)
         } catch {
             print(error.localizedDescription)
