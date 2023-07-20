@@ -20,8 +20,13 @@ struct KartController: RouteCollection {
         // get the user's ID and the book's ID
         let removeBookFromKartDTO = try req.content.decode(AddBookToKartDTO.self)
         // get the user's Kart
+        let user = try req.auth.require(User.self)
+        guard let userID = user.id else {
+            throw Abort(.badRequest, reason: "unable to get user")
+        }
+
         guard let kart = try await Kart.query(on: req.db)
-            .filter(\.$user.$id == removeBookFromKartDTO.userID)
+            .filter(\.$user.$id == userID)
             .first(),
               let kartID = kart.id
         else {

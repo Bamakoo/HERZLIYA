@@ -46,14 +46,11 @@ final class HomepageNetworkManager {
         return sortedBooks
     }
     func addBookToKart(_ bookID: UUID) async throws {
-        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        let userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        print(userID)
         guard let url = URL(string: Request.baseURL + Endpoint.addBookToKart) else {
             throw HttpError.badURL
         }
         print(url)
-        let kartBook = AddBookToKartDTO(userID: userID, bookID: bookID)
+        let kartBook = AddBookToKartDTO(bookID: bookID)
         print(kartBook)
         _ = try await httpClient.sendData(to: url, object: kartBook, httpMethod: HttpMethods.POST.rawValue)
         print("done")

@@ -40,7 +40,7 @@ final class BooksNetworkManager {
         guard let url = URL(string: Request.baseURL + Endpoint.addBookToKart) else {
             throw HttpError.badURL
         }
-        let kartBook = AddBookToKartDTO(userID: userID, bookID: bookID)
+        let kartBook = AddBookToKartDTO(bookID: bookID)
         _ = try await httpClient.sendData(to: url, object: kartBook, httpMethod: HttpMethods.POST.rawValue)
     }
     

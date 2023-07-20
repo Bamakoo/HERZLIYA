@@ -48,14 +48,6 @@ enum BookStatus: String, Identifiable, CaseIterable, Codable {
     var id: Self { self }
 }
 
-//struct GetBook: Identifiable, Codable, Hashable, Equatable {
-//    var id: UUID?
-//    var title: String
-//    var author: String
-//    var price: Int
-//    var state: BookState
-//}
-
 struct CreateBookData: Codable {
     var title: String
     var author: String

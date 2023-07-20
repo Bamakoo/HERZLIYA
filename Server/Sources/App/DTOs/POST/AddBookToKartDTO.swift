@@ -10,6 +10,5 @@ import Vapor
 import Fluent
 
 struct AddBookToKartDTO: Content {
-    let userID: UUID
     let bookID: UUID
 }
