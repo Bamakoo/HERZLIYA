@@ -67,10 +67,8 @@ struct UserController: RouteCollection {
     
     func update(req: Request) async throws -> User {
         let patchUser = try req.content.decode(PatchUser.self)
+        let user = try req.auth.require(User.self)
         
-        guard let user =  try await User.find(patchUser.id, on: req.db) else {
-            throw Abort(.notFound)
-        }
         if let username = patchUser.username {
             user.username = username
         }
