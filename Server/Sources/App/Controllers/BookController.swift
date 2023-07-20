@@ -14,7 +14,7 @@ struct BookController: RouteCollection {
         let tokenMiddleware = UserToken.guardMiddleware()
         let tokenAuth = bookRoutes.grouped(tokenAuthenticator, tokenMiddleware)
         tokenAuth.get("bought", use: getUserBoughtBooks)
-        tokenAuth.get("kart", ":userID",  use: getBooksInKart)
+        tokenAuth.get("kart", use: getBooksInKart)
         tokenAuth.get("likes", ":userID", use: getUsersLikedBooks)
         tokenAuth.get("sold", ":userID", use: getUserSoldBooks)
         tokenAuth.get("favorite-author", ":userID", use: getMyFavoriteAuthorsBooks)
@@ -147,9 +147,9 @@ struct BookController: RouteCollection {
     /// - Returns: all the books a user has added to her kart
     func getBooksInKart (req: Request) async throws -> [GetBook] {
         /// get the user's ID
-        guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db),
-              let userID = user.id else {
-            throw Abort(.notFound, reason: "unable to locate the User")
+        let user = try req.auth.require(User.self)
+        guard let userID = user.id else {
+            throw Abort(.badRequest, reason: "unable to get user")
         }
         
         guard let kart = try await Kart.query(on: req.db)

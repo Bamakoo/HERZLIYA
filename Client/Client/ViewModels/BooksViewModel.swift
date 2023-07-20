@@ -85,10 +85,8 @@ final class BooksViewModel: ObservableObject {
     }
     
     func getBooksInKart() async throws {
-        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
         kartBooks = [Book]()
-        var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/kart/\(userID)")!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/kart")!, timeoutInterval: Double.infinity)
         if let token {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
