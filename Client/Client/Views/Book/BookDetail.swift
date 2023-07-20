@@ -43,7 +43,6 @@ struct BookDetail: View {
                     await viewModel.purchaseBook(bookID: (book?.id)!)
                 }
             } label: {
-                
                 Text("Purchase \(book!.title)")
             }
             Button {

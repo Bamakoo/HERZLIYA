@@ -21,13 +21,16 @@ struct HerzliyaEndpoint: APIEndpoint {
         urlComponents.host = "127.0.0.1"
         urlComponents.port = 8080
         urlComponents.path = path
-        urlComponents.queryItems = queryItems
+        if let queryItems {
+            urlComponents.queryItems = queryItems
+        }
+        print(urlComponents.url)
         return urlComponents.url
     }
 }
 
 struct NewEndpoint {
     static func book() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "books", queryItems: nil)
+        return HerzliyaEndpoint(path: "/books", queryItems: nil)
     }
 }

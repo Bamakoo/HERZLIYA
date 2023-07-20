@@ -31,6 +31,7 @@ enum HttpError: Error {
     case badResponse
     case errorDecodingData
     case internalServerError
+    case notFound
     case unauthorized
     case requestFailed(description: String)
     case invalidData

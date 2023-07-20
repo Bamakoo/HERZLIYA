@@ -95,6 +95,9 @@ final class Networking: HttpClient {
         } else if httpURLResponse.statusCode == 401 {
             print("The response code is \(httpURLResponse.statusCode)")
             throw HttpError.unauthorized
+        } else if httpURLResponse.statusCode == 404 {
+            print("hello world")
+            throw HttpError.notFound
         } else if httpURLResponse.statusCode == 500 {
             throw HttpError.internalServerError
         } else {

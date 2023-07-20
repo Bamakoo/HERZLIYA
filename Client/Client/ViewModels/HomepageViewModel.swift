@@ -34,7 +34,7 @@ final class HomepageViewModel: ObservableObject {
     
     func fetchBooks() async {
         do {
-            books = try await networkManager.fetchBooks()
+            books = try await UseCase.Books.fetch()
         } catch {
             print("unable to fetch books because of : \(error.localizedDescription)")
         }
