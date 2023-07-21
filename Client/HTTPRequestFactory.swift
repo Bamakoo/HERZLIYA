@@ -17,12 +17,13 @@ struct HTTPRequestFactory {
 }
 
 extension URLRequest {
-    mutating func loginProtected() -> URLRequest {
+    func loginProtected() -> URLRequest {
+        var request = self
         @TokenRepository<String?>
          var token: String?
         if let token {
-            self.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
-        return self
+        return request
     }
 }

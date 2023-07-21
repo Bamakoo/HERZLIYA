@@ -21,10 +21,7 @@ struct HerzliyaEndpoint: APIEndpoint {
         urlComponents.host = "127.0.0.1"
         urlComponents.port = 8080
         urlComponents.path = path
-        if let queryItems {
-            urlComponents.queryItems = queryItems
-        }
-        print(urlComponents.url)
+        urlComponents.queryItems = queryItems
         return urlComponents.url
     }
 }
@@ -32,5 +29,8 @@ struct HerzliyaEndpoint: APIEndpoint {
 struct NewEndpoint {
     static func book() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/books", queryItems: nil)
+    }
+    static func likedBooks() -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/books/likes", queryItems: nil)
     }
 }
