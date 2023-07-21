@@ -64,11 +64,9 @@ const navigation = [
     to: '/'
   },
   { icon: PlusCircleIcon, title: 'Vendre mon livre', to: '/add' },
-  { icon: UserCircleIcon, title: 'Mon Compte', to: `/account/${account.id}` },
+  // { icon: UserCircleIcon, title: 'Mon Compte', to: `/account/${account.id}` },
   { icon: ShoppingCartIcon, title: 'Panier', to: '/cart' }
 ]
-
-const visible = ref(false)
 </script>
 <style scoped>
 a:hover + span {
