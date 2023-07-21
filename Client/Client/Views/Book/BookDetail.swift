@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct BookDetail: View {
-    @Binding var book: GetBook?
+    @Binding var book: Book?
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var fullText: String = "Your comment"
 
@@ -27,6 +27,8 @@ struct BookDetail: View {
                 Button("Comment"){
                     Task {
                         try await viewModel.commentOnBook((book?.id)!, fullText)
+                    }
+                    Task {
                         try await viewModel.getCommentsOnBook((book?.id)!)
                     }
                 }
@@ -41,7 +43,6 @@ struct BookDetail: View {
                     await viewModel.purchaseBook(bookID: (book?.id)!)
                 }
             } label: {
-                
                 Text("Purchase \(book!.title)")
             }
             Button {

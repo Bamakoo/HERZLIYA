@@ -9,14 +9,16 @@ final class SignInViewModel: ObservableObject {
         !username.isEmpty && !password.isEmpty
     }
     @MainActor
-    func signIn() async throws {
+    func signIn() async throws -> Bool {
+        @TokenRepository<String>
+        var token: String?
         guard canSignIn else {
             print("Email or password are empty")
-            return
+            return false
         }
         guard let url = URL(string: Request.baseURL + Endpoint.login) else {
             print("unable to create an URL to send username and password")
-            return
+            return false
         }
         var request = URLRequest(url: url)
         
@@ -32,23 +34,25 @@ final class SignInViewModel: ObservableObject {
         guard let httpURLResponse = response as? HTTPURLResponse else {
             throw HttpError.badResponse
         }
-        if httpURLResponse.statusCode == 200 {
+        if httpURLResponse.statusCode == 201 {
+            print(String(data: data, encoding: .utf8))
             do {
                 let decoder = JSONDecoder()
                 let userToken = try decoder.decode(UserToken.self, from: data)
                 print(userToken)
-                try Keychain.addToken(userToken: userToken)
+                token = userToken.value
+                return true
             } catch {
                 hasError.toggle()
                 print(error.localizedDescription)
+                return false
             }
         }
         else if httpURLResponse.statusCode == 401 {
             hasError.toggle()
-            throw HttpError.unauthorized
-        } else {
-            throw HttpError.badResponse
+            return false
         }
+        return false 
     }
 }
 

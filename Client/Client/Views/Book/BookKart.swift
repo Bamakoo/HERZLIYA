@@ -8,6 +8,5 @@
 import Foundation
 
 struct AddBookToKartDTO: Codable {
-    let userID: String
     let bookID: UUID
 }

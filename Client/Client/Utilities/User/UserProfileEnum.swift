@@ -25,8 +25,8 @@ enum ProfileMenu: Identifiable, CaseIterable {
     var image: String {
         switch self {
         case .friends: return "person.3"
-        case .booksByFavoriteAuthor: return "heart.fill"
-        case .likes: return "hand.thumbsup.fill"
+        case .booksByFavoriteAuthor: return "hand.thumbsup.fill" 
+        case .likes: return "heart.fill"
         case .myKart: return "cart.fill"
         case .purchases: return "purchased.circle.fill"
         case .soldBooks: return "book.closed"

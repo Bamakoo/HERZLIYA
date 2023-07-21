@@ -9,7 +9,7 @@ import SwiftUI
 
 struct KartView: View {
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
-    @State private var selection: GetBook?
+    @State private var selection: Book?
     var body: some View {
         NavigationSplitView {
             List(viewModel.kartBooks, selection: $selection) { book in
@@ -19,7 +19,6 @@ struct KartView: View {
             }
             .onAppear {
                 Task {
-                    viewModel.kartBooks = [GetBook]()
                     try await viewModel.getBooksInKart()
                 }
             }

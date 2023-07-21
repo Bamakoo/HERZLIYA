@@ -8,7 +8,6 @@
 import Foundation
 
 struct PatchUser: Codable {
-    let id: UUID
     let username: String?
     let email: String?
     let favoriteBook: String?

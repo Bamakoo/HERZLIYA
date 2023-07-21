@@ -47,9 +47,7 @@ struct UserController: RouteCollection {
     
     func changePassword(req: Request) async throws -> Response {
         let passwordPatch = try req.content.decode(PatchPassword.self)
-        guard let user =  try await User.find(passwordPatch.id, on: req.db) else {
-            throw Abort(.notFound)
-        }
+        let user = try req.auth.require(User.self)
         guard passwordPatch.currentPassword == passwordPatch.confirmCurrentPassword else {
             throw Abort(.badRequest, reason: "passwords did not match")
         }
@@ -69,10 +67,8 @@ struct UserController: RouteCollection {
     
     func update(req: Request) async throws -> User {
         let patchUser = try req.content.decode(PatchUser.self)
+        let user = try req.auth.require(User.self)
         
-        guard let user =  try await User.find(patchUser.id, on: req.db) else {
-            throw Abort(.notFound)
-        }
         if let username = patchUser.username {
             user.username = username
         }

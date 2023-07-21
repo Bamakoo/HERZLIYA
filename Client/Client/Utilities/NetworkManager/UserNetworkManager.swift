@@ -14,6 +14,12 @@ final class UserNetworkManager {
     init(httpClient: HttpClient) {
         self.httpClient = httpClient
     }
+    func changePassword(with DTO: PatchPassword) async throws {
+        guard let url = URL(string: "http://127.0.0.1:8080/change-password") else {
+            return
+        }
+        _ = try await httpClient.sendData(to: url, object: DTO, httpMethod: HttpMethods.PATCH.rawValue)
+    }
     func getMe() async throws -> User {
         let url = URL(string: Request.baseURL + Endpoint.myself)!
         let myProfile: User = try await httpClient.fetchSingleObject(url: url)

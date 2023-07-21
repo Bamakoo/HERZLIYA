@@ -8,7 +8,7 @@ import SwiftUI
 struct BooksList: View {
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var bookGenres: [BookGenre] = BookGenre.allCases
-    @State private var selectedBook: GetBook?
+    @State private var selectedBook: Book?
     @State private var selectedBookGenre: BookGenre?
     @State private var showSheet = false
     @State private var showSearch = false

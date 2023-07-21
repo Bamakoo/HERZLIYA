@@ -11,13 +11,13 @@ final class HomepageNetworkManager {
     init(httpClient: HttpClient) {
         self.httpClient = httpClient
     }
-    func fetchBooks() async throws -> [GetBook] {
+    func fetchBooks() async throws -> [Book] {
         let url = URL(string: Request.baseURL + Endpoint.books)!
-        let books: [GetBook] = try await httpClient.fetch(url: url)
+        let books: [Book] = try await httpClient.fetch(url: url)
         return books
     }
     
-    func likeABook(_ book: GetBook) async throws {
+    func likeABook(_ book: Book) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.likes.rawValue) else {
             print("unable to generate an URL to like a book")
             return
@@ -26,12 +26,11 @@ final class HomepageNetworkManager {
             print("unable to get the book id")
             return
         }
-        let userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        let newLike = Like(userID: userID, bookID: bookID)
+        let newLike = Like(bookID: bookID)
         _ = try await httpClient.sendData(to: url, object: newLike, httpMethod: HttpMethods.POST.rawValue)
     }
     func sort(_ sortBy: SortBy,
-              _ sortAscending: Bool) async throws -> [GetBook] {
+              _ sortAscending: Bool) async throws -> [Book] {
         var components = URLComponents()
         components.scheme = "http"
         components.host = "127.0.0.1"
@@ -42,7 +41,17 @@ final class HomepageNetworkManager {
             URLQueryItem(name: "ascending", value: String(sortAscending))
         ]
         let url = components.url!
-        let sortedBooks: [GetBook] = try await httpClient.fetch(url: url)
+        let sortedBooks: [Book] = try await httpClient.fetch(url: url)
         return sortedBooks
+    }
+    func addBookToKart(_ bookID: UUID) async throws {
+        guard let url = URL(string: Request.baseURL + Endpoint.addBookToKart) else {
+            throw HttpError.badURL
+        }
+        print(url)
+        let kartBook = AddBookToKartDTO(bookID: bookID)
+        print(kartBook)
+        _ = try await httpClient.sendData(to: url, object: kartBook, httpMethod: HttpMethods.POST.rawValue)
+        print("done")
     }
 }

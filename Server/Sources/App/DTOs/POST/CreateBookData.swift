@@ -16,7 +16,6 @@ struct CreateBookData: Content {
     var genre: BookGenre
     var state: BookState
     var status: BookStatus
-    var sellerID: UUID
     var buyerID: UUID? = nil
     var price: Int
 }

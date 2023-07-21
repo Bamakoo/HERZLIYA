@@ -8,16 +8,9 @@
 import Foundation
 
 final class ProfileSwitchViewModel: ObservableObject {
+    @TokenRepository<Any>
+    var token: String?
     func isLoggedIn() -> Bool {
-        do {
-            var token = try Keychain.search()
-            guard token.isEmpty else {
-                return true
-            }
-            return false
-        } catch {
-            print(error.localizedDescription)
-            return false
-        }
+            return token != nil
     }
 }
