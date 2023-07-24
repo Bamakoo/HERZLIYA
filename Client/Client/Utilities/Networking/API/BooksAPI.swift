@@ -40,5 +40,13 @@ extension API {
             let books = try decoder.decode([Book].self, from: bookData)
             return books
         }
+        
+        static func fetchSoldBooks() async throws -> [Book] {
+            let request = try await HTTPRequestFactory.request(from: NewEndpoint.soldBooks()).loginProtected()
+            let bookData = try await HTTP.get(with: request)
+            let decoder = JSONDecoder()
+            let books = try decoder.decode([Book].self, from: bookData)
+            return books
+        }
     }
 }

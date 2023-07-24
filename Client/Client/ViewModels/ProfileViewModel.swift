@@ -16,7 +16,7 @@ final class ProfileViewModel: ObservableObject {
     @Published var booksByUsersFavoriteAuthor = [Book]()
     @Published var kartBooks = [Book]()
     @Published var soldBooks = [Book]()
-
+    
     func fetchLikedBooks() async throws {
         do {
             likedBooks = try await UseCase.Books.fetchLikedBooks()
@@ -24,7 +24,7 @@ final class ProfileViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-   
+    
     func bookByUsersFavoriteAuthor() async throws {
         do {
             booksByUsersFavoriteAuthor = try await UseCase.Books.fetchBookByUsersFavoriteAuthor()
@@ -42,24 +42,10 @@ final class ProfileViewModel: ObservableObject {
     }
     
     func soldBooks() async throws {
-        soldBooks = [Book]()
-        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/sold")!,timeoutInterval: Double.infinity)
-        if let token {
-            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        do {
+            soldBooks = try await UseCase.Books.fetchSoldBooks()
+        } catch {
+            print(error.localizedDescription)
         }
-        request.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                do {
-                    let books = try JSONDecoder().decode([Book].self, from: data)
-                    DispatchQueue.main.async {
-                        self.soldBooks.append(contentsOf: books)
-                    }
-                } catch let error {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-        task.resume()
     }
 }

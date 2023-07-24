@@ -41,4 +41,8 @@ struct NewEndpoint {
     static func booksInKart() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/books/kart", queryItems: nil)
     }
+    
+    static func soldBooks() -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/books/sold", queryItems: nil)
+    }
 }
