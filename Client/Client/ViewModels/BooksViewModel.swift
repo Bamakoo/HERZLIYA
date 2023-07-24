@@ -10,7 +10,7 @@ import Foundation
 final class BooksViewModel: ObservableObject {
     @TokenRepository<String>
     var token: String?
-   
+  
     @Published var title = ""
     @Published var author = ""
     @Published var description = ""
@@ -26,7 +26,7 @@ final class BooksViewModel: ObservableObject {
     @Published var searchResults = [Book]()
     @Published var soldBooks = [Book]()
     @Published var commentsOnBook = [Comment]()
-
+    
     private let networkManager: BooksNetworkManager
     init(networkManager: BooksNetworkManager) {
         self.networkManager = networkManager
@@ -40,14 +40,14 @@ final class BooksViewModel: ObservableObject {
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
-               do {
-                  let comments = try JSONDecoder().decode([Comment].self, from: data)
-                   DispatchQueue.main.async {
-                       self.commentsOnBook.append(contentsOf: comments)
-                   }
-               } catch let error {
-                   print(error.localizedDescription)
-               }
+                do {
+                    let comments = try JSONDecoder().decode([Comment].self, from: data)
+                    DispatchQueue.main.async {
+                        self.commentsOnBook.append(contentsOf: comments)
+                    }
+                } catch let error {
+                    print(error.localizedDescription)
+                }
             }
         }
         task.resume()
@@ -71,14 +71,14 @@ final class BooksViewModel: ObservableObject {
         print(request)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
-               do {
-                  let books = try JSONDecoder().decode([Book].self, from: data)
-                   DispatchQueue.main.async {
-                       self.kartBooks.append(contentsOf: books)
-                   }
-               } catch let error {
-                   print(error.localizedDescription)
-               }
+                do {
+                    let books = try JSONDecoder().decode([Book].self, from: data)
+                    DispatchQueue.main.async {
+                        self.kartBooks.append(contentsOf: books)
+                    }
+                } catch let error {
+                    print(error.localizedDescription)
+                }
             }
         }
         task.resume()
@@ -118,14 +118,14 @@ final class BooksViewModel: ObservableObject {
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
-               do {
-                  let books = try JSONDecoder().decode([Book].self, from: data)
-                   DispatchQueue.main.async {
-                       self.soldBooks.append(contentsOf: books)
-                   }
-               } catch let error {
-                   print(error.localizedDescription)
-               }
+                do {
+                    let books = try JSONDecoder().decode([Book].self, from: data)
+                    DispatchQueue.main.async {
+                        self.soldBooks.append(contentsOf: books)
+                    }
+                } catch let error {
+                    print(error.localizedDescription)
+                }
             }
         }
         task.resume()
@@ -140,14 +140,14 @@ final class BooksViewModel: ObservableObject {
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
-               do {
-                  let books = try JSONDecoder().decode([Book].self, from: data)
-                   DispatchQueue.main.async {
-                       self.purchasedBooks.append(contentsOf: books)
-                   }
-               } catch let error {
-                   print(error.localizedDescription)
-               }
+                do {
+                    let books = try JSONDecoder().decode([Book].self, from: data)
+                    DispatchQueue.main.async {
+                        self.purchasedBooks.append(contentsOf: books)
+                    }
+                } catch let error {
+                    print(error.localizedDescription)
+                }
             }
         }
         task.resume()
@@ -170,6 +170,10 @@ final class BooksViewModel: ObservableObject {
                                                 state: state,
                                                 status: status,
                                                 price: price)
+            description = ""
+            price = 1
+            title = ""
+            author = ""
         } catch {
             print(error.localizedDescription)
         }

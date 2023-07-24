@@ -41,10 +41,6 @@ struct CreateBookView: View {
             Button {
                 Task {
                     await viewModel.createBook()
-                    viewModel.description = ""
-                    viewModel.price = 1
-                    viewModel.title = ""
-                    viewModel.author = ""
                     dismiss()
                 }
             } label: {
