@@ -18,5 +18,10 @@ extension UseCase {
             let books = try await API.Books.fetchLikedBooks()
             return books
         }
+        
+        static func fetchBookByUsersFavoriteAuthor() async throws -> [Book] {
+            let books = try await API.Books.fetchBooksByUsersFavoriteAuthor()
+            return books
+        }
     }
 }
