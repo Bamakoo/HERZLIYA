@@ -23,7 +23,6 @@ final class BooksViewModel: ObservableObject {
     @Published var booksByUsersFavoriteAuthor = [Book]()
     @Published var searchText: String = ""
     @Published var searchResults = [Book]()
-    @Published var soldBooks = [Book]()
     @Published var commentsOnBook = [Comment]()
     
     private let networkManager: BooksNetworkManager
@@ -85,27 +84,7 @@ final class BooksViewModel: ObservableObject {
         }
     }
     
-    func soldBooks() async throws {
-        soldBooks = [Book]()
-        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/sold")!,timeoutInterval: Double.infinity)
-        if let token {
-            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        }
-        request.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                do {
-                    let books = try JSONDecoder().decode([Book].self, from: data)
-                    DispatchQueue.main.async {
-                        self.soldBooks.append(contentsOf: books)
-                    }
-                } catch let error {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-        task.resume()
-    }
+
     
     func fetchPurchasedBooks() async throws {
         purchasedBooks = [Book]()

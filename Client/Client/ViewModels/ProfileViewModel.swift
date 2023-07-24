@@ -9,9 +9,13 @@ import Foundation
 @MainActor
 final class ProfileViewModel: ObservableObject {
     
+    @TokenRepository<String>
+    var token: String?
+    
     @Published var likedBooks = [Book]()
     @Published var booksByUsersFavoriteAuthor = [Book]()
     @Published var kartBooks = [Book]()
+    @Published var soldBooks = [Book]()
 
     func fetchLikedBooks() async throws {
         do {
@@ -35,5 +39,27 @@ final class ProfileViewModel: ObservableObject {
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    func soldBooks() async throws {
+        soldBooks = [Book]()
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/sold")!,timeoutInterval: Double.infinity)
+        if let token {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                do {
+                    let books = try JSONDecoder().decode([Book].self, from: data)
+                    DispatchQueue.main.async {
+                        self.soldBooks.append(contentsOf: books)
+                    }
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        task.resume()
     }
 }
