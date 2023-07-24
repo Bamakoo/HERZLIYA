@@ -20,7 +20,6 @@ final class BooksViewModel: ObservableObject {
     @Published var status: BookStatus = .available
     @Published var books = [Book]()
     @Published var purchasedBooks = [Book]()
-    @Published var kartBooks = [Book]()
     @Published var booksByUsersFavoriteAuthor = [Book]()
     @Published var searchText: String = ""
     @Published var searchResults = [Book]()
@@ -60,30 +59,7 @@ final class BooksViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
-    func getBooksInKart() async throws {
-        kartBooks = [Book]()
-        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/kart")!, timeoutInterval: Double.infinity)
-        if let token {
-            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        }
-        request.httpMethod = "GET"
-        print(request)
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                do {
-                    let books = try JSONDecoder().decode([Book].self, from: data)
-                    DispatchQueue.main.async {
-                        self.kartBooks.append(contentsOf: books)
-                    }
-                } catch let error {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-        task.resume()
-    }
-    
+        
     func addBookToKart(_ bookID: UUID) async {
         do {
             try await networkManager.addBookToKart(bookID)
