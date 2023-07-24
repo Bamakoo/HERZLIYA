@@ -37,4 +37,8 @@ struct NewEndpoint {
     static func booksByUsersFavoriteAuthor() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/books/favorite-author", queryItems: nil)
     }
+    
+    static func booksInKart() -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/books/kart", queryItems: nil)
+    }
 }
