@@ -9,7 +9,7 @@ import Foundation
 
 protocol HTTPService {
     static func get(with request: URLRequest, using session: URLSession) async throws -> Data
-    static func post(with request: URLRequest, andBody body: Data, using session: URLSession) async throws -> Data
+    static func post(with request: URLRequest, andBody body: Data?, using session: URLSession) async throws -> Data
     static func patch(with request: URLRequest, andBody body: Data, using session: URLSession) async throws -> Data
     static func delete(with request: URLRequest, using session: URLSession) async throws -> Data
 }
@@ -20,7 +20,7 @@ struct HTTP: HTTPService {
         request.httpMethod = "GET"
         return try await executeRequest(request: request, session: session)
     }
-    static func post(with request: URLRequest, andBody body: Data, using session: URLSession = .shared) async throws -> Data {
+    static func post(with request: URLRequest, andBody body: Data?, using session: URLSession = .shared) async throws -> Data {
         var request = request
         request.httpMethod = "POST"
         request.httpBody = body
@@ -47,7 +47,7 @@ private extension HTTP {
            !(200...299).contains(httpResponse.statusCode) {
             throw HttpError.badResponse
         }
-        
+
         return data
     }
 }
