@@ -149,54 +149,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B28C04DD-D1FC-4E14-B67F-397B70A6AB5B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Client/Utilities/Networking/HTTP/HTTP.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "executeRequest(request:session:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "B28C04DD-D1FC-4E14-B67F-397B70A6AB5B - ba9ae69c13f809ad"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static Client.HTTP.executeRequest(request: Foundation.URLRequest, session: __C.NSURLSession) async throws -&gt; Foundation.Data"
-                  moduleName = "Client"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emma.gaubert/HERZLIYA/Client/Client/Utilities/Networking/HTTP/HTTP.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "44"
-                  endingLineNumber = "44"
-                  offsetFromSymbolStart = "120">
-               </Location>
-               <Location
-                  uuid = "B28C04DD-D1FC-4E14-B67F-397B70A6AB5B - 807aea02222a5f45"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) await resume partial function for static Client.HTTP.executeRequest(request: Foundation.URLRequest, session: __C.NSURLSession) async throws -&gt; Foundation.Data"
-                  moduleName = "Client"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emma.gaubert/HERZLIYA/Client/Client/Utilities/Networking/HTTP/HTTP.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "44"
-                  endingLineNumber = "44"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "85DCC399-9B71-4766-AED2-37F66C86253D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
