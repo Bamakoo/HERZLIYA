@@ -30,6 +30,7 @@ struct Keychain {
         guard status == errSecSuccess else { throw KeychainError.unhandledError(status: status) }
         print(status)
     }
+    
     static func getGenericPasswordForAccount(_ account: String, service: String) throws -> String {
         let query = [kSecClass as String: kSecClassGenericPassword,
                          kSecAttrService: service,
