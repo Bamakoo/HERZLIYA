@@ -30,24 +30,11 @@ final class BooksViewModel: ObservableObject {
     }
     
     func getCommentsOnBook(_ bookID: UUID) async throws {
-        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/comments/\(bookID)")!,timeoutInterval: Double.infinity)
-        if let token {
-            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        do {
+            commentsOnBook = try await UseCase.Comments.fetchCommentsOnBook(bookID)
+        } catch {
+            print(error.localizedDescription)
         }
-        request.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                do {
-                    let comments = try JSONDecoder().decode([Comment].self, from: data)
-                    DispatchQueue.main.async {
-                        self.commentsOnBook.append(contentsOf: comments)
-                    }
-                } catch let error {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-        task.resume()
     }
     
     func commentOnBook(_ bookID: UUID, _ comment: String) async throws {
