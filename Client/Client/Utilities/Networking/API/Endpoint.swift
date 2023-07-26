@@ -49,4 +49,8 @@ struct NewEndpoint {
     static func login() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/login", queryItems: nil )
     }
+    
+    static func bought() -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/books/bought", queryItems: nil )
+    }
 }

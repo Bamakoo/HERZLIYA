@@ -9,11 +9,21 @@ import Foundation
 
 extension API {
     struct User {
-        static func login(_ username: String, _ password: String) async throws {
+        static func login(_ username: String, _ password: String) async throws -> String {
             var request = try HTTPRequestFactory.request(from: NewEndpoint.login())
-            let authData = (username + ":" + password).data(using: .utf8)!.base64EncodedString()
-            request.addValue("Basic \(authData)", forHTTPHeaderField: "authorization")
-            try await HTTP.post(with: request, andBody: nil)
+            guard let data = (username + ":" + password).data(using: .utf8) else {
+                throw LoginError.badData
+            }
+            let encodedData = data.base64EncodedString()
+            request.addValue("Basic \(encodedData)", forHTTPHeaderField: "authorization")
+            let userTokenData = try await HTTP.post(with: request, andBody: nil)
+            let decoder = JSONDecoder()
+            let userToken = try decoder.decode(UserToken.self, from: userTokenData)
+            return userToken.value
         }
     }
+}
+
+enum LoginError: Error {
+    case badData
 }

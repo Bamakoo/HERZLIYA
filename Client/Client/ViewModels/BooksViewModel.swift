@@ -19,7 +19,6 @@ final class BooksViewModel: ObservableObject {
     @Published var price = 0
     @Published var status: BookStatus = .available
     @Published var books = [Book]()
-    @Published var purchasedBooks = [Book]()
     @Published var booksByUsersFavoriteAuthor = [Book]()
     @Published var searchText: String = ""
     @Published var searchResults = [Book]()
@@ -83,31 +82,7 @@ final class BooksViewModel: ObservableObject {
             print("unable to fetch books because of : \(error.localizedDescription)")
         }
     }
-    
 
-    
-    func fetchPurchasedBooks() async throws {
-        purchasedBooks = [Book]()
-        var request = URLRequest(url: URL(string: "http://127.0.0.1:8080/books/bought")!, timeoutInterval: Double.infinity)
-        if let token {
-            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        }
-        request.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                do {
-                    let books = try JSONDecoder().decode([Book].self, from: data)
-                    DispatchQueue.main.async {
-                        self.purchasedBooks.append(contentsOf: books)
-                    }
-                } catch let error {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-        task.resume()
-    }
-    
     func fetchBooksByCategory(_ forCategory: BookGenre) async {
         do {
             books = try await networkManager.fetchBooksByCategory(forCategory)

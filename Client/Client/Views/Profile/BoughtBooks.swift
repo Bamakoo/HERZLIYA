@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyPurchases: View {
-    @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
+    @StateObject private var viewModel = ProfileViewModel()
     @State private var selection: Book?
     var body: some View {
         NavigationSplitView {

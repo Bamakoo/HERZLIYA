@@ -8,14 +8,12 @@
 import Foundation
 @MainActor
 final class ProfileViewModel: ObservableObject {
-    
-    @TokenRepository<String>
-    var token: String?
-    
+ 
     @Published var likedBooks = [Book]()
     @Published var booksByUsersFavoriteAuthor = [Book]()
     @Published var kartBooks = [Book]()
     @Published var soldBooks = [Book]()
+    @Published var purchasedBooks = [Book]()
     
     func fetchLikedBooks() async throws {
         do {
@@ -44,6 +42,14 @@ final class ProfileViewModel: ObservableObject {
     func soldBooks() async throws {
         do {
             soldBooks = try await UseCase.Books.fetchSoldBooks()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func fetchPurchasedBooks() async throws {
+        do {
+            purchasedBooks = try await UseCase.Books.fetchBoughtBooks()
         } catch {
             print(error.localizedDescription)
         }
