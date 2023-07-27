@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UpdateProfile: View {
     @State private var changeMyPassword = false
-    
+
     var body: some View {
         Button("Delete my profile") {
             print("profile deleted")

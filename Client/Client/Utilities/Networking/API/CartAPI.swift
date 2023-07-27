@@ -17,8 +17,8 @@ extension API {
             return books
         }
         
-        static func removeBookFromCart() async throws {
-            let request = try HTTPRequestFactory.request(from: NewEndpoint.removeBookFromCart()).loginProtected()
+        static func removeBookFromCart(_ bookID: UUID) async throws {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.removeBookFromCart(bookID)).loginProtected()
             try await HTTP.delete(with: request)
         }
     }

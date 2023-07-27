@@ -18,7 +18,8 @@ struct KartView: View {
                 }
                 .swipeActions(edge: .trailing) {
                     Button { Task {
-                        try await viewModel.removeBookFromKart()
+                        try await viewModel.removeBookFromKart((book.id)!)
+                        try await viewModel.getBooksInKart()
                     }
                     } label: {
                             Image(systemName: "cart.fill.badge.minus")

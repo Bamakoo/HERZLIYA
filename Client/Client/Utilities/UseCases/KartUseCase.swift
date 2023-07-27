@@ -9,8 +9,8 @@ import Foundation
 
 extension UseCase {
     struct Cart {
-        static func removeBookFromCart() async throws {
-            try await API.Cart.removeBookFromCart()
+        static func removeBookFromCart(_ bookID: UUID) async throws {
+            try await API.Cart.removeBookFromCart(bookID)
         }
         
         static func fetchBooksInKart() async throws -> [Book] {
