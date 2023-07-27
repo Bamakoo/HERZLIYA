@@ -17,8 +17,7 @@ final class BooksNetworkManager {
         guard let url = URL(string: Request.baseURL + "comments") else {
             throw HttpError.badURL
         }
-        let userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        let newComment = Comment(userID: userID, bookID: bookID, comment: comment)
+        let newComment = PostComment(comment: comment, bookID: bookID)
         _ = try await httpClient.sendData(to: url, object: newComment, httpMethod: HttpMethods.POST.rawValue)
     }
     

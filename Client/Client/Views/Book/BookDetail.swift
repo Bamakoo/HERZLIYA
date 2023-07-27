@@ -12,7 +12,7 @@ struct BookDetail: View {
     @Binding var book: Book?
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var fullText: String = "Your comment"
-
+    
     var body: some View {
         Form {
             Text(book!.title)
@@ -50,7 +50,7 @@ struct BookDetail: View {
                     await viewModel.addBookToKart((book?.id)!)
                 }
             } label: {
-                Text("Add to kart")
+                Text("Add to cart")
             }
             .navigationBarTitle(book!.title, displayMode: .inline)
             .toolbar {
@@ -69,10 +69,6 @@ struct BookDetail: View {
             Task {
                 try await viewModel.getCommentsOnBook((book?.id)!)
             }
-        }
-        .onDisappear {
-            viewModel.commentsOnBook = [Comment]()
-            print("book detail vanishes")
         }
     }
 }

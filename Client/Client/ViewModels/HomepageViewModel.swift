@@ -9,6 +9,7 @@ import Foundation
 
 @MainActor
 final class HomepageViewModel: ObservableObject {
+    
     @Published var books = [Book]()
     @Published var sortedBooks = [Book]()
     @Published var isSorting: Bool = false
@@ -19,7 +20,9 @@ final class HomepageViewModel: ObservableObject {
     @Published var selectedSort: SortBy = .genre
     @Published var selectedMenu: HomepageMenuSelector = .display
     @Published var selectedSubMenu: HomepageSubMenuSelector = .author
+    
     private let networkManager: HomepageNetworkManager
+    
     init(networkManager: HomepageNetworkManager) {
         self.networkManager = networkManager
     }
@@ -39,6 +42,7 @@ final class HomepageViewModel: ObservableObject {
             print("unable to fetch books because of : \(error.localizedDescription)")
         }
     }
+    
     func sort() async {
         do {
             books = try await networkManager.sort(selectedSort, sortAscending)

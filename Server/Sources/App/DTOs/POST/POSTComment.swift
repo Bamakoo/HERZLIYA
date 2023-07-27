@@ -12,5 +12,4 @@ import Vapor
 struct PostComment: Content {
     var comment: String
     var bookID: UUID
-    var userID: UUID
 }

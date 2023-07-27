@@ -57,4 +57,8 @@ struct NewEndpoint {
     static func commentsOnBook(_ bookID: UUID) -> APIEndpoint {
         return HerzliyaEndpoint(path: "/comments/\(bookID)", queryItems: nil)
     }
+    
+    static func myComments() -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/comments/users", queryItems: nil)
+    }
 }

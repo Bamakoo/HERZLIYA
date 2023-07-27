@@ -9,7 +9,7 @@ struct CommentController: RouteCollection {
         let tokenMiddleware = UserToken.guardMiddleware()
         let tokenAuthComment = commentRoutes.grouped(tokenAuthenticator, tokenMiddleware)
         tokenAuthComment.get(":bookID", use: getAllBookComments)
-        tokenAuthComment.get("users", ":userID", use: getAllUsersComments)
+        tokenAuthComment.get("users", use: getAllUsersComments)
         tokenAuthComment.get("on-user-books", ":userID", use: allCommentsOnUsersBook)
         tokenAuthComment.patch(":commentID", use: update)
         tokenAuthComment.post(use: create)
@@ -53,8 +53,9 @@ struct CommentController: RouteCollection {
     /// - Parameter req: the incoming request
     /// - Returns: all the comments a particular user has posted
     func getAllUsersComments(req: Request) async throws -> [GetComment] {
-        guard let userID = req.parameters.get("userID", as: UUID.self) else {
-            throw Abort(.badRequest, reason: "Invalid user ID")
+        let user = try req.auth.require(User.self)
+        guard let userID = user.id else {
+            throw Abort(.badRequest, reason: "unable to get user")
         }
         let comments = try await Comment.query(on: req.db)
             .filter(\.$user.$id == userID)
@@ -73,7 +74,11 @@ struct CommentController: RouteCollection {
 
 func create(req: Request) async throws -> Response {
     let comment = try req.content.decode(PostComment.self)
-    let realComment = try Comment(comment: comment.comment, userID: comment.userID, bookID: comment.bookID)
+    let user = try req.auth.require(User.self)
+    guard let userID = user.id else {
+        throw Abort(.badRequest, reason: "unable to get user")
+    }
+    let realComment = try Comment(comment: comment.comment, userID: userID, bookID: comment.bookID)
     try await realComment.save(on: req.db)
     let getComment = GetComment(id: try realComment.requireID(), comment: realComment.comment, bookID: realComment.$book.id, userID: realComment.$user.id)
     return try await getComment.encodeResponse(status: .created, for: req)

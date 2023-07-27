@@ -13,3 +13,9 @@ struct Comment: Identifiable, Codable, Hashable, Equatable {
    let bookID: UUID
    let comment: String
 }
+
+struct PostComment: Codable {
+    var comment: String
+    var bookID: UUID
+}
+
