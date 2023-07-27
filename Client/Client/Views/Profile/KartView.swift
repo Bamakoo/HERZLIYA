@@ -26,6 +26,20 @@ struct KartView: View {
                         }
                         .tint(.red)
                 }
+                .swipeActions(edge: .leading) {
+                    Button { Task {
+                        print("buy this one book")
+                    }
+                    } label: {
+                            Image(systemName: "dollarsign")
+                        }
+                        .tint(.mint)
+                }
+            }
+            Button {
+                print("buy buy buy")
+            } label: {
+                Text("Purchase all the books in my cart")
             }
             .onAppear {
                 Task {
