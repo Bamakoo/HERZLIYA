@@ -21,7 +21,6 @@ final class UsersViewModel: ObservableObject {
     @Published var favoriteAuthor = ""
     @Published var city = ""
     @Published var country = ""
-    @Published var isLoggedIn = User.isLoggedIn
     private let networkManager: UserNetworkManager
     init(networkManager: UserNetworkManager) {
         self.networkManager = networkManager

@@ -1,5 +1,4 @@
 import Foundation
-// swiftlint:disable all
 final class SignInViewModel: ObservableObject {
     @Published var username = ""
     @Published var password = ""
@@ -12,7 +11,7 @@ final class SignInViewModel: ObservableObject {
     func signIn() async throws -> Bool {
         do {
             guard canSignIn else {
-                return false 
+                return false
             }
             try await UseCase.User.login(username, password)
             return true
@@ -22,4 +21,3 @@ final class SignInViewModel: ObservableObject {
         }
     }
 }
-
