@@ -10,7 +10,7 @@ import SwiftUI
 struct Oups: View {
     @State private var createAnAccount = false
     @State private var signIn = false
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("Oups")

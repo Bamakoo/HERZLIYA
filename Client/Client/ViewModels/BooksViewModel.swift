@@ -10,7 +10,7 @@ import Foundation
 final class BooksViewModel: ObservableObject {
     @TokenRepository<String>
     var token: String?
-  
+
     @Published var title = ""
     @Published var author = ""
     @Published var description = ""
@@ -23,12 +23,12 @@ final class BooksViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var searchResults = [Book]()
     @Published var commentsOnBook = [Comment]()
-    
+
     private let networkManager: BooksNetworkManager
     init(networkManager: BooksNetworkManager) {
         self.networkManager = networkManager
     }
-    
+
     func getCommentsOnBook(_ bookID: UUID) async throws {
         do {
             commentsOnBook = try await UseCase.Comments.fetchCommentsOnBook(bookID)
@@ -36,7 +36,7 @@ final class BooksViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func commentOnBook(_ bookID: UUID, _ comment: String) async throws {
         do {
             try await networkManager.commentOnBook(bookID, comment)
@@ -44,7 +44,7 @@ final class BooksViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-        
+
     func addBookToKart(_ bookID: UUID) async {
         do {
             try await networkManager.addBookToKart(bookID)
@@ -52,7 +52,7 @@ final class BooksViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func search() async {
         do {
             guard !searchText.isEmpty else { return }
@@ -61,7 +61,7 @@ final class BooksViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func fetchBooks() async {
         do {
             books = try await networkManager.fetchBooks()
@@ -77,7 +77,7 @@ final class BooksViewModel: ObservableObject {
             print("unable to fetch books because of : \(error.localizedDescription)")
         }
     }
-    
+
     func createBook() async {
         do {
             try await networkManager.createBook(title: title,
@@ -95,7 +95,7 @@ final class BooksViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func purchaseBook(bookID: UUID) async {
         do {
             let id = bookID.uuidString
@@ -104,7 +104,7 @@ final class BooksViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func deleteBook(id: UUID) async throws {
         do {
             try await networkManager.deleteBook(id: id)

@@ -8,12 +8,12 @@
 import Foundation
 @MainActor
 final class ProfileViewModel: ObservableObject {
- 
+
     @Published var likedBooks = [Book]()
     @Published var booksByUsersFavoriteAuthor = [Book]()
     @Published var soldBooks = [Book]()
     @Published var purchasedBooks = [Book]()
-    
+
     func fetchLikedBooks() async throws {
         do {
             likedBooks = try await UseCase.Books.fetchLikedBooks()
@@ -21,7 +21,7 @@ final class ProfileViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func bookByUsersFavoriteAuthor() async throws {
         do {
             booksByUsersFavoriteAuthor = try await UseCase.Books.fetchBookByUsersFavoriteAuthor()
@@ -29,7 +29,7 @@ final class ProfileViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func soldBooks() async throws {
         do {
             soldBooks = try await UseCase.Books.fetchSoldBooks()
@@ -37,7 +37,7 @@ final class ProfileViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func fetchPurchasedBooks() async throws {
         do {
             purchasedBooks = try await UseCase.Books.fetchBoughtBooks()

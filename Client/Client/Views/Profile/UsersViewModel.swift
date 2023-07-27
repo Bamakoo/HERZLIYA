@@ -68,7 +68,7 @@ final class UsersViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func changeUserPassword() async throws {
         do {
             let patchedPassword = PatchPassword(id: "D9C1869E-1250-4610-B49C-5EC2E3949885",
@@ -83,7 +83,7 @@ final class UsersViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func deleteUserProfile(id: UUID) async throws {
         do {
             try await networkManager.deleteProfile(id: id)

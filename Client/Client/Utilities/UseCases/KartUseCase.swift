@@ -12,7 +12,7 @@ extension UseCase {
         static func removeBookFromCart(_ bookID: UUID) async throws {
             try await API.Cart.removeBookFromCart(bookID)
         }
-        
+
         static func fetchBooksInKart() async throws -> [Book] {
             let books = try await API.Cart.fetchBooksInKart()
             return books

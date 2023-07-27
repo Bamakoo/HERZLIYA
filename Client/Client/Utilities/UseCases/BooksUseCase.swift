@@ -13,22 +13,22 @@ extension UseCase {
             let books = try await API.Books.fetch()
             return books
         }
-        
+
         static func fetchLikedBooks() async throws -> [Book] {
             let books = try await API.Books.fetchLikedBooks()
             return books
         }
-        
+
         static func fetchBookByUsersFavoriteAuthor() async throws -> [Book] {
             let books = try await API.Books.fetchBooksByUsersFavoriteAuthor()
             return books
         }
-        
+
         static func fetchSoldBooks() async throws -> [Book] {
             let books = try await API.Books.fetchSoldBooks()
             return books
         }
-        
+
         static func fetchBoughtBooks() async throws -> [Book] {
             let books = try await API.Books.fetchBoughtBooks()
             return books

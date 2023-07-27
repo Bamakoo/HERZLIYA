@@ -18,4 +18,3 @@ struct PostComment: Codable {
     var comment: String
     var bookID: UUID
 }
-

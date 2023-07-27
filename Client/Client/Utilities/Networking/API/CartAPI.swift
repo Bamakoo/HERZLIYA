@@ -16,10 +16,10 @@ extension API {
             let books = try decoder.decode([Book].self, from: bookData)
             return books
         }
-        
+
         static func removeBookFromCart(_ bookID: UUID) async throws {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.removeBookFromCart(bookID)).loginProtected()
-            try await HTTP.delete(with: request)
+            _ = try await HTTP.delete(with: request)
         }
     }
 }

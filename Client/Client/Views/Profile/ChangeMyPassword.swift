@@ -13,11 +13,15 @@ struct ChangeMyPassword: View {
         Form {
             Section {
                 SecureField("Current Password", text: $viewModel.currentPassword, prompt: Text("Current Password"))
-                SecureField("Confirm Current Password", text: $viewModel.confirmCurrentPassword, prompt: Text("Confirm Current Password"))
+                SecureField("Confirm Current Password",
+                            text: $viewModel.confirmCurrentPassword,
+                            prompt: Text("Confirm Current Password"))
             }
             Section {
                 SecureField("New Password", text: $viewModel.newPassword, prompt: Text("New Password"))
-                SecureField("Confirm New Password", text: $viewModel.confirmNewPasswordd, prompt: Text("Confirm New Password"))
+                SecureField("Confirm New Password",
+                            text: $viewModel.confirmNewPasswordd,
+                            prompt: Text("Confirm New Password"))
             }
             Section {
                 TextField("Favorite Book", text: $viewModel.favoriteBook, prompt: Text("Favorite Book"))

@@ -20,7 +20,6 @@ final class Networking: HttpClient {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         request.httpMethod = "GET"
-        print(request.allHTTPHeaderFields)
         let (data, response) = try await URLSession.shared.data(from: url)
         print(data, response)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
@@ -63,19 +62,13 @@ final class Networking: HttpClient {
         var request = URLRequest(url: url)
         print(request)
         request.httpMethod = httpMethod
-        print(request.httpMethod)
         request.addValue(MIMEType.JSON.rawValue,
                          forHTTPHeaderField: HttpHeaders.contentType.rawValue)
-        print(request.allHTTPHeaderFields)
-        // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        
         var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
         if let token {
             request.setValue("Bearer \(token)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
         }
-        print(request.allHTTPHeaderFields)
         request.httpBody = try? JSONEncoder().encode(object)
-        print(request.httpBody)
         let (data, response) = try await URLSession.shared.data(for: request)
         print(data, response)
         guard let httpURLResponse = response as? HTTPURLResponse else {
@@ -103,10 +96,10 @@ final class Networking: HttpClient {
         } else {
             throw HttpError.badResponse
         }
-        print("The response code is \(httpURLResponse.statusCode)")
     }
     /// A generic function, used to delete a single Object in the Table
-    /// - Parameter url: the URL to send the delete request to, this also contains the identifier for the object we want to delete
+    /// - Parameter url: the URL to send the delete request to,
+    /// this also contains the identifier for the object we want to delete
     func delete(url: URL) async throws {
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethods.DELETE.rawValue

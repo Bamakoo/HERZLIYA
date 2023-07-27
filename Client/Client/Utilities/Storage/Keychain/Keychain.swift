@@ -30,7 +30,7 @@ struct Keychain {
         guard status == errSecSuccess else { throw KeychainError.unhandledError(status: status) }
         print(status)
     }
-    
+
     static func getGenericPasswordForAccount(_ account: String, service: String) throws -> String {
         let query = [kSecClass as String: kSecClassGenericPassword,
                          kSecAttrService: service,
@@ -51,26 +51,27 @@ struct Keychain {
         }
         return token
     }
-    
+
     static func updateGenericPasswordForAccount(_ account: String, password: String, service: String) throws {
         let query = [kSecClass as String: kSecClassGenericPassword,
                          kSecAttrService: service,
                          kSecAttrAccount: account ] as CFDictionary
-        
+
         let data = password.data(using: String.Encoding.utf8)!
         let attributes: [String: Any] = [kSecValueData as String: data]
-        
+
         let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
         guard status != errSecItemNotFound else { throw KeychainError.noToken }
         guard status == errSecSuccess else { throw KeychainError.unhandledError(status: status) }
     }
-    
+
     static func deleteGenericPasswordForAccount(_ account: String, service: String) throws {
         let query = [kSecClass as String: kSecClassGenericPassword,
                          kSecAttrService: service,
                          kSecAttrAccount: account ] as CFDictionary
-        
+
         let status = SecItemDelete(query as CFDictionary)
-        guard status == errSecSuccess || status == errSecItemNotFound else { throw KeychainError.unhandledError(status: status) }
+        guard status == errSecSuccess || status == errSecItemNotFound
+        else { throw KeychainError.unhandledError(status: status) }
     }
 }
