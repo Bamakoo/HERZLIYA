@@ -8,13 +8,22 @@
 import SwiftUI
 
 struct KartView: View {
-    @StateObject private var viewModel = ProfileViewModel()
+    @StateObject private var viewModel = KartViewModel()
     @State private var selection: Book?
     var body: some View {
         NavigationSplitView {
             List(viewModel.kartBooks, selection: $selection) { book in
                 NavigationLink(value: book) {
                     BookRow(book: book)
+                }
+                .swipeActions(edge: .trailing) {
+                    Button { Task {
+                        try await viewModel.removeBookFromKart()
+                    }
+                    } label: {
+                            Image(systemName: "cart.fill.badge.minus")
+                        }
+                        .tint(.red)
                 }
             }
             .onAppear {

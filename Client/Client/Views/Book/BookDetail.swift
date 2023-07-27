@@ -24,11 +24,9 @@ struct BookDetail: View {
                 TextEditor(text: $fullText)
                     .foregroundColor(Color.gray)
                     .lineSpacing(5)
-                Button("Comment"){
+                Button("Comment") {
                     Task {
                         try await viewModel.commentOnBook((book?.id)!, fullText)
-                    }
-                    Task {
                         try await viewModel.getCommentsOnBook((book?.id)!)
                     }
                 }

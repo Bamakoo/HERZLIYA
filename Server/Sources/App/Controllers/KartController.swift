@@ -10,16 +10,23 @@ struct KartController: RouteCollection {
         tokenProtectedKarts.post("karts", use: create)
         tokenProtectedKarts.post("add", "book", ":bookID", "user-kart", ":userID", use: addBookToUserKart)
         tokenProtectedKarts.post("karts", "add-book", use: addBookToKart)
-        tokenProtectedKarts.delete("karts", "remove-book", use: removeBookFromKart)
+        tokenProtectedKarts.delete("karts", "remove-book", ":bookID", use: removeBookFromKart)
         tokenProtectedKarts.group("karts", ":kartID") { kart in
             kart.delete(use: delete)
         }
     }
     
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
     func removeBookFromKart(req: Request) async throws -> HTTPStatus {
         // get the user's ID and the book's ID
-        let removeBookFromKartDTO = try req.content.decode(AddBookToKartDTO.self)
-        // get the user's Kart
+        guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db),
+              let bookID = book.id
+        else {
+            print("unable to delete book")
+            throw Abort(.notFound, reason: "unable to locate book")
+        }        // get the user's Kart
         let user = try req.auth.require(User.self)
         guard let userID = user.id else {
             throw Abort(.badRequest, reason: "unable to get user")
@@ -34,7 +41,7 @@ struct KartController: RouteCollection {
         // find the book and the quart
         let kartBook = KartBook.query(on: req.db).group(.and) { group in
             group.filter(\.$kart.$id == kartID)
-                .filter(\.$book.$id == removeBookFromKartDTO.bookID)
+                .filter(\.$book.$id == bookID)
                 .all()
         }
         try await kartBook.delete()

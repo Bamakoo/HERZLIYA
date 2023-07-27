@@ -23,7 +23,7 @@ struct ChangeMyPassword: View {
                 TextField("Favorite Book", text: $viewModel.favoriteBook, prompt: Text("Favorite Book"))
                 TextField("FavoriteAuthor", text: $viewModel.favoriteAuthor, prompt: Text("Favorite Author"))
             }
-            Button("Change my password"){
+            Button("Change my password") {
                 print("changed password")
             }
         }

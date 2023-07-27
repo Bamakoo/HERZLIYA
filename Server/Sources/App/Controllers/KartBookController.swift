@@ -13,7 +13,10 @@ struct KartBookController: RouteCollection {
             kartBook.delete(use: delete)
         }
     }
-
+    
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
     func index(req: Request) async throws -> [KartBook] {
         let kartBooks = try await KartBook.query(on: req.db).all()
         return kartBooks
@@ -29,6 +32,9 @@ struct KartBookController: RouteCollection {
         return try await kartBook.encodeResponse(status: .created, for: req)
     }
     
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
     func update(req: Request) async throws -> KartBook {
         let kartBook = try req.content.decode(KartBook.self)
         guard let kartBook =  try await KartBook.find(kartBook.id, on: req.db) else {
@@ -37,7 +43,10 @@ struct KartBookController: RouteCollection {
         try await kartBook.update(on: req.db)
         return kartBook
     }
-
+    
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
     func delete(req: Request) async throws -> HTTPStatus {
         guard let kartBook = try await KartBook.find(req.parameters.get("bookID"), on: req.db) else {
             throw Abort(.notFound)

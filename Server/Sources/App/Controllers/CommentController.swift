@@ -34,6 +34,10 @@ struct CommentController: RouteCollection {
         }
     }
 
+/// <#Description#>
+/// - Parameter req: <#req description#>
+/// - Throws: <#description#>
+/// - Returns: <#description#>
     func allCommentsOnUsersBook(req: Request) async throws -> [GetComment] {
         let user = try req.auth.require(User.self)
         guard let userID = user.id else {
@@ -66,12 +70,20 @@ struct CommentController: RouteCollection {
             try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.book.requireID(), userID: comment.user.requireID())
         }
     }
-    
+
+/// <#Description#>
+/// - Parameter req: <#req description#>
+/// - Throws: <#description#>
+/// - Returns: <#description#>
     func index(req: Request) async throws -> [Comment] {
         try await Comment.query(on: req.db)
             .all()
     }
 
+/// <#Description#>
+/// - Parameter req: <#req description#>
+/// - Throws: <#description#>
+/// - Returns: <#description#>
 func create(req: Request) async throws -> Response {
     let comment = try req.content.decode(PostComment.self)
     let user = try req.auth.require(User.self)
@@ -83,7 +95,11 @@ func create(req: Request) async throws -> Response {
     let getComment = GetComment(id: try realComment.requireID(), comment: realComment.comment, bookID: realComment.$book.id, userID: realComment.$user.id)
     return try await getComment.encodeResponse(status: .created, for: req)
 }
-    
+
+/// <#Description#>
+/// - Parameter req: <#req description#>
+/// - Throws: <#description#>
+/// - Returns: <#description#>
     func update(req: Request) async throws -> Comment {
         let patchComment = try req.content.decode(PatchComment.self)
         guard let commentFromDB =  try await Comment.find(patchComment.id, on: req.db) else {
@@ -105,6 +121,10 @@ func create(req: Request) async throws -> Response {
         return commentFromDB
     }
 
+/// <#Description#>
+/// - Parameter req: <#req description#>
+/// - Throws: <#description#>
+/// - Returns: <#description#>
     func delete(req: Request) async throws -> HTTPStatus {
         guard let comment = try await Comment.find(req.parameters.get("commentID"), on: req.db) else {
             throw Abort(.notFound)

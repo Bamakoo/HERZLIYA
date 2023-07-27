@@ -11,7 +11,6 @@ final class ProfileViewModel: ObservableObject {
  
     @Published var likedBooks = [Book]()
     @Published var booksByUsersFavoriteAuthor = [Book]()
-    @Published var kartBooks = [Book]()
     @Published var soldBooks = [Book]()
     @Published var purchasedBooks = [Book]()
     
@@ -26,14 +25,6 @@ final class ProfileViewModel: ObservableObject {
     func bookByUsersFavoriteAuthor() async throws {
         do {
             booksByUsersFavoriteAuthor = try await UseCase.Books.fetchBookByUsersFavoriteAuthor()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func getBooksInKart() async throws {
-        do {
-            kartBooks = try await UseCase.Books.fetchBooksInKart()
         } catch {
             print(error.localizedDescription)
         }
