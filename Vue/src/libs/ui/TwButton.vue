@@ -10,19 +10,26 @@
       <slot></slot>
     </div>
   </button>
-  <a v-if="href" :href="href"><slot></slot></a>
+  <RouterLink
+    v-if="href"
+    :to="href"
+    class="relative inline-flex items-center justify-center rounded-md text-sm font-semibold text-center shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+    :class="[btnSize, btnColor]"
+    ><slot></slot
+  ></RouterLink>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import { TwSpinner } from '@/libs/ui/index.vue'
+import { RouterLink } from 'vue-router'
 const props = defineProps<{
-  type?: 'button' | 'submit' | 'reset'
+  type?: 'submit' | 'reset' | 'button'
   size?: 's' | 'm' | 'l'
   disabled?: boolean
   loading?: boolean
   href?: string
-  color?: string | string[] // TO DO : define colors in DS + SG
+  color?: string // TO DO : define colors in DS + SG
 }>()
 
 const isDisabled = computed(() => props.disabled || props.loading)
@@ -45,26 +52,36 @@ const btnColor = computed(() => {
   const classes: string[] = []
 
   if (!props.color) {
-    if (isDisabled.value)
-      classes.push('bg-indigo-500 text-indigo-300 pointer-events-none focus-none')
+    if (isDisabled.value) classes.push('bg-secondary text-white pointer-events-none focus-none')
     if (props.loading) {
       isDisabled.value
-      classes.push('bg-gray-400 text-gray-100')
+      classes.push('bg-secondary-light text-white')
     }
-    classes.push('bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600 text-white')
+    classes.push(
+      'bg-secondary hover:bg-secondary-medium focus-visible:outline-secondary text-white'
+    )
   } else if (props.color) {
-    if (isDisabled.value)
-      classes.push('bg-indigo-500 text-indigo-300 pointer-events-none focus-none')
+    if (isDisabled.value) classes.push('bg-secondary text-white pointer-events-none focus-none')
     if (props.loading) {
       isDisabled.value
-      classes.push('bg-gray-400 text-gray-100')
+      classes.push('bg-secondary-light text-white')
+      if (props.color === 'red') {
+        if (isDisabled.value) classes.push('bg-red-300 text-white pointer-events-none focus-none')
+        if (props.loading) {
+          isDisabled.value
+          classes.push('bg-red-300 text-white')
+        }
+        classes.push('bg-red-600 text-white hover:bg-red-700 active:bg-red-800')
+      }
+      // else {
+      // }
     }
-    classes.push('bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600 text-white')
+    classes.push(props.color, ' focus-visible:outline-secondary text-white')
   }
   // if (!props.color) {
   //   if (isDisabled.value)
-  //     classes.push('bg-indigo-500 text-indigo-300 pointer-events-none focus-none')
-  //   classes.push('bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600 text-white')
+  //     classes.push('bg-secondary text-indigo-300 pointer-events-none focus-none')
+  //   classes.push('bg-secondary hover:bg-secondary focus-visible:outline-secondary text-white')
   // }
 
   /** CASES

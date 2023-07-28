@@ -13,7 +13,9 @@
       <TwButton type="submit">{{ submitText }}</TwButton>
     </div>
   </form>
-  <div v-else class="p-4"></div>
+  <div v-else class="p-4">
+    <slot></slot>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -60,8 +60,8 @@ const router = createRouter({
       ]
     },
     {
-      path: '/cart',
-      name: 'cart',
+      path: '/kart',
+      name: 'kart',
       component: () => import('@/views/Kart.vue')
     },
     {
@@ -71,6 +71,16 @@ const router = createRouter({
         default: () => import('@/layouts/BookLayout.vue'),
         component: () => import('@/views/BookDetails.vue')
       }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/Login.vue')
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: () => import('@/views/Signup.vue')
     }
   ],
   scrollBehavior(to, from, savedPosition) {

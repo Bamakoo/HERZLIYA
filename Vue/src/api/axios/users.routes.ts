@@ -2,37 +2,61 @@ import axios from 'axios'
 import type { Users } from '@/libs/interfaces/users'
 
 export const fetchUsers = async () => {
-  const listUsers = async () => {
-    const { data } = await axios.get('users', {
-      headers: { 'Content-Type': 'application/json' }
-    })
-    return data
+  const token = 'token' //probablement stocké dans accountAstore => fetchAccount
+  const list = async () => {
+    try {
+      const { data } = await axios.get('/users', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      return data
+    } catch (err) {
+      return (err as Error).message
+    }
   }
 
-  const getUser = async (id: Users['id']) => {
-    const { data } = await axios.get(`/users/${id}`, {
-      headers: { 'Content-Type': 'application/json' }
-    })
-    return data
+  const get = async (id: Users['id']) => {
+    try {
+      const { data } = await axios.get(`/users/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      return data
+    } catch (err) {
+      return (err as Error).message
+    }
   }
 
   const create = async (datas: Users) => {
-    const res = await axios.post('/users', {
-      data: datas
-      // headers: { 'Content-Type': 'application/json' }
-    })
-    return res
+    try {
+      const res = await axios.post('/users', {
+        data: datas
+      })
+
+      return res
+    } catch (err) {
+      return (err as Error).message
+    }
   }
   const update = async (datas: Partial<Users>) => {
-    const res = await axios.patch(`/users/:${datas.id}`, {
-      data: { datas },
-      headers: { 'Content-Type': 'application/json' }
-    })
-    return res
+    try {
+      const res = await axios.patch(`/users/:${datas.id}`, {
+        data: { datas },
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      return res
+    } catch (err) {
+      return (err as Error).message
+    }
   }
+
   const del = async (datas: Users) => {
-    const res = await axios.delete(`users/${datas.id}`, { data: { datas } })
-    return res
+    try {
+      const res = await axios.delete(`users/${datas.id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      return res
+    } catch (err) {
+      return (err as Error).message
+    }
   }
-  return { listUsers, getUser, create, update, del }
+  return { list, get, create, update, del }
 }

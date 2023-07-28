@@ -1,11 +1,12 @@
 <template>
-  <div class="mx-auto max-w-3xl my-20 p-4">
+  <div class="mx-auto max-w-3xl p-4">
     <TwForm
       :onSubmit="onSubmit"
       :onCancel="onCancel"
       submit-text="Vendre mon livre"
       title="Vendre un livre"
       description="Remplissez tous les champs du formulaire pour vendre votre livre."
+      class="bg-secondary-light/20 p-8 rounded-xl"
     >
       <div class="border-b border-gray-900/10 pb-12">
         <span class="text-red-500 font-semibold">Tous les champs sont obligatoires</span>
@@ -61,12 +62,12 @@
             <label for="state" class="block text-sm font-medium leading-6 text-gray-900"
               >État</label
             >
-            <div class="mt-2">
+            <div>
               <select
                 v-model="selectedState"
                 name="state"
                 required
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                class="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-secondary-dark sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 <option v-for="(state, index) in states" :key="index" :value="state.value">
                   {{ state.name }}
@@ -78,14 +79,15 @@
             <label for="description" class="block text-sm font-medium leading-6 text-gray-900"
               >Description</label
             >
-            <div class="mt-2">
+            <div>
               <textarea
                 v-model.trim="datas.description"
                 name="description"
                 required
                 rows="3"
+                hint="Champ obligatoire"
                 autocomplete="on"
-                class="block w-full h-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 resize-none"
+                class="block w-full h-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary-dark sm:text-sm sm:leading-6 resize-none"
               />
             </div>
           </div>
