@@ -14,9 +14,12 @@ enum MenuItem: Identifiable, CaseIterable {
     var id: Self { self }
     var title: String {
         switch self {
-            case .forgottenPassword: return "Forgot my password"
-            case .logIn: return "Log in"
-            case .createAccount: return "Create Account"
+        case .forgottenPassword:
+            return "Forgot my password"
+        case .logIn:
+            return "Log in"
+        case .createAccount:
+            return "Create Account"
         }
     }
     var image: String {

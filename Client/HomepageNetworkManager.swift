@@ -16,7 +16,7 @@ final class HomepageNetworkManager {
         let books: [Book] = try await httpClient.fetch(url: url)
         return books
     }
-    
+
     func likeABook(_ book: Book) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.likes.rawValue) else {
             print("unable to generate an URL to like a book")

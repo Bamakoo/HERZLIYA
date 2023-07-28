@@ -23,6 +23,9 @@ struct BookController: RouteCollection {
         tokenAuth.delete(":bookID", use: delete)
     }
     
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
     func sort(req: Request) async throws -> [GetBook] {
         do {
             let search = try req.query.decode(SortedBooksDTO.self)
@@ -213,6 +216,9 @@ struct BookController: RouteCollection {
         }
     }
     
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
     func getAParticularBook(req: Request) async throws -> Book {
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
             throw Abort(.notFound, reason:"unable to get a specific book")
@@ -220,12 +226,16 @@ struct BookController: RouteCollection {
         return book
     }
     
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
     func searchHandler(req: Request) async throws -> [GetBook] {
         guard let searchTerm = req.parameters.get("search") else {
             throw Abort(.badRequest)
         }
         let books = try await Book.query(on: req.db).group(.or) { group in
-            group.filter(\.$title =~ searchTerm).filter(\.$author =~ searchTerm)
+            group.filter(\.$title =~ searchTerm)
+                .filter(\.$author =~ searchTerm)
         }
             .filter(\.$status == .available)
             .all()
@@ -233,6 +243,9 @@ struct BookController: RouteCollection {
             try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
         }
     }
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
     func categorySearchHandler(req: Request) async throws -> [GetBook] {
         guard let realBookGenre = BookGenre(rawValue: req.parameters.get("genre") ?? "")
         else {
@@ -247,6 +260,9 @@ struct BookController: RouteCollection {
         }
     }
     
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
     func index(req: Request) async throws -> [GetBook] {
         do {
             let search = try req.query.decode(Book.QueryFilter.self)
@@ -276,12 +292,17 @@ struct BookController: RouteCollection {
         }
     }
     
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
     func create(req: Request) async throws -> Response {
         try Book.validate(content: req)
+        
         let user = try req.auth.require(User.self)
         guard let userID = user.id else {
             throw Abort(.badRequest, reason: "unable to get user")
         }
+        
         let book = try req.content.decode(CreateBookData.self)
         let realBook = Book(title: book.title,
                             author: book.author,
@@ -293,12 +314,16 @@ struct BookController: RouteCollection {
                             buyerID: nil,
                             status: book.status)
         try await realBook.save(on: req.db)
+        
         let getBook = GetBook(id: try realBook.requireID(), title: realBook.title, author: realBook.author, price: realBook.price, state: realBook.state)
         return try await getBook.encodeResponse(status: .created, for: req)
     }
     
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
     func update(req: Request) async throws -> Book {
-        
+        // TODO: investigate usage of token+user to buy a book
         let patchBook = try req.content.decode(PatchBook.self)
         
         guard let book  =  try await Book.find(patchBook.id, on: req.db) else {
@@ -335,6 +360,9 @@ struct BookController: RouteCollection {
         return book
     }
     
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
     func delete(req: Request) async throws -> HTTPStatus {
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
             print("unable to delete book")

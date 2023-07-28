@@ -1,9 +1,7 @@
-// swiftlint:disable all
-
 import SwiftUI
 
 struct SignInView: View {
-    
+
     @ObservedObject var viewModel = SignInViewModel()
     @State private var forgotMyPassword = false
     @State private var createAnAccount = false
@@ -21,17 +19,16 @@ struct SignInView: View {
                         DispatchQueue.main.async {
                             dismiss()
                         }
-                    }
-                    else {
+                    } else {
                         print("alert")
                     }
                 }
             }
             .buttonStyle(.borderedProminent)
-            Button("Create an account"){
+            Button("Create an account") {
                 createAnAccount.toggle()
             }
-            Button("Forgot my password"){
+            Button("Forgot my password") {
                 forgotMyPassword.toggle()
             }
         }

@@ -14,7 +14,9 @@ struct MyComments: View {
             Text($0.comment)
         }
         .onAppear {
-            viewModel.fetchMyComments()
+            Task {
+                try await viewModel.fetchMyComments()
+            }
         }
     }
 }

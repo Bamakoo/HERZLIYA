@@ -11,7 +11,7 @@ import Foundation
 struct TokenRepository<Value> {
     let account: String = "user"
     let service: String = "token"
-    
+
     var wrappedValue: String? {
         get {
             try? Keychain.getGenericPasswordForAccount(account, service: service)

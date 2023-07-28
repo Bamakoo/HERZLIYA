@@ -15,11 +15,9 @@ struct UpdateProfile: View {
             print("profile deleted")
         }
         Button("Disconnect") {
-            do {
-                try Keychain.deleteGenericPasswordForAccount("user", service: "token")
-            } catch {
-                print(error.localizedDescription)
-            }
+            @TokenRepository<Any>
+            var token: String?
+            token = nil
         }
         Button("Change my password") {
             print("changing my password")

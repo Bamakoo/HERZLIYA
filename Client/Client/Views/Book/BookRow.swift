@@ -4,7 +4,6 @@
 //
 //  Created by Emma Gaubert on 21/02/2023.
 //
-// swiftlint:disable all
 
 import SwiftUI
 
@@ -19,12 +18,5 @@ struct BookRow: View {
             Spacer()
             Text("\(book.price)$")
         }
-    }
-}
-
-struct BookRow_Previews: PreviewProvider {
-    static var books = BooksViewModel(networkManager: BooksNetworkManager(httpClient: HttpClient.self as! HttpClient)).books
-    static var previews: some View {
-        BookRow(book: books[0])
     }
 }

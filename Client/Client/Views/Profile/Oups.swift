@@ -16,11 +16,13 @@ struct Oups: View {
             Text("Oups")
             Text("That's on us!")
             Text("Profiles are only accessible to logged in users")
-            Button("Create an account") {
-                createAnAccount.toggle()
-            }
-            Button("Sign in") {
-                signIn.toggle()
+            HStack {
+                Button("Create an account") {
+                    createAnAccount.toggle()
+                }
+                Button("Sign in") {
+                    signIn.toggle()
+                }
             }
             .sheet(isPresented: $createAnAccount) {
                 CreateAccountView()

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct KartView: View {
-    @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
+    @StateObject private var viewModel = KartViewModel()
     @State private var selection: Book?
     var body: some View {
         NavigationSplitView {
@@ -16,6 +16,30 @@ struct KartView: View {
                 NavigationLink(value: book) {
                     BookRow(book: book)
                 }
+                .swipeActions(edge: .trailing) {
+                    Button { Task {
+                        try await viewModel.removeBookFromKart((book.id)!)
+                        try await viewModel.getBooksInKart()
+                    }
+                    } label: {
+                            Image(systemName: "cart.fill.badge.minus")
+                        }
+                        .tint(.red)
+                }
+                .swipeActions(edge: .leading) {
+                    Button { Task {
+                        print("buy this one book")
+                    }
+                    } label: {
+                            Image(systemName: "dollarsign")
+                        }
+                        .tint(.mint)
+                }
+            }
+            Button {
+                print("buy buy buy")
+            } label: {
+                Text("Purchase all the books in my cart")
             }
             .onAppear {
                 Task {

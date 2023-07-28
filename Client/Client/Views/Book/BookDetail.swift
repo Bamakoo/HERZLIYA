@@ -4,7 +4,6 @@
 //
 //  Created by Emma Gaubert on 21/02/2023.
 //
-// swiftlint:disable all
 
 import SwiftUI
 
@@ -24,11 +23,9 @@ struct BookDetail: View {
                 TextEditor(text: $fullText)
                     .foregroundColor(Color.gray)
                     .lineSpacing(5)
-                Button("Comment"){
+                Button("Comment") {
                     Task {
                         try await viewModel.commentOnBook((book?.id)!, fullText)
-                    }
-                    Task {
                         try await viewModel.getCommentsOnBook((book?.id)!)
                     }
                 }
@@ -50,7 +47,7 @@ struct BookDetail: View {
                     await viewModel.addBookToKart((book?.id)!)
                 }
             } label: {
-                Text("Add to kart")
+                Text("Add to cart")
             }
             .navigationBarTitle(book!.title, displayMode: .inline)
             .toolbar {
@@ -69,10 +66,6 @@ struct BookDetail: View {
             Task {
                 try await viewModel.getCommentsOnBook((book?.id)!)
             }
-        }
-        .onDisappear {
-            viewModel.commentsOnBook = [Comment]()
-            print("book detail vanishes")
         }
     }
 }

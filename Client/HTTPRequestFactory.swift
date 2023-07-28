@@ -20,7 +20,7 @@ extension URLRequest {
     func loginProtected() -> URLRequest {
         var request = self
         @TokenRepository<String?>
-         var token: String?
+        var token: String?
         if let token {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
