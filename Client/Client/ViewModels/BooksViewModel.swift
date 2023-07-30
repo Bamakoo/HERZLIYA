@@ -8,8 +8,6 @@
 import Foundation
 @MainActor
 final class BooksViewModel: ObservableObject {
-    @TokenRepository<String>
-    var token: String?
 
     @Published var title = ""
     @Published var author = ""

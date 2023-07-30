@@ -22,18 +22,18 @@ struct KartView: View {
                         try await viewModel.getBooksInKart()
                     }
                     } label: {
-                            Image(systemName: "cart.fill.badge.minus")
-                        }
-                        .tint(.red)
+                        Image(systemName: "cart.fill.badge.minus")
+                    }
+                    .tint(.red)
                 }
                 .swipeActions(edge: .leading) {
                     Button { Task {
                         print("buy this one book")
                     }
                     } label: {
-                            Image(systemName: "dollarsign")
-                        }
-                        .tint(.mint)
+                        Image(systemName: "dollarsign")
+                    }
+                    .tint(.mint)
                 }
             }
             Button {

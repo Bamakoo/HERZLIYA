@@ -30,10 +30,13 @@ struct Homepage: View {
                 }
                 .swipeActions(edge: .leading) {
                     Button {
-                        Task { await viewModel.addBookToKart((book.id)!) }} label: {
-                            Image(systemName: "cart.badge.plus")
+                        Task {
+                            await viewModel.addBookToKart((book.id)!)
                         }
-                        .tint(.mint)
+                    } label: {
+                        Image(systemName: "cart.badge.plus")
+                    }
+                    .tint(.mint)
                 }
             }
             .toolbarRole(.editor)
