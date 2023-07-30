@@ -12,14 +12,8 @@ final class HomepageViewModel: ObservableObject {
 
     @Published var books = [Book]()
     @Published var sortedBooks = [Book]()
-    @Published var isSorting: Bool = false
     @Published var sortAscending: Bool = false
-    @Published var selectedDisplay: WhatToDisplay = .books
-    @Published var sortOrFilter: SortOrFilter = .filter
-    @Published var selectedFilter: Filters = .genre(.action)
     @Published var selectedSort: SortBy = .genre
-    @Published var selectedMenu: HomepageMenuSelector = .display
-    @Published var selectedSubMenu: HomepageSubMenuSelector = .author
 
     private let networkManager: HomepageNetworkManager
 
