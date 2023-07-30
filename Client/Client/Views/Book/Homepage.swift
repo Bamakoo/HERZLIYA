@@ -32,7 +32,7 @@ struct Homepage: View {
                     Button {
                         Task {
                             try await viewModel.buyBook((book.id)!)
-                            try await viewModel.fetchBooks()
+                            await viewModel.fetchBooks()
                         }
                     } label: {
                         Image(systemName: "dollarsign")

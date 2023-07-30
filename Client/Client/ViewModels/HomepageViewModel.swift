@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 final class HomepageViewModel: ObservableObject {
-
+    
     @Published var books = [Book]()
     @Published var sortedBooks = [Book]()
     @Published var isSorting: Bool = false
@@ -20,13 +20,13 @@ final class HomepageViewModel: ObservableObject {
     @Published var selectedSort: SortBy = .genre
     @Published var selectedMenu: HomepageMenuSelector = .display
     @Published var selectedSubMenu: HomepageSubMenuSelector = .author
-
+    
     private let networkManager: HomepageNetworkManager
-
+    
     init(networkManager: HomepageNetworkManager) {
         self.networkManager = networkManager
     }
-
+    
     func likeABook(_ book: Book) async {
         do {
             _ = try await networkManager.likeABook(book)
@@ -42,7 +42,7 @@ final class HomepageViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-
+    
     func fetchBooks() async {
         do {
             books = try await UseCase.Books.fetch()
@@ -50,19 +50,24 @@ final class HomepageViewModel: ObservableObject {
             print("unable to fetch books because of : \(error.localizedDescription)")
         }
     }
-
+    
     func sort() async {
         do {
-            books = try await networkManager.sort(selectedSort, sortAscending)
-            print(sortedBooks)
+            let queryItems: [URLQueryItem] =
+            [
+                URLQueryItem(name: "by",
+                             value: selectedSort.rawValue), URLQueryItem(name: "ascending",
+                                                                         value: String(sortAscending))
+            ]
+            books = try await UseCase.Books.sort(queryItems)
         } catch {
             print(error.localizedDescription)
         }
     }
-
+    
     func addBookToKart(_ bookID: UUID) async {
         do {
-                try await networkManager.addBookToKart(bookID)
+            try await networkManager.addBookToKart(bookID)
             print("done adding book to kart")
         } catch {
             print(error.localizedDescription)
