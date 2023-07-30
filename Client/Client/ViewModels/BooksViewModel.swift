@@ -23,7 +23,7 @@ final class BooksViewModel: ObservableObject {
     @Published var commentsOnBook = [Comment]()
 
     private let networkManager: BooksNetworkManager
-    
+
     init(networkManager: BooksNetworkManager) {
         self.networkManager = networkManager
     }

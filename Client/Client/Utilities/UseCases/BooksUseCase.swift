@@ -46,7 +46,7 @@ extension UseCase {
             let books = try await API.Books.sort(URLQueryItems)
             return books
         }
-        
+
         static func create(_ newBook: CreateBookData) async throws {
             try await API.Books.create(newBook)
         }

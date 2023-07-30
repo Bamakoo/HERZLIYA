@@ -27,8 +27,7 @@ final class HomepageViewModel: ObservableObject {
                 return
             }
                 try await UseCase.Books.likeABook(bookID)
-            }
-         catch {
+            } catch {
             print(error.localizedDescription)
         }
     }

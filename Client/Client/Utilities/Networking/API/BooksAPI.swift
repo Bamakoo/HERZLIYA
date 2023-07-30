@@ -16,7 +16,7 @@ extension API {
             let books = try decoder.decode([Book].self, from: bookData)
             return books
         }
-        
+
         static func likeABook(_ bookID: UUID) async throws {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.likes(bookID)).loginProtected()
             try await HTTP.post(with: request, andBody: nil)
@@ -67,9 +67,9 @@ extension API {
             let books = try decoder.decode([Book].self, from: bookData)
             return books
         }
-        
+
         static func create(_ newBook: CreateBookData) async throws {
-            var request = try HTTPRequestFactory.request(from: NewEndpoint.book()).loginProtected()
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.book()).loginProtected()
             let endoder = JSONEncoder()
             let bookData = try endoder.encode(newBook)
             try await HTTP.post(with: request, andBody: bookData)

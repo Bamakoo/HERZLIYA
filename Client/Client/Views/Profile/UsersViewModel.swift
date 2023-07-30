@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 final class UsersViewModel: ObservableObject {
-    
+
     @Published var currentPassword = ""
     @Published var confirmCurrentPassword = ""
     @Published var newPassword = ""
@@ -22,13 +22,13 @@ final class UsersViewModel: ObservableObject {
     @Published var favoriteAuthor = ""
     @Published var city = ""
     @Published var country = ""
-    
+
     private let networkManager: UserNetworkManager
-    
+
     init(networkManager: UserNetworkManager) {
         self.networkManager = networkManager
     }
-    
+
     @MainActor
     func createANewUser() async throws {
         do {
