@@ -23,8 +23,12 @@ final class HomepageViewModel: ObservableObject {
 
     func likeABook(_ book: Book) async {
         do {
-            _ = try await networkManager.likeABook(book)
-        } catch {
+            guard let bookID = book.id else {
+                return
+            }
+                try await UseCase.Books.likeABook(bookID)
+            }
+         catch {
             print(error.localizedDescription)
         }
     }
