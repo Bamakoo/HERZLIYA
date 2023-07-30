@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 final class HomepageViewModel: ObservableObject {
-    
+
     @Published var books = [Book]()
     @Published var sortedBooks = [Book]()
     @Published var isSorting: Bool = false
@@ -20,13 +20,13 @@ final class HomepageViewModel: ObservableObject {
     @Published var selectedSort: SortBy = .genre
     @Published var selectedMenu: HomepageMenuSelector = .display
     @Published var selectedSubMenu: HomepageSubMenuSelector = .author
-    
+
     private let networkManager: HomepageNetworkManager
-    
+
     init(networkManager: HomepageNetworkManager) {
         self.networkManager = networkManager
     }
-    
+
     func likeABook(_ book: Book) async {
         do {
             _ = try await networkManager.likeABook(book)
@@ -34,7 +34,7 @@ final class HomepageViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func buyBook(_ bookID: UUID) async throws {
         do {
             try await UseCase.Books.buyBook(bookID)
@@ -42,7 +42,7 @@ final class HomepageViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func fetchBooks() async {
         do {
             books = try await UseCase.Books.fetch()
@@ -50,7 +50,7 @@ final class HomepageViewModel: ObservableObject {
             print("unable to fetch books because of : \(error.localizedDescription)")
         }
     }
-    
+
     func sort() async {
         do {
             let queryItems: [URLQueryItem] =
@@ -64,7 +64,7 @@ final class HomepageViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func addBookToKart(_ bookID: UUID) async {
         do {
             try await networkManager.addBookToKart(bookID)

@@ -57,3 +57,4 @@ struct CreateBookData: Codable {
     var status: BookStatus
     var price: Int
 }
+

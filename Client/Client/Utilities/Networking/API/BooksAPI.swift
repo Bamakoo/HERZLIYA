@@ -54,13 +54,20 @@ extension API {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.purchaseBook(bookID)).loginProtected()
             try await HTTP.patch(with: request, andBody: nil)
         }
-        
+
         static func sort(_ URLQueryItems: [URLQueryItem]) async throws -> [Book] {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.sort(URLQueryItems))
             let bookData = try await HTTP.get(with: request)
             let decoder = JSONDecoder()
             let books = try decoder.decode([Book].self, from: bookData)
             return books
+        }
+        
+        static func create(_ newBook: CreateBookData) async throws {
+            var request = try HTTPRequestFactory.request(from: NewEndpoint.book()).loginProtected()
+            let endoder = JSONEncoder()
+            let bookData = try endoder.encode(newBook)
+            try await HTTP.post(with: request, andBody: bookData)
         }
     }
 }

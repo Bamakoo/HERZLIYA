@@ -37,10 +37,14 @@ extension UseCase {
         static func buyBook(_ bookID: UUID) async throws {
             try await API.Books.purchase(bookID)
         }
-        
+
         static func sort(_ URLQueryItems: [URLQueryItem]) async throws -> [Book] {
             let books = try await API.Books.sort(URLQueryItems)
             return books
+        }
+        
+        static func create(_ newBook: CreateBookData) async throws {
+            try await API.Books.create(newBook)
         }
     }
 }

@@ -23,6 +23,7 @@ final class BooksViewModel: ObservableObject {
     @Published var commentsOnBook = [Comment]()
 
     private let networkManager: BooksNetworkManager
+    
     init(networkManager: BooksNetworkManager) {
         self.networkManager = networkManager
     }
@@ -78,17 +79,14 @@ final class BooksViewModel: ObservableObject {
 
     func createBook() async {
         do {
-            try await networkManager.createBook(title: title,
-                                                author: author,
-                                                description: description,
-                                                genre: genre,
-                                                state: state,
-                                                status: status,
-                                                price: price)
-            description = ""
-            price = 1
-            title = ""
-            author = ""
+            let newBook: CreateBookData = CreateBookData(title: title,
+                                                         author: author,
+                                                         description: description,
+                                                         genre: genre,
+                                                         state: state,
+                                                         status: status,
+                                                         price: price)
+            try await UseCase.Books.create(newBook)
         } catch {
             print(error.localizedDescription)
         }
