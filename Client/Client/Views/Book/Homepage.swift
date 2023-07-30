@@ -31,12 +31,23 @@ struct Homepage: View {
                 .swipeActions(edge: .leading) {
                     Button {
                         Task {
+                            try await viewModel.buyBook((book.id)!)
+                            try await viewModel.fetchBooks()
+                        }
+                    } label: {
+                        Image(systemName: "dollarsign")
+                    }
+                    .tint(.mint)
+                }
+                .swipeActions(edge: .leading) {
+                    Button {
+                        Task {
                             await viewModel.addBookToKart((book.id)!)
                         }
                     } label: {
                         Image(systemName: "cart.badge.plus")
                     }
-                    .tint(.mint)
+                    .tint(Color.purple)
                 }
             }
             .toolbarRole(.editor)

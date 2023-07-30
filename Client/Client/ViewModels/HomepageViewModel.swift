@@ -34,6 +34,14 @@ final class HomepageViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
+    
+    func buyBook(_ bookID: UUID) async throws {
+        do {
+            try await UseCase.Books.buyBook(bookID)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 
     func fetchBooks() async {
         do {
