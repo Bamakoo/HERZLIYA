@@ -20,7 +20,29 @@ struct BookController: RouteCollection {
         tokenAuth.get("favorite-author", use: getMyFavoriteAuthorsBooks)
         tokenAuth.post(use: create)
         tokenAuth.patch(use: update)
+        tokenAuth.patch("purchase", ":bookID", use: purchase)
         tokenAuth.delete(":bookID", use: delete)
+    }
+    
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
+    func purchase(req: Request) async throws -> Response {
+        
+        let user = try req.auth.require(User.self)
+        guard let userID = user.id else {
+            throw Abort(.badRequest, reason: "unable to get user")
+        }
+        
+        guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
+            print("unable to delete book")
+            throw Abort(.notFound)
+        }
+        
+        book.$buyer.id = userID
+        book.status = .purchased
+        try await book.update(on: req.db)
+        return try await book.encodeResponse(status: .ok, for: req)
     }
     
     /// <#Description#>
@@ -326,36 +348,46 @@ struct BookController: RouteCollection {
         // TODO: investigate usage of token+user to buy a book
         let patchBook = try req.content.decode(PatchBook.self)
         
-        guard let book  =  try await Book.find(patchBook.id, on: req.db) else {
+        guard let book =  try await Book.find(patchBook.id, on: req.db) else {
             throw Abort(.notFound)
         }
+        
         guard patchBook.buyerID != book.$seller.id else {
-            throw Abort(.badRequest, reason: "you can't buy your own book")
+            throw Abort(.badRequest, reason: "you can't buy your own book!")
         }
+        
         if let buyerID = patchBook.buyerID {
             book.$buyer.id = buyerID
         }
+        
         if let title = patchBook.title {
             book.title = title
         }
+        
         if let description = patchBook.description {
             book.description = description
         }
+        
         if let state = patchBook.state {
             book.state = state
         }
+        
         if let status = patchBook.status {
             book.status = status
         }
+        
         if let price = patchBook.price {
             book.price = price
         }
+        
         if let author = patchBook.author {
             book.author = author
         }
+        
         if let genre = patchBook.genre {
             book.genre = genre
         }
+        
         try await book.update(on: req.db)
         return book
     }
