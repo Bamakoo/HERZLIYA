@@ -21,6 +21,13 @@ extension API {
             let userToken = try decoder.decode(UserToken.self, from: userTokenData)
             return userToken.value
         }
+
+        static func create(_ newUser: NewUser) async throws {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.users())
+            let encoder = JSONEncoder()
+            let userData = try encoder.encode(newUser)
+            try await HTTP.post(with: request, andBody: userData)
+        }
     }
 }
 

@@ -14,5 +14,9 @@ extension UseCase {
             var token: String?
             token = try await API.User.login(username, password)
         }
+
+        static func createNewUser(_ newUser: NewUser) async throws {
+            try await API.User.create(newUser)
+        }
     }
 }

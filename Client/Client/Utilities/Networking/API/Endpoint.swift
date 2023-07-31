@@ -81,4 +81,8 @@ struct NewEndpoint {
     static func addBookToKart(_ bookID: UUID) -> APIEndpoint {
         return HerzliyaEndpoint(path: "/karts/add-book/\(bookID)", queryItems: nil)
     }
+
+    static func users() -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/users", queryItems: nil)
+    }
 }
