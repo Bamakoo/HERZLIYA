@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct Homepage: View {
-    @StateObject private var viewModel = HomepageViewModel(networkManager: HomepageNetworkManager(
-        httpClient: Networking()))
+    @StateObject private var viewModel = HomepageViewModel()
     @State private var selectedBook: Book?
     @State private var filterByUsername: String = ""
     var body: some View {

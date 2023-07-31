@@ -15,12 +15,6 @@ final class HomepageViewModel: ObservableObject {
     @Published var sortAscending: Bool = false
     @Published var selectedSort: SortBy = .genre
 
-    private let networkManager: HomepageNetworkManager
-
-    init(networkManager: HomepageNetworkManager) {
-        self.networkManager = networkManager
-    }
-
     func likeABook(_ book: Book) async {
         do {
             guard let bookID = book.id else {

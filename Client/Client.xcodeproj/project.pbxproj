@@ -28,7 +28,6 @@
 		A499DCD72A2496B800777B8F /* Homepage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCD62A2496B800777B8F /* Homepage.swift */; };
 		A499DCD92A24A46400777B8F /* SearchBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCD82A24A46400777B8F /* SearchBook.swift */; };
 		A499DCDB2A2749E500777B8F /* HomepageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCDA2A2749E500777B8F /* HomepageViewModel.swift */; };
-		A499DCDD2A274CA900777B8F /* HomepageNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCDC2A274CA900777B8F /* HomepageNetworkManager.swift */; };
 		A499DCE02A274DFC00777B8F /* HomepageMenuSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCDF2A274DFC00777B8F /* HomepageMenuSelector.swift */; };
 		A499DCE22A2A17E800777B8F /* ProfileSwitchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCE12A2A17E800777B8F /* ProfileSwitchViewModel.swift */; };
 		A499DCE62A2F27B700777B8F /* SortedBooksDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499DCE52A2F27B700777B8F /* SortedBooksDTO.swift */; };
@@ -127,7 +126,6 @@
 		A499DCD62A2496B800777B8F /* Homepage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homepage.swift; sourceTree = "<group>"; };
 		A499DCD82A24A46400777B8F /* SearchBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBook.swift; sourceTree = "<group>"; };
 		A499DCDA2A2749E500777B8F /* HomepageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewModel.swift; sourceTree = "<group>"; };
-		A499DCDC2A274CA900777B8F /* HomepageNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageNetworkManager.swift; sourceTree = SOURCE_ROOT; };
 		A499DCDF2A274DFC00777B8F /* HomepageMenuSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageMenuSelector.swift; sourceTree = "<group>"; };
 		A499DCE12A2A17E800777B8F /* ProfileSwitchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSwitchViewModel.swift; sourceTree = "<group>"; };
 		A499DCE52A2F27B700777B8F /* SortedBooksDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedBooksDTO.swift; sourceTree = "<group>"; };
@@ -463,7 +461,6 @@
 		A4DD9DC029DB2D2D0063DD9B /* NetworkManager */ = {
 			isa = PBXGroup;
 			children = (
-				A499DCDC2A274CA900777B8F /* HomepageNetworkManager.swift */,
 				A4C9866A299FDB68003CF879 /* BooksNetworkManager.swift */,
 				A43C72DD29CDD80700CDF56B /* UserNetworkManager.swift */,
 				A44D59CC29ACB33200FF7F22 /* KartsNetworkManager.swift */,
@@ -673,7 +670,6 @@
 				A44D59AF29A3722500FF7F22 /* CreateBookView.swift in Sources */,
 				A4AF589A29CC628E003F03AD /* Rating.swift in Sources */,
 				A499DCD92A24A46400777B8F /* SearchBook.swift in Sources */,
-				A499DCDD2A274CA900777B8F /* HomepageNetworkManager.swift in Sources */,
 				A4AF589629CC617A003F03AD /* Comment.swift in Sources */,
 				A4EF9CCD2A557DE700E7897B /* ChangeMyPassword.swift in Sources */,
 				A4DD9DC629DF14630063DD9B /* LoginEnum .swift in Sources */,
