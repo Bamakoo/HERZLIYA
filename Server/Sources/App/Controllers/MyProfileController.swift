@@ -1,6 +1,7 @@
 import Fluent
 import Vapor
-
+// TODO: refactor to use routes.grouped("me")
+// TODO: move all the endpoints related to the user to /me endpoint
 struct MyProfileController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let tokenProtected = routes.grouped(UserToken.authenticator())
@@ -16,6 +17,6 @@ struct MyProfileController: RouteCollection {
                 try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
             }
         }
-        }
     }
+}
 

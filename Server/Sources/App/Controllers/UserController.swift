@@ -30,7 +30,7 @@ struct UserController: RouteCollection {
         guard newUser.password == newUser.confirmPassword else {
             throw Abort(.badRequest, reason: "Passwords did not match")
         }
-        let user = try User(
+        let user = try User (
             username: newUser.username,
             email: newUser.email,
             passwordHash: Bcrypt.hash(newUser.password),

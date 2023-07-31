@@ -1,14 +1,20 @@
 import Fluent
 import Vapor
-
+// TODO: ID after the object that it's references
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         /// collection of /books endpoints
         let bookRoutes = routes.grouped("books")
         bookRoutes.get(use: index)
         bookRoutes.get(":bookID", use: getAParticularBook)
+        // TODO: turn this into an optional query item handled by index func
+        // TODO: /books?sort=true
         bookRoutes.get("sort", use: sort)
+        // TODO: turn this into an optional query item handled by index func
+        // TODO: /books?genre=scienceFiction
         bookRoutes.get("search", "genres", ":genre", use: categorySearchHandler)
+        // TODO: turn this into an optional query item handled by index func
+        // TODO: /books?search="jean"
         bookRoutes.get("search", ":search", use: searchHandler)
         let tokenAuthenticator = UserToken.authenticator()
         let tokenMiddleware = UserToken.guardMiddleware()
@@ -20,7 +26,7 @@ struct BookController: RouteCollection {
         tokenAuth.get("favorite-author", use: getMyFavoriteAuthorsBooks)
         tokenAuth.post(use: create)
         tokenAuth.patch(use: update)
-        tokenAuth.patch("purchase", ":bookID", use: purchase)
+        tokenAuth.patch(":bookID", "purchase", use: purchase)
         tokenAuth.delete(":bookID", use: delete)
     }
     

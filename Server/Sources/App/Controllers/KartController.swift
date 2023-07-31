@@ -55,10 +55,12 @@ struct KartController: RouteCollection {
             print("unable to delete book")
             throw Abort(.notFound)
         }
+        
         let user = try req.auth.require(User.self)
         guard let userID = user.id else {
             throw Abort(.badRequest, reason: "unable to get user")
         }
+        
         guard let kart = try await Kart.query(on: req.db)
             .filter(\.$user.$id == userID)
             .first(),
@@ -66,16 +68,19 @@ struct KartController: RouteCollection {
         else {
             throw Abort(.notFound, reason: "unable to find kart")
         }
+        
         let kartBook = KartBook(kartID: kartID, bookID: bookID)
         try await kartBook.save(on: req.db)
         return try await kartBook.encodeResponse(status: .ok, for: req)
     }
     
+    // TODO: move to /books/:bookID/add-to-kart
     func addBookToUserKart(req: Request) async throws -> Response {
         guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db),
               let userID = user.id else {
             throw Abort(.notFound, reason: "unable to locate the User")
         }
+        
         guard let kart = try await Kart.query(on: req.db)
             .filter(\.$user.$id == userID)
             .first(),
@@ -83,17 +88,19 @@ struct KartController: RouteCollection {
         else {
             throw Abort(.notFound, reason: "unable to find kart")
         }
+        
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db),
               let bookID = book.id
         else {
             print("unable to delete book")
             throw Abort(.notFound)
         }
+        
         let kartBook = KartBook(kartID: kartID, bookID: bookID)
         try await kartBook.save(on: req.db)
         return try await kartBook.encodeResponse(status: .ok, for: req)
     }
-
+// TODO: delete all useless functions and endpoints
     func index(req: Request) async throws -> [Kart] {
         try await Kart.query(on: req.db).all()
     }

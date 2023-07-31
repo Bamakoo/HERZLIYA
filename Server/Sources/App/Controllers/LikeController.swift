@@ -1,6 +1,8 @@
 import Fluent
 import Vapor
 
+// TODO: no need for a specific controller
+
 struct LikeController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let tokenProtectedLikes = routes.grouped(UserToken.authenticator())

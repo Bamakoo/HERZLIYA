@@ -34,6 +34,8 @@ final class Book: Model, Content {
     @Enum(key: "book_status")
     var status: BookStatus
     
+    // TODO: turn back Comment & Like to children => one to many
+    
     @Siblings(through: Comment.self, from: \.$book, to: \.$user)
     public var user: [User]
     
