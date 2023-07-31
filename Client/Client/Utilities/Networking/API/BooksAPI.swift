@@ -74,5 +74,10 @@ extension API {
             let bookData = try endoder.encode(newBook)
             try await HTTP.post(with: request, andBody: bookData)
         }
+
+        static func addBookToKart(_ bookID: UUID) async throws {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.addBookToKart(bookID)).loginProtected()
+            try await HTTP.post(with: request, andBody: nil)
+        }
     }
 }

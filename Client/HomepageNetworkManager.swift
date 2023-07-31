@@ -7,10 +7,13 @@
 import Foundation
 
 final class HomepageNetworkManager {
+
     let httpClient: HttpClient
+
     init(httpClient: HttpClient) {
         self.httpClient = httpClient
     }
+
     func fetchBooks() async throws -> [Book] {
         let url = URL(string: Request.baseURL + Endpoint.books)!
         let books: [Book] = try await httpClient.fetch(url: url)
@@ -29,6 +32,7 @@ final class HomepageNetworkManager {
         let newLike = Like(bookID: bookID)
         _ = try await httpClient.sendData(to: url, object: newLike, httpMethod: HttpMethods.POST.rawValue)
     }
+
     func sort(_ sortBy: SortBy,
               _ sortAscending: Bool) async throws -> [Book] {
         var components = URLComponents()
@@ -44,6 +48,7 @@ final class HomepageNetworkManager {
         let sortedBooks: [Book] = try await httpClient.fetch(url: url)
         return sortedBooks
     }
+
     func addBookToKart(_ bookID: UUID) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.addBookToKart) else {
             throw HttpError.badURL

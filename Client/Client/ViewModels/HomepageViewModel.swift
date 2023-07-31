@@ -52,9 +52,8 @@ final class HomepageViewModel: ObservableObject {
         do {
             let queryItems: [URLQueryItem] =
             [
-                URLQueryItem(name: "by",
-                             value: selectedSort.rawValue), URLQueryItem(name: "ascending",
-                                                                         value: String(sortAscending))
+                URLQueryItem(name: "by", value: selectedSort.rawValue),
+                URLQueryItem(name: "ascending", value: String(sortAscending))
             ]
             books = try await UseCase.Books.sort(queryItems)
         } catch {
@@ -64,8 +63,7 @@ final class HomepageViewModel: ObservableObject {
 
     func addBookToKart(_ bookID: UUID) async {
         do {
-            try await networkManager.addBookToKart(bookID)
-            print("done adding book to kart")
+            try await UseCase.Books.addBookToKart(bookID)
         } catch {
             print(error.localizedDescription)
         }

@@ -9,7 +9,7 @@ struct KartController: RouteCollection {
         tokenProtectedKarts.put("karts", use: update)
         tokenProtectedKarts.post("karts", use: create)
         tokenProtectedKarts.post("add", "book", ":bookID", "user-kart", ":userID", use: addBookToUserKart)
-        tokenProtectedKarts.post("karts", "add-book", use: addBookToKart)
+        tokenProtectedKarts.post("karts", "add-book", ":bookID", use: addBookToKart)
         tokenProtectedKarts.delete("karts", "remove-book", ":bookID", use: removeBookFromKart)
         tokenProtectedKarts.group("karts", ":kartID") { kart in
             kart.delete(use: delete)
@@ -49,7 +49,12 @@ struct KartController: RouteCollection {
     }
     
     func addBookToKart(req: Request) async throws -> Response {
-        let addBookToKartDTO = try req.content.decode(AddBookToKartDTO.self)
+        guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db),
+              let bookID = book.id
+        else {
+            print("unable to delete book")
+            throw Abort(.notFound)
+        }
         let user = try req.auth.require(User.self)
         guard let userID = user.id else {
             throw Abort(.badRequest, reason: "unable to get user")
@@ -61,9 +66,9 @@ struct KartController: RouteCollection {
         else {
             throw Abort(.notFound, reason: "unable to find kart")
         }
-        let kartBook = KartBook(kartID: kartID, bookID: addBookToKartDTO.bookID)
+        let kartBook = KartBook(kartID: kartID, bookID: bookID)
         try await kartBook.save(on: req.db)
-        return try await addBookToKartDTO.encodeResponse(status: .ok, for: req)
+        return try await kartBook.encodeResponse(status: .ok, for: req)
     }
     
     func addBookToUserKart(req: Request) async throws -> Response {

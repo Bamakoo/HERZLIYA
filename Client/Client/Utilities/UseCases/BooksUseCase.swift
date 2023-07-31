@@ -50,5 +50,9 @@ extension UseCase {
         static func create(_ newBook: CreateBookData) async throws {
             try await API.Books.create(newBook)
         }
+
+        static func addBookToKart(_ bookID: UUID) async throws {
+            try await API.Books.addBookToKart(bookID)
+        }
     }
 }

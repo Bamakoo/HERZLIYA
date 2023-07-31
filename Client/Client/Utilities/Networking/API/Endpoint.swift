@@ -77,4 +77,8 @@ struct NewEndpoint {
     static func sort(_ URLQueryItems: [URLQueryItem]) -> APIEndpoint {
         return HerzliyaEndpoint(path: "/books/sort", queryItems: URLQueryItems)
     }
+
+    static func addBookToKart(_ bookID: UUID) -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/karts/add-book/\(bookID)", queryItems: nil)
+    }
 }
