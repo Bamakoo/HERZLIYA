@@ -18,5 +18,9 @@ extension UseCase {
         static func createNewUser(_ newUser: NewUser) async throws {
             try await API.User.create(newUser)
         }
+
+        static func changePassword(_ patchedPassword: PatchPassword) async throws {
+            try await API.User.changePassword(patchedPassword)
+        }
     }
 }

@@ -30,8 +30,13 @@ struct NewEndpoint {
     static func book() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/books", queryItems: nil)
     }
+
+    static func changePassword() -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/change-password", queryItems: nil)
+    }
+
     static func likedBooks() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/books/likes", queryItems: nil)
+        return HerzliyaEndpoint(path: "/me/likes", queryItems: nil)
     }
 
     static func likes(_ bookID: UUID) -> APIEndpoint {

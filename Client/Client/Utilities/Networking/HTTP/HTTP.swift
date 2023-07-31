@@ -26,9 +26,7 @@ struct HTTP: HTTPService {
         var request = request
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
-        if let body {
-            request.httpBody = body
-        }
+        request.httpBody = body
         return try await executeRequest(request: request, session: session)
     }
     static func patch(with request: URLRequest,
@@ -36,6 +34,7 @@ struct HTTP: HTTPService {
                       using session: URLSession = .shared) async throws -> Data {
         var request = request
         request.httpMethod = "PATCH"
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
         request.httpBody = body
         return try await executeRequest(request: request, session: session)
     }

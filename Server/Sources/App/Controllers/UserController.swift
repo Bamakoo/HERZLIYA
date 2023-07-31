@@ -5,6 +5,7 @@ struct UserController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let createNewUser = routes.grouped("users")
         createNewUser.post(use: create)
+        
         let tokenProtectedUsers = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
         tokenProtectedUsers.get("users", use: index)

@@ -48,14 +48,13 @@ final class UsersViewModel: ObservableObject {
 
     func changeUserPassword() async throws {
         do {
-            let patchedPassword = PatchPassword(id: "D9C1869E-1250-4610-B49C-5EC2E3949885",
-                                                currentPassword: currentPassword,
+            let patchedPassword = PatchPassword(currentPassword: currentPassword,
                                                 confirmCurrentPassword: confirmCurrentPassword,
                                                 newPassword: newPassword,
                                                 confirmNewPassword: confirmNewPasswordd,
                                                 favoriteAuthor: favoriteAuthor,
                                                 favoriteBook: favoriteBook)
-            try await networkManager.changePassword(with: patchedPassword)
+            try await UseCase.User.changePassword(patchedPassword)
         } catch {
             print(error.localizedDescription)
         }
