@@ -7,9 +7,6 @@ struct BookController: RouteCollection {
         let bookRoutes = routes.grouped("books")
         bookRoutes.get(use: index)
         bookRoutes.get(":bookID", use: getAParticularBook)
-        // TODO: turn this into an optional query item handled by index func
-        // TODO: /books?search="jean"
-        bookRoutes.get("search", ":search", use: searchHandler)
         let tokenAuthenticator = UserToken.authenticator()
         let tokenMiddleware = UserToken.guardMiddleware()
         let tokenAuth = bookRoutes.grouped(tokenAuthenticator, tokenMiddleware)
@@ -245,10 +242,7 @@ struct BookController: RouteCollection {
     /// <#Description#>
     /// - Parameter req: <#req description#>
     /// - Returns: <#description#>
-    func searchHandler(req: Request) async throws -> [GetBook] {
-        guard let searchTerm = req.parameters.get("search") else {
-            throw Abort(.badRequest)
-        }
+    func searchHandler(req: Request, searchTerm: String) async throws -> [GetBook] {
         let books = try await Book.query(on: req.db).group(.or) { group in
             group.filter(\.$title =~ searchTerm)
                 .filter(\.$author =~ searchTerm)
@@ -265,31 +259,36 @@ struct BookController: RouteCollection {
     /// - Returns: <#description#>
     func index(req: Request) async throws -> [GetBook] {
         do {
-            let search = try req.query.decode(Book.QueryFilter.self)
+            let queryItems = try req.query.decode(Book.QueryFilter.self)
+            if let searchTerm = queryItems.search {
+                // TODO: it is possible to chain search, filter AND sort
+                return try await searchHandler(req: req, searchTerm: searchTerm)
+            }
             let books = try await Book.query(on: req.db).group(.and) { group in
-                if let genre = search.genre {
+                if let genre = queryItems.genre {
                     group.filter(\.$genre == genre)
                 }
-                if let state = search.state {
+                if let state = queryItems.state {
                     group.filter(\.$state == state)
                 }
-                if let title = search.title {
+                if let title = queryItems.title {
                     group.filter(\.$title == title)
                 }
-                if let author = search.author {
+                if let author = queryItems.author {
                     group.filter(\.$author == author)
                 }
-                if let price = search.price {
+                if let price = queryItems.price {
                     group.filter(\.$price == price)
                 }
                 group.filter(\.$status == .available)
             } .all()
-            if let sortBoolean = search.sort {
+            if let sortBoolean = queryItems.sort {
                 switch sortBoolean {
                 case true:
-                    if let sortBy = search.by,
-                       let ascendingBool = search.ascending
+                    if let sortBy = queryItems.by,
+                       let ascendingBool = queryItems.ascending
                     {
+                        // TODO: sort can take an optional Array of Getbooks and return an array of books
                         return try await sort(req: req, searchBy: sortBy, searchBool: ascendingBool)
                     }
                 case false:

@@ -13,6 +13,7 @@ extension Book {
     /// Used to filter URL parameters 
     struct QueryFilter: Content {
         let sort: Bool?
+        let search: String?
         let by: String?
         let ascending: Bool?
         let genre: BookGenre?
