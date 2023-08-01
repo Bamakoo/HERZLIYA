@@ -91,29 +91,6 @@ final class BooksNetworkManager {
         return books
     }
 
-    func createBook(title: String,
-                    author: String,
-                    description: String,
-                    genre: BookGenre,
-                    state: BookState,
-                    status: BookStatus,
-                    price: Int
-    ) async throws {
-        guard let url = URL(string: Request.baseURL + Endpoint.books) else {
-            print("Unable to create valid URL for creating the book")
-            return
-        }
-
-        let newBook = CreateBookData(title: title, author: author,
-                                     description: description, genre: genre,
-                                     state: state, status: status,
-                        price: price)
-        print(newBook)
-        _ = try await httpClient.sendData(to: url,
-                                          object: newBook,
-                                          httpMethod: HttpMethods.POST.rawValue)
-    }
-
     func purchaseBook(bookID: String) async throws {
         guard let url = URL(string: Request.baseURL + Endpoint.books) else {
             print("unable to generate an URL to purchase a book")

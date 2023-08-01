@@ -9,7 +9,6 @@ struct BookController: RouteCollection {
         bookRoutes.get(":bookID", use: getAParticularBook)
         // TODO: turn this into an optional query item handled by index func
         // TODO: /books?sort=true
-        bookRoutes.get("sort", use: sort)
         // TODO: turn this into an optional query item handled by index func
         // TODO: /books?genre=scienceFiction
         bookRoutes.get("search", "genres", ":genre", use: categorySearchHandler)
@@ -54,14 +53,8 @@ struct BookController: RouteCollection {
     /// <#Description#>
     /// - Parameter req: <#req description#>
     /// - Returns: <#description#>
-    func sort(req: Request) async throws -> [GetBook] {
+    func sort(req: Request, searchBy: String, searchBool: Bool) async throws -> [GetBook] {
         do {
-            let search = try req.query.decode(SortedBooksDTO.self)
-            guard let searchBy = search.by,
-                  let searchBool = search.ascending
-            else {
-                throw Abort(.badRequest, reason: "unable to get the url parameters")
-            }
             switch (searchBy, searchBool) {
             case (SortBy.title.rawValue, true):
                 let books = try await Book.query(on: req.db)
@@ -312,6 +305,23 @@ struct BookController: RouteCollection {
                 }
                 group.filter(\.$status == .available)
             } .all()
+            if let sortBoolean = search.sort {
+                switch sortBoolean {
+                case true:
+                    if let sortBy = search.by,
+                       let ascendingBool = search.ascending
+                    {
+                        return try await sort(req: req, searchBy: sortBy, searchBool: ascendingBool)
+                    }
+                case false:
+                    return try books.map { book in
+                        try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                    }
+                case _ :
+                    return try books.map { book in
+                        try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                    }                }
+            }
             return try books.map { book in
                 try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
             }

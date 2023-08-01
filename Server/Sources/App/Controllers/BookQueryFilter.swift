@@ -12,6 +12,9 @@ import Vapor
 extension Book {
     /// Used to filter URL parameters 
     struct QueryFilter: Content {
+        let sort: Bool?
+        let by: String?
+        let ascending: Bool?
         let genre: BookGenre?
         let state: BookState?
         let title: String?
