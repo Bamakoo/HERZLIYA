@@ -8,11 +8,6 @@ struct BookController: RouteCollection {
         bookRoutes.get(use: index)
         bookRoutes.get(":bookID", use: getAParticularBook)
         // TODO: turn this into an optional query item handled by index func
-        // TODO: /books?sort=true
-        // TODO: turn this into an optional query item handled by index func
-        // TODO: /books?genre=scienceFiction
-        bookRoutes.get("search", "genres", ":genre", use: categorySearchHandler)
-        // TODO: turn this into an optional query item handled by index func
         // TODO: /books?search="jean"
         bookRoutes.get("search", ":search", use: searchHandler)
         let tokenAuthenticator = UserToken.authenticator()
@@ -260,22 +255,6 @@ struct BookController: RouteCollection {
         }
             .filter(\.$status == .available)
             .all()
-        return try books.map { book in
-            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
-        }
-    }
-    /// <#Description#>
-    /// - Parameter req: <#req description#>
-    /// - Returns: <#description#>
-    func categorySearchHandler(req: Request) async throws -> [GetBook] {
-        guard let realBookGenre = BookGenre(rawValue: req.parameters.get("genre") ?? "")
-        else {
-            throw Abort(.badRequest)
-        }
-        let books = try await Book.query(on: req.db).group(.and) { group in
-            group.filter(\.$genre == realBookGenre)
-                .filter(\.$status == .available)
-        } .all()
         return try books.map { book in
             try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
         }

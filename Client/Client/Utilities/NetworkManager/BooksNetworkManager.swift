@@ -82,7 +82,7 @@ final class BooksNetworkManager {
     }
 
     func fetchBooksByCategory(_ forCategory: BookGenre) async throws -> [Book] {
-        print("I'm here")
+
         guard let url = URL(string: Request.baseURL + "books?genre=\(forCategory.rawValue)") else {
             throw HttpError.badURL
         }
