@@ -320,7 +320,8 @@ struct BookController: RouteCollection {
                 case _ :
                     return try books.map { book in
                         try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
-                    }                }
+                    }
+                }
             }
             return try books.map { book in
                 try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)

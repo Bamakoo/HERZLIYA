@@ -46,6 +46,7 @@ final class HomepageViewModel: ObservableObject {
         do {
             let queryItems: [URLQueryItem] =
             [
+                URLQueryItem(name: "sort", value: String(true)),
                 URLQueryItem(name: "by", value: selectedSort.rawValue),
                 URLQueryItem(name: "ascending", value: String(sortAscending))
             ]
