@@ -5,6 +5,7 @@ struct UserController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let createNewUser = routes.grouped("users")
         createNewUser.post(use: create)
+        
         let tokenProtectedUsers = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
         tokenProtectedUsers.get("users", use: index)
@@ -29,7 +30,7 @@ struct UserController: RouteCollection {
         guard newUser.password == newUser.confirmPassword else {
             throw Abort(.badRequest, reason: "Passwords did not match")
         }
-        let user = try User(
+        let user = try User (
             username: newUser.username,
             email: newUser.email,
             passwordHash: Bcrypt.hash(newUser.password),

@@ -8,6 +8,7 @@
 import Foundation
 @MainActor
 final class KartViewModel: ObservableObject {
+
     @Published var kartBooks = [Book]()
 
     func getBooksInKart() async throws {
@@ -21,6 +22,14 @@ final class KartViewModel: ObservableObject {
     func removeBookFromKart(_ bookID: UUID) async throws {
         do {
             try await UseCase.Cart.removeBookFromCart(bookID)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
+    func buyBook(_ bookID: UUID) async throws {
+        do {
+            try await UseCase.Books.buyBook(bookID)
         } catch {
             print(error.localizedDescription)
         }

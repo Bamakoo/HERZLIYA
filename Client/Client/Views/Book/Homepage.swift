@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct Homepage: View {
-    @StateObject private var viewModel = HomepageViewModel(networkManager: HomepageNetworkManager(
-        httpClient: Networking()))
+    @StateObject private var viewModel = HomepageViewModel()
     @State private var selectedBook: Book?
     @State private var filterByUsername: String = ""
     var body: some View {
@@ -30,10 +29,24 @@ struct Homepage: View {
                 }
                 .swipeActions(edge: .leading) {
                     Button {
-                        Task { await viewModel.addBookToKart((book.id)!) }} label: {
-                            Image(systemName: "cart.badge.plus")
+                        Task {
+                            try await viewModel.buyBook((book.id)!)
+                            await viewModel.fetchBooks()
                         }
-                        .tint(.mint)
+                    } label: {
+                        Image(systemName: "dollarsign")
+                    }
+                    .tint(.mint)
+                }
+                .swipeActions(edge: .leading) {
+                    Button {
+                        Task {
+                            await viewModel.addBookToKart((book.id)!)
+                        }
+                    } label: {
+                        Image(systemName: "cart.badge.plus")
+                    }
+                    .tint(Color.purple)
                 }
             }
             .toolbarRole(.editor)

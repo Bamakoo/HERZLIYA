@@ -21,6 +21,20 @@ extension API {
             let userToken = try decoder.decode(UserToken.self, from: userTokenData)
             return userToken.value
         }
+
+        static func create(_ newUser: NewUser) async throws {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.users())
+            let encoder = JSONEncoder()
+            let userData = try encoder.encode(newUser)
+            try await HTTP.post(with: request, andBody: userData)
+        }
+
+        static func changePassword(_ patchedPassword: PatchPassword) async throws {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.changePassword()).loginProtected()
+            let encoder = JSONEncoder()
+            let passwordData = try encoder.encode(patchedPassword)
+            try await HTTP.patch(with: request, andBody: passwordData)
+        }
     }
 }
 

@@ -17,23 +17,26 @@ struct KartView: View {
                     BookRow(book: book)
                 }
                 .swipeActions(edge: .trailing) {
-                    Button { Task {
-                        try await viewModel.removeBookFromKart((book.id)!)
-                        try await viewModel.getBooksInKart()
-                    }
-                    } label: {
-                            Image(systemName: "cart.fill.badge.minus")
+                    Button {
+                        Task {
+                            try await viewModel.removeBookFromKart((book.id)!)
+                            try await viewModel.getBooksInKart()
                         }
-                        .tint(.red)
+                    } label: {
+                        Image(systemName: "cart.fill.badge.minus")
+                    }
+                    .tint(.red)
                 }
                 .swipeActions(edge: .leading) {
-                    Button { Task {
-                        print("buy this one book")
-                    }
-                    } label: {
-                            Image(systemName: "dollarsign")
+                    Button {
+                        Task {
+                            try await viewModel.buyBook((book.id)!)
+                            try await viewModel.getBooksInKart()
                         }
-                        .tint(.mint)
+                    } label: {
+                        Image(systemName: "dollarsign")
+                    }
+                    .tint(.mint)
                 }
             }
             Button {

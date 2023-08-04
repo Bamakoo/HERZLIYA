@@ -10,7 +10,7 @@ import Foundation
 protocol HTTPService {
     static func get(with request: URLRequest, using session: URLSession) async throws -> Data
     static func post(with request: URLRequest, andBody body: Data?, using session: URLSession) async throws -> Data
-    static func patch(with request: URLRequest, andBody body: Data, using session: URLSession) async throws -> Data
+    static func patch(with request: URLRequest, andBody body: Data?, using session: URLSession) async throws -> Data
     static func delete(with request: URLRequest, using session: URLSession) async throws -> Data
 }
 
@@ -25,14 +25,16 @@ struct HTTP: HTTPService {
                      using session: URLSession = .shared) async throws -> Data {
         var request = request
         request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
         request.httpBody = body
         return try await executeRequest(request: request, session: session)
     }
     static func patch(with request: URLRequest,
-                      andBody body: Data,
+                      andBody body: Data?,
                       using session: URLSession = .shared) async throws -> Data {
         var request = request
         request.httpMethod = "PATCH"
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
         request.httpBody = body
         return try await executeRequest(request: request, session: session)
     }

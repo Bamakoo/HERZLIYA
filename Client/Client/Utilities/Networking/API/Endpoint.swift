@@ -30,20 +30,29 @@ struct NewEndpoint {
     static func book() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/books", queryItems: nil)
     }
+
+    static func changePassword() -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/change-password", queryItems: nil)
+    }
+
     static func likedBooks() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/books/likes", queryItems: nil)
+        return HerzliyaEndpoint(path: "/my/likes", queryItems: nil)
+    }
+
+    static func likes(_ bookID: UUID) -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/likes/\(bookID)", queryItems: nil)
     }
 
     static func booksByUsersFavoriteAuthor() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/books/favorite-author", queryItems: nil)
+        return HerzliyaEndpoint(path: "/my/favorite-author", queryItems: nil)
     }
 
     static func booksInKart() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/books/kart", queryItems: nil)
+        return HerzliyaEndpoint(path: "/my/kart", queryItems: nil)
     }
 
     static func soldBooks() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/books/sold", queryItems: nil)
+        return HerzliyaEndpoint(path: "/my/sold", queryItems: nil)
     }
 
     static func login() -> APIEndpoint {
@@ -51,7 +60,7 @@ struct NewEndpoint {
     }
 
     static func bought() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/books/bought", queryItems: nil )
+        return HerzliyaEndpoint(path: "/my/purchases", queryItems: nil )
     }
 
     static func commentsOnBook(_ bookID: UUID) -> APIEndpoint {
@@ -64,5 +73,21 @@ struct NewEndpoint {
 
     static func removeBookFromCart(_ bookID: UUID) -> APIEndpoint {
         return HerzliyaEndpoint(path: "/karts/remove-book/\(bookID)", queryItems: nil)
+    }
+
+    static func purchaseBook(_ bookID: UUID) -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/books/\(bookID)/purchase", queryItems: nil)
+    }
+
+    static func sort(_ URLQueryItems: [URLQueryItem]) -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/books", queryItems: URLQueryItems)
+    }
+
+    static func addBookToKart(_ bookID: UUID) -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/karts/add-book/\(bookID)", queryItems: nil)
+    }
+
+    static func users() -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/users", queryItems: nil)
     }
 }

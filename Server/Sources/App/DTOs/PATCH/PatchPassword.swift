@@ -8,7 +8,6 @@
 import Foundation
 
 struct PatchPassword: Codable {
-    let id: UUID
     let currentPassword: String
     let confirmCurrentPassword: String
     let newPassword: String

@@ -12,24 +12,23 @@ final class HomepageViewModel: ObservableObject {
 
     @Published var books = [Book]()
     @Published var sortedBooks = [Book]()
-    @Published var isSorting: Bool = false
     @Published var sortAscending: Bool = false
-    @Published var selectedDisplay: WhatToDisplay = .books
-    @Published var sortOrFilter: SortOrFilter = .filter
-    @Published var selectedFilter: Filters = .genre(.action)
     @Published var selectedSort: SortBy = .genre
-    @Published var selectedMenu: HomepageMenuSelector = .display
-    @Published var selectedSubMenu: HomepageSubMenuSelector = .author
-
-    private let networkManager: HomepageNetworkManager
-
-    init(networkManager: HomepageNetworkManager) {
-        self.networkManager = networkManager
-    }
 
     func likeABook(_ book: Book) async {
         do {
-            _ = try await networkManager.likeABook(book)
+            guard let bookID = book.id else {
+                return
+            }
+                try await UseCase.Books.likeABook(bookID)
+            } catch {
+            print(error.localizedDescription)
+        }
+    }
+
+    func buyBook(_ bookID: UUID) async throws {
+        do {
+            try await UseCase.Books.buyBook(bookID)
         } catch {
             print(error.localizedDescription)
         }
@@ -45,8 +44,13 @@ final class HomepageViewModel: ObservableObject {
 
     func sort() async {
         do {
-            books = try await networkManager.sort(selectedSort, sortAscending)
-            print(sortedBooks)
+            let queryItems: [URLQueryItem] =
+            [
+                URLQueryItem(name: "sort", value: String(true)),
+                URLQueryItem(name: "by", value: selectedSort.rawValue),
+                URLQueryItem(name: "ascending", value: String(sortAscending))
+            ]
+            books = try await UseCase.Books.sort(queryItems)
         } catch {
             print(error.localizedDescription)
         }
@@ -54,8 +58,7 @@ final class HomepageViewModel: ObservableObject {
 
     func addBookToKart(_ bookID: UUID) async {
         do {
-                try await networkManager.addBookToKart(bookID)
-            print("done adding book to kart")
+            try await UseCase.Books.addBookToKart(bookID)
         } catch {
             print(error.localizedDescription)
         }

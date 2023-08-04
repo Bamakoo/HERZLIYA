@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct HomepageToolbar: ToolbarContent {
-    @StateObject private var viewModel = HomepageViewModel(networkManager: HomepageNetworkManager(
-        httpClient: Networking()))
+    @StateObject private var viewModel = HomepageViewModel()
     var body: some ToolbarContent {
         ToolbarItem(placement: .primaryAction) {
             Menu {

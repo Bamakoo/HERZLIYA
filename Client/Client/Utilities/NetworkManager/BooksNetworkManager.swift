@@ -82,36 +82,13 @@ final class BooksNetworkManager {
     }
 
     func fetchBooksByCategory(_ forCategory: BookGenre) async throws -> [Book] {
-        print("I'm here")
+
         guard let url = URL(string: Request.baseURL + "books?genre=\(forCategory.rawValue)") else {
             throw HttpError.badURL
         }
         print(url)
         let books: [Book] = try await httpClient.fetch(url: url)
         return books
-    }
-
-    func createBook(title: String,
-                    author: String,
-                    description: String,
-                    genre: BookGenre,
-                    state: BookState,
-                    status: BookStatus,
-                    price: Int
-    ) async throws {
-        guard let url = URL(string: Request.baseURL + Endpoint.books) else {
-            print("Unable to create valid URL for creating the book")
-            return
-        }
-
-        let newBook = CreateBookData(title: title, author: author,
-                                     description: description, genre: genre,
-                                     state: state, status: status,
-                        price: price)
-        print(newBook)
-        _ = try await httpClient.sendData(to: url,
-                                          object: newBook,
-                                          httpMethod: HttpMethods.POST.rawValue)
     }
 
     func purchaseBook(bookID: String) async throws {

@@ -1,6 +1,8 @@
 import Fluent
 import Vapor
 
+// TODO: no need for a specific controller
+
 struct LikeController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let tokenProtectedLikes = routes.grouped(UserToken.authenticator())
@@ -8,7 +10,7 @@ struct LikeController: RouteCollection {
         tokenProtectedLikes.get("likes", use: index)
         tokenProtectedLikes.get("likes", ":userID", use: getAllUserLikes)
         tokenProtectedLikes.put("likes", use: update)
-        tokenProtectedLikes.post("likes", use: create)
+        tokenProtectedLikes.post("likes", ":bookID", use: create)
         tokenProtectedLikes.group("likes", ":likeID") { like in
             like.delete(use: delete)
         }
@@ -33,14 +35,17 @@ struct LikeController: RouteCollection {
     }
 
     func create(req: Request) async throws -> Response {
-        let like = try req.content.decode(LikeDTO.self)
+        guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
+            print("unable to delete book")
+            throw Abort(.notFound)
+        }
         let user = try req.auth.require(User.self)
         guard let userID = user.id else {
             throw Abort(.badRequest, reason: "unable to get user")
         }
-        let realLike = Like(userID: userID, bookID: like.bookID)
+        let realLike = Like(userID: userID, bookID: try book.requireID())
         try await realLike.save(on: req.db)
-        return try await like.encodeResponse(status: .created, for: req)
+        return try await realLike.encodeResponse(status: .created, for: req)
     }
     
     func update(req: Request) async throws -> Like {
