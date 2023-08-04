@@ -128,7 +128,7 @@ const states = [
   { value: 'brandNew', name: 'Neuf' }
 ]
 
-type NewBook = Omit<Books, 'id' | 'status' | 'updatedAt' | 'deletedAt'>
+type NewBook = Omit<Books, 'id' | 'status' | 'updatedAt' | 'deletedAt' | 'isFavorite'>
 const datas = ref<{
   title: NewBook['title']
   author: NewBook['author']
@@ -136,6 +136,7 @@ const datas = ref<{
   genre: NewBook['genre']
   price: NewBook['price']
   description: NewBook['description']
+  img: NewBook['img']
   createdAt: NewBook['createdAt']
 }>({
   title: '',
@@ -144,6 +145,7 @@ const datas = ref<{
   genre: null,
   price: 0,
   description: '',
+  img: '',
   createdAt: new Date(Date.now())
 })
 
@@ -157,6 +159,7 @@ const onSubmit = async () => {
       genre: datas.value?.genre ?? null,
       price: datas.value?.price,
       description: datas.value?.description,
+      img: datas.value.img,
       createdAt: datas.value.createdAt
     }
     console.log(newBookData)

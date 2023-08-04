@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import router from './router/index.ts'
+// import router from './router/index.ts'
 import { RouterView } from 'vue-router'
 import TheHeader from './components/TheHeader.vue'
 import TwSidebar from './libs/ui/TwSidebar.vue'
@@ -11,7 +11,7 @@ import {
   HeartIcon,
   ChatBubbleOvalLeftIcon
 } from '@heroicons/vue/24/outline'
-import { fetchUsers } from './api/axios/users.routes'
+// import { fetchUsers } from './api/axios/users.routes'
 
 const menus = [
   { value: 'realism', icon: ShieldCheckIcon, name: 'Non-fiction', to: '#' },

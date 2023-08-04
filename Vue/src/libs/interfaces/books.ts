@@ -1,8 +1,8 @@
 import type { Users } from './users'
 export interface Books {
-  id: string | null
-  title: string | null
-  author: string | null
+  id: string
+  title: string
+  author: string
   genre:
     | 'fantasy '
     | 'scienceFiction '
@@ -12,7 +12,7 @@ export interface Books {
     | 'romance '
     | 'realism '
     | 'biography'
-    | null
+
   state:
     | 'horrendous'
     | 'bad'
@@ -22,12 +22,14 @@ export interface Books {
     | 'good'
     | 'excellent'
     | 'brandNew'
-    | null
-  description: string | undefined
-  price: number | null
-  seller?: Users['id']
-  buyer?: Users['id'] | null
+
+  description: string
+  img: string
+  price: number
+  seller: Users['id']
+  buyer?: Users['id']
   status: 'available' | 'purchased' | 'inTransit' | 'delivered' | null
+  isFavorite: boolean
   createdAt: Date
   updatedAt?: Date | null
   deletedAt?: Date | null
