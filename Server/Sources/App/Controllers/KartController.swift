@@ -10,7 +10,6 @@ struct KartController: RouteCollection {
         tokenProtectedKarts.put("karts", use: update)
         tokenProtectedKarts.post("karts", use: create)
         
-        tokenProtectedKarts.post("add", "book", ":bookID", "user-kart", ":userID", use: addBookToUserKart)
         tokenProtectedKarts.post("karts", "add-book", ":bookID", use: addBookToKart)
         tokenProtectedKarts.delete("karts", "remove-book", ":bookID", use: removeBookFromKart)
         tokenProtectedKarts.group("karts", ":kartID") { kart in
@@ -76,32 +75,7 @@ struct KartController: RouteCollection {
         return try await kartBook.encodeResponse(status: .ok, for: req)
     }
     
-    // TODO: move to /books/:bookID/add-to-kart
-    func addBookToUserKart(req: Request) async throws -> Response {
-        guard let user = try await User.find(req.parameters.get("userID", as: UUID.self), on: req.db),
-              let userID = user.id else {
-            throw Abort(.notFound, reason: "unable to locate the User")
-        }
-        
-        guard let kart = try await Kart.query(on: req.db)
-            .filter(\.$user.$id == userID)
-            .first(),
-              let kartID = kart.id
-        else {
-            throw Abort(.notFound, reason: "unable to find kart")
-        }
-        
-        guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db),
-              let bookID = book.id
-        else {
-            print("unable to delete book")
-            throw Abort(.notFound)
-        }
-        
-        let kartBook = KartBook(kartID: kartID, bookID: bookID)
-        try await kartBook.save(on: req.db)
-        return try await kartBook.encodeResponse(status: .ok, for: req)
-    }
+// TODO: move to /books/:bookID/add-to-kart
 // TODO: delete all useless functions and endpoints
     func index(req: Request) async throws -> [Kart] {
         try await Kart.query(on: req.db).all()

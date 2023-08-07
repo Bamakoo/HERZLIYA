@@ -10,5 +10,5 @@ import Foundation
 struct PatchPurchaseBook: Codable {
     let id: String
     let buyerID: String
-    let status: String = "purchased"
+    var status: String = "purchased"
 }

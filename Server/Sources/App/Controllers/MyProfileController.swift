@@ -20,6 +20,15 @@ struct MyProfileController: RouteCollection {
         tokenAuth.get("sold", use: sold)
         tokenAuth.get("comments", use: myComments)
         tokenAuth.get("favorite-author", use: favoriteAuthor)
+        tokenAuth.get("friends", use: myFriends)
+    }
+    
+    /// The function called to get a user's friends
+    /// - Parameter req: the incoming request to /friends
+    /// - Returns: an array of user object's
+    func myFriends(req: Request) async throws -> [User] {
+        let user = try req.auth.require(User.self)
+        return try await user.$usersFriends.get(on: req.db)
     }
     
     /// When called by the route handler, this function returns an array containing all the comments dropped by a particular user on any book

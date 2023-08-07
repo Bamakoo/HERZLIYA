@@ -14,7 +14,7 @@ struct MainMenu: View {
                 .tabItem {
                     Image(systemName: "house.circle.fill")
                 }
-            BooksList()
+            UserMenuView()
                 .tabItem {
                     Image(systemName: "books.vertical.circle.fill")
                 }

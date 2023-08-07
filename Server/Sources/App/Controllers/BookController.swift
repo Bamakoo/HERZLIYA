@@ -8,7 +8,7 @@ struct BookController: RouteCollection {
         let bookRoutes = routes.grouped("books")
         
         bookRoutes.get(use: index)
-        bookRoutes.get(":bookID", use: getAParticularBook)
+        bookRoutes.get(":bookID", use: particularBook)
         
         /// subsequent endpoints are token protected
         let tokenAuthenticator = UserToken.authenticator()
@@ -21,7 +21,7 @@ struct BookController: RouteCollection {
         tokenAuth.patch(":bookID", "purchase", use: purchase)
         tokenAuth.delete(":bookID", use: delete)
     }
-    
+
     /// This functiions is called when the books/:bookID/purchase is called
     /// - Parameter req: the incoming request
     /// - Returns: a response, confirming wether or not a user has
@@ -136,7 +136,7 @@ struct BookController: RouteCollection {
     /// Function used for returning a single book's
     /// - Parameter req: the incoming request to the /books/:bookID endpoint
     /// - Returns: a book object
-    func getAParticularBook(req: Request) async throws -> Book {
+    func particularBook(req: Request) async throws -> Book {
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
             throw Abort(.notFound, reason:"unable to get a specific book")
         }
@@ -293,9 +293,18 @@ struct BookController: RouteCollection {
     /// - Parameter req: <#req description#>
     /// - Returns: <#description#>
     func delete(req: Request) async throws -> HTTPStatus {
+        
+        let user = try req.auth.require(User.self)
+        guard let userID = user.id else {
+            throw Abort(.badRequest, reason: "unable to get user")
+        }
+        
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
             print("unable to delete book")
             throw Abort(.notFound)
+        }
+        guard userID == book.$seller.id else {
+            throw Abort(.forbidden)
         }
         try await book.delete(on: req.db)
         return .ok

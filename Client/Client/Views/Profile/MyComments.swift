@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MyComments: View {
     @StateObject private var viewModel = MyCommentsViewModel()
-    
+
     var body: some View {
         List(viewModel.myComments) { comment in
             Text(comment.comment)

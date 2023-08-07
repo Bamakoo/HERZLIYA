@@ -8,7 +8,7 @@ struct CommentController: RouteCollection {
         let tokenAuthenticator = UserToken.authenticator()
         let tokenMiddleware = UserToken.guardMiddleware()
         let tokenAuthComment = commentRoutes.grouped(tokenAuthenticator, tokenMiddleware)
-        tokenAuthComment.get(":bookID", use: getAllBookComments)
+        tokenAuthComment.get(":bookID", use: commentsOnBook)
         //      tokenAuthComment.get("on-user-books", ":userID", use: allCommentsOnUsersBook)
         tokenAuthComment.patch(":commentID", use: update)
         tokenAuthComment.post(use: create)
@@ -19,7 +19,7 @@ struct CommentController: RouteCollection {
 /// When called by the route handler, this function returns an array containing all the comment objects for a particular book
 /// - Parameter req: the incoming GET request
 /// - Returns: an array containing all the comments on a book
-func getAllBookComments(req: Request) async throws -> [GetComment] {
+func commentsOnBook(req: Request) async throws -> [GetComment] {
     guard let bookID = req.parameters.get("bookID", as: UUID.self) else {
         throw Abort(.badRequest, reason: "Invalid book ID")
     }
@@ -33,19 +33,19 @@ func getAllBookComments(req: Request) async throws -> [GetComment] {
     }
 }
 
-/// <#Description#>
-/// - Parameter req: <#req description#>
-/// - Throws: <#description#>
-/// - Returns: <#description#>
+/// Returns all the comments
+/// - Parameter req: the incoming request to /comments
+/// - Throws: an aerror indicating some kind of error happened server side
+/// - Returns: all the comments
 func index(req: Request) async throws -> [Comment] {
     try await Comment.query(on: req.db)
         .all()
 }
 
-/// <#Description#>
-/// - Parameter req: <#req description#>
-/// - Throws: <#description#>
-/// - Returns: <#description#>
+/// Used by a user comments on a book
+/// - Parameter req: the incoming POST request to /comments
+/// - Throws: an error describing what has happened in the server
+/// - Returns: the new comment as an encoded response
 func create(req: Request) async throws -> Response {
     let comment = try req.content.decode(PostComment.self)
     let user = try req.auth.require(User.self)
@@ -58,10 +58,10 @@ func create(req: Request) async throws -> Response {
     return try await getComment.encodeResponse(status: .created, for: req)
 }
 
-/// <#Description#>
-/// - Parameter req: <#req description#>
-/// - Throws: <#description#>
-/// - Returns: <#description#>
+/// Route for patching comments ie changing their content. Do note it is impossible to change a comment's bookID or userID
+/// - Parameter req: the incoming PATCH request to /comments
+/// - Throws: an error indicating what has happened with the request
+/// - Returns: the updated comment
 func update(req: Request) async throws -> Comment {
     let patchComment = try req.content.decode(PatchComment.self)
     guard let commentFromDB =  try await Comment.find(patchComment.id, on: req.db) else {
