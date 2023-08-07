@@ -9,9 +9,31 @@ import SwiftUI
 
 struct MyComments: View {
     @StateObject private var viewModel = MyCommentsViewModel()
+
     var body: some View {
-        List(viewModel.myComments) {
-            Text($0.comment)
+        List(viewModel.myComments) { comment in
+            Text(comment.comment)
+                .swipeActions(edge: .trailing) {
+                    Button {
+                        Task {
+                            try await viewModel.deleteComment(comment.id)
+                            try await viewModel.fetchMyComments()
+                        }
+                    } label: {
+                        Image(systemName: "delete.backward")
+                    }
+                    .tint(.red)
+                }
+                .swipeActions(edge: .leading) {
+                    Button {
+                        Task {
+                            try await viewModel.fetchMyComments()
+                        }
+                    } label: {
+                        Image(systemName: "tornado")
+                    }
+                    .tint(.blue)
+                }
         }
         .onAppear {
             Task {

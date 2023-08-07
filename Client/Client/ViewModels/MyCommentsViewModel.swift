@@ -20,4 +20,19 @@ final class MyCommentsViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
+    
+    func updateComment() async throws {
+        print("hello")
+    }
+    
+    func deleteComment(_ commentID: UUID?) async throws {
+        do {
+            guard let commentID else {
+                return
+            }
+            try await UseCase.Comments.delete(commentID)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }
