@@ -25,7 +25,7 @@ struct BookRow: View {
                     .font(.system(size: 12, weight: .bold, design: .default))
                     .foregroundColor(.gray)
                 HStack {
-                    Text("$" + String.init(format: "%0.2f", book.price))
+                    Text("$" + String(book.price))
                         .font(.system(size: 16, weight: .bold, design: .default))
                         .foregroundColor(.white)
                         .padding(.top, 8)

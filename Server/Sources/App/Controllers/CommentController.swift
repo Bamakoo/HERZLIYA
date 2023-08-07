@@ -78,7 +78,7 @@ func update(req: Request) async throws -> Comment {
 /// - Parameter req: the incoming request
 /// - Throws: an error if it's unable to get the the user's ID, the comment can't be found or the user's ID matches the token's id
 /// - Returns: an HTTP status reflecting wether or not the comment has been successfully deleted
-func delete(req: Request) async throws -> HTTPStatus {
+func delete(req: Request) async throws -> Response {
     
     let user = try req.auth.require(User.self)
     guard let userID = user.id else {
@@ -93,8 +93,9 @@ func delete(req: Request) async throws -> HTTPStatus {
     guard comment.$user.id == userID else {
         throw Abort(.notFound)
     }
+    
     // TODO: throw forbidden
     try await comment.delete(on: req.db)
-    return .ok
+    return try await comment.encodeResponse(status: .ok, for: req)
 }
 
