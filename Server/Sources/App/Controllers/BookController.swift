@@ -16,6 +16,7 @@ struct BookController: RouteCollection {
         let tokenAuth = bookRoutes.grouped(tokenAuthenticator, tokenMiddleware)
         
         tokenAuth.post(use: create)
+        // TODO: see with Alex if these two can be merged together
         tokenAuth.patch(use: update)
         tokenAuth.patch(":bookID", "purchase", use: purchase)
         tokenAuth.delete(":bookID", use: delete)
@@ -195,11 +196,11 @@ struct BookController: RouteCollection {
             } .all()
             
             // MARK: sort
-                    if let sortBy = queryItems.by,
-                       let ascendingBool = queryItems.ascending {
-                        // TODO: sort can take an optional Array of Getbooks and return an array of books
-                        books = try await sort(req: req, searchBy: sortBy, searchBool: ascendingBool)
-                    }
+            if let sortBy = queryItems.by,
+               let ascendingBool = queryItems.ascending {
+                // TODO: sort can take an optional Array of Getbooks and return an array of books
+                books = try await sort(req: req, searchBy: sortBy, searchBool: ascendingBool)
+            }
             
             // MARK: map results to the DTO and return
             return try books.map { book in

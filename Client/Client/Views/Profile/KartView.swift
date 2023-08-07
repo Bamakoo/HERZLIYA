@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct KartView: View {
-    
+
     @StateObject private var viewModel = KartViewModel()
     @State private var selection: Book?
-    
+
     var body: some View {
         NavigationSplitView {
             List(viewModel.kartBooks, selection: $selection) { book in

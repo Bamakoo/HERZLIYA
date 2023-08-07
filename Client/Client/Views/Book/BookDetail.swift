@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BookDetail: View {
+    
     @Binding var book: Book?
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var fullText: String = "Your comment"
@@ -31,8 +32,19 @@ struct BookDetail: View {
                 }
             }
             Section {
-                List(viewModel.commentsOnBook) {
-                    Text($0.comment)
+                List(viewModel.commentsOnBook) { comment in
+                    Text(comment.comment)
+                        .swipeActions(edge: .trailing) {
+                            Button {
+                                Task {
+                                    try await viewModel.deleteComment(comment.id)
+                                    try await viewModel.getCommentsOnBook((book?.id)!)
+                                }
+                            } label: {
+                                Image(systemName: "delete.backward")
+                            }
+                            .tint(.red)
+                        }
                 }
             }
             Button {

@@ -22,5 +22,9 @@ extension UseCase {
         static func commentOnBook(_ newComment: PostComment) async throws {
             try await API.Comments.commentOnBook(newComment)
         }
+        
+        static func delete(_ commentID: UUID) async throws {
+            try await API.Comments.delete(commentID)
+        }
     }
 }

@@ -36,6 +36,17 @@ final class BooksViewModel: ObservableObject {
         }
     }
 
+    func deleteComment(_ commentID: UUID?) async throws {
+        do {
+            guard let commentID else {
+                return
+            }
+            try await UseCase.Comments.delete(commentID)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
     func commentOnBook(_ bookID: UUID, _ comment: String) async throws {
         do {
             let newComment = PostComment(comment: comment, bookID: bookID)

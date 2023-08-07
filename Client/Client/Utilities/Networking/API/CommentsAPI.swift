@@ -31,5 +31,10 @@ extension API {
             let commentData = try encoder.encode(newComment)
             _ = try await HTTP.post(with: request, andBody: commentData)
         }
+        
+        static func delete(_ commentID: UUID) async throws {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.deleteComment(commentID)).loginProtected()
+            _ = try await HTTP.delete(with: request)
+        }
     }
 }

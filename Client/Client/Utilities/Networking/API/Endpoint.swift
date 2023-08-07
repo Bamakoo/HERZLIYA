@@ -94,4 +94,8 @@ struct NewEndpoint {
     static func comments() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/comments", queryItems: nil)
     }
+    
+    static func deleteComment(_ commentID: UUID) -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/comments/\(commentID)", queryItems: nil)
+    }
 }
