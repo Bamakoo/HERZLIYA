@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct KartView: View {
+    
     @StateObject private var viewModel = KartViewModel()
     @State private var selection: Book?
+    
     var body: some View {
         NavigationSplitView {
             List(viewModel.kartBooks, selection: $selection) { book in
@@ -39,11 +41,11 @@ struct KartView: View {
                     .tint(.mint)
                 }
             }
-            Button {
-                print("buy buy buy")
-            } label: {
-                Text("Purchase all the books in my cart")
-            }
+            //            Button {
+            //                print("buy buy buy")
+            //            } label: {
+            //                Text("Purchase all the books in my cart")
+            //            }
             .onAppear {
                 Task {
                     try await viewModel.getBooksInKart()

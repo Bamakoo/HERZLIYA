@@ -5,12 +5,15 @@ struct KartBookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let addBookToKart = routes.grouped("kart", "book")
         addBookToKart.post(use: create)
+        
         let tokenProtectedKartBook = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
+        
         tokenProtectedKartBook.get("kart", "book", use: index)
         tokenProtectedKartBook.patch("kart", "book", use: update)
         tokenProtectedKartBook.group("kart", "book", ":bookID") { kartBook in
             kartBook.delete(use: delete)
+            
         }
     }
     

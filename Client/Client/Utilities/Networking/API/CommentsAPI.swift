@@ -24,5 +24,12 @@ extension API {
             let comments = try decoder.decode([Comment].self, from: commentData)
             return comments
         }
+
+        static func commentOnBook(_ newComment: PostComment) async throws {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.comments()).loginProtected()
+            let encoder = JSONEncoder()
+            let commentData = try encoder.encode(newComment)
+            _ = try await HTTP.post(with: request, andBody: commentData)
+        }
     }
 }

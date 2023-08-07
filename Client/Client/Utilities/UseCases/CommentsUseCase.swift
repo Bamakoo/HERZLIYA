@@ -18,5 +18,9 @@ extension UseCase {
             let comments = try await API.Comments.fetchMyComments()
             return comments
         }
+
+        static func commentOnBook(_ newComment: PostComment) async throws {
+            try await API.Comments.commentOnBook(newComment)
+        }
     }
 }

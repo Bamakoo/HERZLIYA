@@ -68,7 +68,7 @@ struct NewEndpoint {
     }
 
     static func myComments() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/comments/users", queryItems: nil)
+        return HerzliyaEndpoint(path: "/my/comments", queryItems: nil)
     }
 
     static func removeBookFromCart(_ bookID: UUID) -> APIEndpoint {
@@ -89,5 +89,9 @@ struct NewEndpoint {
 
     static func users() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/users", queryItems: nil)
+    }
+
+    static func comments() -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/comments", queryItems: nil)
     }
 }

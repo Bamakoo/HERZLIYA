@@ -8,9 +8,11 @@ struct UserController: RouteCollection {
         
         let tokenProtectedUsers = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
+        
         tokenProtectedUsers.get("users", use: index)
         tokenProtectedUsers.patch("users", use: update)
         tokenProtectedUsers.patch("change-password", use: changePassword)
+        
         tokenProtectedUsers.group("users", ":userID") { user in
             user.delete(use: delete)
         }

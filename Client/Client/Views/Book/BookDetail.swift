@@ -11,7 +11,7 @@ struct BookDetail: View {
     @Binding var book: Book?
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var fullText: String = "Your comment"
-
+    
     var body: some View {
         Form {
             Text(book!.title)

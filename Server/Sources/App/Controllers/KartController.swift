@@ -5,9 +5,11 @@ struct KartController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let tokenProtectedKarts = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
+        
         tokenProtectedKarts.get("karts", use: index)
         tokenProtectedKarts.put("karts", use: update)
         tokenProtectedKarts.post("karts", use: create)
+        
         tokenProtectedKarts.post("add", "book", ":bookID", "user-kart", ":userID", use: addBookToUserKart)
         tokenProtectedKarts.post("karts", "add-book", ":bookID", use: addBookToKart)
         tokenProtectedKarts.delete("karts", "remove-book", ":bookID", use: removeBookFromKart)

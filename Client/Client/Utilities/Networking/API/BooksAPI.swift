@@ -19,7 +19,7 @@ extension API {
 
         static func likeABook(_ bookID: UUID) async throws {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.likes(bookID)).loginProtected()
-            try await HTTP.post(with: request, andBody: nil)
+            _ = try await HTTP.post(with: request, andBody: nil)
         }
 
         static func fetchLikedBooks() async throws -> [Book] {
@@ -57,7 +57,7 @@ extension API {
 
         static func purchase(_ bookID: UUID) async throws {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.purchaseBook(bookID)).loginProtected()
-            try await HTTP.patch(with: request, andBody: nil)
+            _ = try await HTTP.patch(with: request, andBody: nil)
         }
 
         static func sort(_ URLQueryItems: [URLQueryItem]) async throws -> [Book] {
@@ -72,12 +72,12 @@ extension API {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.book()).loginProtected()
             let endoder = JSONEncoder()
             let bookData = try endoder.encode(newBook)
-            try await HTTP.post(with: request, andBody: bookData)
+            _ = try await HTTP.post(with: request, andBody: bookData)
         }
 
         static func addBookToKart(_ bookID: UUID) async throws {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.addBookToKart(bookID)).loginProtected()
-            try await HTTP.post(with: request, andBody: nil)
+            _ = try await HTTP.post(with: request, andBody: nil)
         }
     }
 }

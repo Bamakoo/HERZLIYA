@@ -5,6 +5,7 @@ struct RatingController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let tokenProtectedRatings = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
+        
         tokenProtectedRatings.get("ratings", use: index)
         tokenProtectedRatings.patch("ratings", use: update)
         tokenProtectedRatings.post("ratings", use: create)

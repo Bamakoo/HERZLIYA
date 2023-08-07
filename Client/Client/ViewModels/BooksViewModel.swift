@@ -38,7 +38,8 @@ final class BooksViewModel: ObservableObject {
 
     func commentOnBook(_ bookID: UUID, _ comment: String) async throws {
         do {
-            try await networkManager.commentOnBook(bookID, comment)
+            let newComment = PostComment(comment: comment, bookID: bookID)
+            try await UseCase.Comments.commentOnBook(newComment)
         } catch {
             print(error.localizedDescription)
         }
@@ -46,7 +47,7 @@ final class BooksViewModel: ObservableObject {
 
     func addBookToKart(_ bookID: UUID) async {
         do {
-            try await networkManager.addBookToKart(bookID)
+            try await UseCase.Books.addBookToKart(bookID)
         } catch {
             print(error.localizedDescription)
         }
@@ -63,9 +64,9 @@ final class BooksViewModel: ObservableObject {
 
     func fetchBooks() async {
         do {
-            books = try await networkManager.fetchBooks()
+            books = try await UseCase.Books.fetch()
         } catch {
-            print("unable to fetch books because of : \(error.localizedDescription)")
+            print(error.localizedDescription)
         }
     }
 
@@ -73,7 +74,7 @@ final class BooksViewModel: ObservableObject {
         do {
             books = try await networkManager.fetchBooksByCategory(forCategory)
         } catch {
-            print("unable to fetch books because of : \(error.localizedDescription)")
+            print(error.localizedDescription)
         }
     }
 
