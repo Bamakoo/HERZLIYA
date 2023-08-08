@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct UserProfileView: View {
+
     @StateObject private var viewModel = UsersViewModel()
     @State private var updateProfile = false
+
     var body: some View {
         NavigationStack {
             List(ProfileMenu.allCases) { item in

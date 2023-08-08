@@ -22,6 +22,15 @@ extension API {
             return userToken.value
         }
 
+        static func fetch() async throws -> [FetchUser] {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.users()).loginProtected()
+            let userData = try await HTTP.get(with: request)
+            let decoder = JSONDecoder()
+            let users = try decoder.decode([FetchUser].self, from: userData)
+            return users
+
+        }
+
         static func create(_ newUser: NewUser) async throws {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.users())
             let encoder = JSONEncoder()

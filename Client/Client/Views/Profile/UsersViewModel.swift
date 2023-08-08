@@ -10,6 +10,7 @@ import SwiftUI
 
 final class UsersViewModel: ObservableObject {
 
+    @Published var users = [FetchUser]()
     @Published var currentPassword = ""
     @Published var confirmCurrentPassword = ""
     @Published var newPassword = ""
@@ -35,6 +36,15 @@ final class UsersViewModel: ObservableObject {
                                   city: city,
                                   country: country)
             try await UseCase.User.createNewUser(newUser)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
+    @MainActor
+    func fetchUsers() async throws {
+        do {
+            users = try await UseCase.User.fetchUsers()
         } catch {
             print(error.localizedDescription)
         }

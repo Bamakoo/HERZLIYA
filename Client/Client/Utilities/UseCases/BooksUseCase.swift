@@ -18,7 +18,7 @@ extension UseCase {
             let books = try await API.Books.search(searchText)
             return books
         }
-        
+
         static func fetchBooksByGenre(_ bookGenre: BookGenre) async throws -> [Book] {
             let books = try await API.Books.fetchBooksByGenre(bookGenre)
             return books
