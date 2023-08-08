@@ -9,7 +9,6 @@ struct CommentController: RouteCollection {
         let tokenMiddleware = UserToken.guardMiddleware()
         let tokenAuthComment = commentRoutes.grouped(tokenAuthenticator, tokenMiddleware)
         tokenAuthComment.get(":bookID", use: commentsOnBook)
-        //      tokenAuthComment.get("on-user-books", ":userID", use: allCommentsOnUsersBook)
         tokenAuthComment.patch(":commentID", use: update)
         tokenAuthComment.post(use: create)
         tokenAuthComment.delete(":commentID", use: delete)
@@ -62,7 +61,7 @@ func create(req: Request) async throws -> Response {
 /// - Parameter req: the incoming PATCH request to /comments
 /// - Throws: an error indicating what has happened with the request
 /// - Returns: the updated comment
-func update(req: Request) async throws -> Comment {
+func update(req: Request) async throws -> Response {
     let patchComment = try req.content.decode(PatchComment.self)
     guard let commentFromDB =  try await Comment.find(patchComment.id, on: req.db) else {
         throw Abort(.notFound)
@@ -71,7 +70,7 @@ func update(req: Request) async throws -> Comment {
         commentFromDB.comment = comment
     }
     try await commentFromDB.update(on: req.db)
-    return commentFromDB
+    return try await commentFromDB.encodeResponse(status: .ok, for: req)
 }
 
 /// A funntion called by the delete /comments endpoint

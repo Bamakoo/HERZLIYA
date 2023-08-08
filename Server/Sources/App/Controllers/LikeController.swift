@@ -46,7 +46,7 @@ struct LikeController: RouteCollection {
     }
     
     // TODO: delete we won't be needing to update a like request
-    func update(req: Request) async throws -> Like {
+    func update(req: Request) async throws -> Response {
         let like = try req.content.decode(Like.self)
         
         guard let likeFromDB =  try await Like.find(like.id, on: req.db) else {
@@ -56,18 +56,18 @@ struct LikeController: RouteCollection {
         likeFromDB.user = like.user
 
         try await likeFromDB.update(on: req.db)
-        return likeFromDB
+        return try await likeFromDB.encodeResponse(status: .ok, for: req)
     }
     
     ///
     /// - Parameter req: the incoming DELETE request to /likes/:likeID
-    /// - Returns: an HTTPStatus
-    func delete(req: Request) async throws -> HTTPStatus {
+    /// - Returns: a Response
+    func delete(req: Request) async throws -> Response {
         guard let like = try await Like.find(req.parameters.get("likeID"), on: req.db) else {
             throw Abort(.notFound)
         }
         try await like.delete(on: req.db)
-        return .ok
+        return try await like.encodeResponse(status: .ok, for: req)
     }
 }
 

@@ -101,11 +101,11 @@ struct KartController: RouteCollection {
         return kartFromDB
     }
 
-    func delete(req: Request) async throws -> HTTPStatus {
+    func delete(req: Request) async throws -> Response {
         guard let kart = try await Kart.find(req.parameters.get("kartID"), on: req.db) else {
             throw Abort(.notFound)
         }
         try await kart.delete(on: req.db)
-        return .ok
+        return try await kart.encodeResponse(status: .ok, for: req)
     }
 }

@@ -241,7 +241,7 @@ struct BookController: RouteCollection {
     /// <#Description#>
     /// - Parameter req: <#req description#>
     /// - Returns: <#description#>
-    func update(req: Request) async throws -> Book {
+    func update(req: Request) async throws -> Response {
         // TODO: investigate usage of token+user to buy a book
         let patchBook = try req.content.decode(PatchBook.self)
         
@@ -286,13 +286,13 @@ struct BookController: RouteCollection {
         }
         
         try await book.update(on: req.db)
-        return book
+        return try await book.encodeResponse(status: .ok, for: req)
     }
     
     /// <#Description#>
     /// - Parameter req: <#req description#>
     /// - Returns: <#description#>
-    func delete(req: Request) async throws -> HTTPStatus {
+    func delete(req: Request) async throws -> Response {
         
         let user = try req.auth.require(User.self)
         guard let userID = user.id else {
@@ -307,6 +307,6 @@ struct BookController: RouteCollection {
             throw Abort(.forbidden)
         }
         try await book.delete(on: req.db)
-        return .ok
+        return try await book.encodeResponse(status: .ok, for: req)
     }
 }

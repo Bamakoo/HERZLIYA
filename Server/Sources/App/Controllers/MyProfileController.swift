@@ -21,6 +21,7 @@ struct MyProfileController: RouteCollection {
         tokenAuth.get("comments", use: myComments)
         tokenAuth.get("favorite-author", use: favoriteAuthor)
         tokenAuth.get("friends", use: myFriends)
+        // TODO: my ratings
     }
     
     /// The function called to get a user's friends
@@ -124,4 +125,3 @@ struct MyProfileController: RouteCollection {
         }
     }
 }
-

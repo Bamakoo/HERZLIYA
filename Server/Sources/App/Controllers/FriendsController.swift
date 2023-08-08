@@ -19,9 +19,9 @@ struct FriendsController: RouteCollection {
         try await Friend.query(on: req.db).all()
     }
     
-    /// <#Description#>
-    /// - Parameter req: <#req description#>
-    /// - Returns: <#description#>
+    /// Creates a friends relationship between two users
+    /// - Parameter req: the incoming POST request to /friends
+    /// - Returns: a Response
     func create(req: Request) async throws -> Response {
         let friend = try req.content.decode(Friend.self)
         try await friend.save(on: req.db)

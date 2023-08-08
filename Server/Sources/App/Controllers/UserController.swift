@@ -68,7 +68,7 @@ struct UserController: RouteCollection {
         return try await user.encodeResponse(status: .ok, for: req)
     }
     
-    func update(req: Request) async throws -> User {
+    func update(req: Request) async throws -> Response {
         let patchUser = try req.content.decode(PatchUser.self)
         let user = try req.auth.require(User.self)
         
@@ -97,14 +97,14 @@ struct UserController: RouteCollection {
         }
 
         try await user.update(on: req.db)
-        return user
+        return try await user.encodeResponse(status: .ok, for: req)
     }
 
-    func delete(req: Request) async throws -> HTTPStatus {
+    func delete(req: Request) async throws -> Response {
         guard let user = try await User.find(req.parameters.get("userID"), on: req.db) else {
             throw Abort(.notFound)
         }
         try await user.delete(on: req.db)
-        return .ok
+        return try await user.encodeResponse(status: .ok, for: req)
     }
 }
