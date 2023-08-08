@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A43C72DC29CDD3DF00CDF56B /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43C72DB29CDD3DF00CDF56B /* UsersViewModel.swift */; };
-		A43C72DE29CDD80700CDF56B /* UserNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43C72DD29CDD80700CDF56B /* UserNetworkManager.swift */; };
 		A43C72E029CF8DF900CDF56B /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43C72DF29CF8DF900CDF56B /* SignInViewModel.swift */; };
 		A43E2F792A542401006CFB63 /* MyCommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43E2F782A542401006CFB63 /* MyCommentsViewModel.swift */; };
 		A43EDBEB29ED438D00573A2C /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43EDBEA29ED438D00573A2C /* Identifier.swift */; };
@@ -112,7 +111,6 @@
 
 /* Begin PBXFileReference section */
 		A43C72DB29CDD3DF00CDF56B /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersViewModel.swift; path = Client/Views/Profile/UsersViewModel.swift; sourceTree = SOURCE_ROOT; };
-		A43C72DD29CDD80700CDF56B /* UserNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkManager.swift; sourceTree = "<group>"; };
 		A43C72DF29CF8DF900CDF56B /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		A43E2F782A542401006CFB63 /* MyCommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentsViewModel.swift; sourceTree = "<group>"; };
 		A43EDBEA29ED438D00573A2C /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
@@ -480,7 +478,6 @@
 			isa = PBXGroup;
 			children = (
 				A4C9866A299FDB68003CF879 /* BooksNetworkManager.swift */,
-				A43C72DD29CDD80700CDF56B /* UserNetworkManager.swift */,
 				A44D59CC29ACB33200FF7F22 /* KartsNetworkManager.swift */,
 			);
 			path = NetworkManager;
@@ -655,7 +652,6 @@
 				A4AEC1E62A7164C400875E70 /* CommentsUseCase.swift in Sources */,
 				A43EDBEB29ED438D00573A2C /* Identifier.swift in Sources */,
 				A4AF589C29CC6522003F03AD /* SignInView.swift in Sources */,
-				A43C72DE29CDD80700CDF56B /* UserNetworkManager.swift in Sources */,
 				A4AEC1EE2A7274FD00875E70 /* CartAPI.swift in Sources */,
 				A499DCD72A2496B800777B8F /* Homepage.swift in Sources */,
 				A499DCD52A23FA6C00777B8F /* BookKart.swift in Sources */,

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserProfileView: View {
-    @StateObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
+    @StateObject private var viewModel = UsersViewModel()
     @State private var updateProfile = false
     var body: some View {
         NavigationStack {

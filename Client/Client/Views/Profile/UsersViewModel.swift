@@ -23,12 +23,6 @@ final class UsersViewModel: ObservableObject {
     @Published var city = ""
     @Published var country = ""
 
-    private let networkManager: UserNetworkManager
-
-    init(networkManager: UserNetworkManager) {
-        self.networkManager = networkManager
-    }
-
     @MainActor
     func createANewUser() async throws {
         do {
@@ -55,14 +49,6 @@ final class UsersViewModel: ObservableObject {
                                                 favoriteAuthor: favoriteAuthor,
                                                 favoriteBook: favoriteBook)
             try await UseCase.User.changePassword(patchedPassword)
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-
-    func deleteUserProfile(id: UUID) async throws {
-        do {
-            try await networkManager.deleteProfile(id: id)
         } catch {
             print(error.localizedDescription)
         }

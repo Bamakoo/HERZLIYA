@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChangeMyPassword: View {
-    @StateObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
+    @StateObject private var viewModel = UsersViewModel()
     var body: some View {
         Form {
             Section {
