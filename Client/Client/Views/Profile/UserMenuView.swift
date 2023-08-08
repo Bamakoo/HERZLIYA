@@ -9,11 +9,9 @@ import SwiftUI
 
 struct UserMenuView: View {
 
-    @State private var userMenu: [UserMenu] = UserMenu.allCases
-
     var body: some View {
         NavigationStack {
-            List(userMenu) { item in
+            List(UserMenu.allCases) { item in
                 NavigationLink(value: item) {
                     Label(item.title, systemImage: item.image)
                         .foregroundColor(.primary)

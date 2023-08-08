@@ -7,7 +7,6 @@
 import SwiftUI
 struct BooksList: View {
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
-    @State private var bookGenres: [BookGenre] = BookGenre.allCases
     @State private var selectedBook: Book?
     @State private var selectedBookGenre: BookGenre?
     @State private var showSheet = false
@@ -15,7 +14,7 @@ struct BooksList: View {
     @Environment(\.isSearching) private var isSearching
     var body: some View {
         NavigationSplitView {
-            List(bookGenres, selection: $selectedBookGenre) { genre in
+            List(BookGenre.allCases, selection: $selectedBookGenre) { genre in
                 NavigationLink(value: genre) {
                     Label(genre.title, systemImage: genre.image)
                 }
