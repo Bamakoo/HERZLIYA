@@ -19,16 +19,22 @@ final class KartViewModel: ObservableObject {
         }
     }
 
-    func removeBookFromKart(_ bookID: UUID) async throws {
+    func removeBookFromKart(_ book: Book) async throws {
         do {
+            guard let bookID = book.id else {
+                return
+            }
             try await UseCase.Cart.removeBookFromCart(bookID)
         } catch {
             print(error.localizedDescription)
         }
     }
 
-    func buyBook(_ bookID: UUID) async throws {
+    func buyBook(_ book: Book) async throws {
         do {
+            guard let bookID = book.id else {
+                return
+            }
             try await UseCase.Books.buyBook(bookID)
         } catch {
             print(error.localizedDescription)

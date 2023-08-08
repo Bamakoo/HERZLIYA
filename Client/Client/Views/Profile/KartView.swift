@@ -21,7 +21,7 @@ struct KartView: View {
                 .swipeActions(edge: .trailing) {
                     Button {
                         Task {
-                            try await viewModel.removeBookFromKart((book.id)!)
+                            try await viewModel.removeBookFromKart(book)
                             try await viewModel.getBooksInKart()
                         }
                     } label: {
@@ -32,7 +32,7 @@ struct KartView: View {
                 .swipeActions(edge: .leading) {
                     Button {
                         Task {
-                            try await viewModel.buyBook((book.id)!)
+                            try await viewModel.buyBook(book)
                             try await viewModel.getBooksInKart()
                         }
                     } label: {
