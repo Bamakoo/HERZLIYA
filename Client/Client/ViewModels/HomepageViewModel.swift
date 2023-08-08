@@ -26,8 +26,11 @@ final class HomepageViewModel: ObservableObject {
         }
     }
 
-    func buyBook(_ bookID: UUID) async throws {
+    func buyBook(_ book: Book) async throws {
         do {
+            guard let bookID = book.id else {
+                return
+            }
             try await UseCase.Books.buyBook(bookID)
         } catch {
             print(error.localizedDescription)
@@ -55,8 +58,11 @@ final class HomepageViewModel: ObservableObject {
         }
     }
 
-    func addBookToKart(_ bookID: UUID) async {
+    func addBookToKart(_ book: Book) async {
         do {
+            guard let bookID = book.id else {
+                return
+            }
             try await UseCase.Books.addBookToKart(bookID)
         } catch {
             print(error.localizedDescription)
