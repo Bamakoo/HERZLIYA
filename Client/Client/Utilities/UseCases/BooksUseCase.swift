@@ -14,6 +14,16 @@ extension UseCase {
             return books
         }
 
+        static func search(_ searchText: String) async throws -> [Book] {
+            let books = try await API.Books.search(searchText)
+            return books
+        }
+        
+        static func fetchBooksByGenre(_ bookGenre: BookGenre) async throws -> [Book] {
+            let books = try await API.Books.fetchBooksByGenre(bookGenre)
+            return books
+        }
+
         static func likeABook(_ bookID: UUID) async throws {
             try await API.Books.likeABook(bookID)
         }

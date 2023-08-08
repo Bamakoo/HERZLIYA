@@ -44,7 +44,7 @@ final class BooksNetworkManager {
         let trueSearch = searchText.replacingOccurrences(of: " ", with: "+")
         print(searchText)
         print(trueSearch)
-        let stringUrl = Request.baseURL + Endpoint.books + "?title=\(trueSearch)"
+        let stringUrl = Request.baseURL + Endpoint.books + "?search=\(trueSearch)"
         guard let url = URL(string: stringUrl)
         else {
             print("unable to create URL for searching books")

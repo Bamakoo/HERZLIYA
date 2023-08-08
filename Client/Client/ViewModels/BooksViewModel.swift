@@ -28,8 +28,11 @@ final class BooksViewModel: ObservableObject {
         self.networkManager = networkManager
     }
 
-    func getCommentsOnBook(_ bookID: UUID) async throws {
+    func fetchBookComments(_ book: Book) async throws {
         do {
+            guard let bookID = book.id else {
+                return
+            }
             commentsOnBook = try await UseCase.Comments.fetchCommentsOnBook(bookID)
         } catch {
             print(error.localizedDescription)
@@ -47,8 +50,11 @@ final class BooksViewModel: ObservableObject {
         }
     }
 
-    func commentOnBook(_ bookID: UUID, _ comment: String) async throws {
+    func commentOnBook(_ book: Book, _ comment: String) async throws {
         do {
+            guard let bookID = book.id else {
+                return
+            }
             let newComment = PostComment(comment: comment, bookID: bookID)
             try await UseCase.Comments.commentOnBook(newComment)
         } catch {
@@ -81,9 +87,9 @@ final class BooksViewModel: ObservableObject {
         }
     }
 
-    func fetchBooksByCategory(_ forCategory: BookGenre) async {
+    func fetchBooksByGenre(_ bookGenre: BookGenre) async {
         do {
-            books = try await networkManager.fetchBooksByCategory(forCategory)
+            books = try await networkManager.fetchBooksByCategory(bookGenre)
         } catch {
             print(error.localizedDescription)
         }
@@ -106,16 +112,7 @@ final class BooksViewModel: ObservableObject {
 
     func purchaseBook(bookID: UUID) async {
         do {
-            let id = bookID.uuidString
-            try await networkManager.purchaseBook(bookID: id)
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-
-    func deleteBook(id: UUID) async throws {
-        do {
-            try await networkManager.deleteBook(id: id)
+            try await UseCase.Books.buyBook(bookID)
         } catch {
             print(error.localizedDescription)
         }

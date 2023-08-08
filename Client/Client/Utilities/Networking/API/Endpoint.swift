@@ -30,6 +30,14 @@ struct NewEndpoint {
     static func book() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/books", queryItems: nil)
     }
+    
+    static func bookGenre(_ bookGenre: BookGenre) -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/books?genre=\(bookGenre.rawValue)", queryItems: nil)
+    }
+
+    static func search(_ searchText: String) -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/books?search=\(searchText)", queryItems: nil)
+    }
 
     static func changePassword() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/change-password", queryItems: nil)

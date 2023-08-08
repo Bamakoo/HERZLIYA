@@ -47,7 +47,7 @@ struct BooksList: View {
             .onChange(of: selectedBookGenre) { _ in
                 Task {
                     guard let selectedBookGenre else { return }
-                    await viewModel.fetchBooksByCategory(selectedBookGenre)
+                    await viewModel.fetchBooksByGenre(selectedBookGenre)
                 }
             }
             .searchable(text: $viewModel.searchText, prompt: "Search")
@@ -61,7 +61,7 @@ struct BooksList: View {
             .refreshable {
                 print("REFRESHED")
                 guard let selectedBookGenre else { return }
-                await viewModel.fetchBooksByCategory(selectedBookGenre)
+                await viewModel.fetchBooksByGenre(selectedBookGenre)
                 print("REFRESHED")
             }
             .toolbar {
@@ -75,7 +75,7 @@ struct BooksList: View {
                         Task {
                             guard let selectedBookGenre else { return }
                             print("vanished")
-                            await viewModel.fetchBooksByCategory(selectedBookGenre)
+                            await viewModel.fetchBooksByGenre(selectedBookGenre)
                         }
                     } content: {
                         CreateBookView()

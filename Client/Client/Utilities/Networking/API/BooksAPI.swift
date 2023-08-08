@@ -17,6 +17,22 @@ extension API {
             return books
         }
 
+        static func fetchBooksByGenre(_ bookGenre: BookGenre) async throws -> [Book] {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.bookGenre(bookGenre))
+            let bookData = try await HTTP.get(with: request)
+            let decoder = JSONDecoder()
+            let books = try decoder.decode([Book].self, from: bookData)
+            return books
+        }
+
+        static func search(_ searchText: String) async throws -> [Book] {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.search(searchText))
+            let bookData = try await HTTP.get(with: request)
+            let decoder = JSONDecoder()
+            let books = try decoder.decode([Book].self, from: bookData)
+            return books
+        }
+
         static func likeABook(_ bookID: UUID) async throws {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.likes(bookID)).loginProtected()
             _ = try await HTTP.post(with: request, andBody: nil)

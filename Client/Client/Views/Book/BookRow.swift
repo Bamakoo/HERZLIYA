@@ -20,21 +20,20 @@ struct BookRow: View {
             VStack(alignment: .leading) {
                 Text(book.title)
                     .font(.system(size: 18, weight: .bold, design: .default))
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                 Text(book.author)
                     .font(.system(size: 12, weight: .bold, design: .default))
                     .foregroundColor(.gray)
                 HStack {
                     Text("$" + String(book.price))
                         .font(.system(size: 16, weight: .bold, design: .default))
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .padding(.top, 8)
                 }
             }.padding(.trailing, 20)
             Spacer()
         }
         .frame(maxWidth: .infinity, alignment: .center)
-        .background(Color(red: 32/255, green: 36/255, blue: 38/255))
         .modifier(CardModifier())
         .padding(.all, 10)
     }
