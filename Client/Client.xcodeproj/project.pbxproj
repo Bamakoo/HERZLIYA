@@ -151,7 +151,7 @@
 		A4AF589F29CC653D003F03AD /* KartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KartView.swift; sourceTree = "<group>"; };
 		A4B33B822A8180F800F6A33A /* UserMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuView.swift; sourceTree = "<group>"; };
 		A4B33B862A8181AE00F6A33A /* UserMenuEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuEnum.swift; sourceTree = "<group>"; };
-		A4B33B882A81834F00F6A33A /* LikesByMyFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LikesByMyFriends.swift; path = Client/Views/LikesByMyFriends.swift; sourceTree = SOURCE_ROOT; };
+		A4B33B882A81834F00F6A33A /* LikesByMyFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LikesByMyFriends.swift; path = Client/Views/User/LikesByMyFriends.swift; sourceTree = SOURCE_ROOT; };
 		A4B33B8A2A818BAC00F6A33A /* AllComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllComments.swift; sourceTree = "<group>"; };
 		A4B33B8C2A818C2700F6A33A /* AllRatings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRatings.swift; sourceTree = "<group>"; };
 		A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUsers.swift; sourceTree = "<group>"; };
@@ -223,6 +223,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A40C77FE2A828FED003C11EB /* User */ = {
+			isa = PBXGroup;
+			children = (
+				A4B33B8A2A818BAC00F6A33A /* AllComments.swift */,
+				A4B33B822A8180F800F6A33A /* UserMenuView.swift */,
+				A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */,
+				A4B33B882A81834F00F6A33A /* LikesByMyFriends.swift */,
+				A4B33B8C2A818C2700F6A33A /* AllRatings.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		A40C77FF2A829046003C11EB /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				A499DCD02A22ABFA00777B8F /* ProfileSwitch.swift */,
+				A499DCD22A22AD0B00777B8F /* Oups.swift */,
+				A499DCE92A3774FE00777B8F /* UpdateProfile.swift */,
+				A4DD9DC729DF24E40063DD9B /* ForgotMyPassword.swift */,
+				A4AF589D29CC6529003F03AD /* CreateAccountView.swift */,
+				A4EF9CCC2A557DE700E7897B /* ChangeMyPassword.swift */,
+				A4AF589B29CC6522003F03AD /* SignInView.swift */,
+				A4DD9DC329DF12B40063DD9B /* LoginChoiceScreen.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		A413CB3F29BD406800FDB528 /* Book */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,27 +268,14 @@
 			isa = PBXGroup;
 			children = (
 				A4DD9DB129D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift */,
-				A499DCD02A22ABFA00777B8F /* ProfileSwitch.swift */,
-				A499DCD22A22AD0B00777B8F /* Oups.swift */,
-				A4B33B8A2A818BAC00F6A33A /* AllComments.swift */,
-				A4B33B8C2A818C2700F6A33A /* AllRatings.swift */,
-				A4B33B822A8180F800F6A33A /* UserMenuView.swift */,
-				A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */,
-				A4B33B882A81834F00F6A33A /* LikesByMyFriends.swift */,
 				A44D59BE29A407C800FF7F22 /* LikesView.swift */,
 				A4AF589F29CC653D003F03AD /* KartView.swift */,
 				A44D59BC29A4077E00FF7F22 /* UserProfileView.swift */,
 				A45BDC532A531D8D003AB9FC /* MyComments.swift */,
 				A45BDC512A531CC6003AB9FC /* CommentsOnMyBooksView.swift */,
-				A499DCE92A3774FE00777B8F /* UpdateProfile.swift */,
-				A4EF9CCC2A557DE700E7897B /* ChangeMyPassword.swift */,
-				A4DD9DC329DF12B40063DD9B /* LoginChoiceScreen.swift */,
-				A4DD9DC729DF24E40063DD9B /* ForgotMyPassword.swift */,
 				A4DD9DB729D9D56B0063DD9B /* BoughtBooks.swift */,
 				A4DD9DB529D9D54F0063DD9B /* SoldBooks.swift */,
 				A4DD9DB329D9D50B0063DD9B /* MyFriendsView.swift */,
-				A4AF589D29CC6529003F03AD /* CreateAccountView.swift */,
-				A4AF589B29CC6522003F03AD /* SignInView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -446,6 +460,8 @@
 		A4C9867429A11D3B003CF879 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A40C77FF2A829046003C11EB /* Auth */,
+				A40C77FE2A828FED003C11EB /* User */,
 				A413CB3F29BD406800FDB528 /* Book */,
 				A413CB4029BD40A300FDB528 /* Profile */,
 			);
