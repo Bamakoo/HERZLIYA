@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct BookDetail: View {
-    
+
     @Binding var book: Book?
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var fullText: String = "Your comment"
-    
+
     var body: some View {
         Form {
             Text(book!.title)
@@ -53,14 +53,18 @@ struct BookDetail: View {
             }
             Button {
                 Task {
-                    await viewModel.purchaseBook(bookID: (book?.id)!)
+                    if let book {
+                        await viewModel.purchaseBook(book)
+                    }
                 }
             } label: {
                 Text("Purchase \(book!.title)")
             }
             Button {
                 Task {
-                    await viewModel.addBookToKart((book?.id)!)
+                    if let book {
+                        await viewModel.addBookToKart(book)
+                    }
                 }
             } label: {
                 Text("Add to cart")
