@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A40C78012A829DF5003C11EB /* DetailedUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C78002A829DF5003C11EB /* DetailedUserProfile.swift */; };
 		A43C72DC29CDD3DF00CDF56B /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43C72DB29CDD3DF00CDF56B /* UsersViewModel.swift */; };
 		A43C72E029CF8DF900CDF56B /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43C72DF29CF8DF900CDF56B /* SignInViewModel.swift */; };
 		A43E2F792A542401006CFB63 /* MyCommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43E2F782A542401006CFB63 /* MyCommentsViewModel.swift */; };
@@ -89,6 +90,7 @@
 		A4DEA2752A128E4000FE6EB3 /* NewUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEA2742A128E4000FE6EB3 /* NewUser.swift */; };
 		A4DEA2772A1373D400FE6EB3 /* GetUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEA2762A1373D400FE6EB3 /* GetUser.swift */; };
 		A4DEA2792A1511DE00FE6EB3 /* PatchPurchaseBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEA2782A1511DE00FE6EB3 /* PatchPurchaseBook.swift */; };
+		A4DEBE652A8399F500E76596 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEBE642A8399F500E76596 /* CommentViewModel.swift */; };
 		A4EF9CCD2A557DE700E7897B /* ChangeMyPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EF9CCC2A557DE700E7897B /* ChangeMyPassword.swift */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +112,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A40C78002A829DF5003C11EB /* DetailedUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedUserProfile.swift; sourceTree = "<group>"; };
 		A43C72DB29CDD3DF00CDF56B /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersViewModel.swift; path = Client/Views/Profile/UsersViewModel.swift; sourceTree = SOURCE_ROOT; };
 		A43C72DF29CF8DF900CDF56B /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		A43E2F782A542401006CFB63 /* MyCommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentsViewModel.swift; sourceTree = "<group>"; };
@@ -195,6 +198,7 @@
 		A4DEA2742A128E4000FE6EB3 /* NewUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUser.swift; sourceTree = "<group>"; };
 		A4DEA2762A1373D400FE6EB3 /* GetUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUser.swift; sourceTree = "<group>"; };
 		A4DEA2782A1511DE00FE6EB3 /* PatchPurchaseBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchPurchaseBook.swift; sourceTree = "<group>"; };
+		A4DEBE642A8399F500E76596 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		A4EF9CCC2A557DE700E7897B /* ChangeMyPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeMyPassword.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -229,6 +233,7 @@
 				A4B33B8A2A818BAC00F6A33A /* AllComments.swift */,
 				A4B33B822A8180F800F6A33A /* UserMenuView.swift */,
 				A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */,
+				A40C78002A829DF5003C11EB /* DetailedUserProfile.swift */,
 				A4B33B882A81834F00F6A33A /* LikesByMyFriends.swift */,
 				A4B33B8C2A818C2700F6A33A /* AllRatings.swift */,
 			);
@@ -449,6 +454,7 @@
 				A43E2F782A542401006CFB63 /* MyCommentsViewModel.swift */,
 				A43C72DF29CF8DF900CDF56B /* SignInViewModel.swift */,
 				A43C72DB29CDD3DF00CDF56B /* UsersViewModel.swift */,
+				A4DEBE642A8399F500E76596 /* CommentViewModel.swift */,
 				A4AEC1E92A72707900875E70 /* KartViewModel.swift */,
 				A499DCE12A2A17E800777B8F /* ProfileSwitchViewModel.swift */,
 				A4AEC1DD2A6A6DD600875E70 /* ProfileViewModel.swift */,
@@ -696,8 +702,10 @@
 				A44D59CD29ACB33200FF7F22 /* KartsNetworkManager.swift in Sources */,
 				A45BDC542A531D8D003AB9FC /* MyComments.swift in Sources */,
 				A4DD9DC829DF24E40063DD9B /* ForgotMyPassword.swift in Sources */,
+				A40C78012A829DF5003C11EB /* DetailedUserProfile.swift in Sources */,
 				A4C782CF2A559FDB00AACE4E /* Endpoint.swift in Sources */,
 				A4AF589829CC61F3003F03AD /* Kart.swift in Sources */,
+				A4DEBE652A8399F500E76596 /* CommentViewModel.swift in Sources */,
 				A44D59BF29A407C800FF7F22 /* LikesView.swift in Sources */,
 				A499DCDB2A2749E500777B8F /* HomepageViewModel.swift in Sources */,
 				A44D59AF29A3722500FF7F22 /* CreateBookView.swift in Sources */,

@@ -16,6 +16,14 @@ extension API {
             let comments = try decoder.decode([Comment].self, from: commentData)
             return comments
         }
+        
+        static func fetchAllComments() async throws -> [Comment] {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.comments())
+            let commentData = try await HTTP.get(with: request)
+            let decoder = JSONDecoder()
+            let comments = try decoder.decode([Comment].self, from: commentData)
+            return comments
+        }
 
         static func fetchMyComments() async throws -> [Comment] {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.myComments()).loginProtected()

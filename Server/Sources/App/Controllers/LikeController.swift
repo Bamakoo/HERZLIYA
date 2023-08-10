@@ -31,7 +31,6 @@ struct LikeController: RouteCollection {
     func create(req: Request) async throws -> Response {
 
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
-            print("unable to delete book")
             throw Abort(.notFound)
         }
 

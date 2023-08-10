@@ -8,8 +8,8 @@
 import Foundation
 
 struct Comment: Identifiable, Codable, Hashable, Equatable {
-   var id: UUID?
-   let userID: String?
+   var id: UUID
+   let userID: String
    let bookID: UUID
    let comment: String
 }

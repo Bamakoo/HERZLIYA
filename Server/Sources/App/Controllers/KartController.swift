@@ -25,7 +25,6 @@ struct KartController: RouteCollection {
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db),
               let bookID = book.id
         else {
-            print("unable to delete book")
             throw Abort(.notFound, reason: "unable to locate book")
         }        // get the user's Kart
         let user = try req.auth.require(User.self)
@@ -53,7 +52,6 @@ struct KartController: RouteCollection {
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db),
               let bookID = book.id
         else {
-            print("unable to delete book")
             throw Abort(.notFound)
         }
         

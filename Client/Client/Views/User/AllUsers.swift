@@ -20,7 +20,9 @@ struct AllUsers: View {
                 }
             }
         } detail: {
-            Text("hello world")
+            if selectedUser != nil {
+                DetailedUserProfile(user: $selectedUser)
+            }
         }
         .onAppear {
             Task {

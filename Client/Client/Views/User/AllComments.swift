@@ -8,8 +8,25 @@
 import SwiftUI
 
 struct AllComments: View {
+
+    @StateObject private var viewModel = CommentViewModel()
+    @State private var selectedComment: Comment?
+
     var body: some View {
-        Text("Hello, Comments!")
+        NavigationSplitView {
+            List(viewModel.allComments, selection: $selectedComment) { comment in
+                NavigationLink(value: comment) {
+                    Label(comment.comment, systemImage: "person.2.wave.2")
+                }
+            }
+        } detail: {
+            Text("hello world")
+        }
+        .onAppear {
+            Task {
+                try await viewModel.fetchAllComments()
+            }
+        }
     }
 }
 

@@ -34,7 +34,6 @@ struct BookController: RouteCollection {
         
         // the book the above user is buying
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
-            print("unable to delete book")
             throw Abort(.notFound)
         }
         
@@ -112,7 +111,6 @@ struct BookController: RouteCollection {
                     .sort(\.$createdAt, .descending)
                     .all()
             default:
-                print("DEFAULTED")
                 return try await Book.query(on: req.db)
                     .filter(\.$status == .available)
                     .all()
@@ -300,7 +298,6 @@ struct BookController: RouteCollection {
         }
         
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
-            print("unable to delete book")
             throw Abort(.notFound)
         }
         guard userID == book.$seller.id else {

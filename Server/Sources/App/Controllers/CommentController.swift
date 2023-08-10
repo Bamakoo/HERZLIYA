@@ -36,9 +36,12 @@ func commentsOnBook(req: Request) async throws -> [GetComment] {
 /// - Parameter req: the incoming request to /comments
 /// - Throws: an aerror indicating some kind of error happened server side
 /// - Returns: all the comments
-func index(req: Request) async throws -> [Comment] {
-    try await Comment.query(on: req.db)
+func index(req: Request) async throws -> [GetComment] {
+    let comments = try await Comment.query(on: req.db)
         .all()
+    return try comments.map { comment in
+        try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.$book.id, userID: comment.$user.id)
+    }
 }
 
 /// Used by a user comments on a book
