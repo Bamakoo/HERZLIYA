@@ -46,7 +46,7 @@ const props = defineProps<{
   title: string
   author?: string
   price?: number
-  img: string
+  // img: string
   state?:
     | 'horrendous'
     | 'bad'

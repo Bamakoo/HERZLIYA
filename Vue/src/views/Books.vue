@@ -12,11 +12,9 @@
           large
           :key="index"
           :title="book.title"
-          :img="book.img"
           :author="book.author"
           :price="book.price"
           :to="book.id"
-          :seller="book.seller ?? ''"
           class="mx-auto"
         />
       </div>
@@ -36,12 +34,16 @@ const genre = 'pathname'.split('/')
 
 const booksStore = useBooksStore()
 const books = computed(() => {
-  return booksStore.getAllBooks
+  // return booksStore.getAllBooks
+  return JSON.parse(JSON.stringify(booksStore.getAllBooks)) //=> fonctionne j'ai bien un array vide
 })
+console.log(books.value)
 
 // const booksAction = () => {...mapActions('books', ['fetchBooks'])}
 
 onMounted(() => {
-  booksStore.fetchBooks()
+  // const books = computed(() => booksStore.fetchBooks())
+  // console.log(books.value)
+  // return books
 })
 </script>

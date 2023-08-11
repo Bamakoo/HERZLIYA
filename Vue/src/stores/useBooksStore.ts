@@ -143,6 +143,28 @@ import axios from 'axios'
   deletedAt?: Date | null
  */
 
+// export const useBooksStore = defineStore('books', {
+//   state: () => ({
+//     books: [] as Books[]
+//   }),
+//   getters: {
+//     getAllBooks(state) {
+//       return state.books
+//     }
+//   },
+//   actions: {
+//     async fetchBooks() {
+//       try {
+//         const { data } = await axios.get('/api/books')
+//         this.books = JSON.parse(JSON.stringify({ data }))
+//       } catch (error) {
+//         alert((error as Error).message)
+//         console.error((error as Error).message)
+//       }
+//     }
+//   }
+// })
+
 export const useBooksStore = defineStore('books', {
   state: () => ({
     books: [] as Books[]
@@ -156,7 +178,12 @@ export const useBooksStore = defineStore('books', {
     async fetchBooks() {
       try {
         const { data } = await axios.get('/api/books')
-        this.books = JSON.parse(JSON.stringify({ data }))
+        console.log(data)
+        this.books = data
+        // return JSON.parse(JSON.stringify(this.books))
+        // this.books = data.map((book: Books[]) => ({ ...book }))
+
+        return this.books
       } catch (error) {
         alert((error as Error).message)
         console.error((error as Error).message)
