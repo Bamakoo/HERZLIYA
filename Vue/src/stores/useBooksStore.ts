@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 import type { Books } from '@/libs/interfaces/books'
 // import { getAllBooks } from '@/api/axios/books.api'
 import axios from 'axios'
-
 // export const useBooksStore = defineStore('booksStore', {
 //   state: () => ({
 //     books: [
@@ -156,11 +155,11 @@ export const useBooksStore = defineStore('books', {
   actions: {
     async fetchBooks() {
       try {
-        const data = await axios.get('books')
-        this.books = data.data
+        const data = await (await axios.get('/books')).data
+        this.books = JSON.parse(JSON.stringify({ data }))
       } catch (error) {
-        alert(error)
-        console.error(error)
+        alert((error as Error).message)
+        console.error((error as Error).message)
       }
     }
   }
