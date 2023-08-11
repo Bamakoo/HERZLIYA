@@ -155,7 +155,7 @@ export const useBooksStore = defineStore('books', {
   actions: {
     async fetchBooks() {
       try {
-        const data = await (await axios.get('/books')).data
+        const { data } = await axios.get('/api/books')
         this.books = JSON.parse(JSON.stringify({ data }))
       } catch (error) {
         alert((error as Error).message)
