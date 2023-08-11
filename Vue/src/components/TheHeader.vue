@@ -26,7 +26,7 @@
         v-for="(nav, index) in navigation"
         :to="nav.to"
         :key="index"
-        :active-class="'text-primary-dark border-b-2 border-b-primary-dark'"
+        :active-class="'text-white border-b-2 border-b-white'"
         :aria-label="nav.title"
         class="h-full flex-col w-24 text-gray-700 transition-colors duration-200 hover:text-white hover:border-b-white"
       >

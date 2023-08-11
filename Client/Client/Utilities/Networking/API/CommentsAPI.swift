@@ -16,7 +16,7 @@ extension API {
             let comments = try decoder.decode([Comment].self, from: commentData)
             return comments
         }
-        
+
         static func fetchAllComments() async throws -> [Comment] {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.comments())
             let commentData = try await HTTP.get(with: request)

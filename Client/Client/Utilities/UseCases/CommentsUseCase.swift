@@ -13,7 +13,7 @@ extension UseCase {
             let comments = try await API.Comments.fetchCommentsOnBook(bookID)
             return comments
         }
-        
+
         static func fetchAllComments() async throws -> [Comment] {
             let comments = try await API.Comments.fetchAllComments()
             return comments

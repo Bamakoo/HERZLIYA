@@ -51,6 +51,7 @@ struct Homepage: View {
                     .tint(Color.purple)
                 }
             }
+            .listStyle(.insetGrouped)
             .toolbarRole(.editor)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -132,7 +133,7 @@ struct Homepage: View {
                 }
             }
             .listStyle(.grouped)
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(.automatic)
             .navigationTitle("Homepage")
         } detail: {
             if selectedBook != nil {
