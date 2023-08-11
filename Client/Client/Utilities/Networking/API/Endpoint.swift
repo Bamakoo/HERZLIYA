@@ -31,6 +31,14 @@ struct NewEndpoint {
         return HerzliyaEndpoint(path: "/books", queryItems: nil)
     }
 
+    static func bookGenre(_ bookGenre: BookGenre) -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/books?genre=\(bookGenre.rawValue)", queryItems: nil)
+    }
+
+    static func search(_ searchText: String) -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/books?search=\(searchText)", queryItems: nil)
+    }
+
     static func changePassword() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/change-password", queryItems: nil)
     }
@@ -68,7 +76,7 @@ struct NewEndpoint {
     }
 
     static func myComments() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/comments/users", queryItems: nil)
+        return HerzliyaEndpoint(path: "/my/comments", queryItems: nil)
     }
 
     static func removeBookFromCart(_ bookID: UUID) -> APIEndpoint {
@@ -89,5 +97,13 @@ struct NewEndpoint {
 
     static func users() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/users", queryItems: nil)
+    }
+
+    static func comments() -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/comments", queryItems: nil)
+    }
+
+    static func deleteComment(_ commentID: UUID) -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/comments/\(commentID)", queryItems: nil)
     }
 }

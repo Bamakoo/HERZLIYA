@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CreateAccountView: View {
-    @ObservedObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
+    @ObservedObject private var viewModel = UsersViewModel()
     @Environment(\.dismiss) var dismiss
     var body: some View {
         Form {

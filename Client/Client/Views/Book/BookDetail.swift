@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BookDetail: View {
+
     @Binding var book: Book?
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var fullText: String = "Your comment"
@@ -25,46 +26,56 @@ struct BookDetail: View {
                     .lineSpacing(5)
                 Button("Comment") {
                     Task {
-                        try await viewModel.commentOnBook((book?.id)!, fullText)
-                        try await viewModel.getCommentsOnBook((book?.id)!)
+                        if let book {
+                            try await viewModel.commentOnBook(book, fullText)
+                            try await viewModel.fetchBookComments(book)
+                        }
                     }
                 }
             }
             Section {
-                List(viewModel.commentsOnBook) {
-                    Text($0.comment)
+                List(viewModel.commentsOnBook) { comment in
+                    Text(comment.comment)
+                        .swipeActions(edge: .trailing) {
+                            Button {
+                                Task {
+                                    if let book {
+                                        try await viewModel.deleteComment(comment.id)
+                                        try await viewModel.fetchBookComments(book)
+                                    }
+                                }
+                            } label: {
+                                Image(systemName: "delete.backward")
+                            }
+                            .tint(.red)
+                        }
                 }
             }
             Button {
                 Task {
-                    await viewModel.purchaseBook(bookID: (book?.id)!)
+                    if let book {
+                        await viewModel.purchaseBook(book)
+                    }
                 }
             } label: {
                 Text("Purchase \(book!.title)")
             }
             Button {
                 Task {
-                    await viewModel.addBookToKart((book?.id)!)
+                    if let book {
+                        await viewModel.addBookToKart(book)
+                    }
                 }
             } label: {
                 Text("Add to cart")
             }
             .navigationBarTitle(book!.title, displayMode: .inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        Task {
-                            try await viewModel.deleteBook(id: book!.id!)
-                        }
-                    } label: {
-                        Image(systemName: "trash.circle")
+            .onAppear {
+                Task {
+                    if let book {
+                        try await viewModel.fetchBookComments(book)
                     }
                 }
-            }
-        }
-        .onAppear {
-            Task {
-                try await viewModel.getCommentsOnBook((book?.id)!)
             }
         }
     }

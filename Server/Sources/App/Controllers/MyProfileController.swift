@@ -8,15 +8,49 @@ struct MyProfileController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         
         let myRoutes = routes.grouped("my")
+        
         let tokenAuthenticator = UserToken.authenticator()
         let tokenMiddleware = UserToken.guardMiddleware()
         let tokenAuth = myRoutes.grouped(tokenAuthenticator, tokenMiddleware)
+        
         tokenAuth.get(use: getMyProfile)
         tokenAuth.get("likes", use: getMyLikes)
         tokenAuth.get("purchases", use: getMyPurchasedBooks)
         tokenAuth.get("kart", use: myKart)
         tokenAuth.get("sold", use: sold)
+        tokenAuth.get("comments", use: myComments)
         tokenAuth.get("favorite-author", use: favoriteAuthor)
+        tokenAuth.get("friends", use: myFriends)
+        // TODO: my ratings
+    }
+    
+    /// The function called to get a user's friends
+    /// - Parameter req: the incoming request to /friends
+    /// - Returns: an array of user object's
+    func myFriends(req: Request) async throws -> [User] {
+        let user = try req.auth.require(User.self)
+        return try await user.$usersFriends.get(on: req.db)
+    }
+    
+    /// When called by the route handler, this function returns an array containing all the comments dropped by a particular user on any book
+    /// - Parameter req: the incoming request
+    /// - Returns: all the comments a particular user has posted
+    func myComments(req: Request) async throws -> [GetComment] {
+        
+        let user = try req.auth.require(User.self)
+        guard let userID = user.id else {
+            throw Abort(.badRequest, reason: "unable to get user")
+        }
+        
+        let comments = try await Comment.query(on: req.db)
+            .filter(\.$user.$id == userID)
+            .with(\.$user)
+            .with(\.$book)
+            .all()
+        
+        return try comments.map { comment in
+            try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.book.requireID(), userID: comment.user.requireID())
+        }
     }
     
     func getMyProfile(req: Request) async throws -> User {
@@ -91,4 +125,3 @@ struct MyProfileController: RouteCollection {
         }
     }
 }
-

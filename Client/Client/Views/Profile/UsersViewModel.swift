@@ -10,6 +10,7 @@ import SwiftUI
 
 final class UsersViewModel: ObservableObject {
 
+    @Published var users = [FetchUser]()
     @Published var currentPassword = ""
     @Published var confirmCurrentPassword = ""
     @Published var newPassword = ""
@@ -22,12 +23,6 @@ final class UsersViewModel: ObservableObject {
     @Published var favoriteAuthor = ""
     @Published var city = ""
     @Published var country = ""
-
-    private let networkManager: UserNetworkManager
-
-    init(networkManager: UserNetworkManager) {
-        self.networkManager = networkManager
-    }
 
     @MainActor
     func createANewUser() async throws {
@@ -46,6 +41,15 @@ final class UsersViewModel: ObservableObject {
         }
     }
 
+    @MainActor
+    func fetchUsers() async throws {
+        do {
+            users = try await UseCase.User.fetchUsers()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
     func changeUserPassword() async throws {
         do {
             let patchedPassword = PatchPassword(currentPassword: currentPassword,
@@ -55,14 +59,6 @@ final class UsersViewModel: ObservableObject {
                                                 favoriteAuthor: favoriteAuthor,
                                                 favoriteBook: favoriteBook)
             try await UseCase.User.changePassword(patchedPassword)
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-
-    func deleteUserProfile(id: UUID) async throws {
-        do {
-            try await networkManager.deleteProfile(id: id)
         } catch {
             print(error.localizedDescription)
         }

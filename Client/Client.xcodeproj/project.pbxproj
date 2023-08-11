@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A40C78012A829DF5003C11EB /* DetailedUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C78002A829DF5003C11EB /* DetailedUserProfile.swift */; };
 		A43C72DC29CDD3DF00CDF56B /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43C72DB29CDD3DF00CDF56B /* UsersViewModel.swift */; };
-		A43C72DE29CDD80700CDF56B /* UserNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43C72DD29CDD80700CDF56B /* UserNetworkManager.swift */; };
 		A43C72E029CF8DF900CDF56B /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43C72DF29CF8DF900CDF56B /* SignInViewModel.swift */; };
 		A43E2F792A542401006CFB63 /* MyCommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43E2F782A542401006CFB63 /* MyCommentsViewModel.swift */; };
 		A43EDBEB29ED438D00573A2C /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43EDBEA29ED438D00573A2C /* Identifier.swift */; };
@@ -47,6 +47,12 @@
 		A4AF589C29CC6522003F03AD /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589B29CC6522003F03AD /* SignInView.swift */; };
 		A4AF589E29CC6529003F03AD /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589D29CC6529003F03AD /* CreateAccountView.swift */; };
 		A4AF58A029CC653D003F03AD /* KartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589F29CC653D003F03AD /* KartView.swift */; };
+		A4B33B832A8180F800F6A33A /* UserMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B822A8180F800F6A33A /* UserMenuView.swift */; };
+		A4B33B872A8181AE00F6A33A /* UserMenuEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B862A8181AE00F6A33A /* UserMenuEnum.swift */; };
+		A4B33B892A81834F00F6A33A /* LikesByMyFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B882A81834F00F6A33A /* LikesByMyFriends.swift */; };
+		A4B33B8B2A818BAC00F6A33A /* AllComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B8A2A818BAC00F6A33A /* AllComments.swift */; };
+		A4B33B8D2A818C2700F6A33A /* AllRatings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B8C2A818C2700F6A33A /* AllRatings.swift */; };
+		A4B33B8F2A818CBC00F6A33A /* AllUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */; };
 		A4BDB5DB29D5BD4500C973CE /* UserProfileEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */; };
 		A4C782C92A55969B00AACE4E /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782C82A55969A00AACE4E /* HTTP.swift */; };
 		A4C782CB2A5596D600AACE4E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782CA2A5596D600AACE4E /* API.swift */; };
@@ -84,6 +90,7 @@
 		A4DEA2752A128E4000FE6EB3 /* NewUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEA2742A128E4000FE6EB3 /* NewUser.swift */; };
 		A4DEA2772A1373D400FE6EB3 /* GetUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEA2762A1373D400FE6EB3 /* GetUser.swift */; };
 		A4DEA2792A1511DE00FE6EB3 /* PatchPurchaseBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEA2782A1511DE00FE6EB3 /* PatchPurchaseBook.swift */; };
+		A4DEBE652A8399F500E76596 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEBE642A8399F500E76596 /* CommentViewModel.swift */; };
 		A4EF9CCD2A557DE700E7897B /* ChangeMyPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EF9CCC2A557DE700E7897B /* ChangeMyPassword.swift */; };
 /* End PBXBuildFile section */
 
@@ -105,8 +112,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A40C78002A829DF5003C11EB /* DetailedUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedUserProfile.swift; sourceTree = "<group>"; };
 		A43C72DB29CDD3DF00CDF56B /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersViewModel.swift; path = Client/Views/Profile/UsersViewModel.swift; sourceTree = SOURCE_ROOT; };
-		A43C72DD29CDD80700CDF56B /* UserNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkManager.swift; sourceTree = "<group>"; };
 		A43C72DF29CF8DF900CDF56B /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		A43E2F782A542401006CFB63 /* MyCommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentsViewModel.swift; sourceTree = "<group>"; };
 		A43EDBEA29ED438D00573A2C /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
@@ -145,6 +152,12 @@
 		A4AF589B29CC6522003F03AD /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		A4AF589D29CC6529003F03AD /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		A4AF589F29CC653D003F03AD /* KartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KartView.swift; sourceTree = "<group>"; };
+		A4B33B822A8180F800F6A33A /* UserMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuView.swift; sourceTree = "<group>"; };
+		A4B33B862A8181AE00F6A33A /* UserMenuEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuEnum.swift; sourceTree = "<group>"; };
+		A4B33B882A81834F00F6A33A /* LikesByMyFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LikesByMyFriends.swift; path = Client/Views/User/LikesByMyFriends.swift; sourceTree = SOURCE_ROOT; };
+		A4B33B8A2A818BAC00F6A33A /* AllComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllComments.swift; sourceTree = "<group>"; };
+		A4B33B8C2A818C2700F6A33A /* AllRatings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRatings.swift; sourceTree = "<group>"; };
+		A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUsers.swift; sourceTree = "<group>"; };
 		A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserProfileEnum.swift; path = Client/Utilities/User/UserProfileEnum.swift; sourceTree = SOURCE_ROOT; };
 		A4C782C82A55969A00AACE4E /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HTTP.swift; path = Client/Utilities/Networking/HTTP/HTTP.swift; sourceTree = SOURCE_ROOT; };
 		A4C782CA2A5596D600AACE4E /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -185,6 +198,7 @@
 		A4DEA2742A128E4000FE6EB3 /* NewUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUser.swift; sourceTree = "<group>"; };
 		A4DEA2762A1373D400FE6EB3 /* GetUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUser.swift; sourceTree = "<group>"; };
 		A4DEA2782A1511DE00FE6EB3 /* PatchPurchaseBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchPurchaseBook.swift; sourceTree = "<group>"; };
+		A4DEBE642A8399F500E76596 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		A4EF9CCC2A557DE700E7897B /* ChangeMyPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeMyPassword.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -213,6 +227,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A40C77FE2A828FED003C11EB /* User */ = {
+			isa = PBXGroup;
+			children = (
+				A4B33B8A2A818BAC00F6A33A /* AllComments.swift */,
+				A4B33B822A8180F800F6A33A /* UserMenuView.swift */,
+				A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */,
+				A40C78002A829DF5003C11EB /* DetailedUserProfile.swift */,
+				A4B33B882A81834F00F6A33A /* LikesByMyFriends.swift */,
+				A4B33B8C2A818C2700F6A33A /* AllRatings.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		A40C77FF2A829046003C11EB /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				A499DCD02A22ABFA00777B8F /* ProfileSwitch.swift */,
+				A499DCD22A22AD0B00777B8F /* Oups.swift */,
+				A499DCE92A3774FE00777B8F /* UpdateProfile.swift */,
+				A4DD9DC729DF24E40063DD9B /* ForgotMyPassword.swift */,
+				A4AF589D29CC6529003F03AD /* CreateAccountView.swift */,
+				A4EF9CCC2A557DE700E7897B /* ChangeMyPassword.swift */,
+				A4AF589B29CC6522003F03AD /* SignInView.swift */,
+				A4DD9DC329DF12B40063DD9B /* LoginChoiceScreen.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		A413CB3F29BD406800FDB528 /* Book */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,22 +273,14 @@
 			isa = PBXGroup;
 			children = (
 				A4DD9DB129D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift */,
-				A499DCD02A22ABFA00777B8F /* ProfileSwitch.swift */,
-				A499DCD22A22AD0B00777B8F /* Oups.swift */,
 				A44D59BE29A407C800FF7F22 /* LikesView.swift */,
 				A4AF589F29CC653D003F03AD /* KartView.swift */,
 				A44D59BC29A4077E00FF7F22 /* UserProfileView.swift */,
 				A45BDC532A531D8D003AB9FC /* MyComments.swift */,
 				A45BDC512A531CC6003AB9FC /* CommentsOnMyBooksView.swift */,
-				A499DCE92A3774FE00777B8F /* UpdateProfile.swift */,
-				A4EF9CCC2A557DE700E7897B /* ChangeMyPassword.swift */,
-				A4DD9DC329DF12B40063DD9B /* LoginChoiceScreen.swift */,
-				A4DD9DC729DF24E40063DD9B /* ForgotMyPassword.swift */,
 				A4DD9DB729D9D56B0063DD9B /* BoughtBooks.swift */,
 				A4DD9DB529D9D54F0063DD9B /* SoldBooks.swift */,
 				A4DD9DB329D9D50B0063DD9B /* MyFriendsView.swift */,
-				A4AF589D29CC6529003F03AD /* CreateAccountView.swift */,
-				A4AF589B29CC6522003F03AD /* SignInView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -420,6 +454,7 @@
 				A43E2F782A542401006CFB63 /* MyCommentsViewModel.swift */,
 				A43C72DF29CF8DF900CDF56B /* SignInViewModel.swift */,
 				A43C72DB29CDD3DF00CDF56B /* UsersViewModel.swift */,
+				A4DEBE642A8399F500E76596 /* CommentViewModel.swift */,
 				A4AEC1E92A72707900875E70 /* KartViewModel.swift */,
 				A499DCE12A2A17E800777B8F /* ProfileSwitchViewModel.swift */,
 				A4AEC1DD2A6A6DD600875E70 /* ProfileViewModel.swift */,
@@ -431,6 +466,8 @@
 		A4C9867429A11D3B003CF879 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A40C77FF2A829046003C11EB /* Auth */,
+				A40C77FE2A828FED003C11EB /* User */,
 				A413CB3F29BD406800FDB528 /* Book */,
 				A413CB4029BD40A300FDB528 /* Profile */,
 			);
@@ -442,6 +479,7 @@
 			children = (
 				A4DD9DC529DF14630063DD9B /* LoginEnum .swift */,
 				A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */,
+				A4B33B862A8181AE00F6A33A /* UserMenuEnum.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -462,7 +500,6 @@
 			isa = PBXGroup;
 			children = (
 				A4C9866A299FDB68003CF879 /* BooksNetworkManager.swift */,
-				A43C72DD29CDD80700CDF56B /* UserNetworkManager.swift */,
 				A44D59CC29ACB33200FF7F22 /* KartsNetworkManager.swift */,
 			);
 			path = NetworkManager;
@@ -624,24 +661,26 @@
 				A4C782DB2A5C303B00AACE4E /* BooksAPI.swift in Sources */,
 				A4C782C92A55969B00AACE4E /* HTTP.swift in Sources */,
 				A4C9863E299FB843003CF879 /* MainMenu.swift in Sources */,
+				A4B33B8D2A818C2700F6A33A /* AllRatings.swift in Sources */,
 				A4AEC1E82A7165BE00875E70 /* CommentsAPI.swift in Sources */,
 				A4BDB5DB29D5BD4500C973CE /* UserProfileEnum.swift in Sources */,
 				A43C72DC29CDD3DF00CDF56B /* UsersViewModel.swift in Sources */,
 				A43E2F792A542401006CFB63 /* MyCommentsViewModel.swift in Sources */,
 				A4C9867829A11EFC003CF879 /* BooksList.swift in Sources */,
+				A4B33B892A81834F00F6A33A /* LikesByMyFriends.swift in Sources */,
 				A499DCD32A22AD0B00777B8F /* Oups.swift in Sources */,
 				A44D59C929ACB05A00FF7F22 /* Like.swift in Sources */,
 				A4C9867329A1198F003CF879 /* BooksViewModel.swift in Sources */,
 				A4AEC1E62A7164C400875E70 /* CommentsUseCase.swift in Sources */,
 				A43EDBEB29ED438D00573A2C /* Identifier.swift in Sources */,
 				A4AF589C29CC6522003F03AD /* SignInView.swift in Sources */,
-				A43C72DE29CDD80700CDF56B /* UserNetworkManager.swift in Sources */,
 				A4AEC1EE2A7274FD00875E70 /* CartAPI.swift in Sources */,
 				A499DCD72A2496B800777B8F /* Homepage.swift in Sources */,
 				A499DCD52A23FA6C00777B8F /* BookKart.swift in Sources */,
 				A4C98667299FD187003CF879 /* HttpClient.swift in Sources */,
 				A4C782D32A56B1C000AACE4E /* ChangePasswordDTO.swift in Sources */,
 				A4C782D12A55A6C800AACE4E /* HTTPRequestFactory.swift in Sources */,
+				A4B33B832A8180F800F6A33A /* UserMenuView.swift in Sources */,
 				A4DD9DB829D9D56B0063DD9B /* BoughtBooks.swift in Sources */,
 				A43C72E029CF8DF900CDF56B /* SignInViewModel.swift in Sources */,
 				A4AF589E29CC6529003F03AD /* CreateAccountView.swift in Sources */,
@@ -663,12 +702,15 @@
 				A44D59CD29ACB33200FF7F22 /* KartsNetworkManager.swift in Sources */,
 				A45BDC542A531D8D003AB9FC /* MyComments.swift in Sources */,
 				A4DD9DC829DF24E40063DD9B /* ForgotMyPassword.swift in Sources */,
+				A40C78012A829DF5003C11EB /* DetailedUserProfile.swift in Sources */,
 				A4C782CF2A559FDB00AACE4E /* Endpoint.swift in Sources */,
 				A4AF589829CC61F3003F03AD /* Kart.swift in Sources */,
+				A4DEBE652A8399F500E76596 /* CommentViewModel.swift in Sources */,
 				A44D59BF29A407C800FF7F22 /* LikesView.swift in Sources */,
 				A499DCDB2A2749E500777B8F /* HomepageViewModel.swift in Sources */,
 				A44D59AF29A3722500FF7F22 /* CreateBookView.swift in Sources */,
 				A4AF589A29CC628E003F03AD /* Rating.swift in Sources */,
+				A4B33B872A8181AE00F6A33A /* UserMenuEnum.swift in Sources */,
 				A499DCD92A24A46400777B8F /* SearchBook.swift in Sources */,
 				A4AF589629CC617A003F03AD /* Comment.swift in Sources */,
 				A4EF9CCD2A557DE700E7897B /* ChangeMyPassword.swift in Sources */,
@@ -677,6 +719,7 @@
 				A4C782D92A56D74400AACE4E /* TokenRepository.swift in Sources */,
 				A4DD9DB229D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift in Sources */,
 				A4C9866B299FDB68003CF879 /* BooksNetworkManager.swift in Sources */,
+				A4B33B8F2A818CBC00F6A33A /* AllUsers.swift in Sources */,
 				A4DD9DBA29DAC95C0063DD9B /* Keychain.swift in Sources */,
 				A4C782E32A5C3DF700AACE4E /* BooksUseCase.swift in Sources */,
 				A4AEC1E02A6ED78500875E70 /* UserUseCase.swift in Sources */,
@@ -686,6 +729,7 @@
 				A4DD9DB429D9D50B0063DD9B /* MyFriendsView.swift in Sources */,
 				A499DCE22A2A17E800777B8F /* ProfileSwitchViewModel.swift in Sources */,
 				A4DEA2772A1373D400FE6EB3 /* GetUser.swift in Sources */,
+				A4B33B8B2A818BAC00F6A33A /* AllComments.swift in Sources */,
 				A499DCE02A274DFC00777B8F /* HomepageMenuSelector.swift in Sources */,
 				A4AEC1E22A6ED8BF00875E70 /* UserAPI.swift in Sources */,
 				A4DD9DC229DED1220063DD9B /* UserToken.swift in Sources */,

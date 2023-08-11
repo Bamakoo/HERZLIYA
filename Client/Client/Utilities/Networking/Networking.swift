@@ -15,7 +15,7 @@ final class Networking: HttpClient {
     func fetch<T: Codable>(url: URL) async throws -> [T] {
         var request = URLRequest(url: url)
         // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
+        _ = "70935759-4231-43E4-8E54-92CA3A48E33B"
         if let token {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
@@ -64,7 +64,7 @@ final class Networking: HttpClient {
         request.httpMethod = httpMethod
         request.addValue(MIMEType.JSON.rawValue,
                          forHTTPHeaderField: HttpHeaders.contentType.rawValue)
-        var userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
+        _ = "70935759-4231-43E4-8E54-92CA3A48E33B"
         if let token {
             request.setValue("Bearer \(token)", forHTTPHeaderField: HttpHeaders.authorization.rawValue)
         }

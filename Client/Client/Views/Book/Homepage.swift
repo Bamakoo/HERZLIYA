@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct Homepage: View {
+
     @StateObject private var viewModel = HomepageViewModel()
     @State private var selectedBook: Book?
     @State private var filterByUsername: String = ""
+
     var body: some View {
         NavigationSplitView {
             List(viewModel.books, selection: $selectedBook) { book in
@@ -30,7 +32,7 @@ struct Homepage: View {
                 .swipeActions(edge: .leading) {
                     Button {
                         Task {
-                            try await viewModel.buyBook((book.id)!)
+                            try await viewModel.buyBook(book)
                             await viewModel.fetchBooks()
                         }
                     } label: {
@@ -41,7 +43,7 @@ struct Homepage: View {
                 .swipeActions(edge: .leading) {
                     Button {
                         Task {
-                            await viewModel.addBookToKart((book.id)!)
+                            await viewModel.addBookToKart(book)
                         }
                     } label: {
                         Image(systemName: "cart.badge.plus")

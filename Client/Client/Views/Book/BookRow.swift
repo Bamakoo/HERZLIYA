@@ -10,13 +10,39 @@ import SwiftUI
 struct BookRow: View {
     var book: Book
     var body: some View {
-        HStack {
+        HStack(alignment: .center) {
+            Image(systemName: "book")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 100)
+                .padding(.all, 20)
+
             VStack(alignment: .leading) {
-                Text(book.title).font(.headline)
-                Text(book.author).font(.subheadline).foregroundColor(.gray)
-            }
+                Text(book.title)
+                    .font(.system(size: 18, weight: .bold, design: .default))
+                    .foregroundColor(.black)
+                Text(book.author)
+                    .font(.system(size: 12, weight: .bold, design: .default))
+                    .foregroundColor(.gray)
+                HStack {
+                    Text("$" + String(book.price))
+                        .font(.system(size: 16, weight: .bold, design: .default))
+                        .foregroundColor(.black)
+                        .padding(.top, 8)
+                }
+            }.padding(.trailing, 20)
             Spacer()
-            Text("\(book.price)$")
         }
+        .frame(maxWidth: .infinity, alignment: .center)
+        .modifier(CardModifier())
+        .padding(.all, 10)
+    }
+}
+
+struct CardModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .cornerRadius(20)
+            .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 0)
     }
 }

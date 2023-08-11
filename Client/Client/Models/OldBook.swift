@@ -8,6 +8,7 @@
 import Foundation
 
 enum BookGenre: String, Identifiable, Codable, Hashable, Equatable, CaseIterable {
+
     case fantasy
     case scienceFiction
     case action
@@ -16,7 +17,9 @@ enum BookGenre: String, Identifiable, Codable, Hashable, Equatable, CaseIterable
     case romance
     case realism
     case biography
+
     var id: Self { self }
+
     var title: String {
         switch self {
         case .fantasy: return "Fantasy"
@@ -29,6 +32,7 @@ enum BookGenre: String, Identifiable, Codable, Hashable, Equatable, CaseIterable
         case .biography: return "Biography"
         }
     }
+
     var image: String {
         switch self {
         case .fantasy: return "crown.fill"

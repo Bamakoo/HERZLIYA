@@ -22,18 +22,27 @@ extension API {
             return userToken.value
         }
 
+        static func fetch() async throws -> [FetchUser] {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.users()).loginProtected()
+            let userData = try await HTTP.get(with: request)
+            let decoder = JSONDecoder()
+            let users = try decoder.decode([FetchUser].self, from: userData)
+            return users
+
+        }
+
         static func create(_ newUser: NewUser) async throws {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.users())
             let encoder = JSONEncoder()
             let userData = try encoder.encode(newUser)
-            try await HTTP.post(with: request, andBody: userData)
+            _ = try await HTTP.post(with: request, andBody: userData)
         }
 
         static func changePassword(_ patchedPassword: PatchPassword) async throws {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.changePassword()).loginProtected()
             let encoder = JSONEncoder()
             let passwordData = try encoder.encode(patchedPassword)
-            try await HTTP.patch(with: request, andBody: passwordData)
+            _ = try await HTTP.patch(with: request, andBody: passwordData)
         }
     }
 }

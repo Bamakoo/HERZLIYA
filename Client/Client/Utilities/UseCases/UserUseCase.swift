@@ -15,6 +15,10 @@ extension UseCase {
             token = try await API.User.login(username, password)
         }
 
+        static func fetchUsers() async throws -> [FetchUser] {
+            try await API.User.fetch()
+        }
+
         static func createNewUser(_ newUser: NewUser) async throws {
             try await API.User.create(newUser)
         }

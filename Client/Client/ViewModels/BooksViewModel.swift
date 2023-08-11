@@ -28,25 +28,46 @@ final class BooksViewModel: ObservableObject {
         self.networkManager = networkManager
     }
 
-    func getCommentsOnBook(_ bookID: UUID) async throws {
+    func fetchBookComments(_ book: Book) async throws {
         do {
+            guard let bookID = book.id else {
+                return
+            }
             commentsOnBook = try await UseCase.Comments.fetchCommentsOnBook(bookID)
         } catch {
             print(error.localizedDescription)
         }
     }
 
-    func commentOnBook(_ bookID: UUID, _ comment: String) async throws {
+    func deleteComment(_ commentID: UUID?) async throws {
         do {
-            try await networkManager.commentOnBook(bookID, comment)
+            guard let commentID else {
+                return
+            }
+            try await UseCase.Comments.delete(commentID)
         } catch {
             print(error.localizedDescription)
         }
     }
 
-    func addBookToKart(_ bookID: UUID) async {
+    func commentOnBook(_ book: Book, _ comment: String) async throws {
         do {
-            try await networkManager.addBookToKart(bookID)
+            guard let bookID = book.id else {
+                return
+            }
+            let newComment = PostComment(comment: comment, bookID: bookID)
+            try await UseCase.Comments.commentOnBook(newComment)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
+    func addBookToKart(_ book: Book) async {
+        do {
+            guard let bookID = book.id else {
+                return
+            }
+            try await UseCase.Books.addBookToKart(bookID)
         } catch {
             print(error.localizedDescription)
         }
@@ -63,17 +84,17 @@ final class BooksViewModel: ObservableObject {
 
     func fetchBooks() async {
         do {
-            books = try await networkManager.fetchBooks()
+            books = try await UseCase.Books.fetch()
         } catch {
-            print("unable to fetch books because of : \(error.localizedDescription)")
+            print(error.localizedDescription)
         }
     }
 
-    func fetchBooksByCategory(_ forCategory: BookGenre) async {
+    func fetchBooksByGenre(_ bookGenre: BookGenre) async {
         do {
-            books = try await networkManager.fetchBooksByCategory(forCategory)
+            books = try await networkManager.fetchBooksByCategory(bookGenre)
         } catch {
-            print("unable to fetch books because of : \(error.localizedDescription)")
+            print(error.localizedDescription)
         }
     }
 
@@ -92,18 +113,12 @@ final class BooksViewModel: ObservableObject {
         }
     }
 
-    func purchaseBook(bookID: UUID) async {
+    func purchaseBook(_ book: Book) async {
         do {
-            let id = bookID.uuidString
-            try await networkManager.purchaseBook(bookID: id)
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-
-    func deleteBook(id: UUID) async throws {
-        do {
-            try await networkManager.deleteBook(id: id)
+            guard let bookID = book.id else {
+                return
+            }
+            try await UseCase.Books.buyBook(bookID)
         } catch {
             print(error.localizedDescription)
         }

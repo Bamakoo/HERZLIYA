@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct UserProfileView: View {
-    @StateObject private var viewModel = UsersViewModel(networkManager: UserNetworkManager(httpClient: Networking()))
-    @State private var menu: [ProfileMenu] = ProfileMenu.allCases
+
+    @StateObject private var viewModel = UsersViewModel()
     @State private var updateProfile = false
+
     var body: some View {
         NavigationStack {
-            List(menu) { item in
+            List(ProfileMenu.allCases) { item in
                 NavigationLink(value: item) {
                     Label(item.title, systemImage: item.image)
                         .foregroundColor(.primary)

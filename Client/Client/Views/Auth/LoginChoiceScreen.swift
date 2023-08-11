@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct LoginChoiceScreen: View {
-    @State private var menuItems: [MenuItem] = MenuItem.allCases
+
     var body: some View {
+
         NavigationStack {
-            List(menuItems) { item in
+            List(MenuItem.allCases) { item in
                 NavigationLink(value: item) {
                     Label(item.title, systemImage: item.image)
                         .foregroundColor(.primary)

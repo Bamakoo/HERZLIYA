@@ -5,12 +5,15 @@ struct KartBookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let addBookToKart = routes.grouped("kart", "book")
         addBookToKart.post(use: create)
+        
         let tokenProtectedKartBook = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
+        
         tokenProtectedKartBook.get("kart", "book", use: index)
         tokenProtectedKartBook.patch("kart", "book", use: update)
         tokenProtectedKartBook.group("kart", "book", ":bookID") { kartBook in
             kartBook.delete(use: delete)
+            
         }
     }
     
@@ -35,23 +38,23 @@ struct KartBookController: RouteCollection {
     /// <#Description#>
     /// - Parameter req: <#req description#>
     /// - Returns: <#description#>
-    func update(req: Request) async throws -> KartBook {
+    func update(req: Request) async throws -> Response {
         let kartBook = try req.content.decode(KartBook.self)
         guard let kartBook =  try await KartBook.find(kartBook.id, on: req.db) else {
             throw Abort(.notFound)
         }
         try await kartBook.update(on: req.db)
-        return kartBook
+        return try await kartBook.encodeResponse(status: .ok, for: req)
     }
     
-    /// <#Description#>
+    /// Use to delete an instance
     /// - Parameter req: <#req description#>
     /// - Returns: <#description#>
-    func delete(req: Request) async throws -> HTTPStatus {
+    func delete(req: Request) async throws -> Response {
         guard let kartBook = try await KartBook.find(req.parameters.get("bookID"), on: req.db) else {
             throw Abort(.notFound)
         }
         try await kartBook.delete(on: req.db)
-        return .ok
+        return try await kartBook.encodeResponse(status: .ok, for: req)
     }
 }

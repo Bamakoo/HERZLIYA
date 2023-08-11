@@ -3,43 +3,50 @@ import Vapor
 // TODO: ID after the object that it's references
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
+        
         /// collection of /books endpoints
         let bookRoutes = routes.grouped("books")
+        
         bookRoutes.get(use: index)
-        bookRoutes.get(":bookID", use: getAParticularBook)
+        bookRoutes.get(":bookID", use: particularBook)
+        
+        /// subsequent endpoints are token protected
         let tokenAuthenticator = UserToken.authenticator()
         let tokenMiddleware = UserToken.guardMiddleware()
         let tokenAuth = bookRoutes.grouped(tokenAuthenticator, tokenMiddleware)
+        
         tokenAuth.post(use: create)
+        // TODO: see with Alex if these two can be merged together
         tokenAuth.patch(use: update)
         tokenAuth.patch(":bookID", "purchase", use: purchase)
         tokenAuth.delete(":bookID", use: delete)
     }
-    
-    /// <#Description#>
-    /// - Parameter req: <#req description#>
-    /// - Returns: <#description#>
+
+    /// This functiions is called when the books/:bookID/purchase is called
+    /// - Parameter req: the incoming request
+    /// - Returns: a response, confirming wether or not a user has
     func purchase(req: Request) async throws -> Response {
-        
+        // the user who's buying the book
         let user = try req.auth.require(User.self)
         guard let userID = user.id else {
             throw Abort(.badRequest, reason: "unable to get user")
         }
         
+        // the book the above user is buying
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
-            print("unable to delete book")
             throw Abort(.notFound)
         }
         
         book.$buyer.id = userID
         book.status = .purchased
+        
         try await book.update(on: req.db)
         return try await book.encodeResponse(status: .ok, for: req)
     }
     
-    /// <#Description#>
-    /// - Parameter req: <#req description#>
-    /// - Returns: <#description#>
+    /// Helper function for sorting books
+    /// - Parameter req: the request, passed for the request sent to /books
+    /// - Returns: an array of book objects
     func sort(req: Request, searchBy: String, searchBool: Bool) async throws -> [Book] {
         do {
             switch (searchBy, searchBool) {
@@ -104,7 +111,6 @@ struct BookController: RouteCollection {
                     .sort(\.$createdAt, .descending)
                     .all()
             default:
-                print("DEFAULTED")
                 return try await Book.query(on: req.db)
                     .filter(\.$status == .available)
                     .all()
@@ -125,19 +131,19 @@ struct BookController: RouteCollection {
         }
     }
     
-    /// <#Description#>
-    /// - Parameter req: <#req description#>
-    /// - Returns: <#description#>
-    func getAParticularBook(req: Request) async throws -> Book {
+    /// Function used for returning a single book's
+    /// - Parameter req: the incoming request to the /books/:bookID endpoint
+    /// - Returns: a book object
+    func particularBook(req: Request) async throws -> Book {
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
             throw Abort(.notFound, reason:"unable to get a specific book")
         }
         return book
     }
     
-    /// <#Description#>
-    /// - Parameter req: <#req description#>
-    /// - Returns: <#description#>
+    /// Helper function called by the /books endpoint
+    /// - Parameter req: the request sent to the /books endpoint
+    /// - Returns: an array of book objects
     func searchHandler(req: Request, searchTerm: String) async throws -> [Book] {
         return try await Book.query(on: req.db).group(.or) { group in
             group.filter(\.$title =~ searchTerm)
@@ -148,24 +154,21 @@ struct BookController: RouteCollection {
     }
     
     // TODO: it is possible to chain search, filter AND sort
-    // TODO: sort can take an optional Array of Getbooks and return an array of books
     
-    /// <#Description#>
-    /// - Parameter req: <#req description#>
-    /// - Returns: <#description#>
+    /// the main /books endpoint
+    /// - Parameter req: the request sent to the /books
+    /// - Returns: an array of get book objects
     func index(req: Request) async throws -> [GetBook] {
         do {
-            // MARK:
-            // instantiate an empty array of Book objects
+            // MARK: instantiate an empty array of Book objects
             var books = [Book]()
             
-            // MARK: a constant to house all the queries added to the URLRequest
+            // MARK: a constant to house all the queries added to the URL Request
             let queryItems = try req.query.decode(Book.QueryFilter.self)
             
-            // MARK: Filtering the books
+            // MARK: Filtering the books, this narrows down the search and prepares for filtering
             books = try await Book.query(on: req.db).group(.and) { group in
                 if let genre = queryItems.genre {
-                    print(genre)
                     group.filter(\.$genre == genre)
                 }
                 if let state = queryItems.state {
@@ -183,8 +186,7 @@ struct BookController: RouteCollection {
                 
                 // MARK: searching for specific books in the filtered array of books
                 if let searchTerm = queryItems.search {
-                    print(searchTerm)
-                    group.filter(\.$title =~ searchTerm)
+                    group.filter(\.$title ~~ searchTerm)
                 }
                 
                 // MARK: filter all the books so only the avaialble ones are left
@@ -192,23 +194,10 @@ struct BookController: RouteCollection {
             } .all()
             
             // MARK: sort
-            if let sortBoolean = queryItems.sort {
-                switch sortBoolean {
-                case true:
-                    if let sortBy = queryItems.by,
-                       let ascendingBool = queryItems.ascending {
-                        // TODO: sort can take an optional Array of Getbooks and return an array of books
-                        books = try await sort(req: req, searchBy: sortBy, searchBool: ascendingBool)
-                    }
-                case false:
-                    return try books.map { book in
-                        try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
-                    }
-                case _ :
-                    return try books.map { book in
-                        try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
-                    }
-                }
+            if let sortBy = queryItems.by,
+               let ascendingBool = queryItems.ascending {
+                // TODO: sort can take an optional Array of Getbooks and return an array of books
+                books = try await sort(req: req, searchBy: sortBy, searchBool: ascendingBool)
             }
             
             // MARK: map results to the DTO and return
@@ -250,7 +239,7 @@ struct BookController: RouteCollection {
     /// <#Description#>
     /// - Parameter req: <#req description#>
     /// - Returns: <#description#>
-    func update(req: Request) async throws -> Book {
+    func update(req: Request) async throws -> Response {
         // TODO: investigate usage of token+user to buy a book
         let patchBook = try req.content.decode(PatchBook.self)
         
@@ -295,18 +284,26 @@ struct BookController: RouteCollection {
         }
         
         try await book.update(on: req.db)
-        return book
+        return try await book.encodeResponse(status: .ok, for: req)
     }
     
     /// <#Description#>
     /// - Parameter req: <#req description#>
     /// - Returns: <#description#>
-    func delete(req: Request) async throws -> HTTPStatus {
+    func delete(req: Request) async throws -> Response {
+        
+        let user = try req.auth.require(User.self)
+        guard let userID = user.id else {
+            throw Abort(.badRequest, reason: "unable to get user")
+        }
+        
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
-            print("unable to delete book")
             throw Abort(.notFound)
         }
+        guard userID == book.$seller.id else {
+            throw Abort(.forbidden)
+        }
         try await book.delete(on: req.db)
-        return .ok
+        return try await book.encodeResponse(status: .ok, for: req)
     }
 }
