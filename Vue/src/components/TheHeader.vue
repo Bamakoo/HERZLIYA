@@ -1,5 +1,7 @@
 <template>
-  <header class="w-full max-h-max sticky top-0 bg-gray-500 flex p-2 align-middle">
+  <header
+    class="fixed w-full max-h-max top-0 bg-primary flex px-2 pt-2 justify-between items-center align-middle"
+  >
     <div class="flex space-x-2 px-2 items-center w-1/5">
       <RouterLink to="../">
         <div class="rounded-full aspect-square bg-gray-400">
@@ -7,7 +9,7 @@
         </div>
       </RouterLink>
       <label
-        class="hidden md:visible md:flex items-center rounded-xl bg-gray-400 min-w-full focus:ring-offset-0 focus:border-none px-2 text-gray-700"
+        class="focus-within:ring hidden md:visible md:flex items-center rounded-xl bg-primary-dark/30 min-w-full focus:ring-offset-0 focus:border-none px-2 text-gray-700"
       >
         <div class="inline mr-2"><MagnifyingGlassIcon class="h-6 w-6" /></div>
         <input
@@ -19,33 +21,32 @@
         />
       </label>
     </div>
-    <nav class="hidden md:flex items-center mx-auto space-x-12">
-      <RouterLink v-for="(nav, index) in navigation" :to="nav.to" :key="index">
-        <component
-          :is="nav.icon"
-          :class="[
-            'h-12 w-12 text-gray-700',
-            { 'text-gray-900 border-b-2 border-b-gray-900': selected }
-          ]"
-        />
-        <!-- On Hover apparait en dessous de l'icône
-        <div
-          :aria-describedby="nav.title"
-          class="max-w-fit bg-gray-400 rounded-md text-gray-600 text-center p-2"
-        >
+    <nav class="hidden lg:flex lg:justify-center lg:text-center mx-auto space-x-4">
+      <RouterLink
+        v-for="(nav, index) in navigation"
+        :to="nav.to"
+        :key="index"
+        :active-class="'text-primary-dark border-b-2 border-b-primary-dark'"
+        :aria-label="nav.title"
+        class="h-full flex-col w-24 text-gray-700 transition-colors duration-200 hover:text-white hover:border-b-white"
+      >
+        <component :is="nav.icon" class="pb-1 h-12 w-12 mx-auto" />
+
+        <span :aria-describedby="nav.title" class="text-center max-w-full">
           {{ nav.title }}
-        </div>-->
+        </span>
       </RouterLink>
     </nav>
+    <TwMenu :items="navigation" class="text-right lg:hidden relative" />
   </header>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import TwMenu from './TwMenu.vue'
 import {
   MagnifyingGlassIcon,
   HomeIcon,
-  BookOpenIcon,
+  // BookOpenIcon,
   PlusCircleIcon,
   UserCircleIcon,
   ShoppingCartIcon
@@ -53,14 +54,12 @@ import {
 
 const navigation = [
   {
-    icon: BookOpenIcon, //ou HomeIcon pour faire comprendre qu'on est à l'accueil
+    icon: HomeIcon,
     title: 'Livres',
     to: '/'
   },
-  { icon: PlusCircleIcon, title: 'Vendre mon livre', to: '/add' },
-  { icon: UserCircleIcon, title: 'Mon Compte', to: '/account' },
+  { icon: PlusCircleIcon, title: 'Vendre', to: '/add' },
+  { icon: UserCircleIcon, title: 'Compte', to: `/account` },
   { icon: ShoppingCartIcon, title: 'Panier', to: '/cart' }
 ]
-
-const selected = ref(false)
 </script>

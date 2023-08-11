@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Books from '../views/Books.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +6,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: Books
+      component: () => import('@/views/Books.vue')
     },
 
     {
@@ -16,19 +15,77 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (Add.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AddBook.vue')
+      component: () => import('@/views/AddBook.vue')
     },
     {
-      path: '/account',
-      name: 'account',
-      component: () => import('../views/Account.vue')
+      path: '/account/:id',
+      name: 'account-parent',
+      component: () => import('@/views/Account.vue'),
+      children: [
+        {
+          path: '/profile',
+          component: () => import('@/components/User/UserProfile.vue'),
+          name: 'profile'
+        },
+        {
+          path: '/comments',
+          component: () => import('@/components/User/UserComments.vue'),
+          name: 'comments'
+        },
+        {
+          path: '/likes',
+          component: () => import('@/components/User/UserLikes.vue'),
+          name: 'likes'
+        },
+        {
+          path: '/sales',
+          component: () => import('@/components/User/UserSales.vue'),
+          name: 'sales'
+        },
+        {
+          path: '/purchases',
+          component: () => import('@/components/User/UserPurchases.vue'),
+          name: 'purchases'
+        },
+        {
+          path: '/favoriteauthor',
+          component: () => import('@/components/User/UserFavoriteAuthor.vue'),
+          name: 'favoriteauthor'
+        },
+        {
+          path: '/friends',
+          component: () => import('@/components/User/UserFriends.vue'),
+          name: 'friends'
+        }
+      ]
     },
     {
-      path: '/cart',
-      name: 'cart',
-      component: () => import('../views/Kart.vue')
+      path: '/kart',
+      name: 'kart',
+      component: () => import('@/views/Kart.vue')
+    },
+    {
+      path: '/book/**/*.vue',
+      name: 'book',
+      components: {
+        default: () => import('@/layouts/BookLayout.vue'),
+        component: () => import('@/views/BookDetails.vue')
+      }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/Login.vue')
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: () => import('@/views/Signup.vue')
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 }
+  }
 })
 
 export default router
