@@ -34,15 +34,15 @@ final class Rating: Model, Content {
     init() {}
     
     init(id: UUID? = nil,
-         userWhoRates: User,
-         ratedUser: User,
+         userWhoRatesID: User.IDValue,
+         ratedUserID: User.IDValue,
          rating: Float,
          createdAt: Date? = nil,
          updatedAt: Date? = nil,
          deletedAt: Date? = nil) throws {
         self.id = id
-        self.$userWhoRates.id = try userWhoRates.requireID()
-        self.$ratedUser.id = try ratedUser.requireID()
+        self.$userWhoRates.id = userWhoRatesID
+        self.$ratedUser.id = ratedUserID
         self.rating = rating
         self.createdAt = createdAt
         self.updatedAt = updatedAt

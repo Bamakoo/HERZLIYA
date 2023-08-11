@@ -19,9 +19,10 @@ struct RatingController: RouteCollection {
     }
 
     func create(req: Request) async throws -> Response {
-        let rating = try req.content.decode(Rating.self)
-        try await rating.save(on: req.db)
-        return try await rating.encodeResponse(status: .created, for: req)
+        let rating = try req.content.decode(RatingDTO.self)
+        let realRating = try Rating(userWhoRatesID: rating.userWhoRates, ratedUserID: rating.ratedUser, rating: rating.rating)
+        try await realRating.save(on: req.db)
+        return try await realRating.encodeResponse(status: .created, for: req)
     }
     
     func update(req: Request) async throws -> Response {
