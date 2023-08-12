@@ -1,7 +1,9 @@
 import type { Books } from './books'
 import type { Cart } from './cart'
+import type { Comments } from './comments'
+import type { Likes } from './likes'
 
-export interface Orders {
+export interface Purchases {
   id: string
   books: Books[]
   seller: Users['id']
@@ -17,6 +19,7 @@ export interface Sales {
 
 export interface Users {
   id: string | null
+  token: string | null
   username: string | null
   email: string | null
   favoriteBook?: string | null
@@ -29,6 +32,14 @@ export interface Users {
   updatedAt: Date
   books: Books[]
   cart: Cart
-  orders: Orders[]
+  purchases: Purchases[]
   sales: Sales[]
+  friends: Friends[]
+  likes: Likes[]
+  comments: Comments[]
+}
+
+export interface Friends {
+  userId: string
+  friendsId: Users['id'][]
 }

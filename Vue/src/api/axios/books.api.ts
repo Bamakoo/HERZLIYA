@@ -1,17 +1,37 @@
+import { ref } from 'vue'
 import httpClient from './httpClient'
-import fetchAccount from '@/libs/composables/accounts'
+// import { useAccountStore } from '@/stores/useAccountStore'
+import type { Books } from '@/libs/interfaces/books'
 
-const END_POINT = '/api/books'
+export const useFetchBooks = async () => {
+  const baseURL = '/api/books'
+  // const accountStore = useAccountStore()
 
-const getAllBooks = () => httpClient.get(END_POINT)
+  const token = ref('') // doit avoir le token du compte de la session
+  // token.value = (await accountStore.fetchAccount()).account.token
+  const list = async () => httpClient.get<Books[]>(baseURL)
 
-// const token = fetchAccount()
+  const getBook = async (id: Books['id']) => httpClient.get<Books>(`${baseURL}/${id}`)
 
-// you can pass arguments to use as request parameters/data
-const getBook = (book_id: string) =>
-  httpClient.get(END_POINT, { data: { book_id }, headers: { Accept: 'application/json' } })
-// maybe more than one..
-const createBook = (token: string) =>
-  httpClient.post(END_POINT, { headers: { Authorization: `Bearer ${token}` } })
+  const update = async (id: Books['id'], data: Omit<Books, 'id'>) => {
+    const book = httpClient.patch<Partial<Books>>(`${baseURL}/${id}`, data, {
+      headers: { Authorization: `Bearer ${token.value}` }
+    })
+    return book
+  }
 
-export { getAllBooks, getBook, createBook }
+  const create = async (data: Omit<Books, 'id'>) => {
+    const book = httpClient.post(baseURL, data, {
+      headers: { Authorization: `Bearer ${token.value}` }
+    })
+    return book
+  }
+
+  const del = async (id: Books['id']) => {
+    httpClient.delete<Books>(`${baseURL}/${id}`, {
+      headers: { Authorization: `Bearer ${token.value}` }
+    })
+  }
+
+  return { list, getBook, update, del, create }
+}

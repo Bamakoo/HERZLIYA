@@ -1,21 +1,46 @@
 import { defineStore } from 'pinia'
-import axios from 'axios'
+import { useFetchAccounts } from '../api/axios/user.api'
 import type { Users } from '@/libs/interfaces/users'
-import type { Books } from '@/libs/interfaces/books'
-import { useFetchAccount } from './useFetchAccount'
 
-export const useAccountStore = defineStore('account', () => {
-  const fetchAccounts = useFetchAccounts()
-  const fetchBooks = useFetchBooks()
+export const useAccountStore = defineStore('account', {
+  state: () => ({ accounts: [] as Users[] }),
 
-  const token = localStorage.getItem('token')
+  getters: {
+    getAllAccounts(state) {
+      return state.accounts
+    }
+  },
+  actions: {
+    async fetchAccounts() {
+      const { list } = await useFetchAccounts()
+      return list
+    },
+    async fetchAccount(id: Users['id']) {
+      const fetchAccounts = await useFetchAccounts()
+      const { retrieve } = fetchAccounts
+      try {
+        const { data } = await retrieve(id)
+        const { books, cart, purchases, sales } = data
+        const account = {
+          username: data.username,
+          email: data.email,
+          country: data.country,
+          city: data.city,
+          token: data.token
+        }
 
-  const books: Books[] = []
+        const metadatas = {
+          favoriteAuthor: data.favoriteAuthor,
+          favoriteBook: data.favoriteBook,
+          friends: data.friends,
+          likes: data.likes,
+          comments: data.comments
+        }
 
-  const myBooks = async () => {
-    const res = fetchAccounts.books
-    return res
+        return { books, cart, purchases, sales, account, metadatas }
+      } catch (error) {
+        throw new Error((error as Error).message)
+      }
+    }
   }
-
-  return { token, books, myBooks }
 })
