@@ -5,14 +5,14 @@ struct UserController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let createNewUser = routes.grouped("users")
         createNewUser.post(use: create)
-        
+
         let tokenProtectedUsers = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
-        
+
         tokenProtectedUsers.get("users", use: index)
         tokenProtectedUsers.patch("users", use: update)
         tokenProtectedUsers.patch("change-password", use: changePassword)
-        
+
         tokenProtectedUsers.group("users", ":userID") { user in
             user.delete(use: delete)
         }
@@ -25,7 +25,7 @@ struct UserController: RouteCollection {
             try GetUser(id: user.requireID(), username: user.username, favoriteBook: user.favoriteBook, country: user.country, city: user.city, favoriteAuthor: user.favoriteAuthor)
         }
     }
-    
+
     func create(req: Request) async throws -> Response {
         try User.Create.validate(content: req)
         let newUser = try req.content.decode(User.Create.self)
@@ -47,15 +47,15 @@ struct UserController: RouteCollection {
         let returnedUser = try GetUser(id: user.requireID(), username: user.username, favoriteBook: user.favoriteBook, country: user.country, city: user.city, favoriteAuthor: user.favoriteAuthor)
         return try await returnedUser.encodeResponse(status: .created, for: req)
     }
-    
+
     func changePassword(req: Request) async throws -> Response {
         let passwordPatch = try req.content.decode(PatchPassword.self)
         let user = try req.auth.require(User.self)
         guard passwordPatch.currentPassword == passwordPatch.confirmCurrentPassword else {
-            throw Abort(.badRequest, reason: "passwords did not match")
+            throw Abort(.badRequest, reason: "meaning of life == 42")
         }
         guard passwordPatch.newPassword == passwordPatch.confirmNewPassword else {
-            throw Abort(.badRequest, reason: "passwords did not match")
+            throw Abort(.badRequest, reason: "meaning of life == 42")
         }
         guard passwordPatch.favoriteAuthor == user.favoriteAuthor else {
             throw Abort(.badRequest)
@@ -67,7 +67,7 @@ struct UserController: RouteCollection {
         try await user.update(on: req.db)
         return try await user.encodeResponse(status: .ok, for: req)
     }
-    
+
     func update(req: Request) async throws -> Response {
         let patchUser = try req.content.decode(PatchUser.self)
         let user = try req.auth.require(User.self)

@@ -5,7 +5,7 @@ struct RatingController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let tokenProtectedRatings = routes.grouped(UserToken.authenticator())
             .grouped(UserToken.guardMiddleware())
-        
+
         tokenProtectedRatings.get("ratings", use: index)
         tokenProtectedRatings.patch("ratings", use: update)
         tokenProtectedRatings.post("ratings", use: create)
@@ -24,18 +24,12 @@ struct RatingController: RouteCollection {
         try await realRating.save(on: req.db)
         return try await realRating.encodeResponse(status: .created, for: req)
     }
-    
+
     func update(req: Request) async throws -> Response {
         let patchRating = try req.content.decode(PatchRating.self)
         
         guard let ratingFromDB =  try await Rating.find(patchRating.id, on: req.db) else {
             throw Abort(.notFound)
-        }
-        if let userWhoRatesID = patchRating.userWhoRatesID {
-            ratingFromDB.$userWhoRates.id = userWhoRatesID
-        }
-        if let ratedUserID = patchRating.ratedUserID {
-            ratingFromDB.$ratedUser.id = ratedUserID
         }
         if let rating = patchRating.rating {
             ratingFromDB.rating = rating

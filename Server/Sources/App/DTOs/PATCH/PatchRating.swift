@@ -9,7 +9,5 @@ import Foundation
 
 struct PatchRating: Codable {
     let id: UUID
-    let userWhoRatesID: UUID?
-    let ratedUserID: UUID?
     let rating: Float?
 }

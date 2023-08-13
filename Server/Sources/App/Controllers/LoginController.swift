@@ -1,7 +1,6 @@
 import Fluent
 import Vapor
 
-
 struct LoginController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let passwordProtected = routes.grouped(User.authenticator())
