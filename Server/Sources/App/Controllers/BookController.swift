@@ -3,13 +3,13 @@ import Vapor
 // TODO: ID after the object that it's references
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        
+
         /// collection of /books endpoints
         let bookRoutes = routes.grouped("books")
-        
+
         bookRoutes.get(use: index)
         bookRoutes.get(":bookID", use: particularBook)
-        
+
         /// subsequent endpoints are token protected
         let tokenAuthenticator = UserToken.authenticator()
         let tokenMiddleware = UserToken.guardMiddleware()
@@ -31,15 +31,15 @@ struct BookController: RouteCollection {
         guard let userID = user.id else {
             throw Abort(.badRequest, reason: "unable to get user")
         }
-        
+
         // the book the above user is buying
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
             throw Abort(.notFound)
         }
-        
+
         book.$buyer.id = userID
         book.status = .purchased
-        
+
         try await book.update(on: req.db)
         if let bookID = book.id {
             let returnedBook = GetBook(id: bookID, title: book.title, author: book.author, price: book.price, state: book.state)
@@ -47,7 +47,7 @@ struct BookController: RouteCollection {
         }
         return try await book.encodeResponse(status: .ok, for: req)
     }
-    
+
     /// Helper function for sorting books
     /// - Parameter req: the request, passed for the request sent to /books
     /// - Returns: an array of book objects
@@ -123,7 +123,7 @@ struct BookController: RouteCollection {
             throw Abort(.badRequest)
         }
     }
-    
+
     /// Function used for returning a single book's
     /// - Parameter req: the incoming request to the /books/:bookID endpoint
     /// - Returns: a book object
@@ -135,7 +135,7 @@ struct BookController: RouteCollection {
         }
         return GetBook(id: bookID, title: book.title, author: book.author, price: book.price, state: book.state)
     }
-    
+
     /// Helper function called by the /books endpoint
     /// - Parameter req: the request sent to the /books endpoint
     /// - Returns: an array of book objects
@@ -147,9 +147,9 @@ struct BookController: RouteCollection {
         .filter(\.$status == .available)
         .all()
     }
-    
+
     // TODO: it is possible to chain search, filter AND sort
-    
+
     /// the main /books endpoint
     /// - Parameter req: the request sent to the /books
     /// - Returns: an array of get book objects
@@ -157,10 +157,10 @@ struct BookController: RouteCollection {
         do {
             // MARK: instantiate an empty array of Book objects
             var books = [Book]()
-            
+
             // MARK: a constant to house all the queries added to the URL Request
             let queryItems = try req.query.decode(Book.QueryFilter.self)
-            
+
             // MARK: Filtering the books, this narrows down the search and prepares for filtering
             books = try await Book.query(on: req.db).group(.and) { group in
                 if let genre = queryItems.genre {
@@ -178,7 +178,7 @@ struct BookController: RouteCollection {
                 if let price = queryItems.price {
                     group.filter(\.$price == price)
                 }
-                
+
                 // MARK: searching for specific books in the filtered array of books
                 if let searchTerm = queryItems.search {
                     group.filter(\.$title ~~ searchTerm)
@@ -187,14 +187,14 @@ struct BookController: RouteCollection {
                 // MARK: filter all the books so only the avaialble ones are left
                 group.filter(\.$status == .available)
             } .all()
-            
+
             // MARK: sort
             if let sortBy = queryItems.by,
                let ascendingBool = queryItems.ascending {
                 // TODO: sort can take an optional Array of Getbooks and return an array of books
                 books = try await sort(req: req, searchBy: sortBy, searchBool: ascendingBool)
             }
-            
+
             // MARK: map results to the DTO and return
             return try books.map { book in
                 try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
@@ -203,7 +203,7 @@ struct BookController: RouteCollection {
             throw Abort(.badRequest)
         }
     }
-    
+
     /// <#Description#>
     /// - Parameter req: <#req description#>
     /// - Returns: <#description#>
@@ -230,59 +230,59 @@ struct BookController: RouteCollection {
         let getBook = GetBook(id: try realBook.requireID(), title: realBook.title, author: realBook.author, price: realBook.price, state: realBook.state)
         return try await getBook.encodeResponse(status: .created, for: req)
     }
-    
+
     /// <#Description#>
     /// - Parameter req: <#req description#>
     /// - Returns: <#description#>
     func update(req: Request) async throws -> Response {
         // TODO: investigate usage of token+user to buy a book
         let patchBook = try req.content.decode(PatchBook.self)
-        
+
         guard let book =  try await Book.find(patchBook.id, on: req.db) else {
             throw Abort(.notFound)
         }
-        
+
         guard patchBook.buyerID != book.$seller.id else {
             throw Abort(.badRequest, reason: "you can't buy your own book!")
         }
-        
+
         if let buyerID = patchBook.buyerID {
             book.$buyer.id = buyerID
         }
-        
+
         if let title = patchBook.title {
             book.title = title
         }
-        
+
         if let description = patchBook.description {
             book.description = description
         }
-        
+
         if let state = patchBook.state {
             book.state = state
         }
-        
+
         if let status = patchBook.status {
             book.status = status
         }
-        
+
         if let price = patchBook.price {
             book.price = price
         }
-        
+
         if let author = patchBook.author {
             book.author = author
         }
-        
+
         if let genre = patchBook.genre {
             book.genre = genre
         }
-        
+
         try await book.update(on: req.db)
         let returnedBook = GetBook(id: patchBook.id, title: book.title, author: book.author, price: book.price, state: book.state)
         return try await returnedBook.encodeResponse(status: .ok, for: req)
     }
-    
+
     /// <#Description#>
     /// - Parameter req: <#req description#>
     /// - Returns: <#description#>
@@ -297,6 +297,7 @@ struct BookController: RouteCollection {
               let bookID = book.id else {
             throw Abort(.notFound)
         }
+        
         guard userID == book.$seller.id else {
             throw Abort(.forbidden)
         }
