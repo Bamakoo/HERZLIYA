@@ -9,8 +9,8 @@ import Vapor
 import Fluent
 
 struct GetComment: Content {
-    var id: UUID
-    var comment: String
-    var bookID: UUID
-    var userID: UUID
+    let id: UUID
+    let comment: String
+    let bookID: UUID
+    let userID: UUID
 }

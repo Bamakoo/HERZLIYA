@@ -9,10 +9,10 @@ import Fluent
 import Vapor
 
 struct GetUser: Content {
-    var id: UUID
-    var username: String
-    var favoriteBook: String
-    var country: String
-    var city: String
-    var favoriteAuthor: String
+    let id: UUID
+    let username: String
+    let favoriteBook: String
+    let country: String
+    let city: String
+    let favoriteAuthor: String
 }

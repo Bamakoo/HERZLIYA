@@ -10,5 +10,5 @@ import Fluent
 import Vapor
 
 struct LikeDTO: Content {
-    var bookID: UUID
+    let bookID: UUID
 }

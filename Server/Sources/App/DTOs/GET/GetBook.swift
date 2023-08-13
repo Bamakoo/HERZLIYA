@@ -9,9 +9,9 @@ import Fluent
 import Vapor
 // Structure of GET /books response.
 struct GetBook: Content {
-    var id: UUID
-    var title: String
-    var author: String
-    var price: Int
-    var state: BookState
+    let id: UUID
+    let title: String
+    let author: String
+    let price: Int
+    let state: BookState
 }

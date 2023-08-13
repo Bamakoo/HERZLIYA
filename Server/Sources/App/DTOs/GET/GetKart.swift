@@ -9,7 +9,7 @@ import Fluent
 import Vapor
 
 struct GetKart: Content {
-    var id: UUID
-    var user: UUID
-    var books: [GetBook]
+    let id: UUID
+    let user: UUID
+    let books: [GetBook]
 }
