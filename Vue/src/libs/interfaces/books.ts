@@ -38,6 +38,14 @@ export interface Books {
   id: string
   title: string
   author: string
-  state: string
+  state:
+    | 'horrendous'
+    | 'bad'
+    | 'okay'
+    | 'passable'
+    | 'acceptable'
+    | 'good'
+    | 'excellent'
+    | 'brandNew'
   price: number
 }

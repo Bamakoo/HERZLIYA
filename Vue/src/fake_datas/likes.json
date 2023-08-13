@@ -1,0 +1,144 @@
+{
+  "data": [
+    {
+      "userID": "1feb475c-3983-4f38-adb2-f7e51d548e28",
+      "bookID": "948B9F29-C47F-4384-8F3D-53C43904CEC2",
+      "createdAt": 1678992000,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "8033c59f-743d-4615-8873-bf5e2f4ce9fd",
+      "bookID": "bd11dc9c-1e34-4a6d-a485-8d606e351960",
+      "createdAt": 1679155200,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "690496cb-30ed-4a1c-9e64-934b1aab0c2e",
+      "bookID": "ea4cbfe2-4be8-4ae5-a942-9cf59442b3b1",
+      "createdAt": 1679328000,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "efc67baf-2593-4218-ad94-34ecc1302a07",
+      "bookID": "046dc20c-8c5b-46d3-bde4-fc8e7d6521e4",
+      "createdAt": 1679491200,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "1feb475c-3983-4f38-adb2-f7e51d548e28",
+      "bookID": "8c2d43f0-a5a0-425e-8cb9-543266b9cfc3",
+      "createdAt": 1679664000,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "8033c59f-743d-4615-8873-bf5e2f4ce9fd",
+      "bookID": "9c16b89b-e652-4fc1-a66b-aecb08779d33",
+      "createdAt": 1679836800,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "690496cb-30ed-4a1c-9e64-934b1aab0c2e",
+      "bookID": "9c16b89b-e652-4fc1-a66b-aecb08779d33",
+      "createdAt": 1680009600,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "efc67baf-2593-4218-ad94-34ecc1302a07",
+      "bookID": "948B9F29-C47F-4384-8F3D-53C43904CEC2",
+      "createdAt": 1680182400,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "1feb475c-3983-4f38-adb2-f7e51d548e28",
+      "bookID": "bd11dc9c-1e34-4a6d-a485-8d606e351960",
+      "createdAt": 1680355200,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "8033c59f-743d-4615-8873-bf5e2f4ce9fd",
+      "bookID": "ea4cbfe2-4be8-4ae5-a942-9cf59442b3b1",
+      "createdAt": 1680528000,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "690496cb-30ed-4a1c-9e64-934b1aab0c2e",
+      "bookID": "046dc20c-8c5b-46d3-bde4-fc8e7d6521e4",
+      "createdAt": 1680700800,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "efc67baf-2593-4218-ad94-34ecc1302a07",
+      "bookID": "8c2d43f0-a5a0-425e-8cb9-543266b9cfc3",
+      "createdAt": 1680873600,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "1feb475c-3983-4f38-adb2-f7e51d548e28",
+      "bookID": "9c16b89b-e652-4fc1-a66b-aecb08779d33",
+      "createdAt": 1681046400,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "8033c59f-743d-4615-8873-bf5e2f4ce9fd",
+      "bookID": "948B9F29-C47F-4384-8F3D-53C43904CEC2",
+      "createdAt": 1681219200,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "690496cb-30ed-4a1c-9e64-934b1aab0c2e",
+      "bookID": "bd11dc9c-1e34-4a6d-a485-8d606e351960",
+      "createdAt": 1681392000,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "efc67baf-2593-4218-ad94-34ecc1302a07",
+      "bookID": "ea4cbfe2-4be8-4ae5-a942-9cf59442b3b1",
+      "createdAt": 1681564800,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "1feb475c-3983-4f38-adb2-f7e51d548e28",
+      "bookID": "046dc20c-8c5b-46d3-bde4-fc8e7d6521e4",
+      "createdAt": 1681737600,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "8033c59f-743d-4615-8873-bf5e2f4ce9fd",
+      "bookID": "8c2d43f0-a5a0-425e-8cb9-543266b9cfc3",
+      "createdAt": 1681910400,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "690496cb-30ed-4a1c-9e64-934b1aab0c2e",
+      "bookID": "9c16b89b-e652-4fc1-a66b-aecb08779d33",
+      "createdAt": 1682083200,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userID": "efc67baf-2593-4218-ad94-34ecc1302a07",
+      "bookID": "948B9F29-C47F-4384-8F3D-53C43904CEC2",
+      "createdAt": 1682256000,
+      "updatedAt": null,
+      "deletedAt": null
+    }
+  ]
+}

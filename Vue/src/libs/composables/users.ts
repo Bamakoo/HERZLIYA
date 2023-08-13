@@ -35,7 +35,7 @@ const fetchAccount = async (id: Users['id']) => {
     orders: {
       purchases: [
         {
-          seller: Books['buyer']
+          seller: Books['seller']
           books: [{ id: Books['id']; sold_at: Date | number; price: number; state: string }]
           order_number: number | string
         }

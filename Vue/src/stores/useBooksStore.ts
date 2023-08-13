@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
-// import { getAllBooks } from '@/api/axios/books.api'
 import type { Books } from '@/libs/interfaces/books'
-// import { getAllBooks } from '@/api/axios/books.api'
-import axios from 'axios'
+import { useFetchBooks } from '@/api/axios/books.api'
+// import { ref } from 'vue'
+// import axios from 'axios'
 // export const useBooksStore = defineStore('booksStore', {
 //   state: () => ({
 //     books: [
@@ -175,19 +175,38 @@ export const useBooksStore = defineStore('books', {
     }
   },
   actions: {
-    async fetchBooks() {
+    async list() {
+      const { list } = await useFetchBooks()
+      return list
+    },
+    async fetchBook(id: Books['id']) {
+      // try {
+      //   const { getBook } = await useFetchBooks()
+      //   this.books = data
+      //   // return JSON.parse(JSON.stringify(this.books))
+      //   // this.books = data.map((book: Books[]) => ({ ...book }))
+      //   this.books.map((book) => {
+      //     book.author = data.author
+      //   })
+      //   return this.books
+      // }
       try {
-        const { data } = await axios.get('/api/books')
-        console.log(data)
-        this.books = data
-        // return JSON.parse(JSON.stringify(this.books))
-        // this.books = data.map((book: Books[]) => ({ ...book }))
-
-        return this.books
+        const { getBook } = await useFetchBooks()
+        const { data } = await getBook(id)
+        return data
       } catch (error) {
-        alert((error as Error).message)
+        alert(error)
         console.error((error as Error).message)
       }
     }
   }
 })
+
+//SOLUTION 3
+// export const useBookStore = defineStore('books', async () => {
+// const fetchBook = await useFetchBooks()
+// // const { list } = fetchBook
+// const books = ref<Books[]>([])
+// // books.value = await list()
+//   return {books}
+// })

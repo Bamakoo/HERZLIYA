@@ -1,0 +1,56 @@
+{
+  "data": [
+    {
+      "id": "1feb475c-3983-4f38-adb2-f7e51d548e28",
+      "kartID": "a58e13ed-d194-4a95-8c61-59e3f1613c11",
+      "bookID": ["948B9F29-C47F-4384-8F3D-53C43904CEC2", "bd11dc9c-1e34-4a6d-a485-8d606e351960"],
+      "createdAt": 1678992000,
+      "updatedAt": 1678995000,
+      "deletedAt": null
+    },
+    {
+      "id": "8033c59f-743d-4615-8873-bf5e2f4ce9fd",
+      "kartID": "b9ab583b-1a4a-4ebf-b9f7-3e56728db35c",
+      "bookID": ["ea4cbfe2-4be8-4ae5-a942-9cf59442b3b1"],
+      "createdAt": 1679155200,
+      "updatedAt": 1679158000,
+      "deletedAt": null
+    },
+    {
+      "id": "690496cb-30ed-4a1c-9e64-934b1aab0c2e",
+      "kartID": "c3b8da14-d685-4f0a-9f95-e21f18102f5f",
+      "bookID": ["046dc20c-8c5b-46d3-bde4-fc8e7d6521e4", "8c2d43f0-a5a0-425e-8cb9-543266b9cfc3"],
+      "createdAt": 1679328000,
+      "updatedAt": 1679331000,
+      "deletedAt": null
+    },
+    {
+      "id": "efc67baf-2593-4218-ad94-34ecc1302a07",
+      "kartID": "d057e6f8-7bb6-4c89-a3e4-9005b869b4e8",
+      "bookID": ["9c16b89b-e652-4fc1-a66b-aecb08779d33"],
+      "createdAt": 1679491200,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "id": "19bd43e8-0174-4db8-a1f4-55d4dec13eaf",
+      "kartID": "e768b497-e2b7-4a37-b7f6-8eb061f131d9",
+      "bookID": [
+        "948B9F29-C47F-4384-8F3D-53C43904CEC2",
+        "bd11dc9c-1e34-4a6d-a485-8d606e351960",
+        "ea4cbfe2-4be8-4ae5-a942-9cf59442b3b1"
+      ],
+      "createdAt": 1679664000,
+      "updatedAt": 1679667000,
+      "deletedAt": null
+    },
+    {
+      "id": "fd0094cc-224d-46a9-ac9d-51e8422e2e37",
+      "kartID": "f0a8e37d-4d91-4a95-8cc2-3f2e7d2ea4c5",
+      "bookID": ["b2dcf205-1e52-4e09-a0fa-537f513bdd1b"],
+      "createdAt": 1679836800,
+      "updatedAt": null,
+      "deletedAt": 1679840000
+    }
+  ]
+}
