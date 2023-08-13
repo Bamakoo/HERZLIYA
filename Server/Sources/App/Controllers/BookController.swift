@@ -16,10 +16,78 @@ struct BookController: RouteCollection {
         let tokenAuth = bookRoutes.grouped(tokenAuthenticator, tokenMiddleware)
         
         tokenAuth.post(use: create)
+        tokenAuth.post(":bookID", "add-to-kart", use: addBookToKart)
         // TODO: see with Alex if these two can be merged together
         tokenAuth.patch(use: update)
         tokenAuth.patch(":bookID", "purchase", use: purchase)
         tokenAuth.delete(":bookID", use: delete)
+        tokenAuth.delete(":bookID", "remove-from-kart", use: removeBookFromKart)
+    }
+
+    /// <#Description#>
+    /// - Parameter req: <#req description#>
+    /// - Returns: <#description#>
+    func removeBookFromKart(req: Request) async throws -> Response {
+        // book and it's ID
+        guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db),
+              let bookID = book.id
+        else {
+            throw Abort(.notFound, reason: "unable to locate book")
+        }
+
+        // get the user's Kart
+        let user = try req.auth.require(User.self)
+        guard let userID = user.id else {
+            throw Abort(.badRequest, reason: "unable to get user")
+        }
+        
+        // the the user's ID to get her kart
+        guard let kart = try await Kart.query(on: req.db)
+            .filter(\.$user.$id == userID)
+            .first(),
+              let kartID = kart.id
+        else {
+            throw Abort(.notFound, reason: "unable")
+        }
+        
+        // find the matching book and the quart
+        let kartBook = KartBook.query(on: req.db).group(.and) { group in
+            group.filter(\.$kart.$id == kartID)
+                .filter(\.$book.$id == bookID)
+                .first()
+        }
+        
+        let returnedKartBook = KartBook(kartID: kartID, bookID: bookID)
+
+        // delete
+        try await kartBook.delete()
+        return try await returnedKartBook.encodeResponse(status: .ok, for: req)
+    }
+
+    func addBookToKart(req: Request) async throws -> Response {
+
+        guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db),
+              let bookID = book.id
+        else {
+            throw Abort(.notFound)
+        }
+
+        let user = try req.auth.require(User.self)
+        guard let userID = user.id else {
+            throw Abort(.badRequest, reason: "failure is not final, success is not definitive it is the courage to continue that counts")
+        }
+
+        guard let kart = try await Kart.query(on: req.db)
+            .filter(\.$user.$id == userID)
+            .first(),
+              let kartID = kart.id
+        else {
+            throw Abort(.notFound, reason: "unable")
+        }
+
+        let kartBook = KartBook(kartID: kartID, bookID: bookID)
+        try await kartBook.save(on: req.db)
+        return try await kartBook.encodeResponse(status: .ok, for: req)
     }
 
     /// This functiions is called when the books/:bookID/purchase is called

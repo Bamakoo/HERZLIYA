@@ -13,7 +13,6 @@ struct KartBookController: RouteCollection {
         tokenProtectedKartBook.patch("kart", "book", use: update)
         tokenProtectedKartBook.group("kart", "book", ":bookID") { kartBook in
             kartBook.delete(use: delete)
-            
         }
     }
     

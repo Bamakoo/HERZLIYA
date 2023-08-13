@@ -80,7 +80,7 @@ struct NewEndpoint {
     }
 
     static func removeBookFromCart(_ bookID: UUID) -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/karts/remove-book/\(bookID)", queryItems: nil)
+        return HerzliyaEndpoint(path: "/books/\(bookID)/remove-from-kart", queryItems: nil)
     }
 
     static func purchaseBook(_ bookID: UUID) -> APIEndpoint {
@@ -92,7 +92,7 @@ struct NewEndpoint {
     }
 
     static func addBookToKart(_ bookID: UUID) -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/karts/add-book/\(bookID)", queryItems: nil)
+        return HerzliyaEndpoint(path: "/books/\(bookID)/add-to-kart", queryItems: nil)
     }
 
     static func users() -> APIEndpoint {
