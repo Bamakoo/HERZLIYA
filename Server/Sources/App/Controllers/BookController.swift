@@ -41,6 +41,10 @@ struct BookController: RouteCollection {
         book.status = .purchased
         
         try await book.update(on: req.db)
+        if let bookID = book.id {
+            let returnedBook = GetBook(id: bookID, title: book.title, author: book.author, price: book.price, state: book.state)
+            return try await returnedBook.encodeResponse(status: .ok, for: req)
+        }
         return try await book.encodeResponse(status: .ok, for: req)
     }
     
