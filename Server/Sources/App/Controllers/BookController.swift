@@ -287,19 +287,24 @@ struct BookController: RouteCollection {
     /// - Parameter req: <#req description#>
     /// - Returns: <#description#>
     func delete(req: Request) async throws -> Response {
-        
+
         let user = try req.auth.require(User.self)
         guard let userID = user.id else {
             throw Abort(.badRequest, reason: "unable to get user")
         }
-        
-        guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
+
+        guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db),
+              let bookID = book.id else {
             throw Abort(.notFound)
         }
         guard userID == book.$seller.id else {
             throw Abort(.forbidden)
         }
+
         try await book.delete(on: req.db)
-        return try await book.encodeResponse(status: .ok, for: req)
+
+        let returnedBook = GetBook(id: bookID, title: book.title, author: book.author, price: book.price, state: book.state)
+
+        return try await returnedBook.encodeResponse(status: .ok, for: req)
     }
 }

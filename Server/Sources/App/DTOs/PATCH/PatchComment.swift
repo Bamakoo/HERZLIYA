@@ -10,6 +10,4 @@ import Foundation
 struct PatchComment: Codable {
     let id: UUID
     let comment: String?
-    let userID: UUID?
-    let bookID: UUID?
 }
