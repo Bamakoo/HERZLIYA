@@ -14,7 +14,7 @@ struct AllComments: View {
 
     var body: some View {
             List(viewModel.allComments, selection: $selectedComment) { comment in
-                NavigationLink(destination: BookDetail(book: Binding.constant(book))) {
+                NavigationLink(value: comment) {
                     Label(comment.comment, systemImage: "person.2.wave.2")
                 }
             }

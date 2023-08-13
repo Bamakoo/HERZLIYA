@@ -124,25 +124,16 @@ struct BookController: RouteCollection {
         }
     }
     
-    /// When called by the route handler, this function fetches all the books that a particular user has liked
-    /// - Parameter req: the incoming GET request
-    /// - Returns: an array of all the book objects liked by a single user
-    func getUsersLikedBooks(req: Request) async throws -> [GetBook] {
-        let user = try req.auth.require(User.self)
-        let books = try await user.$books.get(on: req.db)
-        return try books.map { book in
-            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
-        }
-    }
-    
     /// Function used for returning a single book's
     /// - Parameter req: the incoming request to the /books/:bookID endpoint
     /// - Returns: a book object
-    func particularBook(req: Request) async throws -> Book {
-        guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db) else {
+    func particularBook(req: Request) async throws -> GetBook {
+        guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db),
+              let bookID = book.id
+        else {
             throw Abort(.notFound, reason:"unable to get a specific book")
         }
-        return book
+        return GetBook(id: bookID, title: book.title, author: book.author, price: book.price, state: book.state)
     }
     
     /// Helper function called by the /books endpoint

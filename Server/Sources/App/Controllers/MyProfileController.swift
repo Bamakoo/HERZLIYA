@@ -57,6 +57,9 @@ struct MyProfileController: RouteCollection {
         try req.auth.require(User.self)
     }
     
+    /// When called by the route handler, this function fetches all the books that a particular user has liked
+    /// - Parameter req: the incoming GET request
+    /// - Returns: an array of all the book objects liked by a single user
     func getMyLikes(req: Request) async throws -> [GetBook] {
         let user = try req.auth.require(User.self)
          let books = try await user.$books.get(on: req.db)
