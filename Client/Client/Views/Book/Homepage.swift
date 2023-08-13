@@ -149,7 +149,6 @@ struct Homepage: View {
         }
         .refreshable {
             await viewModel.fetchBooks()
-            print("feeling fresh")
         }
     }
 }

@@ -24,7 +24,6 @@ final class BooksNetworkManager {
     func addBookToKart(_ bookID: UUID) async throws {
         // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
         let userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
-        print(userID)
         guard let url = URL(string: Request.baseURL + Endpoint.addBookToKart) else {
             throw HttpError.badURL
         }
@@ -42,17 +41,12 @@ final class BooksNetworkManager {
 
     func searchBooks(_ searchText: String) async throws -> [Book] {
         let trueSearch = searchText.replacingOccurrences(of: " ", with: "+")
-        print(searchText)
-        print(trueSearch)
         let stringUrl = Request.baseURL + Endpoint.books + "?search=\(trueSearch)"
         guard let url = URL(string: stringUrl)
         else {
-            print("unable to create URL for searching books")
             throw HttpError.badURL
         }
         let searchResults: [Book] = try await httpClient.fetch(url: url)
-        print(searchResults)
-        print("working on the search bar")
         return searchResults
     }
 
@@ -72,12 +66,9 @@ final class BooksNetworkManager {
 
     func fetchPurchasedBooks() async throws -> [Book] {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        print(userID)
         guard let url = URL(string: Request.baseURL + Endpoint.books + "/bought/\(userID)")
         else { throw HttpError.badURL }
-        print(url)
         let purchasedBooks: [Book] = try await httpClient.fetch(url: url)
-        print(purchasedBooks)
         return purchasedBooks
     }
 
@@ -86,7 +77,6 @@ final class BooksNetworkManager {
         guard let url = URL(string: Request.baseURL + "books?genre=\(forCategory.rawValue)") else {
             throw HttpError.badURL
         }
-        print(url)
         let books: [Book] = try await httpClient.fetch(url: url)
         return books
     }

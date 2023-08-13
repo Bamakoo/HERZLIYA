@@ -13,9 +13,8 @@ struct KartView: View {
     @State private var selection: Book?
 
     var body: some View {
-        NavigationSplitView {
             List(viewModel.kartBooks, selection: $selection) { book in
-                NavigationLink(value: book) {
+                NavigationLink(destination: BookDetail(book: Binding.constant(book))) {
                     BookRow(book: book)
                 }
                 .swipeActions(edge: .trailing) {
@@ -41,11 +40,6 @@ struct KartView: View {
                     .tint(.mint)
                 }
             }
-            //            Button {
-            //                print("buy buy buy")
-            //            } label: {
-            //                Text("Purchase all the books in my cart")
-            //            }
             .onAppear {
                 Task {
                     try await viewModel.getBooksInKart()
@@ -53,13 +47,6 @@ struct KartView: View {
             }
             .navigationTitle("My Cart")
             .listStyle(.grouped)
-        } detail: {
-            if selection != nil {
-                BookDetail(book: $selection)
-            } else {
-                Text("Pick a book")
-            }
-        }
     }
 }
 

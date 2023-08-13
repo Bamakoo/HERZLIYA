@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CommentsOnMyBooksView: View {
     var body: some View {
-        Text("Hello, comments on my books")
+        Text("Comments on my books")
     }
 }
 

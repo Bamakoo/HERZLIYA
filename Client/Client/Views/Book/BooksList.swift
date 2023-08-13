@@ -59,10 +59,8 @@ struct BooksList: View {
                 }
             }
             .refreshable {
-                print("REFRESHED")
                 guard let selectedBookGenre else { return }
                 await viewModel.fetchBooksByGenre(selectedBookGenre)
-                print("REFRESHED")
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -74,7 +72,6 @@ struct BooksList: View {
                     .sheet(isPresented: $showSheet) {
                         Task {
                             guard let selectedBookGenre else { return }
-                            print("vanished")
                             await viewModel.fetchBooksByGenre(selectedBookGenre)
                         }
                     } content: {

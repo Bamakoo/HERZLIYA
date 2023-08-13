@@ -11,21 +11,13 @@ struct SoldBooks: View {
     @StateObject private var viewModel = ProfileViewModel()
     @State private var selection: Book?
     var body: some View {
-        NavigationSplitView {
             List(viewModel.soldBooks, selection: $selection) { book in
-                NavigationLink(value: book) {
+                NavigationLink(destination: BookDetail(book: Binding.constant(book))) {
                     BookRow(book: book)
                 }
             }
             .navigationTitle("Books I've sold")
             .listStyle(.grouped)
-        } detail: {
-            if selection != nil {
-                BookDetail(book: $selection)
-            } else {
-                Text("Pick a book")
-            }
-        }
         .onAppear {
             Task {
                 try await viewModel.soldBooks()

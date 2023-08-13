@@ -13,15 +13,11 @@ struct AllComments: View {
     @State private var selectedComment: Comment?
 
     var body: some View {
-        NavigationSplitView {
             List(viewModel.allComments, selection: $selectedComment) { comment in
-                NavigationLink(value: comment) {
+                NavigationLink(destination: BookDetail(book: Binding.constant(book))) {
                     Label(comment.comment, systemImage: "person.2.wave.2")
                 }
             }
-        } detail: {
-            Text("hello world")
-        }
         .onAppear {
             Task {
                 try await viewModel.fetchAllComments()

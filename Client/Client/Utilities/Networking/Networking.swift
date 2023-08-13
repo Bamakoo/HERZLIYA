@@ -21,7 +21,6 @@ final class Networking: HttpClient {
         }
         request.httpMethod = "GET"
         let (data, response) = try await URLSession.shared.data(from: url)
-        print(data, response)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw HttpError.badResponse
         }
@@ -58,7 +57,6 @@ final class Networking: HttpClient {
     ///   - object: the object sent to the server
     ///   - httpMethod: the method used to send the data
     func sendData<T: Codable>(to url: URL, object: T, httpMethod: String) async throws -> T {
-        print("sending data")
         var request = URLRequest(url: url)
         print(request)
         request.httpMethod = httpMethod
@@ -89,7 +87,6 @@ final class Networking: HttpClient {
             print("The response code is \(httpURLResponse.statusCode)")
             throw HttpError.unauthorized
         } else if httpURLResponse.statusCode == 404 {
-            print("hello world")
             throw HttpError.notFound
         } else if httpURLResponse.statusCode == 500 {
             throw HttpError.internalServerError

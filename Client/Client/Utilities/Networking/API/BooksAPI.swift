@@ -47,8 +47,7 @@ extension API {
         }
 
         static func fetchBooksByUsersFavoriteAuthor() async throws -> [Book] {
-            let request = try HTTPRequestFactory.request(from: NewEndpoint.booksByUsersFavoriteAuthor())
-                .loginProtected()
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.booksByUsersFavoriteAuthor()).loginProtected()
             let bookData = try await HTTP.get(with: request)
             let decoder = JSONDecoder()
             let books = try decoder.decode([Book].self, from: bookData)

@@ -27,7 +27,7 @@ struct MyComments: View {
                 .swipeActions(edge: .leading) {
                     Button {
                         Task {
-                            try await viewModel.fetchMyComments()
+                            print("change my comments")
                         }
                     } label: {
                         Image(systemName: "tornado")

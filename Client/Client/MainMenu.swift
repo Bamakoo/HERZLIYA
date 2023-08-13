@@ -26,11 +26,6 @@ struct MainMenu: View {
                 .tabItem {
                     Image(systemName: "person.crop.circle.fill")
                 }
-
-            KartView()
-                .tabItem {
-                    Image(systemName: "cart")
-                }
         }
     }
 }

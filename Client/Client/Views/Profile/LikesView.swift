@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct LikesView: View {
-    
+
     @StateObject private var viewModel = ProfileViewModel()
     @State private var selection: Book?
-    
+
     var body: some View {
             List(viewModel.likedBooks, selection: $selection) { book in
                 NavigationLink(destination: BookDetail(book: Binding.constant(book))) {

@@ -12,9 +12,8 @@ struct BooksByMyFavoriteAuthorView: View {
     @State private var selection: Book?
 
     var body: some View {
-        NavigationSplitView {
             List(viewModel.booksByUsersFavoriteAuthor, selection: $selection) { book in
-                NavigationLink(value: book) {
+                NavigationLink(destination: BookDetail(book: Binding.constant(book))) {
                     BookRow(book: book)
                 }
             }
@@ -25,13 +24,6 @@ struct BooksByMyFavoriteAuthorView: View {
             }
             .navigationTitle("Buy books by my favorite author")
             .listStyle(.grouped)
-        } detail: {
-            if selection != nil {
-                BookDetail(book: $selection)
-            } else {
-                Text("Pick a book")
-            }
-        }
     }
 }
 
