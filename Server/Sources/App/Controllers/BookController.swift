@@ -279,7 +279,8 @@ struct BookController: RouteCollection {
         }
         
         try await book.update(on: req.db)
-        return try await book.encodeResponse(status: .ok, for: req)
+        let returnedBook = GetBook(id: patchBook.id, title: book.title, author: book.author, price: book.price, state: book.state)
+        return try await returnedBook.encodeResponse(status: .ok, for: req)
     }
     
     /// <#Description#>
