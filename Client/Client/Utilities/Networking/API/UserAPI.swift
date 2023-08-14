@@ -9,6 +9,11 @@ import Foundation
 
 extension API {
     struct User {
+        static func friendUser(_ userID: UUID) async throws {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.friends(userID)).loginProtected()
+            _ = try await HTTP.post(with: request, andBody: nil)
+        }
+
         static func login(_ username: String, _ password: String) async throws -> String {
             var request = try HTTPRequestFactory.request(from: NewEndpoint.login())
             guard let data = (username + ":" + password).data(using: .utf8) else {

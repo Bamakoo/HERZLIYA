@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 final class UsersViewModel: ObservableObject {
 
     @Published var users = [FetchUser]()
@@ -24,7 +25,14 @@ final class UsersViewModel: ObservableObject {
     @Published var city = ""
     @Published var country = ""
 
-    @MainActor
+    func friendUser(_ userID: UUID) async throws {
+        do {
+            try await UseCase.User.friendUser(userID)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
     func createANewUser() async throws {
         do {
             let newUser = NewUser(username: username,
@@ -41,7 +49,6 @@ final class UsersViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     func fetchUsers() async throws {
         do {
             users = try await UseCase.User.fetchUsers()

@@ -9,6 +9,10 @@ import Foundation
 
 extension UseCase {
     struct User {
+        static func friendUser(_ userID: UUID) async throws {
+            try await API.User.friendUser(userID)
+        }
+
         static func login(_ username: String, _ password: String) async throws {
             @TokenRepository<Any>
             var token: String?

@@ -57,10 +57,10 @@ struct BookController: RouteCollection {
                 .first()
         }
         
-        let returnedKartBook = KartBook(kartID: kartID, bookID: bookID)
-
         // delete
         try await kartBook.delete()
+        
+        let returnedKartBook = KartBook(kartID: kartID, bookID: bookID)
         return try await returnedKartBook.encodeResponse(status: .ok, for: req)
     }
 

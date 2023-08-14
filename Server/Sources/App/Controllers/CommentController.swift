@@ -14,7 +14,7 @@ struct CommentController: RouteCollection {
         tokenAuthComment.delete(":commentID", use: delete)
     }
 }
-
+// TODO: migrate to /books endpoint
 /// When called by the route handler, this function returns an array containing all the comment objects for a particular book
 /// - Parameter req: the incoming GET request
 /// - Returns: an array containing all the comments on a book

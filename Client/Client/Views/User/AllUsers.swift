@@ -17,6 +17,16 @@ struct AllUsers: View {
                 NavigationLink(value: user) {
                     Label(user.username, systemImage: "person.fill")
                 }
+                .swipeActions(edge: .trailing) {
+                    Button {
+                        Task {
+                            try await viewModel.friendUser(user.id)
+                        }
+                    } label: {
+                        Label("Friend user", systemImage: "person.fill.badge.plus")
+                    }
+                    .tint(.red)
+                }
             }
         .onAppear {
             Task {

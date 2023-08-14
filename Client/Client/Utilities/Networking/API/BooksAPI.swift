@@ -23,7 +23,6 @@ extension API {
             let decoder = JSONDecoder()
             let book = try decoder.decode(Book.self, from: bookData)
             return book
-
         }
 
         static func fetchBooksByGenre(_ bookGenre: BookGenre) async throws -> [Book] {

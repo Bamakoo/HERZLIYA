@@ -25,15 +25,15 @@ final class Friend: Model, Content {
     init() { }
 
     init(id: UUID? = nil,
-         user: User,
-         usersFriend: User,
+         userID: User.IDValue,
+         usersFriendID: User.IDValue,
          createdAt: Date? = nil,
          updatedAt: Date? = nil,
          deletedAt: Date? = nil
          ) throws {
         self.id = id
-        self.$user.id = try user.requireID()
-        self.$usersFriend.id = try usersFriend.requireID()
+        self.$user.id = userID
+        self.$usersFriend.id = usersFriendID
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.deletedAt = deletedAt
