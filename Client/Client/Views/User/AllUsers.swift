@@ -13,17 +13,11 @@ struct AllUsers: View {
     @State private var selectedUser: FetchUser?
 
     var body: some View {
-        NavigationSplitView {
             List(viewModel.users, selection: $selectedUser) { user in
                 NavigationLink(value: user) {
                     Label(user.username, systemImage: "person.fill")
                 }
             }
-        } detail: {
-            if selectedUser != nil {
-                DetailedUserProfile(user: $selectedUser)
-            }
-        }
         .onAppear {
             Task {
                 try await viewModel.fetchUsers()

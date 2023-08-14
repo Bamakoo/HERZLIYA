@@ -53,6 +53,7 @@
 		A4B33B8B2A818BAC00F6A33A /* AllComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B8A2A818BAC00F6A33A /* AllComments.swift */; };
 		A4B33B8D2A818C2700F6A33A /* AllRatings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B8C2A818C2700F6A33A /* AllRatings.swift */; };
 		A4B33B8F2A818CBC00F6A33A /* AllUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */; };
+		A4B783F72A8A1B6D00B6285E /* CommentBookDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B783F62A8A1B6D00B6285E /* CommentBookDetailedView.swift */; };
 		A4BDB5DB29D5BD4500C973CE /* UserProfileEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */; };
 		A4C782C92A55969B00AACE4E /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782C82A55969A00AACE4E /* HTTP.swift */; };
 		A4C782CB2A5596D600AACE4E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782CA2A5596D600AACE4E /* API.swift */; };
@@ -158,6 +159,7 @@
 		A4B33B8A2A818BAC00F6A33A /* AllComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllComments.swift; sourceTree = "<group>"; };
 		A4B33B8C2A818C2700F6A33A /* AllRatings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRatings.swift; sourceTree = "<group>"; };
 		A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUsers.swift; sourceTree = "<group>"; };
+		A4B783F62A8A1B6D00B6285E /* CommentBookDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentBookDetailedView.swift; sourceTree = "<group>"; };
 		A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserProfileEnum.swift; path = Client/Utilities/User/UserProfileEnum.swift; sourceTree = SOURCE_ROOT; };
 		A4C782C82A55969A00AACE4E /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HTTP.swift; path = Client/Utilities/Networking/HTTP/HTTP.swift; sourceTree = SOURCE_ROOT; };
 		A4C782CA2A5596D600AACE4E /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				A4B33B8A2A818BAC00F6A33A /* AllComments.swift */,
+				A4B783F62A8A1B6D00B6285E /* CommentBookDetailedView.swift */,
 				A4B33B822A8180F800F6A33A /* UserMenuView.swift */,
 				A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */,
 				A40C78002A829DF5003C11EB /* DetailedUserProfile.swift */,
@@ -701,6 +704,7 @@
 				A4AEC1EC2A7272DB00875E70 /* KartUseCase.swift in Sources */,
 				A44D59CD29ACB33200FF7F22 /* KartsNetworkManager.swift in Sources */,
 				A45BDC542A531D8D003AB9FC /* MyComments.swift in Sources */,
+				A4B783F72A8A1B6D00B6285E /* CommentBookDetailedView.swift in Sources */,
 				A4DD9DC829DF24E40063DD9B /* ForgotMyPassword.swift in Sources */,
 				A40C78012A829DF5003C11EB /* DetailedUserProfile.swift in Sources */,
 				A4C782CF2A559FDB00AACE4E /* Endpoint.swift in Sources */,

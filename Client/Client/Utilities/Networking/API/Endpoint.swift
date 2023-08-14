@@ -31,6 +31,10 @@ struct NewEndpoint {
         return HerzliyaEndpoint(path: "/books", queryItems: nil)
     }
 
+    static func specificBook(_ bookID: UUID) -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/books/\(bookID)", queryItems: nil)
+    }
+
     static func bookGenre(_ bookGenre: BookGenre) -> APIEndpoint {
         return HerzliyaEndpoint(path: "/books?genre=\(bookGenre.rawValue)", queryItems: nil)
     }

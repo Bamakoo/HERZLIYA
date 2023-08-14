@@ -17,6 +17,15 @@ extension API {
             return books
         }
 
+        static func fetchSpecificBook(_ bookID: UUID) async throws -> Book {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.specificBook(bookID))
+            let bookData = try await HTTP.get(with: request)
+            let decoder = JSONDecoder()
+            let book = try decoder.decode(Book.self, from: bookData)
+            return book
+
+        }
+
         static func fetchBooksByGenre(_ bookGenre: BookGenre) async throws -> [Book] {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.bookGenre(bookGenre))
             let bookData = try await HTTP.get(with: request)
