@@ -14,7 +14,7 @@ struct AllUsers: View {
 
     var body: some View {
             List(viewModel.users, selection: $selectedUser) { user in
-                NavigationLink(value: user) {
+                NavigationLink(destination: DetailedUserProfile(user: Binding.constant(user))) {
                     Label(user.username, systemImage: "person.fill")
                 }
                 .swipeActions(edge: .trailing) {
