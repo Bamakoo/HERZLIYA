@@ -15,4 +15,3 @@ struct PublicProfileView: View {
         }
     }
 }
-

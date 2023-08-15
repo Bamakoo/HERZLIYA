@@ -12,7 +12,7 @@ extension UseCase {
         static func friendUser(_ userID: UUID) async throws {
             try await API.User.friendUser(userID)
         }
-        
+
         static func fetchMyFriends() async throws -> [FetchUser] {
             let users = try await API.User.fetchMyFriends()
             return users

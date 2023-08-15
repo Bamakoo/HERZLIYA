@@ -16,9 +16,9 @@ extension API {
             let users = try decoder.decode([FetchUser].self, from: userData)
             return users
         }
-        
+
         static func friendUser(_ userID: UUID) async throws {
-            let request = try HTTPRequestFactory.request(from: NewEndpoint.friends(userID)).loginProtected()
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.friendUser(userID)).loginProtected()
             _ = try await HTTP.post(with: request, andBody: nil)
         }
 
