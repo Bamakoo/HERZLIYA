@@ -15,6 +15,14 @@ final class ProfileViewModel: ObservableObject {
     @Published var purchasedBooks = [Book]()
     @Published var myFriends = [FetchUser]()
 
+    func deleteFriend(_ userID: UUID) async throws {
+        do {
+            try await UseCase.User.deleteFriend(userID)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
     func fetchMyFriends() async throws {
         do {
             myFriends = try await UseCase.User.fetchMyFriends()

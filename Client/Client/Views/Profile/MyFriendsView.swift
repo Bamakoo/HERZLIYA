@@ -17,6 +17,17 @@ struct MyFriendsView: View {
             NavigationLink(destination: PublicProfileView(user: Binding.constant(user))) {
                 Label(user.username, systemImage: "person.crop.circle.fill")
             }
+            .swipeActions(edge: .trailing) {
+                Button {
+                    Task {
+                        try await viewModel.deleteFriend(user.id)
+                        try await viewModel.fetchMyFriends()
+                    }
+                } label: {
+                    Label("Remove friend", systemImage: "person.fill.badge.minus")
+                }
+                .tint(.red)
+            }
         }
         .navigationTitle("My friends")
         .listStyle(.grouped)

@@ -9,6 +9,11 @@ import Foundation
 
 extension UseCase {
     struct User {
+
+        static func deleteFriend(_ userID: UUID) async throws {
+            try await API.User.deleteFriend(userID)
+        }
+
         static func friendUser(_ userID: UUID) async throws {
             try await API.User.friendUser(userID)
         }

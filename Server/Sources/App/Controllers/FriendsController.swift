@@ -23,16 +23,23 @@ struct FriendsController: RouteCollection {
             throw Abort(.badRequest, reason: "unable to get user")
         }
         
-        guard let friend = try await Friend.find(req.parameters.get("friendID"), on: req.db) else {
+        guard let friend = try await User.find(req.parameters.get("friendID"), on: req.db),
+              let friendID = friend.id else {
             throw Abort(.notFound)
         }
         
-        guard userID == friend.$user.id else {
-            throw Abort(.forbidden)
+        let relationship = try await Friend.query(on: req.db).group(.and) { group in
+            group.filter(\.$user.$id == userID)
+                .filter(\.$usersFriend.$id == friendID)
         }
-        
-        try await friend.delete(on: req.db)
-        return try await friend.encodeResponse(status: .ok, for: req)
+            .first()
+
+        if let relationship {
+            try await relationship.delete(on: req.db)
+            return try await relationship.encodeResponse(status: .ok, for: req)
+        } else {
+            throw Abort(.notFound)
+        }
     }
 
     /// Creates a friends relationship between two users

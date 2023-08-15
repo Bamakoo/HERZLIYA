@@ -9,6 +9,12 @@ import Foundation
 
 extension API {
     struct User {
+
+        static func deleteFriend(_ userID: UUID) async throws {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.friends()).loginProtected()
+            _ = try await HTTP.delete(with: request)
+        }
+
         static func fetchMyFriends() async throws -> [FetchUser] {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.myFriends()).loginProtected()
             let userData = try await HTTP.get(with: request)
