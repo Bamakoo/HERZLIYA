@@ -27,9 +27,12 @@ struct MyProfileController: RouteCollection {
     /// The function called to get a user's friends
     /// - Parameter req: the incoming request to /friends
     /// - Returns: an array of user object's
-    func myFriends(req: Request) async throws -> [User] {
+    func myFriends(req: Request) async throws -> [GetUser] {
         let user = try req.auth.require(User.self)
-        return try await user.$usersFriends.get(on: req.db)
+        let users = try await user.$usersFriends.get(on: req.db)
+        return try users.map { user in
+            try GetUser(id: user.requireID(), username: user.username, favoriteBook: user.favoriteBook, country: user.country, city: user.city, favoriteAuthor: user.favoriteAuthor)
+        }
     }
 
     /// When called by the route handler, this function returns an array containing all the comments dropped by a particular user on any book

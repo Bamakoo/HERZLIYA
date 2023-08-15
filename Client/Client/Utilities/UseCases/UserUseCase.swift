@@ -12,6 +12,11 @@ extension UseCase {
         static func friendUser(_ userID: UUID) async throws {
             try await API.User.friendUser(userID)
         }
+        
+        static func fetchMyFriends() async throws -> [FetchUser] {
+            let users = try await API.User.fetchMyFriends()
+            return users
+        }
 
         static func login(_ username: String, _ password: String) async throws {
             @TokenRepository<Any>

@@ -13,6 +13,15 @@ final class ProfileViewModel: ObservableObject {
     @Published var booksByUsersFavoriteAuthor = [Book]()
     @Published var soldBooks = [Book]()
     @Published var purchasedBooks = [Book]()
+    @Published var myFriends = [FetchUser]()
+
+    func fetchMyFriends() async throws {
+        do {
+            myFriends = try await UseCase.User.fetchMyFriends()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 
     func fetchLikedBooks() async throws {
         do {

@@ -9,7 +9,7 @@ struct FriendsController: RouteCollection {
         let tokenMiddleware = UserToken.guardMiddleware()
         let tokenAuth = friendRoutes.grouped(tokenAuthenticator, tokenMiddleware)
         tokenAuth.delete(":friendID", use: delete)
-        tokenAuth.post(use: create)
+        tokenAuth.post(":friendID", use: create)
     }
     
     func index(req: Request) async throws -> [Friend] {

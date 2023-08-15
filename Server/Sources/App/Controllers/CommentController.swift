@@ -115,4 +115,3 @@ func delete(req: Request) async throws -> Response {
     let getComment = GetComment(id: try comment.requireID(), comment: comment.comment, bookID: comment.$book.id, userID: comment.$user.id)
     return try await getComment.encodeResponse(status: .ok, for: req)
 }
-

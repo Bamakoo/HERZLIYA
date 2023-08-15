@@ -25,7 +25,7 @@ struct AllUsers: View {
                     } label: {
                         Label("Friend user", systemImage: "person.fill.badge.plus")
                     }
-                    .tint(.red)
+                    .tint(.purple)
                 }
             }
         .onAppear {

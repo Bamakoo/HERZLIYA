@@ -54,6 +54,7 @@
 		A4B33B8D2A818C2700F6A33A /* AllRatings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B8C2A818C2700F6A33A /* AllRatings.swift */; };
 		A4B33B8F2A818CBC00F6A33A /* AllUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */; };
 		A4B783F72A8A1B6D00B6285E /* CommentBookDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B783F62A8A1B6D00B6285E /* CommentBookDetailedView.swift */; };
+		A4B783FB2A8A7A2B00B6285E /* PublicProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B783FA2A8A7A2B00B6285E /* PublicProfileView.swift */; };
 		A4BDB5DB29D5BD4500C973CE /* UserProfileEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */; };
 		A4C782C92A55969B00AACE4E /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782C82A55969A00AACE4E /* HTTP.swift */; };
 		A4C782CB2A5596D600AACE4E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C782CA2A5596D600AACE4E /* API.swift */; };
@@ -160,6 +161,7 @@
 		A4B33B8C2A818C2700F6A33A /* AllRatings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRatings.swift; sourceTree = "<group>"; };
 		A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUsers.swift; sourceTree = "<group>"; };
 		A4B783F62A8A1B6D00B6285E /* CommentBookDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentBookDetailedView.swift; sourceTree = "<group>"; };
+		A4B783FA2A8A7A2B00B6285E /* PublicProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicProfileView.swift; sourceTree = "<group>"; };
 		A4BDB5DA29D5BD4500C973CE /* UserProfileEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserProfileEnum.swift; path = Client/Utilities/User/UserProfileEnum.swift; sourceTree = SOURCE_ROOT; };
 		A4C782C82A55969A00AACE4E /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HTTP.swift; path = Client/Utilities/Networking/HTTP/HTTP.swift; sourceTree = SOURCE_ROOT; };
 		A4C782CA2A5596D600AACE4E /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				A4DD9DB729D9D56B0063DD9B /* BoughtBooks.swift */,
 				A4DD9DB529D9D54F0063DD9B /* SoldBooks.swift */,
 				A4DD9DB329D9D50B0063DD9B /* MyFriendsView.swift */,
+				A4B783FA2A8A7A2B00B6285E /* PublicProfileView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -741,6 +744,7 @@
 				A4DEA2792A1511DE00FE6EB3 /* PatchPurchaseBook.swift in Sources */,
 				A4C782DE2A5C378D00AACE4E /* Book.swift in Sources */,
 				A4C9866D29A10835003CF879 /* Constants.swift in Sources */,
+				A4B783FB2A8A7A2B00B6285E /* PublicProfileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

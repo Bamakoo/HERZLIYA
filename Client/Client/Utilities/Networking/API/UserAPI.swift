@@ -9,6 +9,14 @@ import Foundation
 
 extension API {
     struct User {
+        static func fetchMyFriends() async throws -> [FetchUser] {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.myFriends()).loginProtected()
+            let userData = try await HTTP.get(with: request)
+            let decoder = JSONDecoder()
+            let users = try decoder.decode([FetchUser].self, from: userData)
+            return users
+        }
+        
         static func friendUser(_ userID: UUID) async throws {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.friends(userID)).loginProtected()
             _ = try await HTTP.post(with: request, andBody: nil)
@@ -33,7 +41,6 @@ extension API {
             let decoder = JSONDecoder()
             let users = try decoder.decode([FetchUser].self, from: userData)
             return users
-
         }
 
         static func create(_ newUser: NewUser) async throws {
