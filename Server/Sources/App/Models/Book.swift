@@ -36,12 +36,15 @@ final class Book: Model, Content {
     
     // TODO: turn back Comment & Like to children => one to many
     
+    @Children(for: \.$book)
+    var ratings: [Rating]
+
     @Siblings(through: Comment.self, from: \.$book, to: \.$user)
     public var user: [User]
     
     @Siblings(through: Like.self, from: \.$book, to: \.$user)
     public var users: [User]
-    
+
     @Siblings(through: KartBook.self, from: \.$book, to: \.$kart)
     public var karts: [Kart]
     

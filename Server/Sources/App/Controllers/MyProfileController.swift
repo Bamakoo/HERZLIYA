@@ -34,6 +34,15 @@ struct MyProfileController: RouteCollection {
             try GetUser(id: user.requireID(), username: user.username, favoriteBook: user.favoriteBook, country: user.country, city: user.city, favoriteAuthor: user.favoriteAuthor)
         }
     }
+    
+//    func booksMyFriendsLiked(req: Request) async throws -> [GetBook] {
+//        let user = try req.auth.require(User.self)
+//        let friends = try await user.$usersFriends.get(on: req.db)
+//        friends.map { friend
+//            in friend.id
+//
+//        }
+//    }
 
     /// When called by the route handler, this function returns an array containing all the comments dropped by a particular user on any book
     /// - Parameter req: the incoming request

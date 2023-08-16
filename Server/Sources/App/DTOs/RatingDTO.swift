@@ -10,7 +10,6 @@ import Vapor
 import Fluent
 
 struct RatingDTO: Content {
-    let userWhoRates: UUID
-    let ratedUser: UUID
+    let bookID: UUID
     let rating: Float
 }

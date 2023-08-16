@@ -7,17 +7,18 @@
 
 import Fluent
 import Vapor
+
 final class Rating: Model, Content {
-    static let schema = "rating"
+    static let schema = "ratings"
     
     @ID(key: .id)
     var id: UUID?
     
-    @Parent(key: "user_who_rates")
-    var userWhoRates: User
+    @Parent(key: "user_id")
+    var user: User
     
-    @Parent(key: "rated_user")
-    var ratedUser: User
+    @Parent(key: "book_id")
+    var book: Book
     
     @Field(key: "rating")
     var rating: Float
@@ -34,15 +35,15 @@ final class Rating: Model, Content {
     init() {}
     
     init(id: UUID? = nil,
-         userWhoRatesID: User.IDValue,
-         ratedUserID: User.IDValue,
+         userID: User.IDValue,
+         bookID: Book.IDValue,
          rating: Float,
          createdAt: Date? = nil,
          updatedAt: Date? = nil,
          deletedAt: Date? = nil) throws {
         self.id = id
-        self.$userWhoRates.id = userWhoRatesID
-        self.$ratedUser.id = ratedUserID
+        self.$user.id = userID
+        self.$book.id = bookID
         self.rating = rating
         self.createdAt = createdAt
         self.updatedAt = updatedAt

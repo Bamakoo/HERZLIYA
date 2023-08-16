@@ -34,11 +34,14 @@ final class User: Authenticatable, Model, Content {
     @Children(for: \.$seller)
     var soldBooks: [Book]
     
-    @Siblings(through: Rating.self, from: \.$userWhoRates, to: \.$ratedUser)
-    public var ratedUsers: [User]
+    @Children(for: \.$user)
+    var ratings: [Rating]
     
-    @Siblings(through: Rating.self, from: \.$ratedUser, to: \.$userWhoRates)
-    public var ratedBy: [User]
+//    @Children(for: \.$user)
+//    var comments: [Comment]
+//    
+//    @Children(for: \.$user)
+//    var likes: [Like]
 
     @Siblings(through: Friend.self, from: \.$user, to: \.$usersFriend)
     public var usersFriends: [User]
