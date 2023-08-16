@@ -21,11 +21,24 @@ final class BooksViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var searchResults = [Book]()
     @Published var commentsOnBook = [Comment]()
+    @Published var rating: Float = 1.1
 
     private let networkManager: BooksNetworkManager
 
     init(networkManager: BooksNetworkManager) {
         self.networkManager = networkManager
+    }
+
+    func rateBook(_ book: Book) async throws {
+        do {
+            guard let bookID = book.id else {
+                return
+            }
+            let rating = Rating(id: nil, userID: nil, bookID: bookID, rating: rating)
+            try await UseCase.Books.rate(rating)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 
     func fetchBookComments(_ book: Book) async throws {

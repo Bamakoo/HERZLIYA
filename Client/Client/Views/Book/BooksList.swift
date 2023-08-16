@@ -38,7 +38,7 @@ struct BooksList: View {
             }
         } content: {
             List(isSearching ? viewModel.searchResults : viewModel.books, selection: $selectedBook) { book in
-                NavigationLink(value: book) {
+                NavigationLink(destination: BookDetail(book: Binding.constant(book))) {
                     BookRow(book: book)
                 }
             }

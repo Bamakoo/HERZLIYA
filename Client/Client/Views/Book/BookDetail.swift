@@ -15,11 +15,13 @@ struct BookDetail: View {
 
     var body: some View {
         Form {
-            Text(book!.title)
-            Text(String(book!.price))
-                .background(Color.white)
-            Text(book!.author).bold()
-                .background(Color.white)
+            if let book {
+                Text(book.title)
+                Text(String(book.price))
+                    .background(Color.white)
+                Text(book.author).bold()
+                    .background(Color.white)
+            }
             Section {
                 TextEditor(text: $fullText)
                     .foregroundColor(Color.gray)
@@ -31,6 +33,18 @@ struct BookDetail: View {
                             try await viewModel.fetchBookComments(book)
                         }
                     }
+                }
+            }
+            Section {
+                Stepper("Rate this book!", value: $viewModel.rating, in: 0 ... 10, step: 0.1)
+                Button {
+                    Task {
+                        if let book {
+                            try await viewModel.rateBook(book)
+                        }
+                    }
+                } label: {
+                    Label(String(viewModel.rating), systemImage: "number.circle.fill")
                 }
             }
             Section {
