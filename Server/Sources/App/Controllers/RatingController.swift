@@ -14,18 +14,22 @@ struct RatingController: RouteCollection {
         }
     }
 
-    func index(req: Request) async throws -> [Rating] {
-        return try await Rating.query(on: req.db).all()
+    func index(req: Request) async throws -> [RatingDTO] {
+        let ratings = try await Rating.query(on: req.db).all()
+        return try ratings.map { rating in
+            RatingDTO(id: try rating.requireID(), bookID: rating.$book.id, rating: rating.rating)
+        }
     }
 
     func create(req: Request) async throws -> Response {
+
+        let rating = try req.content.decode(RatingDTO.self)
+
         let user = try req.auth.require(User.self)
         guard let userID = user.id else {
             throw Abort(.badRequest, reason: "unable to get user")
         }
-        
-        let rating = try req.content.decode(RatingDTO.self)
-        
+
         let realRating = try Rating(userID: userID, bookID: rating.bookID, rating: rating.rating)
         try await realRating.save(on: req.db)
         return try await realRating.encodeResponse(status: .created, for: req)

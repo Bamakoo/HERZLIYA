@@ -8,8 +8,19 @@
 import SwiftUI
 
 struct AllRatings: View {
+    @StateObject private var viewModel = RatingsViewModel()
+    @State private var selectedRating: Rating?
     var body: some View {
-        Text("Hello, Ratings!")
+        List(viewModel.ratings, selection: $selectedRating) { rating in
+            NavigationLink(destination: RatingDetailedView(rating: Binding.constant(rating))) {
+                Label("Rating", systemImage: "number")
+            }
+        }
+        .onAppear {
+            Task {
+                try await viewModel.fetchRatings()
+            }
+        }
     }
 }
 

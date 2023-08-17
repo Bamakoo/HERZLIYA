@@ -63,7 +63,7 @@ struct NewEndpoint {
     static func likedBooks() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/my/likes", queryItems: nil)
     }
-    
+
     static func rating() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/ratings", queryItems: nil)
     }

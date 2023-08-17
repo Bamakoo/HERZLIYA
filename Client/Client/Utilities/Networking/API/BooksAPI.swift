@@ -9,6 +9,14 @@ import Foundation
 
 extension API {
     struct Books {
+        
+        static func fetchRatings() async throws -> [Rating] {
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.rating()).loginProtected()
+            let ratingData = try await HTTP.get(with: request)
+            let decoder = JSONDecoder()
+            let ratings = try decoder.decode([Rating].self, from: ratingData)
+            return ratings
+        }
 
         static func rate(_ rating: Rating) async throws {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.rating()).loginProtected()

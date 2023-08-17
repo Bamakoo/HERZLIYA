@@ -13,7 +13,12 @@ extension UseCase {
             let books = try await API.Books.fetch()
             return books
         }
-        
+
+        static func fetchRatings() async throws -> [Rating] {
+            let ratings = try await API.Books.fetchRatings()
+            return ratings
+        }
+
         static func rate(_ rating: Rating) async throws {
             try await API.Books.rate(rating)
         }
