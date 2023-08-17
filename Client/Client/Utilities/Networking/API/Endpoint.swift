@@ -28,6 +28,10 @@ struct HerzliyaEndpoint: APIEndpoint {
 
 struct NewEndpoint {
 
+    static func likes() -> APIEndpoint {
+        return HerzliyaEndpoint(path: "/likes", queryItems: nil)
+    }
+
     static func friends() -> APIEndpoint {
         return HerzliyaEndpoint(path: "/friends", queryItems: nil)
     }
@@ -68,7 +72,7 @@ struct NewEndpoint {
         return HerzliyaEndpoint(path: "/ratings", queryItems: nil)
     }
 
-    static func likes(_ bookID: UUID) -> APIEndpoint {
+    static func likeBook(_ bookID: UUID) -> APIEndpoint {
         return HerzliyaEndpoint(path: "/likes/\(bookID)", queryItems: nil)
     }
 

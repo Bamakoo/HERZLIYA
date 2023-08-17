@@ -7,6 +7,10 @@
 
 import Foundation
 
-struct Like: Codable, Hashable, Equatable {
+struct Like: Identifiable, Codable, Hashable, Equatable {
     let bookID: UUID
+    let id: UUID
+    let userID: UUID
+    let bookTitle: String?
+    let username: String?
 }

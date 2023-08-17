@@ -9,7 +9,7 @@ import Foundation
 
 extension API {
     struct Books {
-        
+
         static func fetchRatings() async throws -> [Rating] {
             let request = try HTTPRequestFactory.request(from: NewEndpoint.rating()).loginProtected()
             let ratingData = try await HTTP.get(with: request)
@@ -58,7 +58,7 @@ extension API {
         }
 
         static func likeABook(_ bookID: UUID) async throws {
-            let request = try HTTPRequestFactory.request(from: NewEndpoint.likes(bookID)).loginProtected()
+            let request = try HTTPRequestFactory.request(from: NewEndpoint.likeBook(bookID)).loginProtected()
             _ = try await HTTP.post(with: request, andBody: nil)
         }
 

@@ -13,5 +13,7 @@ struct GetLike: Content {
     let id: UUID
     let userID: UUID
     let bookID: UUID
+    let bookTitle: String?
+    let username: String?
 }
 

@@ -6,12 +6,14 @@
 //
 import SwiftUI
 struct BooksList: View {
+
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var selectedBook: Book?
     @State private var selectedBookGenre: BookGenre?
     @State private var showSheet = false
     @State private var showSearch = false
     @Environment(\.isSearching) private var isSearching
+
     var body: some View {
         NavigationSplitView {
             List(BookGenre.allCases, selection: $selectedBookGenre) { genre in

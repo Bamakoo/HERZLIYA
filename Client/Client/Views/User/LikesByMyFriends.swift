@@ -8,13 +8,22 @@
 import SwiftUI
 
 struct LikesByMyFriends: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
 
-struct LikesByMyFriends_Previews: PreviewProvider {
-    static var previews: some View {
-        LikesByMyFriends()
+    @StateObject private var viewModel = LikesViewModel()
+    @State private var selectedLike: Like?
+
+    var body: some View {
+        List(viewModel.allLikes, selection: $selectedLike) { like in
+            NavigationLink(destination: DetailedLikeView(like: Binding.constant(like))) {
+                if let likeUsername = like.username {
+                    Label(likeUsername, systemImage: "person.fill")
+                }
+            }
+        }
+        .onAppear {
+            Task {
+                try await viewModel.fetchAllLikes()
+            }
+        }
     }
 }
