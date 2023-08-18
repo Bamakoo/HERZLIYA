@@ -15,7 +15,10 @@ struct AllComments: View {
     var body: some View {
             List(viewModel.allComments, selection: $selectedComment) { comment in
                 NavigationLink(destination: CommentBookDetailedView(comment: Binding.constant(comment))) {
-                    Label(comment.comment, systemImage: "person.2.wave.2")
+                    if let commentUsername = comment.username,
+                       let commentBookTitle = comment.bookTitle {
+                        Label("\(commentUsername) commented on \(commentBookTitle)", systemImage: "person.2.wave.2")
+                    }
                 }
             }
         .onAppear {

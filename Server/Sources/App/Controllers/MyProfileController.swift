@@ -61,7 +61,7 @@ struct MyProfileController: RouteCollection {
             .all()
 
         return try comments.map { comment in
-            try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.book.requireID(), userID: comment.user.requireID())
+            try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.$book.id, userID: comment.$user.id, username: comment.user.username, bookTitle: comment.book.title)
         }
     }
 

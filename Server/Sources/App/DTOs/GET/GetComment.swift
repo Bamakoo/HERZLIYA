@@ -13,4 +13,6 @@ struct GetComment: Content {
     let comment: String
     let bookID: UUID
     let userID: UUID
+    let username: String?
+    let bookTitle: String?
 }

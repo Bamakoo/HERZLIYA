@@ -8,13 +8,15 @@
 import Foundation
 
 struct Comment: Identifiable, Codable, Hashable, Equatable {
-   var id: UUID
-   let userID: String
-   let bookID: UUID
-   let comment: String
+    let id: UUID
+    let userID: String
+    let bookID: UUID
+    let comment: String
+    let username: String?
+    let bookTitle: String?
 }
 
 struct PostComment: Codable {
-    var comment: String
-    var bookID: UUID
+    let comment: String
+    let bookID: UUID
 }

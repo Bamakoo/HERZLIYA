@@ -31,7 +31,7 @@ func commentsOnBook(req: Request) async throws -> [GetComment] {
         .all()
     
     return try comments.map { comment in
-        try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.book.requireID(), userID: comment.user.requireID())
+        try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.$book.id, userID: comment.$user.id, username: comment.user.username, bookTitle: comment.book.title)
     }
 }
 
@@ -41,11 +41,9 @@ func commentsOnBook(req: Request) async throws -> [GetComment] {
 /// - Returns: all the comments
 func index(req: Request) async throws -> [GetComment] {
     
-    let comments = try await Comment.query(on: req.db)
-        .all()
-    
+    let comments = try await Comment.query(on: req.db).with(\.$book).with(\.$user).all()
     return try comments.map { comment in
-        try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.$book.id, userID: comment.$user.id)
+        try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.$book.id, userID: comment.$user.id, username: comment.user.username, bookTitle: comment.book.title)
     }
 }
 
@@ -65,7 +63,7 @@ func create(req: Request) async throws -> Response {
     let realComment = try Comment(comment: comment.comment, userID: userID, bookID: comment.bookID)
     try await realComment.save(on: req.db)
     
-    let getComment = GetComment(id: try realComment.requireID(), comment: realComment.comment, bookID: realComment.$book.id, userID: realComment.$user.id)
+    let getComment = GetComment(id: try realComment.requireID(), comment: realComment.comment, bookID: realComment.$book.id, userID: realComment.$user.id, username: nil, bookTitle: nil)
     
     return try await getComment.encodeResponse(status: .created, for: req)
 }
@@ -87,7 +85,7 @@ func update(req: Request) async throws -> Response {
 
     try await commentFromDB.update(on: req.db)
 
-    let getComment = GetComment(id: try commentFromDB.requireID(), comment: commentFromDB.comment, bookID: commentFromDB.$book.id, userID: commentFromDB.$user.id)
+    let getComment = GetComment(id: try commentFromDB.requireID(), comment: commentFromDB.comment, bookID: commentFromDB.$book.id, userID: commentFromDB.$user.id, username: nil, bookTitle: nil)
     return try await getComment.encodeResponse(status: .ok, for: req)
 }
 
@@ -112,6 +110,6 @@ func delete(req: Request) async throws -> Response {
     }
 
     try await comment.delete(on: req.db)
-    let getComment = GetComment(id: try comment.requireID(), comment: comment.comment, bookID: comment.$book.id, userID: comment.$user.id)
+    let getComment = GetComment(id: try comment.requireID(), comment: comment.comment, bookID: comment.$book.id, userID: comment.$user.id, username: nil, bookTitle: nil)
     return try await getComment.encodeResponse(status: .ok, for: req)
 }
