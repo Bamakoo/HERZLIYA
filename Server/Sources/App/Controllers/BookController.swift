@@ -1,6 +1,6 @@
 import Fluent
 import Vapor
-// TODO: ID after the object that it's references
+
 struct BookController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
 

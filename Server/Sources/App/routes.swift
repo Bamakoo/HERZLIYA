@@ -13,6 +13,7 @@ func routes(_ app: Application) throws {
     try app.register(collection: CommentController())
     try app.register(collection: FriendsController())
     try app.register(collection: KartBookController())
+    try app.register(collection: FeedController())
     
 }
 
