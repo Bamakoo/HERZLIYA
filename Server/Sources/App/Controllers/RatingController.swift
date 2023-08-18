@@ -15,9 +15,9 @@ struct RatingController: RouteCollection {
     }
 
     func index(req: Request) async throws -> [RatingDTO] {
-        let ratings = try await Rating.query(on: req.db).all()
+        let ratings = try await Rating.query(on: req.db).with(\.$book).with(\.$user).all()
         return try ratings.map { rating in
-            RatingDTO(id: try rating.requireID(), bookID: rating.$book.id, rating: rating.rating)
+            RatingDTO(id: try rating.requireID(), bookID: rating.$book.id, rating: rating.rating, bookTitle: rating.book.title, username: rating.user.username)
         }
     }
 

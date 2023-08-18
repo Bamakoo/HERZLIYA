@@ -6,8 +6,7 @@
 //
 
 import Foundation
-@MainActor
-final class KartViewModel: ObservableObject {
+@MainActor final class KartViewModel: ObservableObject {
 
     @Published var kartBooks = [Book]()
 

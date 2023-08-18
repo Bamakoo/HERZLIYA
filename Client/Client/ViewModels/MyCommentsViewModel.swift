@@ -7,9 +7,7 @@
 
 import Foundation
 
-@MainActor
-
-final class MyCommentsViewModel: ObservableObject {
+@MainActor final class MyCommentsViewModel: ObservableObject {
 
     @Published var myComments = [Comment]()
 

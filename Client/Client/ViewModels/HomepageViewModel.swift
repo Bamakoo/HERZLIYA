@@ -7,8 +7,7 @@
 
 import Foundation
 
-@MainActor
-final class HomepageViewModel: ObservableObject {
+@MainActor final class HomepageViewModel: ObservableObject {
 
     @Published var books = [Book]()
     @Published var sortedBooks = [Book]()

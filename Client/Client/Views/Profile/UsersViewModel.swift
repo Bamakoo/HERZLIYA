@@ -8,8 +8,7 @@
 import Foundation
 import SwiftUI
 
-@MainActor
-final class UsersViewModel: ObservableObject {
+@MainActor final class UsersViewModel: ObservableObject {
 
     @Published var users = [FetchUser]()
     @Published var currentPassword = ""

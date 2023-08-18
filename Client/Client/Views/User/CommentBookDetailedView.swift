@@ -13,16 +13,11 @@ struct CommentBookDetailedView: View {
     @Binding var comment: Comment?
 
     var body: some View {
-        if let comment {
+        if let comment,
+           let commentUsername = comment.username,
+           let commentBookTitle = comment.bookTitle {
+            Text("\(commentUsername) commented on \(commentBookTitle)")
             Text(comment.comment)
-                .onAppear {
-                    Task {
-                        try await viewModel.fetchSpecificBook(comment.bookID)
-                    }
-                }
-            if let book = viewModel.commentOnBook {
-                Text(book.title)
-            }
         }
     }
 }

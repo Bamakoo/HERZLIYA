@@ -36,12 +36,6 @@ final class User: Authenticatable, Model, Content {
     
     @Children(for: \.$user)
     var ratings: [Rating]
-    
-//    @Children(for: \.$user)
-//    var comments: [Comment]
-//    
-//    @Children(for: \.$user)
-//    var likes: [Like]
 
     @Siblings(through: Friend.self, from: \.$user, to: \.$usersFriend)
     public var usersFriends: [User]

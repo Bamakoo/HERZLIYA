@@ -6,8 +6,7 @@
 //
 
 import Foundation
-@MainActor
-final class BooksViewModel: ObservableObject {
+@MainActor final class BooksViewModel: ObservableObject {
 
     @Published var title = ""
     @Published var author = ""
@@ -34,7 +33,7 @@ final class BooksViewModel: ObservableObject {
             guard let bookID = book.id else {
                 return
             }
-            let rating = Rating(id: nil, userID: nil, bookID: bookID, rating: rating)
+            let rating = Rating(id: nil, userID: nil, bookID: bookID, rating: rating, bookTitle: nil, username: nil)
             try await UseCase.Books.rate(rating)
         } catch {
             print(error.localizedDescription)

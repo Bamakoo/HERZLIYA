@@ -1,5 +1,5 @@
 import Foundation
-final class SignInViewModel: ObservableObject {
+@MainActor final class SignInViewModel: ObservableObject {
     @Published var username = ""
     @Published var password = ""
     @Published var hasError = false
@@ -7,7 +7,6 @@ final class SignInViewModel: ObservableObject {
     var canSignIn: Bool {
         !username.isEmpty && !password.isEmpty
     }
-    @MainActor
     func signIn() async throws -> Bool {
         do {
             guard canSignIn else {

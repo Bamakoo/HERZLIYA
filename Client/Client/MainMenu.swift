@@ -12,19 +12,19 @@ struct MainMenu: View {
         TabView {
             Homepage()
                 .tabItem {
-                    Image(systemName: "house.circle.fill")
+                    Image(systemName: "house")
                 }
             UserMenuView()
                 .tabItem {
-                    Image(systemName: "books.vertical.circle.fill")
+                    Image(systemName: "books.vertical")
                 }
             CreateBookView()
                 .tabItem {
-                    Image(systemName: "plus.square")
+                    Image(systemName: "plus")
                 }
             ProfileSwitch()
                 .tabItem {
-                    Image(systemName: "person.crop.circle.fill")
+                    Image(systemName: "person")
                 }
         }
     }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A40C78012A829DF5003C11EB /* DetailedUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C78002A829DF5003C11EB /* DetailedUserProfile.swift */; };
+		A40C78012A829DF5003C11EB /* DetailedPublicUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C78002A829DF5003C11EB /* DetailedPublicUserProfile.swift */; };
 		A43C72DC29CDD3DF00CDF56B /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43C72DB29CDD3DF00CDF56B /* UsersViewModel.swift */; };
 		A43C72E029CF8DF900CDF56B /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43C72DF29CF8DF900CDF56B /* SignInViewModel.swift */; };
 		A43E2F792A542401006CFB63 /* MyCommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43E2F782A542401006CFB63 /* MyCommentsViewModel.swift */; };
@@ -48,7 +48,7 @@
 		A4AF58A029CC653D003F03AD /* KartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AF589F29CC653D003F03AD /* KartView.swift */; };
 		A4B33B832A8180F800F6A33A /* UserMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B822A8180F800F6A33A /* UserMenuView.swift */; };
 		A4B33B872A8181AE00F6A33A /* UserMenuEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B862A8181AE00F6A33A /* UserMenuEnum.swift */; };
-		A4B33B892A81834F00F6A33A /* LikesByMyFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B882A81834F00F6A33A /* LikesByMyFriends.swift */; };
+		A4B33B892A81834F00F6A33A /* AllLikes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B882A81834F00F6A33A /* AllLikes.swift */; };
 		A4B33B8B2A818BAC00F6A33A /* AllComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B8A2A818BAC00F6A33A /* AllComments.swift */; };
 		A4B33B8D2A818C2700F6A33A /* AllRatings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B8C2A818C2700F6A33A /* AllRatings.swift */; };
 		A4B33B8F2A818CBC00F6A33A /* AllUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */; };
@@ -119,7 +119,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A40C78002A829DF5003C11EB /* DetailedUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedUserProfile.swift; sourceTree = "<group>"; };
+		A40C78002A829DF5003C11EB /* DetailedPublicUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPublicUserProfile.swift; sourceTree = "<group>"; };
 		A43C72DB29CDD3DF00CDF56B /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersViewModel.swift; path = Client/Views/Profile/UsersViewModel.swift; sourceTree = SOURCE_ROOT; };
 		A43C72DF29CF8DF900CDF56B /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		A43E2F782A542401006CFB63 /* MyCommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentsViewModel.swift; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 		A4AF589F29CC653D003F03AD /* KartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KartView.swift; sourceTree = "<group>"; };
 		A4B33B822A8180F800F6A33A /* UserMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuView.swift; sourceTree = "<group>"; };
 		A4B33B862A8181AE00F6A33A /* UserMenuEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuEnum.swift; sourceTree = "<group>"; };
-		A4B33B882A81834F00F6A33A /* LikesByMyFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LikesByMyFriends.swift; path = Client/Views/User/LikesByMyFriends.swift; sourceTree = SOURCE_ROOT; };
+		A4B33B882A81834F00F6A33A /* AllLikes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AllLikes.swift; path = Client/Views/User/AllLikes.swift; sourceTree = SOURCE_ROOT; };
 		A4B33B8A2A818BAC00F6A33A /* AllComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllComments.swift; sourceTree = "<group>"; };
 		A4B33B8C2A818C2700F6A33A /* AllRatings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRatings.swift; sourceTree = "<group>"; };
 		A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUsers.swift; sourceTree = "<group>"; };
@@ -249,8 +249,8 @@
 				A4B33B822A8180F800F6A33A /* UserMenuView.swift */,
 				A4B783FE2A8D291100B6285E /* RatingDetailedView.swift */,
 				A4B33B8E2A818CBC00F6A33A /* AllUsers.swift */,
-				A40C78002A829DF5003C11EB /* DetailedUserProfile.swift */,
-				A4B33B882A81834F00F6A33A /* LikesByMyFriends.swift */,
+				A40C78002A829DF5003C11EB /* DetailedPublicUserProfile.swift */,
+				A4B33B882A81834F00F6A33A /* AllLikes.swift */,
 				A4B784062A8E215B00B6285E /* DetailedLikeView.swift */,
 				A4B33B8C2A818C2700F6A33A /* AllRatings.swift */,
 			);
@@ -690,7 +690,7 @@
 				A43C72DC29CDD3DF00CDF56B /* UsersViewModel.swift in Sources */,
 				A43E2F792A542401006CFB63 /* MyCommentsViewModel.swift in Sources */,
 				A4C9867829A11EFC003CF879 /* BooksList.swift in Sources */,
-				A4B33B892A81834F00F6A33A /* LikesByMyFriends.swift in Sources */,
+				A4B33B892A81834F00F6A33A /* AllLikes.swift in Sources */,
 				A4B784052A8E1E4200B6285E /* LikesAPI.swift in Sources */,
 				A499DCD32A22AD0B00777B8F /* Oups.swift in Sources */,
 				A44D59C929ACB05A00FF7F22 /* Like.swift in Sources */,
@@ -727,7 +727,7 @@
 				A4B784012A8E1B9100B6285E /* LikesViewModel.swift in Sources */,
 				A4B783F72A8A1B6D00B6285E /* CommentBookDetailedView.swift in Sources */,
 				A4DD9DC829DF24E40063DD9B /* ForgotMyPassword.swift in Sources */,
-				A40C78012A829DF5003C11EB /* DetailedUserProfile.swift in Sources */,
+				A40C78012A829DF5003C11EB /* DetailedPublicUserProfile.swift in Sources */,
 				A4C782CF2A559FDB00AACE4E /* Endpoint.swift in Sources */,
 				A4AF589829CC61F3003F03AD /* Kart.swift in Sources */,
 				A4DEBE652A8399F500E76596 /* CommentViewModel.swift in Sources */,

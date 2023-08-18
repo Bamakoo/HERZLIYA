@@ -19,7 +19,7 @@ struct UserMenuView: View {
             }
             .navigationDestination(for: UserMenu.self) { item in
                 switch item {
-                case .likesByMyFriends: LikesByMyFriends()
+                case .likesByMyFriends: AllLikes()
                 case .allComments: AllComments()
                 case .booksByGenre: BooksList()
                 case .latestRatings: AllRatings()

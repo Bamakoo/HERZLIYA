@@ -13,7 +13,10 @@ struct AllRatings: View {
     var body: some View {
         List(viewModel.ratings, selection: $selectedRating) { rating in
             NavigationLink(destination: RatingDetailedView(rating: Binding.constant(rating))) {
-                Label("Rating", systemImage: "number")
+                if let ratingUsername = rating.username,
+                   let ratedBookTitle = rating.bookTitle {
+                    Label("\(ratingUsername) gave a \(rating.rating) rating to \(ratedBookTitle)", systemImage: "number")
+                }
             }
         }
         .onAppear {

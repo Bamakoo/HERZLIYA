@@ -12,4 +12,6 @@ struct Rating: Identifiable, Codable, Hashable, Equatable {
     let userID: UUID?
     let bookID: UUID
     let rating: Float
+    let bookTitle: String?
+    let username: String?
 }

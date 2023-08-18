@@ -6,8 +6,7 @@
 //
 
 import Foundation
-@MainActor
-final class ProfileViewModel: ObservableObject {
+@MainActor final class ProfileViewModel: ObservableObject {
 
     @Published var likedBooks = [Book]()
     @Published var booksByUsersFavoriteAuthor = [Book]()

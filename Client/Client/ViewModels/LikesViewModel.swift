@@ -7,8 +7,7 @@
 
 import Foundation
 
-@MainActor
-final class LikesViewModel: ObservableObject {
+@MainActor final class LikesViewModel: ObservableObject {
 
     @Published var allLikes = [Like]()
 

@@ -7,8 +7,7 @@
 
 import Foundation
 
-@MainActor
-final class RatingsViewModel: ObservableObject {
+@MainActor final class RatingsViewModel: ObservableObject {
 
     @Published var ratings = [Rating]()
 

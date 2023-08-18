@@ -13,4 +13,6 @@ struct RatingDTO: Content {
     let id: UUID? 
     let bookID: UUID
     let rating: Float
+    let bookTitle: String?
+    let username: String? 
 }

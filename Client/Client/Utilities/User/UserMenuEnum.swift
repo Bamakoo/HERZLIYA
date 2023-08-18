@@ -15,28 +15,28 @@ enum UserMenu: Identifiable, CaseIterable {
 
     var title: String {
         switch self {
-        case .allComments: return "All comments"
-        case .likesByMyFriends: return "Likes by my friends"
+        case .allComments: return "Comments"
+        case .likesByMyFriends: return "Likes"
         case .booksByGenre:
             return "Books by genre"
         case .latestRatings:
-            return "Latest ratings"
+            return "Ratings"
         case .users:
-            return "Browse users"
+            return "Users"
         }
     }
 
     var image: String {
         switch self {
-        case .likesByMyFriends: return "heart.fill"
+        case .likesByMyFriends: return "heart"
         case .allComments:
             return "text.bubble"
         case .booksByGenre:
-            return "books.vertical.fill"
+            return "books.vertical"
         case .latestRatings:
-            return "list.number"
+            return "star"
         case .users:
-            return "person.3.sequence.fill"
+            return "person.3"
         }
     }
 }
