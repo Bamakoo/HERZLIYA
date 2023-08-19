@@ -2,18 +2,6 @@ import Fluent
 import Vapor
 import Foundation
 
-enum ElementType: Content {
-    case comment(GetComment)
-    case rating(RatingDTO)
-    case book(GetBook)
-    case user(GetUser)
-    case like(GetLike)
-}
-
-struct Element: Content {
-    let type: ElementType
-}
-
 struct FeedController: RouteCollection {
     func boot(routes: Vapor.RoutesBuilder) throws {
         let tokenProtected = routes.grouped(UserToken.authenticator())
@@ -51,12 +39,16 @@ struct FeedController: RouteCollection {
         if let book {
             let bookElement = Element(type: .book(GetBook(id: try book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)))
             elements.append(bookElement)
+        } else {
+            throw Abort(.notFound)
         }
         
         let user = try await User.query(on: req.db).first()
         if let user {
             let userElement = Element(type: .user(GetUser(id: try user.requireID(), username: user.username, favoriteBook: user.favoriteBook, country: user.country, city: user.city, favoriteAuthor: user.favoriteAuthor)))
             elements.append(userElement)
+        } else {
+            throw Abort(.notFound)
         }
         
         return elements

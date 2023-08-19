@@ -13,24 +13,26 @@ struct DetailedUserProfile: View {
 
     var body: some View {
         if let user {
-            VStack(alignment: .center, spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(user.username)
                     .font(.title)
                     .padding(.bottom, 10)
-                HStack(alignment: .center) {
+                HStack(spacing: 4) {
                     Image(systemName: "globe.desk")
                     Text("Lives in \(user.city), \(user.country)")
                         .font(.headline)
                 }
-                HStack(alignment: .center) {
+                HStack(spacing: 4) {
                     Image(systemName: "heart")
                     Text("My favorite author is \(user.favoriteAuthor)")
                 }
-                HStack {
+                HStack(spacing: 4) {
                     Image(systemName: "brain.head.profile")
                     Text("My favorite book is \(user.favoriteBook)")
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal)
         }
     }
 }
