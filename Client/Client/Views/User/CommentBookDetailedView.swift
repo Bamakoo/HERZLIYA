@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CommentBookDetailedView: View {
 
-    @StateObject private var viewModel = CommentViewModel()
     @Binding var comment: Comment?
 
     var body: some View {

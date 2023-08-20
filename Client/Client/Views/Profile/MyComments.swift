@@ -8,32 +8,36 @@
 import SwiftUI
 
 struct MyComments: View {
+
     @StateObject private var viewModel = MyCommentsViewModel()
+    @State private var selectedComment: Comment?
 
     var body: some View {
-        List(viewModel.myComments) { comment in
-            Text(comment.comment)
-                .swipeActions(edge: .trailing) {
-                    Button {
-                        Task {
-                            try await viewModel.deleteComment(comment.id)
-                            try await viewModel.fetchMyComments()
+        List(viewModel.myComments, selection: $selectedComment) { comment in
+            NavigationLink(destination: CommentBookDetailedView(comment: Binding.constant(comment))) {
+                Label(comment.comment, systemImage: "speaker.wave.3")
+                    .swipeActions(edge: .trailing) {
+                        Button {
+                            Task {
+                                try await viewModel.deleteComment(comment.id)
+                                try await viewModel.fetchMyComments()
+                            }
+                        } label: {
+                            Image(systemName: "delete.backward")
                         }
-                    } label: {
-                        Image(systemName: "delete.backward")
+                        .tint(.red)
                     }
-                    .tint(.red)
-                }
-                .swipeActions(edge: .leading) {
-                    Button {
-                        Task {
-                            print("change my comments")
+                    .swipeActions(edge: .leading) {
+                        Button {
+                            Task {
+                                print("change my comments")
+                            }
+                        } label: {
+                            Image(systemName: "tornado")
                         }
-                    } label: {
-                        Image(systemName: "tornado")
+                        .tint(.blue)
                     }
-                    .tint(.blue)
-                }
+            }
         }
         .onAppear {
             Task {

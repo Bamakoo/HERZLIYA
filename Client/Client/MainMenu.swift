@@ -20,7 +20,7 @@ struct MainMenu: View {
                 }
             CreateBookView()
                 .tabItem {
-                    Image(systemName: "plus")
+                    Image(systemName: "plus.circle")
                 }
             ProfileSwitch()
                 .tabItem {
