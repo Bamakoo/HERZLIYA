@@ -35,6 +35,24 @@ func commentsOnBook(req: Request) async throws -> [GetComment] {
     }
 }
 
+func commentsOnMyBooks(req: Request) async throws -> [GetComment] {
+    
+    let user = try req.auth.require(User.self)
+    guard let userID = user.id else {
+        throw Abort(.badRequest, reason: "unable to get user")
+    }
+    
+    let comments = try await Comment.query(on: req.db)
+        .with(\.$book)
+        .with(\.$user)
+        .filter(\Comment.book.$seller.$id == userID)
+        .all()
+        
+    return try comments.map { comment in
+        try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.$book.id, userID: comment.$user.id, username: comment.user.username, bookTitle: comment.book.title)
+    }
+}
+
 /// Returns all the comments
 /// - Parameter req: the incoming request to /comments
 /// - Throws: an aerror indicating some kind of error happened server side

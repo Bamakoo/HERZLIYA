@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct RatingDetailedView: View {
+
     @Binding var rating: Rating?
+
     var body: some View {
         if let rating {
             Text(String(rating.rating))

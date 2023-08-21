@@ -15,7 +15,7 @@ struct SortedBooksDTO: Content {
 }
 
 enum SortBy: String, Codable {
-    case seller
+    case sellerID
     case title
     case state
     case price

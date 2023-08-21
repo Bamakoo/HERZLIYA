@@ -26,13 +26,13 @@ enum ProfileMenu: Identifiable, CaseIterable {
         switch self {
         case .friends: return "person.3"
         case .booksByFavoriteAuthor:
-            return "hand.thumbsup.fill"
-        case .likes: return "heart.fill"
-        case .myKart: return "cart.fill"
-        case .purchases: return "purchased.circle.fill"
-        case .soldBooks: return "book.closed"
-        case .commentsOnMyBooks: return "speaker.fill"
-        case .myComments: return "person.3.fill"
+            return "star"
+        case .likes: return "heart"
+        case .myKart: return "cart"
+        case .purchases: return "purchased"
+        case .soldBooks: return "dollarsign.arrow.circlepath"
+        case .commentsOnMyBooks: return "person.2.wave.2"
+        case .myComments: return "person.wave.2"
         }
     }
 }

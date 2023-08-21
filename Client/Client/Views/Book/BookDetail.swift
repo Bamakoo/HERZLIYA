@@ -16,27 +16,25 @@ struct BookDetail: View {
     var body: some View {
         Form {
             if let book {
-                Text(book.title)
-                Text(String(book.price))
-                    .background(Color.white)
-                Text(book.author).bold()
-                    .background(Color.white)
-            }
-            Section {
-                TextEditor(text: $fullText)
-                    .foregroundColor(Color.gray)
-                    .lineSpacing(5)
-                Button("Comment") {
-                    Task {
-                        if let book {
-                            try await viewModel.commentOnBook(book, fullText)
-                            try await viewModel.fetchBookComments(book)
-                        }
-                    }
+                HStack {
+                    Image(systemName: "book")
+                    Text("Title: \(book.title)")
+                }
+                HStack {
+                    Image(systemName: "dollarsign")
+                    Text("Price: \(book.price)")
+                }
+                HStack {
+                    Image(systemName: "person")
+                    Text("Author: \(book.author)")
+                }
+                HStack {
+                    Image(systemName: book.state.image)
+                    Text("State: \(book.state.rawValue)")
                 }
             }
             Section {
-                Stepper("Rate this book!", value: $viewModel.rating, in: 0 ... 10, step: 0.1)
+                Stepper("Rating", value: $viewModel.rating, in: 0 ... 10, step: 0.1)
                 Button {
                     Task {
                         if let book {
@@ -44,7 +42,22 @@ struct BookDetail: View {
                         }
                     }
                 } label: {
-                    Label(String(viewModel.rating), systemImage: "number.circle.fill")
+                    if let book {
+                        Label("Give \(book.title) a \(String(format: "%g", viewModel.rating)) rating", systemImage: "number.circle.fill")
+                    }
+                }
+            }
+            Section {
+                TextEditor(text: $fullText)
+                    .foregroundColor(Color.gray)
+                    .lineSpacing(5)
+                if let book {
+                    Button("Comment on \(book.title)") {
+                        Task {
+                                try await viewModel.commentOnBook(book, fullText)
+                                try await viewModel.fetchBookComments(book)
+                        }
+                    }
                 }
             }
             Section {
@@ -83,7 +96,7 @@ struct BookDetail: View {
             } label: {
                 Text("Add to cart")
             }
-            .navigationBarTitle(book!.title, displayMode: .inline)
+            .navigationBarTitle(book?.title ?? "", displayMode: .inline)
             .onAppear {
                 Task {
                     if let book {

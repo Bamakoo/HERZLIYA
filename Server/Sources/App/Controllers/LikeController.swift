@@ -21,7 +21,10 @@ struct LikeController: RouteCollection {
     /// - Parameter req: the incoming request to /likes
     /// - Returns: an array of like objects
     func index(req: Request) async throws -> [GetLike] {
-        let likes = try await Like.query(on: req.db).with(\.$book).with(\.$user).all()
+        let likes = try await Like.query(on: req.db)
+            .with(\.$book)
+            .with(\.$user)
+            .all()
         return try likes.map { like in
             try GetLike(id: like.requireID(), userID: like.$user.id, bookID: like.$book.id, bookTitle: like.book.title, username: like.user.username)
         }

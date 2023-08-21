@@ -401,7 +401,6 @@
 				A4C98665299FD178003CF879 /* Utilities */,
 				A4C9866E29A10AEB003CF879 /* Models */,
 				A4C9863B299FB843003CF879 /* ClientApp.swift */,
-				A4C9863D299FB843003CF879 /* MainMenu.swift */,
 				A4C9863F299FB844003CF879 /* Assets.xcassets */,
 				A4C98641299FB844003CF879 /* Preview Content */,
 			);
@@ -488,6 +487,7 @@
 		A4C9867429A11D3B003CF879 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A4C9863D299FB843003CF879 /* MainMenu.swift */,
 				A40C77FF2A829046003C11EB /* Auth */,
 				A40C77FE2A828FED003C11EB /* User */,
 				A413CB3F29BD406800FDB528 /* Book */,

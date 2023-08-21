@@ -9,7 +9,6 @@ import SwiftUI
 
 struct BookRow: View {
 
-    // TODO: binding
     var book: Book
 
     var body: some View {
