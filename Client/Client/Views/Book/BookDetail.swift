@@ -35,6 +35,7 @@ struct BookDetail: View {
             }
             Section {
                 Stepper("Rating", value: $viewModel.rating, in: 0 ... 10, step: 0.1)
+
                 Button {
                     Task {
                         if let book {
