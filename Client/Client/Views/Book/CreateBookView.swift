@@ -36,7 +36,11 @@ struct CreateBookView: View {
                         Text(genre.rawValue)
                     }
                 }
-                TextField("Description", text: $viewModel.description, prompt: Text("Description"))
+            }
+            Section {
+                TextEditor(text: $viewModel.description)
+            } header: {
+                Text("Description")
             }
             Button {
                 Task {
