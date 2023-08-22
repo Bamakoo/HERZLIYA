@@ -31,6 +31,7 @@ struct RatingController: RouteCollection {
         }
 
         let realRating = try Rating(userID: userID, bookID: rating.bookID, rating: rating.rating)
+        print(realRating.rating)
         try await realRating.save(on: req.db)
         return try await realRating.encodeResponse(status: .created, for: req)
     }

@@ -20,7 +20,6 @@ import Foundation
     @Published var searchText: String = ""
     @Published var searchResults = [Book]()
     @Published var commentsOnBook = [Comment]()
-    @Published var rating: Float = 1.1
 
     private let networkManager: BooksNetworkManager
 
@@ -28,13 +27,12 @@ import Foundation
         self.networkManager = networkManager
     }
 
-    func rateBook(_ book: Book) async throws {
+    func rateBook(_ book: Book, _ rating: Double) async throws {
         do {
             guard let bookID = book.id else {
                 return
             }
-            let rating = Rating(id: nil, userID: nil, bookID: bookID, rating: round(rating * 10) / 10.0,
-                                bookTitle: nil, username: nil)
+            let rating = Rating(id: nil, userID: nil, bookID: bookID, rating: Float(rating), bookTitle: nil, username: nil)
             try await UseCase.Books.rate(rating)
         } catch {
             print(error.localizedDescription)

@@ -35,6 +35,7 @@ func commentsOnBook(req: Request) async throws -> [GetComment] {
     }
 }
 
+//TODO: find a way to fix
 func commentsOnMyBooks(req: Request) async throws -> [GetComment] {
     
     let user = try req.auth.require(User.self)

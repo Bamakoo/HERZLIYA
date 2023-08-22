@@ -46,7 +46,7 @@ struct BookDetail: View {
                 Button {
                     Task {
                         if let book {
-                            try await viewModel.rateBook(book)
+                            try await viewModel.rateBook(book, rating)
                         }
                     }
                 } label: {
