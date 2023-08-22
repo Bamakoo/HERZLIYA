@@ -7,6 +7,9 @@ final class Book: Model, Content {
     @ID(key: .id)
     var id: UUID?
     
+    @Field(key: "rating")
+    var rating: Float?
+    
     @Field(key: "title")
     var title: String
     
@@ -60,6 +63,7 @@ final class Book: Model, Content {
     init() { }
     
     init(id: UUID? = nil,
+         rating: Float? = nil,
          title: String,
          author: String,
          description: String,
@@ -73,6 +77,7 @@ final class Book: Model, Content {
          updatedAt: Date? = nil,
          deletedAt: Date? = nil) {
         self.id = id
+        self.rating = rating
         self.title = title
         self.author = author
         self.description = description

@@ -38,4 +38,7 @@ struct Book: Identifiable, Codable, Hashable, Equatable {
     var author: String
     var price: Int
     var state: BookState
+    let descritpion: String
+    let genre: BookGenre
+    let rating: Float?
 }

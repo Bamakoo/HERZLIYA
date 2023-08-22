@@ -36,8 +36,16 @@ struct FeedController: RouteCollection {
         }
         
         let book = try await Book.query(on: req.db).first()
-        if let book {
-            let bookElement = Element(type: .book(GetBook(id: try book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)))
+        if let book, let bookID = book.id {
+            let bookElement = Element(type: .book(GetBook(id: bookID,
+                                                          descritpion: book.description, genre: book.genre,
+                                                          rating: book.rating,
+                                                          title: book.title,
+                                                          author: book.author,
+                                                          price: book.price,
+                                                          state: book.state)
+            )
+            )
             elements.append(bookElement)
         } else {
             throw Abort(.notFound)

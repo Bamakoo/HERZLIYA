@@ -20,6 +20,21 @@ struct RatingController: RouteCollection {
             RatingDTO(id: try rating.requireID(), bookID: rating.$book.id, rating: rating.rating, bookTitle: rating.book.title, username: rating.user.username)
         }
     }
+    
+    func updateBooksRating(req: Request, bookID: UUID, newRating: Float) async throws {
+
+        guard let book = try await Book.find(bookID, on: req.db)
+        else {
+            throw Abort(.notFound)
+        }
+        
+        if let bookRating = book.rating {
+                book.rating = (bookRating + newRating)/2
+        } else {
+            book.rating = newRating
+        }
+        try await book.update(on: req.db)
+    }
 
     func create(req: Request) async throws -> Response {
 
@@ -27,12 +42,12 @@ struct RatingController: RouteCollection {
 
         let user = try req.auth.require(User.self)
         guard let userID = user.id else {
-            throw Abort(.badRequest, reason: "unable to get user")
+            throw Abort(.badRequest)
         }
 
         let realRating = try Rating(userID: userID, bookID: rating.bookID, rating: rating.rating)
-        print(realRating.rating)
         try await realRating.save(on: req.db)
+        try await updateBooksRating(req: req, bookID: rating.bookID, newRating: rating.rating)
         return try await realRating.encodeResponse(status: .created, for: req)
     }
 

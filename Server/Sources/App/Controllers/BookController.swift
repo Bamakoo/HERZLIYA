@@ -24,9 +24,9 @@ struct BookController: RouteCollection {
         tokenAuth.delete(":bookID", "remove-from-kart", use: removeBookFromKart)
     }
 
-    /// <#Description#>
-    /// - Parameter req: <#req description#>
-    /// - Returns: <#description#>
+    /// Function used to remove a book for a user's cart
+    /// - Parameter req: the incoming request to /books/:bookID/remove-from-kart
+    /// - Returns: a response indicating wether the operation was successful
     func removeBookFromKart(req: Request) async throws -> Response {
         // book and it's ID
         guard let book = try await Book.find(req.parameters.get("bookID"), on: req.db),
@@ -110,7 +110,13 @@ struct BookController: RouteCollection {
 
         try await book.update(on: req.db)
         if let bookID = book.id {
-            let returnedBook = GetBook(id: bookID, title: book.title, author: book.author, price: book.price, state: book.state)
+            let returnedBook = GetBook(id: bookID,
+                                       descritpion: book.description, genre: book.genre,
+                                       rating: book.rating,
+                                       title: book.title,
+                                       author: book.author,
+                                       price: book.price,
+                                       state: book.state)
             return try await returnedBook.encodeResponse(status: .ok, for: req)
         }
         return try await book.encodeResponse(status: .ok, for: req)
@@ -201,7 +207,13 @@ struct BookController: RouteCollection {
         else {
             throw Abort(.notFound, reason:"unable to get a specific book")
         }
-        return GetBook(id: bookID, title: book.title, author: book.author, price: book.price, state: book.state)
+        return GetBook(id: bookID,
+                       descritpion: book.description, genre: book.genre,
+                       rating: book.rating,
+                       title: book.title,
+                       author: book.author,
+                       price: book.price,
+                       state: book.state)
     }
 
     /// Helper function called by the /books endpoint
@@ -265,7 +277,13 @@ struct BookController: RouteCollection {
 
             // MARK: map results to the DTO and return
             return try books.map { book in
-                try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                try GetBook(id: book.requireID(),
+                            descritpion: book.description, genre: book.genre,
+                            rating: book.rating,
+                            title: book.title,
+                            author: book.author,
+                            price: book.price,
+                            state: book.state)
             }
         } catch {
             throw Abort(.badRequest)
@@ -284,6 +302,7 @@ struct BookController: RouteCollection {
         }
         
         let book = try req.content.decode(CreateBookData.self)
+
         let realBook = Book(title: book.title,
                             author: book.author,
                             description: book.description,
@@ -294,8 +313,17 @@ struct BookController: RouteCollection {
                             buyerID: nil,
                             status: book.status)
         try await realBook.save(on: req.db)
+        guard let bookID = realBook.id else {
+            throw Abort(.badRequest)
+        }
         
-        let getBook = GetBook(id: try realBook.requireID(), title: realBook.title, author: realBook.author, price: realBook.price, state: realBook.state)
+        let getBook = GetBook(id: bookID,
+                              descritpion: book.description, genre: book.genre,
+                              rating: realBook.rating,
+                              title: book.title,
+                              author: book.author,
+                              price: book.price,
+                              state: book.state)
         return try await getBook.encodeResponse(status: .created, for: req)
     }
 
@@ -306,7 +334,8 @@ struct BookController: RouteCollection {
         // TODO: investigate usage of token+user to buy a book
         let patchBook = try req.content.decode(PatchBook.self)
 
-        guard let book =  try await Book.find(patchBook.id, on: req.db) else {
+        guard let book =  try await Book.find(patchBook.id, on: req.db),
+              let bookID = book.id else {
             throw Abort(.notFound)
         }
 
@@ -347,7 +376,13 @@ struct BookController: RouteCollection {
         }
 
         try await book.update(on: req.db)
-        let returnedBook = GetBook(id: patchBook.id, title: book.title, author: book.author, price: book.price, state: book.state)
+        let returnedBook = GetBook(id: bookID,
+                                   descritpion: book.description, genre: book.genre,
+                                   rating: book.rating,
+                                   title: book.title,
+                                   author: book.author,
+                                   price: book.price,
+                                   state: book.state)
         return try await returnedBook.encodeResponse(status: .ok, for: req)
     }
 
@@ -372,7 +407,13 @@ struct BookController: RouteCollection {
 
         try await book.delete(on: req.db)
 
-        let returnedBook = GetBook(id: bookID, title: book.title, author: book.author, price: book.price, state: book.state)
+        let returnedBook = GetBook(id: bookID,
+                                   descritpion: book.description, genre: book.genre,
+                                   rating: book.rating,
+                                   title: book.title,
+                                   author: book.author,
+                                   price: book.price,
+                                   state: book.state)
 
         return try await returnedBook.encodeResponse(status: .ok, for: req)
     }

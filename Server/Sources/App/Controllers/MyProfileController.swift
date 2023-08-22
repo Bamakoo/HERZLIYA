@@ -76,7 +76,14 @@ struct MyProfileController: RouteCollection {
         let user = try req.auth.require(User.self)
          let books = try await user.$books.get(on: req.db)
          return try books.map { book in
-             try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+             try GetBook(id: book.requireID(),
+                         descritpion: book.description,
+                         genre: book.genre,
+                         rating: book.rating,
+                         title: book.title,
+                         author: book.author,
+                         price: book.price,
+                         state: book.state)
          }
     }
 
@@ -87,7 +94,14 @@ struct MyProfileController: RouteCollection {
             let user = try req.auth.require(User.self)
             let books = try await user.$baughtBooks.get(on: req.db)
             return try books.map { book in
-                try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+                try GetBook(id: book.requireID(),
+                            descritpion: book.description,
+                            genre: book.genre,
+                            rating: book.rating,
+                            title: book.title,
+                            author: book.author,
+                            price: book.price,
+                            state: book.state)
             }
     }
 
@@ -111,7 +125,14 @@ struct MyProfileController: RouteCollection {
         /// return all the books associated to the kart
         let books = try await kart.$books.get(on: req.db)
         return try books.map { book in
-            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+            try GetBook(id: book.requireID(),
+                        descritpion: book.description,
+                        genre: book.genre,
+                        rating: book.rating,
+                        title: book.title,
+                        author: book.author,
+                        price: book.price,
+                        state: book.state)
         }
     }
 
@@ -122,7 +143,14 @@ struct MyProfileController: RouteCollection {
         let user = try req.auth.require(User.self)
         let books = try await user.$soldBooks.get(on: req.db)
         return try books.map { book in
-            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+            try GetBook(id: book.requireID(),
+                        descritpion: book.description,
+                        genre: book.genre,
+                        rating: book.rating,
+                        title: book.title,
+                        author: book.author,
+                        price: book.price,
+                        state: book.state)
         }
     }
 
@@ -136,7 +164,14 @@ struct MyProfileController: RouteCollection {
                 .filter(\.$status == .available)
         } .all()
         return try books.map { book in
-            try GetBook(id: book.requireID(), title: book.title, author: book.author, price: book.price, state: book.state)
+            try GetBook(id: book.requireID(),
+                        descritpion: book.description,
+                        genre: book.genre,
+                        rating: book.rating,
+                        title: book.title,
+                        author: book.author,
+                        price: book.price,
+                        state: book.state)
         }
     }
 }
