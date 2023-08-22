@@ -12,9 +12,11 @@ struct BookDetail: View {
     @Binding var book: Book?
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var fullText: String = "Your comment"
+    @State private var rating: Double = 0
 
     var body: some View {
         Form {
+
             if let book {
                 HStack {
                     Image(systemName: "book")
@@ -34,8 +36,13 @@ struct BookDetail: View {
                 }
             }
             Section {
-                Stepper("Rating", value: $viewModel.rating, in: 0 ... 10, step: 0.1)
-
+                    Slider(value: $rating, in: 0 ... 10, step: 1) {
+                        Text("Slider")
+                    } minimumValueLabel: {
+                        Text("0").font(.title2).fontWeight(.thin)
+                    } maximumValueLabel: {
+                        Text("10").font(.title2).fontWeight(.thin)
+                    }.tint(.red)
                 Button {
                     Task {
                         if let book {
@@ -44,7 +51,7 @@ struct BookDetail: View {
                     }
                 } label: {
                     if let book {
-                        Label("Give \(book.title) a \(String(format: "%g", viewModel.rating)) rating", systemImage: "number.circle.fill")
+                        Label("Give \(book.title) a \(String(rating)) rating", systemImage: "number.circle.fill")
                     }
                 }
             }
