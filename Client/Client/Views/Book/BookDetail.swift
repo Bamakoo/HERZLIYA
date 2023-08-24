@@ -16,24 +16,41 @@ struct BookDetail: View {
 
     var body: some View {
         Form {
-
+            Section {
             if let book {
+                
                 HStack {
                     Image(systemName: "book")
                     Text("Title: \(book.title)")
-                }
-                HStack {
-                    Image(systemName: "dollarsign")
-                    Text("Price: \(book.price)")
                 }
                 HStack {
                     Image(systemName: "person")
                     Text("Author: \(book.author)")
                 }
                 HStack {
+                    Image(systemName: "dollarsign")
+                    Text("Price: \(book.price)")
+                }
+                HStack {
                     Image(systemName: book.state.image)
                     Text("State: \(book.state.rawValue)")
                 }
+                if let bookRating = book.rating {
+                    HStack {
+                        Image(systemName: "number")
+                        Text("Rating \(bookRating)")
+                    }
+                }
+            }
+            } header: {
+                Text("About")
+            }
+            Section {
+                if let book {
+                    Text(book.descritpion)
+                }
+            } header: {
+                Text("Description")
             }
             Section {
                     Slider(value: $rating, in: 0 ... 10, step: 1) {
@@ -42,7 +59,8 @@ struct BookDetail: View {
                         Text("0").font(.title2).fontWeight(.thin)
                     } maximumValueLabel: {
                         Text("10").font(.title2).fontWeight(.thin)
-                    }.tint(.red)
+                    }
+                    .tint(.red)
                 Button {
                     Task {
                         if let book {
@@ -50,10 +68,16 @@ struct BookDetail: View {
                         }
                     }
                 } label: {
+                    Spacer()
                     if let book {
-                        Label("Give \(book.title) a \(String(rating)) rating", systemImage: "number.circle.fill")
+                        Text("Rate \(book.title) \(String(rating))")
                     }
+                    Spacer()
                 }
+                .buttonStyle(.borderedProminent)
+            }
+             header: {
+                Text("Rating")
             }
             Section {
                 TextEditor(text: $fullText)
