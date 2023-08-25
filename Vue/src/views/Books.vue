@@ -33,11 +33,14 @@ import { useBooksStore } from '@/stores/useBooksStore'
 const genre = 'pathname'.split('/')
 
 const booksStore = useBooksStore()
+const allBooks = await booksStore.bookList
 const books = computed(() => {
+  return allBooks
   // return booksStore.getAllBooks
-  return JSON.parse(JSON.stringify(booksStore.getAllBooks)) //=> fonctionne j'ai bien un array vide
+  // return JSON.parse(JSON.stringify(booksStore.getAllBooks)) //=> fonctionne j'ai bien un array vide
 })
-console.log(books.value)
+console.log('books : ', books.value)
+console.log('allBooks', allBooks)
 
 // const booksAction = () => {...mapActions('books', ['fetchBooks'])}
 

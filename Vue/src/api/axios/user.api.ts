@@ -29,27 +29,31 @@ export const useFetchAccounts = () => {
 
   const update = async (
     id: Users['id'],
-    data: Omit<Users, 'id' | 'confirmPassword' | 'createdAt' | 'updatedAt' | 'deletedAt'>
+    datas: Omit<Users, 'id' | 'confirmPassword' | 'createdAt' | 'updatedAt' | 'deletedAt'>
   ) => {
-    const user = httpClient.patch<Partial<Users>>(`${baseURL}/${id}`, data, {
+    const { data } = await httpClient.patch<Partial<Users>>(`${baseURL}/${id}`, datas, {
       headers: { Authorization: `Bearer ${token.value}` }
     })
-    return user
+    return data
   }
 
-  const create = async (
-    data: Omit<Users, 'id' | 'confirmPassword' | 'createdAt' | 'updatedAt' | 'deletedAt'>
-  ) => {
-    const user = httpClient.post(baseURL, data, {
-      headers: { Authorization: `Bearer ${token.value}` }
-    })
-    return user
+  //Omit<Users, 'id' | 'confirmPassword' | 'createdAt' | 'updatedAt' | 'deletedAt'>
+  const create = async (datas: Users) => {
+    const { data } = await httpClient.post<Users>(
+      baseURL,
+      { datas: (datas.createdAt = Date.now()) },
+      {
+        headers: { Authorization: `Bearer ${token.value}` }
+      }
+    )
+    return data
   }
 
   const del = async (id: Users['id']) => {
-    httpClient.delete<Users>(`${baseURL}/${id}`, {
+    const { data } = await httpClient.delete<Users>(`${baseURL}/${id}`, {
       headers: { Authorization: `Bearer ${token.value}` }
     })
+    return data
   }
 
   return { list, retrieve, update, del, create }

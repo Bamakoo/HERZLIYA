@@ -1,15 +1,22 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useFetchAccounts } from '../api/axios/user.api'
-// import type { Users } from '@/libs/interfaces/users'
+import type { Users } from '@/libs/interfaces/users'
 
-export const useAccountStore = defineStore('account', () => {
+export const useAccountStore = defineStore('account', async () => {
   const fetchAccounts = useFetchAccounts()
 
   const userList = fetchAccounts.list()
 
+  // const id = ref(localStorage.getItem('token') ?? '')
+  // const headers = new Headers()
+  // headers.get('Authorization')
+  // console.log(headers)
+  const retrieveAccount = (id: Users['id']) => fetchAccounts.retrieve(id)
+
+  const token = ref('')
   const id = ref('')
-  const account = fetchAccounts.retrieve(id.value)
+  token.value = (await retrieveAccount(id.value)).token ?? ''
   // state: () => ({ accounts: [] as Users[] }),
 
   // getters: {
@@ -50,5 +57,5 @@ export const useAccountStore = defineStore('account', () => {
   //     }
   //   }
   // }
-  return { userList, account }
+  return { userList, retrieveAccount }
 })
