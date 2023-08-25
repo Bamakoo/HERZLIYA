@@ -25,7 +25,7 @@ final class BookTests: XCTestCase {
         try configure(app)
         
         let user = User(username: "helloWorld",
-                        email: "lornadvjksdvjsdvsbvkjbvdqdjfvbj@gmail.com",
+                        email: "lornadvjksdvjsdvsbvkjtrdffgdgdtdffghfghdfghfghvndkjvdfrdjjbjbjbjtdrbvdqdjfvhjvhhvbj@gmail.com",
                         passwordHash: "complexPassword",
                         favoriteBook: "War and Peace",
                         country: "Israel",
@@ -134,5 +134,13 @@ final class BookTests: XCTestCase {
             XCTAssertEqual(receivedBook.state, .bad)
             XCTAssertEqual(receivedBook.price, 165)
         })
+        
+        try app.test(.DELETE, "/books/\(Store.bookID)", headers: ["Authorization": "Bearer \(Store.token)"]) { response in
+            XCTAssertEqual(response.status, .ok)
+        }
+        
+        try app.test(.GET, "/books/\(Store.bookID)") { response in
+            XCTAssertEqual(response.status, .notFound)
+        }
     }
 }

@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import Fluent
+import Vapor
 
-struct PatchUser: Codable {
+struct PatchUser: Content {
     let username: String?
     let email: String?
     let favoriteBook: String?

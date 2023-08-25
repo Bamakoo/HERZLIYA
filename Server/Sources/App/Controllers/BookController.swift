@@ -408,7 +408,8 @@ struct BookController: RouteCollection {
         try await book.delete(on: req.db)
 
         let returnedBook = GetBook(id: bookID,
-                                   descritpion: book.description, genre: book.genre,
+                                   descritpion: book.description,
+                                   genre: book.genre,
                                    rating: book.rating,
                                    title: book.title,
                                    author: book.author,

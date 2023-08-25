@@ -101,10 +101,22 @@ struct UserController: RouteCollection {
     }
 
     func delete(req: Request) async throws -> Response {
-        guard let user = try await User.find(req.parameters.get("userID"), on: req.db) else {
+        
+        let user = try req.auth.require(User.self)
+        guard let userID = user.id else {
+            throw Abort(.badRequest, reason: "unable to get user")
+        }
+        
+        guard let deletedUser = try await User.find(req.parameters.get("userID"), on: req.db),
+              let deletedUserID = deletedUser.id else {
             throw Abort(.notFound)
         }
-        try await user.delete(on: req.db)
-        return try await user.encodeResponse(status: .ok, for: req)
+        
+        guard userID == deletedUserID else {
+            throw Abort(.forbidden)
+        }
+                
+        try await deletedUser.delete(on: req.db)
+        return try await deletedUser.encodeResponse(status: .ok, for: req)
     }
 }

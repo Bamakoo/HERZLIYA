@@ -20,7 +20,7 @@ public final class UserTests: XCTestCase {
         // delete user
         
         let expectedUsername = "JackMalone"
-        let expectedEmail = "lqdfjkbvqjfbvqfdvbdfxdsvsvsvjdvihvor@gmail.com"
+        let expectedEmail = "lqdfjkbvqjfbvqfvhhvhvhxxcersdfgsdfgdsdfghdfghdfgfguhergnbhbjbhedvbhvhvdfxdsvhvhvhvvsvsvjdvihvor@gmail.com"
         let expectedPasswordHash = "aRandomHash"
         let expectedFavoriteBook = "War and Peace"
         let expectedCountry = "Israel"
@@ -33,7 +33,7 @@ public final class UserTests: XCTestCase {
         try configure(app)
         
         let createdUser = User.Create(username: "expectedUsername",
-                                      email: "lmlvsdjkvsbdfvoidjvfdoorn@gmail.com",
+                                      email: "lmlvsnhvhvsddfghdfghfgsdfgdfgdjvvhvvnbnnbnbkvgygugejkeguerhgegirusbdfvoidjvfdoorn@gmail.com",
                                       password: "complexPWD",
                                       confirmPassword: "complexPWD",
                                       favoriteBook: "War and Peace",
@@ -52,7 +52,7 @@ public final class UserTests: XCTestCase {
         
         
         try User(username: "Gail",
-                 email: "gaiwdfvdfvxdjvxjdvdjvsbvsjdvbskdfvhvfodivhi@gmail.com",
+                 email: "fghdfghdfhdfghdfghdfghdfghdfghdfghdfghtertyertyertcvbcvbcxvbxcv@gmail.com",
                  passwordHash: "password",
                  favoriteBook: "Crime and Punishment",
                  country: "France",
@@ -95,10 +95,36 @@ public final class UserTests: XCTestCase {
             XCTAssertEqual(receivedUser.city, "Hamburg")
             XCTAssertEqual(receivedUser.favoriteAuthor, "Shakespeare")
         })
+        
+        let patchedUser = PatchUser(username: "anotherRandomUserName",
+                                    email: "another-gejksdfsdfgsdfgsdgsdfgsdfgsdnhjvjjhvjergheremail-address@gmail.com",
+                                    favoriteBook: "aDifferentFavoriteBook",
+                                    country: "Canada",
+                                    city: "Calgary",
+                                    favoriteAuthor: "anotherAuthor")
+        
+        try app.test(.PATCH, "/users", headers: ["Authorization": "Bearer \(Store.token)"], beforeRequest: { req in
+            try req.content.encode(patchedUser)
+        }, afterResponse: { response in
+            XCTAssertEqual(response.status, .ok)
+            let receivedUser = try response.content.decode(GetUser.self)
+            XCTAssertNotNil(receivedUser.id)
+            Store.userID = receivedUser.id
+            XCTAssertEqual(receivedUser.username, "anotherRandomUserName")
+            XCTAssertEqual(receivedUser.favoriteBook, "aDifferentFavoriteBook")
+            XCTAssertEqual(receivedUser.country, "Canada")
+            XCTAssertEqual(receivedUser.city, "Calgary")
+            XCTAssertEqual(receivedUser.favoriteAuthor, "anotherAuthor")
+        })
+        
+        try app.test(.DELETE, "/users/\(Store.userID)", headers: ["Authorization": "Bearer \(Store.token)"]) { response in
+            XCTAssertEqual(response.status, .ok)
+        }
     }
 }
 
 struct Store {
     static var token: String = ""
     static var bookID = UUID()
+    static var userID = UUID()
 }
