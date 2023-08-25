@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import type { Books } from '@/libs/interfaces/books'
 import { useFetchBooks } from '@/api/axios/books.api'
+import type { Books } from '@/libs/interfaces/books'
 // import { ref } from 'vue'
 // import axios from 'axios'
 // export const useBooksStore = defineStore('booksStore', {
@@ -165,41 +165,46 @@ import { useFetchBooks } from '@/api/axios/books.api'
 //   }
 // })
 
-export const useBooksStore = defineStore('books', {
-  state: () => ({
-    books: [] as Books[]
-  }),
-  getters: {
-    getAllBooks(state) {
-      return state.books
-    }
-  },
-  actions: {
-    async list() {
-      const { list } = await useFetchBooks()
-      return list
-    },
-    async fetchBook(id: Books['id']) {
-      // try {
-      //   const { getBook } = await useFetchBooks()
-      //   this.books = data
-      //   // return JSON.parse(JSON.stringify(this.books))
-      //   // this.books = data.map((book: Books[]) => ({ ...book }))
-      //   this.books.map((book) => {
-      //     book.author = data.author
-      //   })
-      //   return this.books
-      // }
-      try {
-        const { getBook } = await useFetchBooks()
-        const { data } = await getBook(id)
-        return data
-      } catch (error) {
-        alert(error)
-        console.error((error as Error).message)
-      }
-    }
-  }
+export const useBooksStore = defineStore('books', () => {
+  // state: () => ({
+  //   books: [] as Books[]
+  // }),
+  // getters: {
+  //   getAllBooks(state) {
+  //     return state.books
+  //   }
+  // },
+  // actions: {
+  //   async list() {
+  //     const { list } = await useFetchBooks()
+  //     return list
+  //   },
+  //   async fetchBook(id: Books['id']) {
+  //     // try {
+  //     //   const { getBook } = await useFetchBooks()
+  //     //   this.books = data
+  //     //   // return JSON.parse(JSON.stringify(this.books))
+  //     //   // this.books = data.map((book: Books[]) => ({ ...book }))
+  //     //   this.books.map((book) => {
+  //     //     book.author = data.author
+  //     //   })
+  //     //   return this.books
+  //     // }
+  //     try {
+  //       const { getBook } = await useFetchBooks()
+  //       const { data } = await getBook(id)
+  //       return data
+  //     } catch (error) {
+  //       alert(error)
+  //       console.error((error as Error).message)
+  //     }
+  //   }
+  // }
+  const fetchBooks = useFetchBooks()
+  const bookList = fetchBooks.list()
+
+  const retrieveBook = (id: Books['id']) => fetchBooks.getBook(id)
+  return { bookList, retrieveBook }
 })
 
 //SOLUTION 3

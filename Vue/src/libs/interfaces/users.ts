@@ -28,8 +28,8 @@ export interface Users {
   favoriteAuthor?: string | null
   password: string | null
   confirmPassword: string | null
-  createdAt: Date
-  updatedAt: Date
+  createdAt: number
+  updatedAt: number
   books: Books[]
   cart: Cart
   purchases: Purchases[]

@@ -2,11 +2,11 @@ import axios from 'axios'
 
 const httpClient = axios.create({
   // const token =
-  baseURL: process.env.VUE_APP_BASE_URL,
+  baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 1000, // indicates, 1000ms ie. 1 second
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': process.env.VUE_APP_BASE_URL,
+    'Access-Control-Allow-Origin': import.meta.env.VITE_BASE_URL,
     Accept: 'application/json'
   }
   // FONCTION POUR AJOUTER HEADER S'IL Y EN A UN
