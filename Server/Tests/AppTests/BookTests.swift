@@ -25,7 +25,7 @@ final class BookTests: XCTestCase {
         try configure(app)
         
         let user = User(username: "helloWorld",
-                        email: "rl2@gmail.com",
+                        email: "lornadvjksdvjsdvsbvkjbvdqdjfvbj@gmail.com",
                         passwordHash: "complexPassword",
                         favoriteBook: "War and Peace",
                         country: "Israel",
@@ -63,6 +63,16 @@ final class BookTests: XCTestCase {
         .save(on: app.db)
         .wait()
         
+        let basic = "test:test".data(using: .utf8)!.base64EncodedString()
+        let createdBook = CreateBookData(title: "Hello World",
+                                         author: "Gus Fring",
+                                         description: "Another really awesome book, trust me",
+                                         genre: .action,
+                                         state: .acceptable,
+                                         status: .available,
+                                         price: 12)
+
+        
         try app.test(.GET, "/books", afterResponse: { response in
             XCTAssertEqual(response.status, .ok)
             
@@ -76,6 +86,53 @@ final class BookTests: XCTestCase {
             XCTAssertEqual(books[books.count-2].price, expectedPrice)
             XCTAssertNotNil(books[books.count-2].id)
             
+        })
+        
+        try app.test(.POST, "/login", headers: ["Authorization": "Basic \(basic)"]) { response in
+            let token = try response.content.decode(PostUserToken.self)
+            Store.token = token.value
+            XCTAssertEqual(response.status, .created)
+            XCTAssertNotNil(token.value)
+        }
+        
+        try app.test(.POST, "/books", headers: ["Authorization": "Bearer \(Store.token)"], beforeRequest: { req in
+            try req.content.encode(createdBook)
+        }, afterResponse: { response in
+            XCTAssertEqual(response.status, .created)
+            let receivedBook = try response.content.decode(GetBook.self)
+            XCTAssertNotNil(receivedBook.id)
+            Store.bookID = receivedBook.id
+            XCTAssertEqual(receivedBook.descritpion, "Another really awesome book, trust me")
+            XCTAssertEqual(receivedBook.genre, .action)
+            XCTAssertEqual(receivedBook.title, "Hello World")
+            XCTAssertEqual(receivedBook.author, "Gus Fring")
+            XCTAssertEqual(receivedBook.price, 12)
+            XCTAssertEqual(receivedBook.state, .acceptable)
+        }
+        )
+        
+        let patchedBook = PatchBook(id: Store.bookID,
+                                    title: "newTitle",
+                                    author: "AnotherAuthor",
+                                    description: "Why? ",
+                                    genre: .biography,
+                                    state: .bad,
+                                    price: 165,
+                                    buyerID: nil,
+                                    status: .purchased)
+        
+        try app.test(.PATCH, "/books", headers: ["Authorization": "Bearer \(Store.token)"], beforeRequest: { req in try req.content.encode(patchedBook)
+        }, afterResponse: { response in
+            XCTAssertEqual(response.status, .ok)
+            let receivedBook = try response.content.decode(GetBook.self)
+            XCTAssertNotNil(receivedBook.id)
+            XCTAssertEqual(receivedBook.id, Store.bookID)
+            XCTAssertEqual(receivedBook.title, "newTitle")
+            XCTAssertEqual(receivedBook.author, "AnotherAuthor")
+            XCTAssertEqual(receivedBook.descritpion, "Why? ")
+            XCTAssertEqual(receivedBook.genre, .biography)
+            XCTAssertEqual(receivedBook.state, .bad)
+            XCTAssertEqual(receivedBook.price, 165)
         })
     }
 }

@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import Vapor
+import Fluent
 
-struct PatchBook: Codable {
+struct PatchBook: Content {
     let id: UUID
     let title: String?
     let author: String?
@@ -16,6 +18,5 @@ struct PatchBook: Codable {
     let state: BookState?
     let price: Int?
     let buyerID: UUID?
-    let kartID: UUID?
     let status: BookStatus?
 }

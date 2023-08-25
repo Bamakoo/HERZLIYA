@@ -20,7 +20,7 @@ public final class UserTests: XCTestCase {
         // delete user
         
         let expectedUsername = "JackMalone"
-        let expectedEmail = "jd@gmail.com"
+        let expectedEmail = "lqdfjkbvqjfbvqfdvbdfxdsvsvsvjdvihvor@gmail.com"
         let expectedPasswordHash = "aRandomHash"
         let expectedFavoriteBook = "War and Peace"
         let expectedCountry = "Israel"
@@ -31,6 +31,15 @@ public final class UserTests: XCTestCase {
         let app = Application(.testing)
         defer { app.shutdown() }
         try configure(app)
+        
+        let createdUser = User.Create(username: "expectedUsername",
+                                      email: "lmlvsdjkvsbdfvoidjvfdoorn@gmail.com",
+                                      password: "complexPWD",
+                                      confirmPassword: "complexPWD",
+                                      favoriteBook: "War and Peace",
+                                      country: "Germany",
+                                      city: "Hamburg",
+                                      favoriteAuthor: "Shakespeare")
         
         let user = User(username: expectedUsername,
                         email: expectedEmail,
@@ -43,7 +52,7 @@ public final class UserTests: XCTestCase {
         
         
         try User(username: "Gail",
-                 email: "g@gmail.com",
+                 email: "gaiwdfvdfvxdjvxjdvdjvsbvsjdvbskdfvhvfodivhi@gmail.com",
                  passwordHash: "password",
                  favoriteBook: "Crime and Punishment",
                  country: "France",
@@ -73,9 +82,23 @@ public final class UserTests: XCTestCase {
             XCTAssertEqual(users[users.count-2].favoriteAuthor, expectedAuthor)
             XCTAssertNotNil(users[users.count-2].id)
         }
+        
+        try app.test(.POST, "/users", beforeRequest: { req in
+            try req.content.encode(createdUser)
+        }, afterResponse: { response in
+            let receivedUser = try response.content.decode(GetUser.self)
+            XCTAssertNotNil(receivedUser.id)
+            XCTAssertEqual(response.status, .created)
+            XCTAssertEqual(receivedUser.username, "expectedUsername")
+            XCTAssertEqual(receivedUser.favoriteBook, "War and Peace")
+            XCTAssertEqual(receivedUser.country, "Germany")
+            XCTAssertEqual(receivedUser.city, "Hamburg")
+            XCTAssertEqual(receivedUser.favoriteAuthor, "Shakespeare")
+        })
     }
 }
 
 struct Store {
     static var token: String = ""
+    static var bookID = UUID()
 }
