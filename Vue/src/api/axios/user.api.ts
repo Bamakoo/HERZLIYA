@@ -11,15 +11,21 @@ import type { Users } from '@/libs/interfaces/users'
 //   return { list, getUser, update, del }
 // }
 
-export const useFetchAccounts = async () => {
+export const useFetchAccounts = () => {
   const baseURL = '/api/users'
   // const accountStore = useAccountStore()
 
   const token = ref('') // doit avoir le token du compte de la session
   // token.value = (await accountStore.fetchAccount()).account.token
-  const list = async () => httpClient.get<Users[]>(baseURL)
+  const list = async () => {
+    const { data } = await httpClient.get<Users[]>(baseURL)
+    return data
+  }
 
-  const retrieve = async (id: Users['id']) => httpClient.get<Users>(`${baseURL}/${id}`)
+  const retrieve = async (id: Users['id']) => {
+    const { data } = await httpClient.get<Users>(`${baseURL}/${id}`)
+    return data
+  }
 
   const update = async (
     id: Users['id'],
