@@ -1,61 +1,36 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { useFetchAccounts } from '../api/axios/user.api'
+import { useFetchAccounts } from '@/api/fetchs/useFetchAccounts'
 import type { Users } from '@/libs/interfaces/users'
 
-export const useAccountStore = defineStore('account', async () => {
-  const fetchAccounts = useFetchAccounts()
+export const useAccountStore = defineStore('users', () => {
+  const fetchUsers = useFetchAccounts()
+  const userList = fetchUsers.list()
 
-  const userList = fetchAccounts.list()
+  const retrieveUserAccount = (id: Users['id']) => {
+    const user = fetchUsers.retrieve(id)
+    return user
+  }
 
-  // const id = ref(localStorage.getItem('token') ?? '')
-  // const headers = new Headers()
-  // headers.get('Authorization')
-  // console.log(headers)
-  const retrieveAccount = (id: Users['id']) => fetchAccounts.retrieve(id)
-
-  const token = ref('')
   const id = ref('')
-  token.value = (await retrieveAccount(id.value)).token ?? ''
-  // state: () => ({ accounts: [] as Users[] }),
+  const userAccount = retrieveUserAccount(id.value)
+  const token = ref('')
 
-  // getters: {
-  //   getAllAccounts(state) {
-  //     return state.accounts
-  //   }
-  // },
-  // actions: {
-  //   async fetchAccounts() {
-  //     const { list } = await useFetchAccounts()
-  //     return list
-  //   },
-  //   async fetchAccount(id: Users['id']) {
-  //     const fetchAccounts = await useFetchAccounts()
-  //     const { retrieve } = fetchAccounts
-  //     try {
-  //       const { data } = await retrieve(id)
-  //       const { books, cart, purchases, sales } = data
-  //       const account = {
-  //         username: data.username,
-  //         email: data.email,
-  //         country: data.country,
-  //         city: data.city,
-  //         token: data.token
-  //       }
+  // const account = ref({
+  //   infos: {
+  //     id: userAccount.id,
+  //     username: userAccount.username,
+  //     email: userAccount.email,
+  //     favorite_book: userAccount.favoriteBook,
+  //     favorite_author: userAccount.favoriteAuthor,
+  //     city: userAccount.city,
+  //     country: userAccount.country
+  //   }, //password
+  //   books: userAccount.books,
+  //   purchases: userAccount.purchases,
+  //   sales: userAccount.sales,
+  //   friends: userAccount.friends
+  // })
 
-  //       const metadatas = {
-  //         favoriteAuthor: data.favoriteAuthor,
-  //         favoriteBook: data.favoriteBook,
-  //         friends: data.friends,
-  //         likes: data.likes,
-  //         comments: data.comments
-  //       }
-
-  //       return { books, cart, purchases, sales, account, metadatas }
-  //     } catch (error) {
-  //       throw new Error((error as Error).message)
-  //     }
-  //   }
-  // }
-  return { userList, retrieveAccount }
+  return { userList, retrieveUserAccount } //account, token }
 })

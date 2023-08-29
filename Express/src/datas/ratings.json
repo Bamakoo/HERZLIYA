@@ -1,0 +1,68 @@
+{
+  "datas": [
+    {
+      "userWhoRatesID": "1feb475c-3983-4f38-adb2-f7e51d548e28",
+      "ratedUserID": "8033c59f-743d-4615-8873-bf5e2f4ce9fd",
+      "rating": 4.0,
+      "createdAt": 1678992000,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userWhoRatesID": "8033c59f-743d-4615-8873-bf5e2f4ce9fd",
+      "ratedUserID": "1feb475c-3983-4f38-adb2-f7e51d548e28",
+      "rating": 5.0,
+      "createdAt": 1679155200,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userWhoRatesID": "690496cb-30ed-4a1c-9e64-934b1aab0c2e",
+      "ratedUserID": "efc67baf-2593-4218-ad94-34ecc1302a07",
+      "rating": 3.9,
+      "createdAt": 1679328000,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userWhoRatesID": "efc67baf-2593-4218-ad94-34ecc1302a07",
+      "ratedUserID": "1feb475c-3983-4f38-adb2-f7e51d548e28",
+      "rating": 4.1,
+      "createdAt": 1679491200,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userWhoRatesID": "8033c59f-743d-4615-8873-bf5e2f4ce9fd",
+      "ratedUserID": "efc67baf-2593-4218-ad94-34ecc1302a07",
+      "rating": 1.2,
+      "createdAt": 1679664000,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userWhoRatesID": "efc67baf-2593-4218-ad94-34ecc1302a07",
+      "ratedUserID": "8033c59f-743d-4615-8873-bf5e2f4ce9fd",
+      "rating": 2.1,
+      "createdAt": 1679836800,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userWhoRatesID": "690496cb-30ed-4a1c-9e64-934b1aab0c2e",
+      "ratedUserID": "1feb475c-3983-4f38-adb2-f7e51d548e28",
+      "rating": 3.5,
+      "createdAt": 1680009600,
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "userWhoRatesID": "efc67baf-2593-4218-ad94-34ecc1302a07",
+      "ratedUserID": "690496cb-30ed-4a1c-9e64-934b1aab0c2e",
+      "rating": 5.0,
+      "createdAt": 1680182400,
+      "updatedAt": null,
+      "deletedAt": null
+    }
+  ]
+}
