@@ -1,7 +1,7 @@
 import type { Books } from './books'
-import type { Cart } from './cart'
-import type { Comments } from './comments'
-import type { Likes } from './likes'
+// import type { Cart } from './cart'
+// import type { Comments } from './comments'
+// import type { Likes } from './likes'
 
 export interface Purchases {
   id: string
@@ -18,7 +18,7 @@ export interface Sales {
 }
 
 export interface Users {
-  id: string | null
+  id: string
   token: string | null
   username: string | null
   email: string | null
@@ -28,15 +28,15 @@ export interface Users {
   favoriteAuthor?: string | null
   password: string | null
   confirmPassword: string | null
-  createdAt: number
-  updatedAt: number
+  createdAt: number | null
+  updatedAt: number | null
   books: Books[]
-  cart: Cart
+  // cart: Cart
   purchases: Purchases[]
   sales: Sales[]
   friends: Friends[]
-  likes: Likes[]
-  comments: Comments[]
+  // likes: Likes[]
+  // comments: Comments[]
 }
 
 export interface Friends {
