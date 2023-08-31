@@ -37,7 +37,7 @@ struct NewEndpoint {
     }
 
     static func myFriends() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/my/friends", queryItems: nil)
+        return HerzliyaEndpoint(path: "/users/friends", queryItems: nil)
     }
 
     static func friendUser(_ userID: UUID) -> APIEndpoint {
@@ -65,7 +65,7 @@ struct NewEndpoint {
     }
 
     static func likedBooks() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/my/likes", queryItems: nil)
+        return HerzliyaEndpoint(path: "/users/likes", queryItems: nil)
     }
 
     static func rating() -> APIEndpoint {
@@ -77,15 +77,15 @@ struct NewEndpoint {
     }
 
     static func booksByUsersFavoriteAuthor() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/my/favorite-author", queryItems: nil)
+        return HerzliyaEndpoint(path: "/users/favorite-author", queryItems: nil)
     }
 
     static func booksInKart() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/my/kart", queryItems: nil)
+        return HerzliyaEndpoint(path: "/users/cart", queryItems: nil)
     }
 
     static func soldBooks() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/my/sold", queryItems: nil)
+        return HerzliyaEndpoint(path: "/users/sold", queryItems: nil)
     }
 
     static func login() -> APIEndpoint {
@@ -93,7 +93,7 @@ struct NewEndpoint {
     }
 
     static func bought() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/my/purchases", queryItems: nil )
+        return HerzliyaEndpoint(path: "/users/purchases", queryItems: nil )
     }
 
     static func commentsOnBook(_ bookID: UUID) -> APIEndpoint {
@@ -101,7 +101,7 @@ struct NewEndpoint {
     }
 
     static func myComments() -> APIEndpoint {
-        return HerzliyaEndpoint(path: "/my/comments", queryItems: nil)
+        return HerzliyaEndpoint(path: "/users/comments", queryItems: nil)
     }
 
     static func removeBookFromCart(_ bookID: UUID) -> APIEndpoint {

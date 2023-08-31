@@ -17,6 +17,14 @@ enum ElementType: Content {
     case like(GetLike)
 }
 
-struct Element: Content {
+struct FeedElement: Content {
     let type: ElementType
+}
+
+struct Feed: Content {
+    let comments: [GetComment]
+    let ratings: [RatingDTO]
+    let books: [GetBook]
+    let users: [GetUser]
+    let likes: [GetLike]
 }

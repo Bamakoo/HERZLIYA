@@ -25,7 +25,7 @@ final class BookTests: XCTestCase {
         try configure(app)
         
         let user = User(username: "helloWorld",
-                        email: "lornadvjksdvjsdvsbvkjtrdffgdgdtdffghfghdfghfghvndkjvdfrdjjbjbjbjtdrbvdqdjfvhjvhhvbj@gmail.com",
+                        email: "lornadvjksdffgdgdtdffghfghdfghfghvndkjvdfrdjjbjbjbjtdrbvdqdjfvhjvhhvbj@gmail.com",
                         passwordHash: "complexPassword",
                         favoriteBook: "War and Peace",
                         country: "Israel",

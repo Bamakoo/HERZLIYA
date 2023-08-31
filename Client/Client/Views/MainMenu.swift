@@ -10,11 +10,7 @@ struct MainMenu: View {
 
     var body: some View {
         TabView {
-            Homepage()
-                .tabItem {
-                    Label("Hompeage", systemImage: "house")
-                }
-            UserMenuView()
+            BookList()
                 .tabItem {
                     Label("Books", systemImage: "books.vertical")
                 }
@@ -25,6 +21,10 @@ struct MainMenu: View {
             ProfileSwitch()
                 .tabItem {
                     Label("Profile", systemImage: "person")
+                }
+            More()
+                .tabItem {
+                    Label("More", systemImage: "ellipsis")
                 }
         }
     }

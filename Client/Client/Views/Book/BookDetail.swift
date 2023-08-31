@@ -18,7 +18,7 @@ struct BookDetail: View {
         Form {
             Section {
             if let book {
-                
+
                 HStack {
                     Image(systemName: "book")
                     Text("Title: \(book.title)")

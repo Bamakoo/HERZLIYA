@@ -5,7 +5,7 @@
 //  Created by Emma Gaubert on 18/02/2023.
 //
 import SwiftUI
-struct BooksList: View {
+struct BooksByGenre: View {
 
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var selectedBook: Book?

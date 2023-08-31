@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Homepage: View {
+struct BookList: View {
 
     @StateObject private var viewModel = HomepageViewModel()
     @State private var selectedBook: Book?
@@ -134,7 +134,7 @@ struct Homepage: View {
             }
             .listStyle(.grouped)
             .navigationBarTitleDisplayMode(.automatic)
-            .navigationTitle("Homepage")
+            .navigationTitle("Books")
         } detail: {
             if selectedBook != nil {
                 BookDetail(book: $selectedBook)
@@ -155,6 +155,6 @@ struct Homepage: View {
 
 struct Homeage_Previews: PreviewProvider {
     static var previews: some View {
-        Homepage()
+        BookList()
     }
 }
