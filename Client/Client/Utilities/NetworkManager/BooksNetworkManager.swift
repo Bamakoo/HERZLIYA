@@ -23,7 +23,7 @@ final class BooksNetworkManager {
 
     func addBookToKart(_ bookID: UUID) async throws {
         // guard let userID = UserDefaults.standard.string(forKey: "userID") else { throw UserError.unableToGetID }
-        let userID = "70935759-4231-43E4-8E54-92CA3A48E33B"
+        _ = "70935759-4231-43E4-8E54-92CA3A48E33B"
         guard let url = URL(string: Request.baseURL + Endpoint.addBookToKart) else {
             throw HttpError.badURL
         }

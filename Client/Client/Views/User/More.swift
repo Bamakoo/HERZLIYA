@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UserMenuView: View {
+struct More: View {
 
     var body: some View {
         NavigationStack {
@@ -21,7 +21,7 @@ struct UserMenuView: View {
                 switch item {
                 case .likesByMyFriends: AllLikes()
                 case .allComments: AllComments()
-                case .booksByGenre: BooksList()
+                case .booksByGenre: BooksByGenre()
                 case .latestRatings: AllRatings()
                 case .users: AllUsers()
                 }
@@ -32,6 +32,6 @@ struct UserMenuView: View {
 
 struct UserMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        UserMenuView()
+        More()
     }
 }

@@ -20,7 +20,7 @@ public final class UserTests: XCTestCase {
         // delete user
         
         let expectedUsername = "JackMalone"
-        let expectedEmail = "lqdfjkbvqjfbvqfvhhvhvhxxcersdfgsdfgdsdfghdfghdfgfguhergnbhbjbhedvbhvhvdfxdsvhvhvhvvsvsvjdvihvor@gmail.com"
+        let expectedEmail = "lqdffgfguhergnbhbjbhedvbhvhvdfxdsvhvhvhvvsvsvjdvihvor@gmail.com"
         let expectedPasswordHash = "aRandomHash"
         let expectedFavoriteBook = "War and Peace"
         let expectedCountry = "Israel"
@@ -33,7 +33,7 @@ public final class UserTests: XCTestCase {
         try configure(app)
         
         let createdUser = User.Create(username: "expectedUsername",
-                                      email: "lmlvsnhvhvsddfghdfghfgsdfgdfgdjvvhvvnbnnbnbkvgygugejkeguerhgegirusbdfvoidjvfdoorn@gmail.com",
+                                      email: "lmlvssdfgdfgdjvvhvvnbnnbnbkvgygugejkeguerhgegirusbdfvoidjvfdoorn@gmail.com",
                                       password: "complexPWD",
                                       confirmPassword: "complexPWD",
                                       favoriteBook: "War and Peace",
@@ -52,7 +52,7 @@ public final class UserTests: XCTestCase {
         
         
         try User(username: "Gail",
-                 email: "fghdfghdfhdfghdfghdfghdfghdfghdfghdfghtertyertyertcvbcvbcxvbxcv@gmail.com",
+                 email: "fghdfghertcvbcvbcxvbxcv@gmail.com",
                  passwordHash: "password",
                  favoriteBook: "Crime and Punishment",
                  country: "France",
@@ -97,7 +97,7 @@ public final class UserTests: XCTestCase {
         })
         
         let patchedUser = PatchUser(username: "anotherRandomUserName",
-                                    email: "another-gejksdfsdfgsdfgsdgsdfgsdfgsdnhjvjjhvjergheremail-address@gmail.com",
+                                    email: "anotess@gmail.com",
                                     favoriteBook: "aDifferentFavoriteBook",
                                     country: "Canada",
                                     city: "Calgary",

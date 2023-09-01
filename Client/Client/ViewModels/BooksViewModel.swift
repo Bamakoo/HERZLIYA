@@ -32,7 +32,12 @@ import Foundation
             guard let bookID = book.id else {
                 return
             }
-            let rating = Rating(id: nil, userID: nil, bookID: bookID, rating: Float(rating), bookTitle: nil, username: nil)
+            let rating = Rating(id: nil,
+                                userID: nil,
+                                bookID: bookID,
+                                rating: Float(rating),
+                                bookTitle: nil,
+                                username: nil)
             try await UseCase.Books.rate(rating)
         } catch {
             print(error.localizedDescription)
@@ -119,6 +124,10 @@ import Foundation
                                                          status: status,
                                                          price: price)
             try await UseCase.Books.create(newBook)
+            title = ""
+            author = ""
+            description = ""
+            price = 12
         } catch {
             print(error.localizedDescription)
         }
