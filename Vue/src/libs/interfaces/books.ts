@@ -12,4 +12,5 @@ export interface Books {
     | 'good'
     | 'excellent'
     | 'brandNew'
+    | null
 }
