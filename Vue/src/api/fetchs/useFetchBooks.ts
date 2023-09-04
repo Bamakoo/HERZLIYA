@@ -12,10 +12,10 @@ export const useFetchBooks = () => {
     return data
   }
 
-  // const create = async (datas: Omit<Books, 'id'>) => {
-  //   const data = await httpClient.post<Books>('/books', { data: datas })
-  //   return data
-  // }
+  const create = async (datas: Omit<Books, 'id'>) => {
+    const data = await httpClient.post<Books>('/books', { data: datas })
+    return data
+  }
 
   // const update = async (id: Books['id'], datas: Omit<Books, 'id'>) => {
   //   const data = await httpClient.patch<Partial<Books>>(`/books/${id}`, { data: datas })
@@ -27,5 +27,5 @@ export const useFetchBooks = () => {
   //   return data
   // }
 
-  return { list, retrieve } //create, update, del }
+  return { list, retrieve, create } //, update, del }
 }

@@ -31,6 +31,22 @@ import router from '@/router'
 const bookStore = useBookStore()
 const books = await bookStore.books
 
+// const states = 'horrendous'
+//   ? 'Horrible'
+//   : 'bad'
+//   ? 'Mauvais'
+//   : 'okay'
+//   ? 'Okay'
+//   : 'passable'
+//   ? 'Passable'
+//   : 'acceptable'
+//   ? 'Acceptable'
+//   : 'good'
+//   ? 'Bon État'
+//   : 'excellent'
+//   ? 'Excellent'
+//   : 'Neuf'
+
 const goTo = (book_id: string) => router.push(`/books/${book_id}`)
 
 onBeforeMount(() => computed(() => books))
