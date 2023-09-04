@@ -10,7 +10,9 @@ import SwiftUI
 struct BookRow: View {
 
     var book: Book
-
+    var price: String {
+        book.price.formatted(.currency(code: "EUR"))
+    }
     var body: some View {
         HStack(alignment: .center) {
                    Image(systemName: "book")
@@ -22,14 +24,16 @@ struct BookRow: View {
                    VStack(alignment: .leading) {
                        Text(book.title)
                            .font(.title2)
+                           .fontWeight(.medium)
                            .foregroundStyle(.primary)
                        Text(book.author)
                            .font(.headline)
+                           .fontWeight(.regular)
                            .foregroundStyle(.secondary)
                    }
                    Spacer()
-                   Text(String(book.price))
-                       .font(.largeTitle.monospacedDigit())
+            Text(price)
+                       .font(.title2.monospacedDigit())
                        .fontWeight(.medium)
                        .foregroundStyle(.primary)
                }
