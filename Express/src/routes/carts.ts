@@ -17,7 +17,6 @@ router.get("/", async (req: Request, res: Response) => {
 router.get("/:id", async (req: Request, res: Response) => {
   const id = req.params.id;
   const datas = await retrieve(id);
-  console.log("id :", id, "datas :", datas);
   return res.json(datas);
 });
 

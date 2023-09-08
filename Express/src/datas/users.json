@@ -2,6 +2,7 @@
   "datas": [
     {
       "id": "19bd43e8-0174-4db8-a1f4-55d4dec13eaf",
+      "token": "e3c975c0-0477-4463-ab05-20c852f253f4",
       "username": "emmadorable",
       "email": "emmagaubert@gmail.com",
       "favoriteBook": "Keranina",
@@ -15,6 +16,7 @@
     },
     {
       "id": "fd0094cc-224d-46a9-ac9d-51e8422e2e37",
+      "token": "81b2a21e-4889-4eb5-b1f6-dd98cc1bf8c1",
       "username": "0-drey",
       "email": "carmont.audrey@gmail.com",
       "favoriteBook": "",
@@ -28,6 +30,7 @@
     },
     {
       "id": "1feb475c-3983-4f38-adb2-f7e51d548e28",
+      "token": "47659347-0485-4c1a-b57b-eca779ce44f5",
       "username": "user123",
       "email": "user123@example.com",
       "favoriteBook": "The Mysterious Book",
@@ -41,6 +44,7 @@
     },
     {
       "id": "8033c59f-743d-4615-8873-bf5e2f4ce9fd",
+      "token": "0d15fd34-408c-4732-9488-38113b4da2d5",
       "username": "bookworm45",
       "email": "bookworm45@example.com",
       "favoriteBook": "Adventures in Fantasyland",
@@ -54,6 +58,7 @@
     },
     {
       "id": "690496cb-30ed-4a1c-9e64-934b1aab0c2e",
+      "token": "15dfa86d-de3f-4ad0-88d5-d1ed4f1dcd8a",
       "username": "avidreader",
       "email": "reader84@example.com",
       "favoriteBook": "The Enchanted Tale",
@@ -67,6 +72,7 @@
     },
     {
       "id": "efc67baf-2593-4218-ad94-34ecc1302a07",
+      "token": "ac56ff26-6e60-44b2-b5cd-0f0dda22767a",
       "username": "litlover",
       "email": "litlover55@example.com",
       "favoriteBook": "Whimsical Wonders",

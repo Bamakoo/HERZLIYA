@@ -7,16 +7,20 @@ export const useAccountStore = defineStore('users', () => {
   const fetchUsers = useFetchAccounts()
   const userList = fetchUsers.list()
 
-  const retrieveUserAccount = (id: Users['id']) => {
-    const user = fetchUsers.retrieve(id)
-    return user
+  const retrieveUserAccount = async (id: Users['id']) => {
+    try {
+      const user = await fetchUsers.retrieve(id) // Attendre la résolution de la promesse
+      return user
+    } catch (error) {
+      throw new Error((error as Error).message)
+    }
   }
 
   const id = ref('')
-  const userAccount = retrieveUserAccount(id.value)
-  const token = ref('')
+  const userAccount = ref<Partial<Users> | null>(null)
+  const token = ref<Users['token']>('')
 
-  // const account = ref({
+  // const account = {
   //   infos: {
   //     id: userAccount.id,
   //     username: userAccount.username,
@@ -30,7 +34,30 @@ export const useAccountStore = defineStore('users', () => {
   //   purchases: userAccount.purchases,
   //   sales: userAccount.sales,
   //   friends: userAccount.friends
-  // })
+  // }
+  retrieveUserAccount(id.value).then((user) => {
+    // Une fois la promesse résolue, mettez les données dans account
+    const account = {
+      infos: {
+        id: user.id,
+        token: user.token,
+        username: user.username,
+        email: user.email,
+        favoriteBook: user.favoriteBook,
+        favoriteAuthor: user.favoriteAuthor,
+        city: user.city,
+        country: user.country
+      },
+      books: user.books,
+      purchases: user.purchases,
+      sales: user.sales,
+      friends: user.friends
+    }
 
-  return { userList, retrieveUserAccount } //account, token }
+    // Mettez à jour userAccount
+    userAccount.value = account
+    token.value = account.infos.token
+  })
+
+  return { userList, retrieveUserAccount, token, userAccount }
 })

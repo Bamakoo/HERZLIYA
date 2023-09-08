@@ -1,7 +1,15 @@
 <template>
+  <RouterLink
+    v-if="href"
+    :to="href"
+    class="inline-flex items-center justify-center rounded-md text-sm font-semibold text-center shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+    :class="[btnSize, btnColor]"
+    ><slot></slot
+  ></RouterLink>
   <button
+    v-else
     :type="type ?? 'button'"
-    class="relative inline-flex items-center justify-center rounded-md text-sm font-semibold text-center shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+    class="inline-flex items-center justify-center rounded-md text-sm font-semibold text-center shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
     :class="[btnSize, btnColor]"
   >
     <TwSpinner v-if="loading" class="absolute h-4 w-4" />
@@ -9,13 +17,6 @@
       <slot></slot>
     </div>
   </button>
-  <RouterLink
-    v-if="href"
-    :to="href"
-    class="relative inline-flex items-center justify-center rounded-md text-sm font-semibold text-center shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-    :class="[btnSize, btnColor]"
-    ><slot></slot
-  ></RouterLink>
 </template>
 
 <script setup lang="ts">
@@ -28,7 +29,7 @@ const props = defineProps<{
   disabled?: boolean
   loading?: boolean
   href?: string
-  color?: string // TO DO : define colors in DS + SG
+  color?: string
 }>()
 
 const isDisabled = computed(() => props.disabled || props.loading)
@@ -71,9 +72,9 @@ const btnColor = computed(() => {
           classes.push('bg-red-300 text-white')
         }
         classes.push('bg-red-600 text-white hover:bg-red-700 active:bg-red-800')
+      } else {
+        classes.push(props.color)
       }
-      // else {
-      // }
     }
     classes.push(props.color, ' focus-visible:outline-secondary text-white')
   }

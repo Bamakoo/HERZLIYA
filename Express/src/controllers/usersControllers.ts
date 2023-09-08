@@ -1,4 +1,5 @@
 import users from "../datas/users.json" assert { type: "json" };
+import { createId } from "@paralleldrive/cuid2";
 import type { Users } from "../models/usersModel.ts";
 
 export const list = () => {
@@ -32,7 +33,7 @@ export const create = (data: Users) => {
   const result = new Promise((resolve) => {
     try {
       const { datas } = users;
-      datas.push(data);
+      datas.push({ ...data, id: createId(), token: createId() });
       resolve(datas);
       return datas;
     } catch (error) {

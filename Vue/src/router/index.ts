@@ -33,25 +33,29 @@ const router = createRouter({
       component: () => import('@/views/BookDetails.vue')
     },
     {
-      // UserProfile will be rendered inside User's <router-view>
-      // when /user/:id/profile is matched
       path: '/account',
       name: 'accounts',
       component: () => import('@/views/AccountView.vue')
     },
     {
-      // UserProfile will be rendered inside User's <router-view>
-      // when /user/:id/profile is matched
       path: '/account/:id',
       name: 'account',
       component: () => import('@/views/AccountDetails.vue')
     },
     {
-      // UserProfile will be rendered inside User's <router-view>
-      // when /user/:id/profile is matched
       path: '/cart',
       name: 'cart',
       component: () => import('@/views/CartView.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/LoginView.vue')
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: () => import('@/views/SignupView.vue')
     }
   ]
 })

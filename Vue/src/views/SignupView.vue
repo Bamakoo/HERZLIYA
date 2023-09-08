@@ -74,23 +74,24 @@
           />
         </div>
       </div>
+      <div class="space-y-2 pt-4 max-w-xl mx-auto">
+        <span class="font-semibold block text-sm">Déjà un compte ?</span>
+        <TwButton href="/login" class="bg-gray-400">Connectez-vous</TwButton>
+      </div>
     </TwForm>
   </div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useFetchAccounts } from '@/api/fetchs/useFetchAccounts'
-import { TwForm, TwInputText } from '@/libs/ui/index.vue'
+import { TwForm, TwInputText, TwButton } from '@/libs/ui/index.vue'
 import type { Users } from '@/libs/interfaces/users'
-// import { useAccountStore } from '@/stores/useAccountStore'
+import { useAccountStore } from '@/stores/useAccountStore'
 
-type User = Omit<
-  Users,
-  'id' | 'updatedAt' | 'books' | 'cart' | 'sales' | 'friends' | 'token' | 'purchases'
->
+type User = Omit<Users, 'id' | 'books' | 'cart' | 'sales' | 'friends' | 'token' | 'purchases'>
 
 const fetchAccounts = useFetchAccounts()
-// const accountStore = useAccountStore()
+const accountStore = useAccountStore()
 // const isLogged = await accountStore.userList
 // const token = await accountStore.retrieveUserAccount() OÙ EST STOCKÉ LE TOKEN ?
 // isLogged.find(user => user.token === )
@@ -103,7 +104,8 @@ const datas = ref<User>({
   favoriteBook: null,
   password: null,
   confirmPassword: null,
-  createdAt: null
+  createdAt: null,
+  updatedAt: null
 })
 const onSubmit = async () => {
   try {
@@ -117,11 +119,14 @@ const onSubmit = async () => {
       favoriteBook: datas.value.favoriteBook ?? null,
       password: datas.value.password ?? null,
       confirmPassword: datas.value.confirmPassword ?? null,
-      createdAt: new Date(Date.now()).getTime()
+      createdAt: new Date(Date.now()).getTime(),
+      updatedAt: null
     }
     console.log(newUser)
     const newAccount = fetchAccounts.create(newUser)
-
+    // const id = (await accountStore).account.infos.id
+    // ;(await accountStore).retrieveUserAccount(id)
+    ;(await accountStore).token
     return newAccount
   } catch (error) {
     console.error((error as Error).message)

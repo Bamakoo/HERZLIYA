@@ -9,12 +9,12 @@ export const useFetchCart = () => {
   }
 
   const create = async (datas: Omit<Cart, 'id'>) => {
-    const { data } = await httpClient.post<Cart>('/cart', { data: datas })
+    const { data } = await httpClient.post<Cart>('/cart', datas)
     return data
   }
 
   const update = async (id: Cart['id'], datas: Omit<Cart, 'id'>) => {
-    const { data } = await httpClient.patch<Partial<Cart>>(`/cart/${id}`, { data: datas })
+    const { data } = await httpClient.patch<Partial<Cart>>(`/cart/${id}`, datas)
     return data
   }
 

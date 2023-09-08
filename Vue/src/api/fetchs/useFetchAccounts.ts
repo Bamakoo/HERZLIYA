@@ -3,7 +3,7 @@ import type { Users } from '@/libs/interfaces/users'
 
 export const useFetchAccounts = () => {
   const list = async () => {
-    const { data } = await httpClient.get<Users[]>('/users', {})
+    const { data } = await httpClient.get<Users[]>('/users')
     return data
   }
 
@@ -18,12 +18,12 @@ export const useFetchAccounts = () => {
       'id' | 'updatedAt' | 'books' | 'cart' | 'sales' | 'friends' | 'token' | 'purchases'
     >
   ) => {
-    const { data } = await httpClient.post<Users>('/users', { data: datas })
+    const { data } = await httpClient.post<Users>('/users', datas)
     return data
   }
 
   const update = async (id: Users['id'], datas: Omit<Users, 'id'>) => {
-    const { data } = await httpClient.patch<Partial<Users>>(`/users/${id}`, { data: datas })
+    const { data } = await httpClient.patch<Partial<Users>>(`/users/${id}`, datas)
     return data
   }
 

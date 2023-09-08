@@ -17,13 +17,18 @@
           required
           hint="Champ obligatoire"
         />
-        <TwButton type="button" class="bg-secondary font-semibold justify-center" @click="login"
+        <TwButton
+          type="button"
+          size="l"
+          class="bg-secondary font-semibold justify-center"
+          @click="login"
+          :loading="isLoading"
           >Me connecter</TwButton
         >
       </div>
       <div class="space-y-2 pt-4 max-w-xl mx-auto">
         <span class="font-semibold block text-sm">Pas encore de compte ?</span>
-        <TwButton href="./Signup.vue" class="bg-gray-400">Créer mon compte</TwButton>
+        <TwButton href="/signup" color="bg-gray-400">Créer mon compte</TwButton>
       </div>
     </form>
   </div>
@@ -31,32 +36,42 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { TwInputText, TwButton } from '@/libs/ui/index.vue'
+import { useAccountStore } from '@/stores/useAccountStore'
 import type { Users } from '@/libs/interfaces/users'
 import router from '@/router'
+import { useRoute } from 'vue-router'
 
-type User = Omit<Users, 'id' | 'updatedAt' | 'books' | 'cart'>
-// const datas = ref<User>()
 const datas = ref<{
-  email: string | null
-  password: string | null
+  email: Users['email']
+  password: Users['password']
 }>({
   email: null,
   password: null
 })
-const login = async (e: SubmitEvent) => {
+
+const isLoading = ref(false)
+const accountStore = useAccountStore()
+const userList = await accountStore.userList
+
+const login = (e: SubmitEvent) => {
   e.preventDefault()
   try {
-    if (!datas.value) return
-    const newUser: User = {
-      email: datas.value?.email ?? null,
-      password: datas.value.password ?? null
-    }
-    console.log(newUser)
-    // REDIRECT TO HOME
-    return newUser
+    if (!datas.value.email && !datas.value.password) return
+    const user = userList.find((user) => {
+      if (datas.value.email === user.email && datas.value.password === user.password) {
+        user.token = accountStore.userAccount?.token ?? 'nope'
+        console.log(user.token)
+        return user.token
+      }
+    })
+    isLoading.value = true
+    // router.go(0)
+    return user
   } catch (error) {
     console.error((error as Error).message)
     return error
+  } finally {
+    isLoading.value = false
   }
 }
 </script>
