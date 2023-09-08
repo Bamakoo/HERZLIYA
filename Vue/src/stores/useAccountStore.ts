@@ -9,7 +9,7 @@ export const useAccountStore = defineStore('users', () => {
 
   const retrieveUserAccount = async (id: Users['id']) => {
     try {
-      const user = await fetchUsers.retrieve(id) // Attendre la résolution de la promesse
+      const user = await fetchUsers.retrieve(id)
       return user
     } catch (error) {
       throw new Error((error as Error).message)
@@ -54,9 +54,8 @@ export const useAccountStore = defineStore('users', () => {
       friends: user.friends
     }
 
-    // Mettez à jour userAccount
     userAccount.value = account
-    token.value = account.infos.token
+    token.value = userAccount.value.token ?? '' //account.infos.token
   })
 
   return { userList, retrieveUserAccount, token, userAccount }

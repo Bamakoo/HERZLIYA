@@ -30,11 +30,11 @@ export interface Users {
   favoriteAuthor: string;
   createdAt: number;
   updatedAt: number;
-  books: Books[];
+  books: Books["id"][];
   // cart: Cart
-  purchases: Purchases[];
-  sales: Sales[];
-  friends: Friends[];
+  purchases: Purchases["id"][];
+  sales: Sales["id"][];
+  friends: Friends["userId"][];
   // likes: Likes[]
   // comments: Comments[]
 }

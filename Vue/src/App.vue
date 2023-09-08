@@ -18,6 +18,7 @@ const accountStore = useAccountStore()
 onBeforeMount(() => {
   return accountStore.token
 })
+console.log(accountStore.token)
 // const menus = [
 //   { value: 'realism', icon: ShieldCheckIcon, name: 'Non-fiction', to: '/realism' },
 //   { value: 'mystery', icon: MagnifyingGlassCircleIcon, name: 'Mystère', to: '/mystery' },
@@ -48,7 +49,7 @@ onBeforeMount(() => {
     <RouterView v-slot="{ Component }">
       <!-- <KeepAlive> -->
       <LoginView v-if="!accountStore.token" class="py-28 lg:py-32 px-8" />
-      <component v-else :is="Component" class="py-28 lg:py-32 px-8" />
+      <component :is="Component" class="py-28 lg:py-32 px-8" />
       <!-- </KeepAlive> -->
     </RouterView>
   </Suspense>

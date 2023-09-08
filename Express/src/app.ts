@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { booksRoutes } from "./routes/books.ts";
 import { userRoutes } from "./routes/users.ts";
 import { cartRoutes } from "./routes/carts.ts";
+import { loginRoutes } from "./routes/login.ts";
 import cors from "cors";
 
 dotenv.config();
@@ -23,7 +24,12 @@ app.use(urlencoded({ extended: true }));
 app.use(
   cors({
     origin: "http://localhost:5173", //process.env.VUE ?? process.env.HOST, //"http://192.168.1.17:5173/",
-    allowedHeaders: ["Content-Type", "Accept", "Access-Control-Allow-Origin"],
+    allowedHeaders: [
+      "Content-Type",
+      "Accept",
+      "Access-Control-Allow-Origin",
+      "Authorization",
+    ],
     methods: "GET, POST, PATCH, DELETE",
     credentials: true,
   })
@@ -32,3 +38,4 @@ app.use(
 app.use("/books", booksRoutes);
 app.use("/users", userRoutes);
 app.use("/cart", cartRoutes);
+app.use("/login", loginRoutes);

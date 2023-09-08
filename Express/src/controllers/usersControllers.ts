@@ -2,10 +2,10 @@ import users from "../datas/users.json" assert { type: "json" };
 import { createId } from "@paralleldrive/cuid2";
 import type { Users } from "../models/usersModel.ts";
 
-export const list = () => {
-  const result = new Promise((resolve) => {
+export const list = (): Promise<Users[]> => {
+  const result = new Promise<Users[]>((resolve) => {
     try {
-      const { datas } = users;
+      const datas = users.datas as Users[];
       resolve(datas);
       return datas;
     } catch (error) {

@@ -4,8 +4,8 @@
       <h1 class="text-4xl font-semibold text-center mb-10">Me connnecter</h1>
       <div class="space-y-8 border-b pb-4 border-gray-200">
         <TwInputText
-          v-model="datas.email"
-          label="E-mail"
+          v-model="datas.username"
+          label="Nom utilisateur"
           autocomplete
           required
           hint="Champ obligatoire"
@@ -36,37 +36,33 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { TwInputText, TwButton } from '@/libs/ui/index.vue'
-import { useAccountStore } from '@/stores/useAccountStore'
-import type { Users } from '@/libs/interfaces/users'
 import router from '@/router'
 import { useRoute } from 'vue-router'
+import httpClient from '@/api/httpClient'
+import type { Users } from '@/libs/interfaces/users'
 
 const datas = ref<{
-  email: Users['email']
+  username: Users['username']
   password: Users['password']
 }>({
-  email: null,
+  username: null,
   password: null
 })
 
 const isLoading = ref(false)
-const accountStore = useAccountStore()
-const userList = await accountStore.userList
 
 const login = (e: SubmitEvent) => {
   e.preventDefault()
   try {
-    if (!datas.value.email && !datas.value.password) return
-    const user = userList.find((user) => {
-      if (datas.value.email === user.email && datas.value.password === user.password) {
-        user.token = accountStore.userAccount?.token ?? 'nope'
-        console.log(user.token)
-        return user.token
-      }
-    })
+    if (!datas.value.username && !datas.value.password) return
     isLoading.value = true
     // router.go(0)
-    return user
+    const credentials = `${datas.value.username}:${datas.value.password}`
+    const loginCredentials = btoa(credentials)
+    const login = httpClient.post('/login', datas, {
+      headers: { Authorization: `Basic ${loginCredentials}` }
+    })
+    return login
   } catch (error) {
     console.error((error as Error).message)
     return error
