@@ -16,7 +16,7 @@ struct UserProfileView: View {
         NavigationStack {
             List(ProfileMenu.allCases) { item in
                 NavigationLink(value: item) {
-                    Label(item.title, systemImage: item.image)
+                    Label(item.title, image: item.image)
                         .foregroundColor(.primary)
                 }
             }

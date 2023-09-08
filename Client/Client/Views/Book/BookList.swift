@@ -19,6 +19,14 @@ struct BookList: View {
                 NavigationLink(value: book) {
                     BookRow(book: book)
                 }
+                .listRowBackground(Color.clear)
+                .padding()
+                .background {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color(UIColor.secondarySystemBackground))
+                }
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
                 .swipeActions(edge: .trailing) {
                     Button {
                         Task {
@@ -51,7 +59,8 @@ struct BookList: View {
                     .tint(Color.purple)
                 }
             }
-            .listStyle(.insetGrouped)
+            .listStyle(.inset)
+            .scrollContentBackground(.hidden)
             .toolbarRole(.editor)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -132,8 +141,6 @@ struct BookList: View {
                 }
                 }
             }
-            .listStyle(.grouped)
-            .navigationBarTitleDisplayMode(.automatic)
             .navigationTitle("Books")
         } detail: {
             if selectedBook != nil {

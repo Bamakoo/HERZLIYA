@@ -18,7 +18,7 @@ struct BooksByGenre: View {
         NavigationSplitView {
             List(BookGenre.allCases, selection: $selectedBookGenre) { genre in
                 NavigationLink(value: genre) {
-                    Label(genre.title, systemImage: genre.image)
+                    Label(genre.title, image: genre.image)
                 }
             }
             .listStyle(.automatic)

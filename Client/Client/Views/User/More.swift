@@ -13,7 +13,7 @@ struct More: View {
         NavigationStack {
             List(UserMenu.allCases) { item in
                 NavigationLink(value: item) {
-                    Label(item.title, systemImage: item.image)
+                    Label(item.title, image: item.image)
                         .foregroundColor(.primary)
                 }
             }

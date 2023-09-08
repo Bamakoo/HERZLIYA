@@ -12,19 +12,19 @@ struct MainMenu: View {
         TabView {
             BookList()
                 .tabItem {
-                    Label("Books", systemImage: "books.vertical")
+                    Label("Books", image: "book")
                 }
             CreateBookView()
                 .tabItem {
-                    Label("Sell", systemImage: "plus.circle")
+                    Label("Sell", image: "add")
                 }
             ProfileSwitch()
                 .tabItem {
-                    Label("Profile", systemImage: "person")
+                    Label("Profile", image: "user")
                 }
             More()
                 .tabItem {
-                    Label("More", systemImage: "ellipsis")
+                    Label("More", image: "more")
                 }
         }
     }

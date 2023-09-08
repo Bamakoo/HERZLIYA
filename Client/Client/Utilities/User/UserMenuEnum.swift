@@ -30,13 +30,13 @@ enum UserMenu: Identifiable, CaseIterable {
         switch self {
         case .likesByMyFriends: return "heart"
         case .allComments:
-            return "text.bubble"
+            return "comment"
         case .booksByGenre:
-            return "books.vertical"
+            return "book"
         case .latestRatings:
-            return "star"
+            return "favorite"
         case .users:
-            return "person.3"
+            return "user"
         }
     }
 }
