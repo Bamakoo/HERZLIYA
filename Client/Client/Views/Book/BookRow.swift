@@ -13,29 +13,37 @@ struct BookRow: View {
     var price: String {
         book.price.formatted(.currency(code: "EUR"))
     }
+
     var body: some View {
-        HStack(alignment: .center) {
-                   Image(systemName: "book")
-                       .resizable()
-                       .aspectRatio(1, contentMode: .fit)
-                       .frame(width: 30)
-                       .fontWeight(.heavy)
-                       .padding([.trailing], 8)
-                   VStack(alignment: .leading) {
-                       Text(book.title)
-                           .font(.title2)
-                           .fontWeight(.medium)
-                           .foregroundStyle(.primary)
-                       Text(book.author)
-                           .font(.headline)
-                           .fontWeight(.regular)
-                           .foregroundStyle(.secondary)
-                   }
-                   Spacer()
-            Text(price)
-                       .font(.title2.monospacedDigit())
-                       .fontWeight(.medium)
-                       .foregroundStyle(.primary)
-               }
-           }
-       }
+        VStack(alignment: .leading) {
+            HStack(alignment: .center) {
+                Image(book.genre.image)
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fit)
+                    .frame(width: 30)
+                    .fontWeight(.thin)
+                    .foregroundStyle(.primary)
+                    .padding([.trailing], 8)
+                Spacer()
+                Text(price)
+                    .font(.title3.monospacedDigit())
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.primary)
+                    .padding([.top, .bottom], 4)
+                    .padding([.leading, .trailing], 8)
+                    .background(.thinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            }
+            Spacer(minLength: 24)
+            VStack(alignment: .leading) {
+                Text(book.title)
+                    .font(.headline)
+                    .foregroundStyle(.primary)
+                    .fontWeight(.bold)
+                Text(book.author)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+}

@@ -24,15 +24,15 @@ enum ProfileMenu: Identifiable, CaseIterable {
     }
     var image: String {
         switch self {
-        case .friends: return "person.3"
+        case .friends: return "friendship"
         case .booksByFavoriteAuthor:
-            return "star"
+            return "favorite"
         case .likes: return "heart"
-        case .myKart: return "cart"
-        case .purchases: return "purchased"
-        case .soldBooks: return "dollarsign.arrow.circlepath"
-        case .commentsOnMyBooks: return "person.2.wave.2"
-        case .myComments: return "person.wave.2"
+        case .myKart: return "shopping-cart"
+        case .purchases: return "buy"
+        case .soldBooks: return "sold"
+        case .commentsOnMyBooks: return "comment"
+        case .myComments: return "comment"
         }
     }
 }

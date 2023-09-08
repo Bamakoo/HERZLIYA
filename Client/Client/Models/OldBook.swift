@@ -35,14 +35,14 @@ enum BookGenre: String, Identifiable, Codable, Hashable, Equatable, CaseIterable
 
     var image: String {
         switch self {
-        case .fantasy: return "crown.fill"
-        case .scienceFiction: return "burst.fill"
-        case .action: return "figure.run"
-        case .mystery: return "person.fill.questionmark"
-        case .horror: return "theatermasks.fill"
-        case .romance: return "heart.circle.fill"
-        case .realism: return "books.vertical.fill"
-        case .biography: return "figure.wave"
+        case .fantasy: return "hat"
+        case .scienceFiction: return "ufo"
+        case .action: return "spy"
+        case .mystery: return "interrogation-mark"
+        case .horror: return "ghost"
+        case .romance: return "hearts"
+        case .realism: return "world"
+        case .biography: return "leader"
         }
     }
 }
