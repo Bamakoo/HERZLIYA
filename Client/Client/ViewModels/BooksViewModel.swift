@@ -27,6 +27,17 @@ import Foundation
         self.networkManager = networkManager
     }
 
+    func likeABook(_ book: Book) async {
+        do {
+            guard let bookID = book.id else {
+                return
+            }
+                try await UseCase.Books.likeABook(bookID)
+            } catch {
+            print(error.localizedDescription)
+        }
+    }
+
     func rateBook(_ book: Book, _ rating: Double) async throws {
         do {
             guard let bookID = book.id else {
