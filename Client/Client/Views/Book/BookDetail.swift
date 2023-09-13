@@ -89,13 +89,18 @@ struct BookDetail: View {
                     .fontWeight(.medium)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(Color.secondary)
-                    .padding([.leading, .trailing])
-            }
-            Spacer(minLength: 30)
-            if let book {
-                CustomButton(book: book)
-                    .padding([.bottom, .top], 20)
                     .padding([.leading, .trailing], 30)
+            }
+            Spacer(minLength: 15)
+            VStack(spacing: 5) {
+                if let book {
+                    CustomButton(book: book)
+                        .padding([.bottom, .top], 5)
+                        .padding([.leading, .trailing], 30)
+                    AddToCartButton(book: book)
+                        .padding([.bottom, .top], 5)
+                        .padding([.leading, .trailing], 30)
+                }
             }
         }
         .toolbar {

@@ -12,17 +12,43 @@ struct Oups: View {
     @State private var signIn = false
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .center, spacing: 10) {
             Text("Oups")
+                .font(.largeTitle)
+                .fontWeight(.heavy)
             Text("That's on us!")
+                .font(.title2)
             Text("Profiles are only accessible to logged in users")
-            HStack {
-                Button("Create an account") {
+                .font(.callout)
+            VStack(alignment: .center, spacing: 10) {
+                Button {
                     createAnAccount.toggle()
+                } label: {
+                    Spacer()
+                    Text("create an accout".uppercased())
+                        .font(.system(.title2, design: .rounded ))
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    Spacer()
                 }
-                Button("Sign in") {
+                .padding(15)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.blue))
+                Button {
                     signIn.toggle()
+                } label: {
+                    Spacer()
+                    Text("Sign in".uppercased())
+                        .font(.system(.title2, design: .rounded ))
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    Spacer()
                 }
+                .padding(15)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.red))
             }
             .sheet(isPresented: $createAnAccount) {
                 CreateAccountView()
