@@ -9,6 +9,7 @@ import SwiftUI
 
 struct UpdateProfile: View {
     @State private var changeMyPassword = false
+    @EnvironmentObject var loginManager: LoginManager
 
     var body: some View {
         Button("Delete my profile") {
@@ -18,6 +19,7 @@ struct UpdateProfile: View {
             @TokenRepository<Any>
             var token: String?
             token = nil
+            loginManager.isLoggedIn.toggle()
         }
         Button("Change my password") {
             print("changing my password")

@@ -6,6 +6,8 @@ struct SignInView: View {
     @State private var forgotMyPassword = false
     @State private var createAnAccount = false
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var loginManager: LoginManager
+
     var body: some View {
         Form {
             TextField("Username", text: $viewModel.username, prompt: Text("Username"))
@@ -18,6 +20,7 @@ struct SignInView: View {
                     if try await viewModel.signIn() {
                         DispatchQueue.main.async {
                             dismiss()
+                            loginManager.isLoggedIn.toggle()
                         }
                     } else {
                         print("alert")

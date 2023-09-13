@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ProfileSwitch: View {
-    @StateObject private var viewModel = ProfileSwitchViewModel()
+    @EnvironmentObject var loginManager: LoginManager
     var body: some View {
         Group {
-            if viewModel.isLoggedIn() {
+            if loginManager.isLoggedIn {
                 UserProfileView()
             } else {
                 Oups()

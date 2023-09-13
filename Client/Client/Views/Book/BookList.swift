@@ -40,23 +40,12 @@ struct BookList: View {
                 .swipeActions(edge: .leading) {
                     Button {
                         Task {
-                            try await viewModel.buyBook(book)
-                            await viewModel.fetchBooks()
-                        }
-                    } label: {
-                        Image(systemName: "dollarsign")
-                    }
-                    .tint(.mint)
-                }
-                .swipeActions(edge: .leading) {
-                    Button {
-                        Task {
                             await viewModel.addBookToKart(book)
                         }
                     } label: {
                         Image(systemName: "cart.badge.plus")
                     }
-                    .tint(Color.purple)
+                    .tint(Color.blue)
                 }
             }
             .listStyle(.inset)

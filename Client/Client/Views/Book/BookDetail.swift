@@ -91,8 +91,12 @@ struct BookDetail: View {
                     .foregroundColor(Color.secondary)
                     .padding([.leading, .trailing])
             }
-            Spacer(minLength: 10)
-            // Buy now button
+            Spacer(minLength: 30)
+            if let book {
+                CustomButton(book: book)
+                    .padding([.bottom, .top], 20)
+                    .padding([.leading, .trailing], 30)
+            }
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
