@@ -85,15 +85,17 @@
 import { ref } from 'vue'
 import { useFetchAccounts } from '@/api/fetchs/useFetchAccounts'
 import { TwForm, TwInputText, TwButton } from '@/libs/ui/index.vue'
-import type { Users } from '@/libs/interfaces/users'
 import { useAccountStore } from '@/stores/useAccountStore'
+import type { Users } from '@/libs/interfaces/users'
+import httpClient from '@/api/httpClient'
 
 type User = Omit<Users, 'id' | 'books' | 'cart' | 'sales' | 'friends' | 'token' | 'purchases'>
 
 const fetchAccounts = useFetchAccounts()
 const accountStore = useAccountStore()
+const isLoading = ref(false)
 // const isLogged = await accountStore.userList
-// const token = await accountStore.retrieveUserAccount() OÙ EST STOCKÉ LE TOKEN ?
+// const token = await accountStore.retrieveUserAccount()
 // isLogged.find(user => user.token === )
 const datas = ref<User>({
   username: null,
@@ -110,6 +112,9 @@ const datas = ref<User>({
 const onSubmit = async () => {
   try {
     if (!datas.value) return
+
+    isLoading.value = true
+    //router.go(0)
     const newUser: User = {
       username: datas.value.username ?? null,
       email: datas.value.email ?? null,
@@ -124,13 +129,21 @@ const onSubmit = async () => {
     }
     console.log(newUser)
     const newAccount = fetchAccounts.create(newUser)
-    // const id = (await accountStore).account.infos.id
-    // ;(await accountStore).retrieveUserAccount(id)
-    ;(await accountStore).token
-    return newAccount
+
+    const credentials = Math.random().toString(36)
+    const loginCredentials = btoa(credentials)
+
+    accountStore.token = loginCredentials
+    window.localStorage.setItem('token', accountStore.token)
+    const signup = httpClient.post('/users', newUser, {
+      headers: { Authorization: `Basic ${loginCredentials}` }
+    })
+    return [newAccount, signup]
   } catch (error) {
     console.error((error as Error).message)
     return error
+  } finally {
+    isLoading.value = false
   }
 }
 </script>

@@ -62,6 +62,7 @@ const login = (e: SubmitEvent) => {
     const login = httpClient.post('/login', datas, {
       headers: { Authorization: `Basic ${loginCredentials}` }
     })
+    window.localStorage.setItem('token', `Basic ${loginCredentials}`)
     return login
   } catch (error) {
     console.error((error as Error).message)

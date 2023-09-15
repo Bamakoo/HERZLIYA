@@ -55,7 +55,9 @@ export const useAccountStore = defineStore('users', () => {
     }
 
     userAccount.value = account
-    token.value = userAccount.value.token ?? '' //account.infos.token
+    userAccount.value.token = window.localStorage.getItem('token')
+    token.value = userAccount.value.token //account.infos.token
+    setTimeout(() => window.localStorage.removeItem('token'), 604800)
   })
 
   return { userList, retrieveUserAccount, token, userAccount }

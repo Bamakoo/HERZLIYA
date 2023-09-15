@@ -30,7 +30,10 @@ const props = defineProps<{
   loading?: boolean
   href?: string
   color?: string
+  // emitValue?: unknown
 }>()
+
+// const emits = defineEmits<{ (event: 'submit', value: unknown): void }>()
 
 const isDisabled = computed(() => props.disabled || props.loading)
 

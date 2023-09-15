@@ -17,7 +17,7 @@
         <div class="mt-10 grid gap-x-6 gap-y-8 sm:grid-cols-6">
           <TwInputText
             label="Titre"
-            :model-value="datas.title"
+            v-model="datas.title"
             hint="champ obligatoire"
             name="title"
             for-text="title"
@@ -30,7 +30,7 @@
             label="Auteurice"
             for-text="author"
             hint="champ obligatoire"
-            :model-value="datas.author"
+            v-model="datas.author"
             name="author"
             autocomplete
             required
@@ -44,7 +44,7 @@
             :min="0"
             for-text="price"
             hint="champ obligatoire"
-            :model-value="datas.price"
+            v-model="datas.price"
             name="price"
             autocomplete
             required
@@ -55,7 +55,7 @@
             <TwInputSelect
               label="Genre"
               :options="genres"
-              :model-value="selectedGenre"
+              v-model="selectedGenre"
               name="genre"
               required
               hint="champ obligatoire"
@@ -63,21 +63,13 @@
           </div> -->
 
           <div class="sm:col-span-2">
-            <label for="state" class="block text-sm font-medium leading-6 text-gray-900"
-              >État</label
-            >
-            <div>
-              <select
-                v-model="selectedState"
-                name="state"
-                required
-                class="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-secondary-dark sm:max-w-xs sm:text-sm sm:leading-6"
-              >
-                <option v-for="(state, index) in states" :key="index" :value="state.value">
-                  {{ state.name }}
-                </option>
-              </select>
-            </div>
+            <TwInputSelect
+              :options="states"
+              v-model="selectedState"
+              label="État"
+              required
+              name="state"
+            />
           </div>
           <!-- <div class="col-span-full">
             <label for="description" class="block text-sm font-medium leading-6 text-gray-900"
