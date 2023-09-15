@@ -1,3 +1,4 @@
+const colors = require('tailwindcss/colors')
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx,vue}'],
@@ -14,7 +15,8 @@ export default {
         DEFAULT: '#97A1DA',
         medium: '#7280BB',
         dark: '#4C516D'
-      }
+      },
+      ...colors
     },
     fontFamily: { courrier: 'Courier New' }
   },

@@ -13,7 +13,13 @@ import {
   RocketLaunchIcon,
   BugAntIcon,
   ArrowLeftIcon,
-  BuildingLibraryIcon
+  BuildingLibraryIcon,
+  UserCircleIcon,
+  CurrencyEuroIcon,
+  ShoppingBagIcon,
+  PencilIcon,
+  UsersIcon,
+  TruckIcon
 } from '@heroicons/vue/24/outline'
 import { useAccountStore } from '@/stores/useAccountStore'
 import LoginView from './views/LoginView.vue'
@@ -26,28 +32,32 @@ onBeforeMount(() => {
 })
 console.log(accountStore.token)
 const menus = [
-  { value: 'realism', icon: ShieldCheckIcon, name: 'Non-fiction', to: '/realism' },
-  { value: 'mystery', icon: MagnifyingGlassCircleIcon, name: 'Mystère', to: '/mystery' },
-  { value: 'fantasy', icon: AcademicCapIcon, name: 'Fantaisie', to: '/fantasy' },
-  { value: 'romance', icon: HeartIcon, name: 'Romance', to: '/romance' },
-  { value: 'scienceFiction', icon: BeakerIcon, name: 'Science-Fiction', to: '/science_fiction' },
-  { value: 'action', icon: RocketLaunchIcon, name: 'Action', to: '/action' },
-  { value: 'horror', icon: BugAntIcon, name: 'Horreur', to: '/horror' },
-  { value: 'biography', icon: BuildingLibraryIcon, name: 'Biographie', to: '/biography' }
+  { value: 'realism', icon: ShieldCheckIcon, name: 'Non-fiction', genre: 'realism' },
+  { value: 'mystery', icon: MagnifyingGlassCircleIcon, name: 'Mystère', genre: 'mystery' },
+  { value: 'fantasy', icon: AcademicCapIcon, name: 'Fantaisie', genre: 'fantasy' },
+  { value: 'romance', icon: HeartIcon, name: 'Romance', genre: 'romance' },
+  { value: 'scienceFiction', icon: BeakerIcon, name: 'Science-Fiction', genre: 'science_fiction' },
+  { value: 'action', icon: RocketLaunchIcon, name: 'Action', genre: 'action' },
+  { value: 'horror', icon: BugAntIcon, name: 'Horreur', genre: 'horror' },
+  { value: 'biography', icon: BuildingLibraryIcon, name: 'Biographie', genre: 'biography' }
 ]
 
 const accountMenu = [
-  { value: 'profile', icon: ShieldCheckIcon, name: 'Mon Profile', to: '/profile' },
+  { value: 'profile', icon: UserCircleIcon, name: 'Mon Profile', to: '/profile' },
   { value: 'comments', icon: ChatBubbleOvalLeftIcon, name: 'Mes commentaires', to: '/comments' },
-  { value: 'orders', icon: ShieldCheckIcon, name: 'Mes commandes', to: '#' },
-  { value: 'sales', icon: ShieldCheckIcon, name: 'Mes ventes', to: '#' },
-  { value: 'favorite_books', icon: HeartIcon, name: 'Mes livres préférés', to: '#' },
-  { value: 'favorite_author', icon: ShieldCheckIcon, name: 'Mon Auteurice préféré.e', to: '#' },
-  { value: 'friends', icon: ShieldCheckIcon, name: 'Mes amis', to: '#' }
+  { value: 'orders', icon: ShoppingBagIcon, name: 'Mes commandes', to: '/orders' },
+  { value: 'sales', icon: TruckIcon, name: 'Mes ventes', to: '/sales' },
+  { value: 'favorite_books', icon: HeartIcon, name: 'Mes livres préférés', to: '/favorite_books' },
+  {
+    value: 'favorite_author',
+    icon: PencilIcon,
+    name: 'Mon auteurice préféré.e',
+    to: '/favorite_authors'
+  },
+  { value: 'friends', icon: UsersIcon, name: 'Mes amis', to: '/friends' }
 ]
 const route = useRoute()
 const routerArrow = router
-const location = ref(route.path)
 </script>
 
 <template>
@@ -59,16 +69,25 @@ const location = ref(route.path)
         v-if="!accountStore.token && route.name !== 'home' && route.name !== 'book'"
         class="py-28 lg:py-32 px-8"
       />
-      <component :is="Component" class="py-28 lg:py-32 px-8" />
+      <component v-else :is="Component" class="py-28 lg:py-32 mx-auto max-w-5xl" />
       <!-- </KeepAlive> -->
     </RouterView>
   </Suspense>
-  <aside class="mr-4 flex items-start">
-    <TwSidebar :menu="location === '/account' ? accountMenu : menus" class="mt-32" />
-    <button @click="routerArrow.back()" class="flex items-center space-x-2 sticky">
+  <aside
+    v-if="accountStore.token || route.name === 'home' || route.name === 'book'"
+    class="mr-4 flex items-start"
+  >
+    <TwSidebar
+      :menu="route.path === '/account' ? accountMenu : menus"
+      class="mt-32 hidden lg:block"
+    />
+    <button
+      @click="routerArrow.back()"
+      class="flex items-center space-x-2 sticky transition-colors duration-200 hover:text-primary"
+    >
       <span class="sr-only">Retour</span>
       <ArrowLeftIcon
-        class="relative top-[10%] ml-[5%] w-5 h-5 transition-colors duration-200 hover:text-primary"
+        class="relative top-[10%] ml-[5%] w-5 h-5"
         role="navigation"
         aria-label="Retour"
       />

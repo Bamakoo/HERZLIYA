@@ -1,6 +1,7 @@
 <template>
   <nav v-bind="{ menu }" class="hidden lg:flex fixed inset-0 flex-col max-w-max bg-white">
-    <RouterLink
+    <component
+      :is="to ? 'RouterLink' : 'button'"
       v-for="(item, index) in menu"
       :to="item.to"
       :key="index"
@@ -12,7 +13,7 @@
         <component :is="item.icon" class="mr-2 aspect-square w-7" />
         <span class="font-semibold text-lg">{{ item.name }}</span>
       </div>
-    </RouterLink>
+    </component>
   </nav>
 </template>
 

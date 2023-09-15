@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h1>Tous les livres</h1>
-    <div class="gap-4 grid grid-cols-3">
+  <div class="max-w-4xl px-4 md:px-16 mx-auto">
+    <h1 class="text-center text-4xl font-semibold mb-8">Tous les livres</h1>
+    <div class="gap-4 grid md:grid-cols-2 lg:grid-cols-3">
       <div
         v-for="(book, index) in books"
         :key="index"
