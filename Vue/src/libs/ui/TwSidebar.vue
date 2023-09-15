@@ -1,5 +1,5 @@
 <template>
-  <nav v-bind="{ menu }" class="hidden lg:flex fixed inset-0 flex-col max-w-max">
+  <nav v-bind="{ menu }" class="hidden lg:flex fixed inset-0 flex-col max-w-max bg-white">
     <RouterLink
       v-for="(item, index) in menu"
       :to="item.to"

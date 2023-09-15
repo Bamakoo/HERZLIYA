@@ -20,7 +20,7 @@
       <h1 class="text-3xl font-bold tracking-tight text-gray-900 text-center">
         {{
           books.length
-            ? `Vous avez ${books.length} articles dans votre Panier`
+            ? `Vous avez ${books.length} article${books.length > 1 ? 's' : ''} dans votre Panier`
             : 'Votre panier est vide'
         }}
       </h1>

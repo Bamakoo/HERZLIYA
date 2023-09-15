@@ -7,7 +7,7 @@ export interface Cart {
   books: Books[];
   total: number;
   createdAt: number;
-  purchasedAt: number | null;
-  updatedAt: number | null;
-  deletedAt: number | null;
+  purchasedAt: number;
+  updatedAt: number;
+  deletedAt: number;
 }

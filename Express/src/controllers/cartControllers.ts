@@ -28,24 +28,24 @@ export const retrieve = (id: Cart["id"]) => {
   return result;
 };
 
-// export const create = (data: Cart) => {
-//   const result = new Promise((resolve) => {
-//     try {
-//       const { datas } = carts;
-//       const cartData: Cart = {
-//         ...data,
-//         purchasedAt: null,
-//         updatedAt: null,
-//         deletedAt: null,
-//       };
-//       datas.push(cartData);
-//       resolve(datas);
-//     } catch (error) {
-//       throw new Error((error as Error).message);
-//     }
-//   });
-//   return result;
-// };
+export const create = (data: Cart) => {
+  const result = new Promise((resolve) => {
+    try {
+      const { datas } = carts;
+      const cartData: Cart = {
+        ...data,
+        purchasedAt: 0,
+        updatedAt: 0,
+        deletedAt: 0,
+      };
+      datas.push(cartData);
+      resolve(datas);
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  });
+  return result;
+};
 
 export const update = (id: Cart["id"], data: Cart) => {
   const result = new Promise((resolve) => {

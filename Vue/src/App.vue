@@ -55,12 +55,15 @@ const location = ref(route.path)
   <Suspense>
     <RouterView v-slot="{ Component }">
       <!-- <KeepAlive> -->
-      <LoginView v-if="!accountStore.token" class="py-28 lg:py-32 px-8" />
+      <LoginView
+        v-if="!accountStore.token && route.name !== 'home' && route.name !== 'book'"
+        class="py-28 lg:py-32 px-8"
+      />
       <component :is="Component" class="py-28 lg:py-32 px-8" />
       <!-- </KeepAlive> -->
     </RouterView>
   </Suspense>
-  <aside class="mr-4 flex flex-col justify-start">
+  <aside class="mr-4 flex items-start">
     <TwSidebar :menu="location === '/account' ? accountMenu : menus" class="mt-32" />
     <button @click="routerArrow.back()" class="flex items-center space-x-2 sticky">
       <span class="sr-only">Retour</span>

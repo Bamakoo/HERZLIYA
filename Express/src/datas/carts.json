@@ -23,7 +23,7 @@
       "createdAt": 1678992000,
       "purchasedAt": 1678995221,
       "updatedAt": 1678995000,
-      "deletedAt": null
+      "deletedAt": 0
     },
     {
       "id": "b9ab583b-1a4a-4ebf-b9f7-3e56728db35c",
@@ -39,9 +39,9 @@
       ],
       "total": 7,
       "createdAt": 1679155200,
-      "purchasedAt": null,
+      "purchasedAt": 0,
       "updatedAt": 1679158000,
-      "deletedAt": null
+      "deletedAt": 0
     },
     {
       "id": "c3b8da14-d685-4f0a-9f95-e21f18102f5f",
@@ -65,9 +65,9 @@
       ],
       "total": 27,
       "createdAt": 1679328000,
-      "purchasedAt": null,
+      "purchasedAt": 0,
       "updatedAt": 1679331000,
-      "deletedAt": null
+      "deletedAt": 0
     },
     {
       "id": "d057e6f8-7bb6-4c89-a3e4-9005b869b4e8",
@@ -84,8 +84,8 @@
       "total": 9,
       "createdAt": 1679491200,
       "purchasedAt": 1679491211,
-      "updatedAt": null,
-      "deletedAt": null
+      "updatedAt": 0,
+      "deletedAt": 0
     },
     {
       "id": "e768b497-e2b7-4a37-b7f6-8eb061f131d9",
@@ -115,9 +115,9 @@
       ],
       "total": 25,
       "createdAt": 1679664000,
-      "purchasedAt": null,
+      "purchasedAt": 0,
       "updatedAt": 1679667000,
-      "deletedAt": null
+      "deletedAt": 0
     },
     {
       "id": "f0a8e37d-4d91-4a95-8cc2-3f2e7d2ea4c5",
@@ -133,8 +133,8 @@
       ],
       "total": 5,
       "createdAt": 1679836800,
-      "purchasedAt": null,
-      "updatedAt": null,
+      "purchasedAt": 0,
+      "updatedAt": 0,
       "deletedAt": 1679840000
     }
   ]

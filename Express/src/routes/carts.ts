@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import {
   list,
-  // create,
+  create,
   update,
   del,
   retrieve,
@@ -20,10 +20,10 @@ router.get("/:id", async (req: Request, res: Response) => {
   return res.json(datas);
 });
 
-// router.post("/", async (req, res) => {
-//   const datas = await create(req.body);
-//   return res.json(datas);
-// });
+router.post("/", async (req, res) => {
+  const datas = await create(req.body);
+  return res.json(datas);
+});
 
 router.patch("/:id", async (req: Request, res: Response) => {
   const id = req.params.id;
