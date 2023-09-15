@@ -8,14 +8,14 @@
           label="Nom utilisateur"
           autocomplete
           required
-          hint="Champ obligatoire"
+          class="mb-4"
         />
         <TwInputText
+          type="password"
           v-model="datas.password"
           label="Mot de passe"
           autocomplete
           required
-          hint="Champ obligatoire"
         />
         <TwButton
           type="button"
@@ -52,7 +52,7 @@ const datas = ref<{
 const isLoading = ref(false)
 
 const login = (e: SubmitEvent) => {
-  e.preventDefault()
+  // e.preventDefault()
   try {
     if (!datas.value.username && !datas.value.password) return
     isLoading.value = true

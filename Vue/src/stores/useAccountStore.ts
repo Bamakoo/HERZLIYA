@@ -51,7 +51,8 @@ export const useAccountStore = defineStore('users', () => {
       books: user.books,
       purchases: user.purchases,
       sales: user.sales,
-      friends: user.friends
+      friends: user.friends,
+      cart: user.cart
     }
 
     userAccount.value = account

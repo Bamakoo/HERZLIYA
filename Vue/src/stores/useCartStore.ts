@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { useFetchCart } from '@/api/fetchs/useFetchCart'
 import type { Cart } from '@/libs/interfaces/carts'
+import type { Books } from '@/libs/interfaces/books'
 
 export const useCartStore = defineStore('cart', () => {
   const fetchCart = useFetchCart()
@@ -10,5 +11,10 @@ export const useCartStore = defineStore('cart', () => {
     return data
   }
 
-  return { retrieveCart }
+  const createCart = (books: Books[]) => {
+    const data = fetchCart.create(books)
+    return data
+  }
+
+  return { retrieveCart, createCart }
 })

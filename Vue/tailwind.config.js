@@ -15,7 +15,8 @@ export default {
         medium: '#7280BB',
         dark: '#4C516D'
       }
-    }
+    },
+    fontFamily: { courrier: 'Courier New' }
   },
   plugins: []
 }

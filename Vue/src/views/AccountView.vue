@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <AccountDetails v-if="selectedUser" :id="selectedUser" />
+
+  <div v-else>
     <h1>Toustes les utilisateurices</h1>
     <div class="gap-4 grid grid-cols-3">
       <div
@@ -25,14 +27,17 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { useAccountStore } from '@/stores/useAccountStore'
 import router from '@/router'
+import AccountDetails from './AccountDetails.vue'
 
 const userStore = useAccountStore()
 const users = await userStore.userList
 // const user = await userStore.retrieveUserAccount('efc67baf-2593-4218-ad94-34ecc1302a07')
 onBeforeMount(() => users)
 
-const goTo = (user_id: string) => router.push(`/account/${user_id}`)
+const selectedUser = ref('')
+
+const goTo = (user_id: string) => (selectedUser.value = user_id) //router.push(`/account/${user_id}`)
 </script>

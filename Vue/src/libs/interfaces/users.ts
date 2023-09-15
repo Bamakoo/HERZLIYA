@@ -1,5 +1,5 @@
 import type { Books } from './books'
-// import type { Cart } from './cart'
+import type { Cart } from './carts'
 // import type { Comments } from './comments'
 // import type { Likes } from './likes'
 
@@ -31,7 +31,7 @@ export interface Users {
   createdAt: number | null
   updatedAt: number | null
   books: Books[]
-  // cart: Cart
+  cart: Cart
   purchases: Purchases[]
   sales: Sales[]
   friends: Friends[]

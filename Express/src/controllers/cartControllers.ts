@@ -32,7 +32,6 @@ export const retrieve = (id: Cart["id"]) => {
 //   const result = new Promise((resolve) => {
 //     try {
 //       const { datas } = carts;
-//       // Set the initial values for purchasedAt, updatedAt, and deletedAt to null
 //       const cartData: Cart = {
 //         ...data,
 //         purchasedAt: null,

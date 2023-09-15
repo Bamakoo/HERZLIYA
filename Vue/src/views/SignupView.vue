@@ -26,13 +26,16 @@
             hint="Champ obligatoire"
           />
           <TwInputText
+            type="password"
             v-model="datas.password"
             label="Mot de passe"
             autocomplete
             required
-            hint="Champ obligatoire"
+            minlength="8"
+            hint="8 caractères minimum"
           />
           <TwInputText
+            type="password"
             v-model="datas.confirmPassword"
             label="Confirmer le mot de passe"
             autocomplete

@@ -37,5 +37,5 @@ app.use(
 
 app.use("/books", booksRoutes);
 app.use("/users", userRoutes);
-app.use("/cart", cartRoutes);
+app.use("/kart", cartRoutes);
 app.use("/login", loginRoutes);

@@ -6,11 +6,9 @@ const router = Router();
 
 router.post("/", async (req: Request, res: Response) => {
   let auth = req.headers.authorization;
-  //decode token
 
   const token = atob(auth ?? "");
   console.log(token);
-  //déconstruit
   const [username, password] = auth?.split(":") ?? [];
   const users = await list();
   const match = users.find(

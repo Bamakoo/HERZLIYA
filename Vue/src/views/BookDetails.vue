@@ -11,7 +11,7 @@
         <div class="font-medium">État : {{ book?.state }}</div>
       </div>
 
-      <TwButton @click="addToCart(book?.id ?? '')">Ajouter au panier</TwButton>
+      <TwButton @click="addToCart(book as Books)">Ajouter au panier</TwButton>
     </div>
   </div>
 </template>
@@ -23,15 +23,19 @@ import { useBookStore } from '@/stores/useBookStore'
 import { useFetchCart } from '@/api/fetchs/useFetchCart'
 import { TwButton } from '@/libs/ui/index.vue'
 import type { Books } from '@/libs/interfaces/books'
+import { useAccountStore } from '@/stores/useAccountStore'
 
 const route = useRoute()
 const { id } = route.params
 const bookStore = useBookStore()
 const book = ref<Books>()
 const fetchCart = useFetchCart()
-const addToCart = async (book_id: Books['id']) => {
-  // const data = await fetchCart.create()
-  // data.books.push(book_id)
+const accountStore = useAccountStore()
+const addToCart = async (book: Books) => {
+  const data = accountStore.userAccount?.cart?.books
+  data?.push(book)
+  console.log(data)
+  return data
 }
 
 onBeforeMount(async () => (book.value = await bookStore.retrieveBook(id as string)))
