@@ -1,4 +1,5 @@
 <template>
+  {{ selected }}
   <label :for="forText">
     <div class="flex justify-between items-center">
       <span class="text-sm font-medium leading-6 text-gray-900">{{ label }}</span>
@@ -29,7 +30,7 @@
   <span class="text-xs">{{ subhint }}</span>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 const props = defineProps<{
   options: { name: string; value: string }[]
   modelValue?: string
@@ -42,15 +43,16 @@ const props = defineProps<{
   disabled?: boolean
 }>()
 const emit = defineEmits<{
-  (event: 'update:model-value', value: string): void
+  (event: 'change:model-value', value: string): void
 }>()
 
+// const selected = ref('')
 const selected = computed({
   get() {
     return props.modelValue?.toString() ?? ''
   },
   set(val: string) {
-    emit('update:model-value', val)
+    emit('change:model-value', val)
   }
 })
 

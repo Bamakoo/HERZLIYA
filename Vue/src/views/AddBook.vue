@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto max-w-3xl p-4">
+  <div class="mx-auto max-w-2xl p-4">
     <TwForm
       :onSubmit="onSubmit"
       :onCancel="onCancel"
@@ -8,9 +8,6 @@
       description="Remplissez tous les champs du formulaire pour vendre votre livre."
       class="bg-secondary-light/20 p-8 rounded-xl"
     >
-      {{ datas.title }}
-      {{ datas.author }}
-      {{ datas.price }}
       {{ datas.state }}
       <div class="border-b border-gray-900/10 pb-12">
         <span class="text-red-500 font-semibold">Tous les champs sont obligatoires</span>
@@ -65,10 +62,12 @@
           <div class="sm:col-span-2">
             <TwInputSelect
               :options="states"
-              v-model="selectedState"
+              :model-value="selectedState"
               label="État"
               required
               name="state"
+              hint="Champ obligatoire"
+              @change:model-value="selectedState"
             />
           </div>
           <!-- <div class="col-span-full">
@@ -113,14 +112,14 @@ const selectedState = ref('')
 // ]
 
 const states = [
-  { value: 'horrendous', name: 'Horrible' },
-  { value: 'bad', name: 'Mauvais' },
-  { value: 'okay', name: 'Okay' },
-  { value: 'passable', name: 'Passable' },
-  { value: 'acceptable', name: 'Acceptable' },
-  { value: 'good', name: 'Bon État' },
-  { value: 'excellent', name: 'Excellent' },
-  { value: 'brandNew', name: 'Neuf' }
+  { name: 'Horrible', value: 'horrendous' },
+  { name: 'Mauvais', value: 'bad' },
+  { name: 'Okay', value: 'okay' },
+  { name: 'Passable', value: 'passable' },
+  { name: 'Acceptable', value: 'acceptable' },
+  { name: 'Bon État', value: 'good' },
+  { name: 'Excellent', value: 'excellent' },
+  { name: 'Neuf', value: 'brandNew' }
 ]
 
 type NewBook = Omit<Books, 'id' | 'status' | 'updatedAt' | 'deletedAt' | 'isFavorite'>
@@ -137,13 +136,13 @@ const datas = ref<{
   title: null,
   author: null,
   state: null,
-  price: null
+  price: 0
 })
 
 const { create } = useFetchBooks()
 const onSubmit = async () => {
   try {
-    const newBookData: NewBook = {
+    const newBookData: Omit<Books, 'id'> = {
       title: datas.value?.title,
       author: datas.value?.author,
       state: datas.value?.state,

@@ -1,8 +1,8 @@
 <template>
-  <div class="max-w-4xl px-4 md:px-16 mx-auto">
+  <div class="max-w-xl lg:max-w-4xl px-4 md:px-8 mx-auto">
     <h1 class="text-center text-4xl font-semibold mb-8">Tous les livres</h1>
-    <div class="gap-4 grid md:grid-cols-2 lg:grid-cols-3">
-      <div
+    <div class="gap-4 mx-auto max-w-sm md:max-w-3xl grid sm:grid-cols-2">
+      <!-- <div
         v-for="(book, index) in books"
         :key="index"
         class="bg-white rounded border max-w-md border-gray-300 cursor-pointer p-2"
@@ -18,7 +18,14 @@
             <div class="font-semibold">{{ book.price }} €</div>
           </div>
         </div>
-      </div>
+      </div> -->
+      <TwCard
+        v-for="(book, index) in books"
+        :key="index"
+        :book="book"
+        :to="`/books/${book.id}`"
+        class="max-w-sm sm:max-w-none"
+      />
     </div>
   </div>
 </template>
@@ -27,6 +34,7 @@
 import { onBeforeMount, computed } from 'vue'
 import { useBookStore } from '@/stores/useBookStore'
 import router from '@/router'
+import { TwCard } from '@/libs/ui/index.vue'
 
 const bookStore = useBookStore()
 const books = await bookStore.books

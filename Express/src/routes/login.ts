@@ -7,7 +7,7 @@ const router = Router();
 router.post("/", async (req: Request, res: Response) => {
   let auth = req.headers.authorization;
 
-  const token = atob(auth ?? "");
+  const token = Buffer.from(auth ?? "", "base64");
   console.log(token);
   const [username, password] = auth?.split(":") ?? [];
   const users = await list();
@@ -16,10 +16,19 @@ router.post("/", async (req: Request, res: Response) => {
   );
   // if (!match) res.sendStatus(401);
 
-  if (match) match.token = token;
+  if (match) {
+    let BufferStringify = match.token.toString();
+    BufferStringify = token.toString(); //atob(auth ?? "");
+    return BufferStringify;
+  }
   res.header("Authorization", `Basic ${token}`);
+  res.status(200);
   // console.log((auth = ));
   return token;
+});
+
+router.delete("/", async (req, res) => {
+  res.header("Autorization");
 });
 
 export { router as loginRoutes };

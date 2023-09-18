@@ -6,6 +6,7 @@ export { default as TwForm } from './TwForm.vue'
 export { default as TwFriends } from './TwFriends.vue'
 export { default as TwInputSelect } from './TwInputSelect.vue'
 export { default as TwInputText } from './TwInputText.vue'
+export { default as TwLikes } from './TwLikes.vue'
 export { default as TwSidebar } from './TwSidebar.vue'
 export { default as TwSpinner } from './TwSpinner.vue'
 </script>

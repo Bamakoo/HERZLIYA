@@ -32,5 +32,12 @@ export const useFetchAccounts = () => {
     return data
   }
 
-  return { list, retrieve, create, update, del }
+  const logout = async (token: Users['token']) => {
+    const { data } = await httpClient.delete('/login', {
+      headers: { Authorization: `Basic ${token}` }
+    })
+    return data
+  }
+
+  return { list, retrieve, create, update, del, logout }
 }

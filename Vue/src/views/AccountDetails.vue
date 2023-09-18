@@ -44,6 +44,7 @@
       </div>
     </div>
   </div>
+  <TwButton color="red" @click="logout">Bye Bye</TwButton>
 </template>
 
 <!-- <script setup lang="ts">
@@ -68,10 +69,18 @@ import type { Users } from '@/libs/interfaces/users'
 import { StarIcon } from '@heroicons/vue/24/solid'
 import { UserPlusIcon } from '@heroicons/vue/24/outline'
 import { TwButton } from '@/libs/ui/index.vue'
+import router from '@/router'
+import axios from 'axios'
 // import { useRoute } from 'vue-router';
 const props = defineProps<{ id: Users['id'] }>()
 const accountStore = useAccountStore()
 const user = await accountStore.retrieveUserAccount(props.id)
 const { createdAt } = user
 const memberSince = new Date(createdAt).toLocaleDateString('fr-FR')
+const route = router
+const logout = () => {
+  axios.defaults.headers.delete.Authorization
+  window.localStorage.removeItem('token')
+  route.go(0)
+}
 </script>

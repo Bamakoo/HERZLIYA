@@ -15,8 +15,8 @@
 </template> -->
 
 <template>
-  <div class="bg-white">
-    <div class="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+  <div class="bg-white py-28 lg:py-32">
+    <div class="mx-auto max-w-5xl">
       <h1 class="text-3xl font-bold tracking-tight text-gray-900 text-center">
         {{
           books.length
@@ -25,11 +25,11 @@
         }}
       </h1>
 
-      <form class="mt-12">
-        <div>
+      <form class="mt-12 px-6">
+        <div class="max-w-sm lg:max-w-lg mx-auto">
           <h2 class="sr-only">Les livres dans votre panier</h2>
 
-          <ul role="list" class="space-y-4 sm:ml-32 sm:pl-6">
+          <ul role="list" class="space-y-4">
             <!-- <TwCard
               :book="book"
               :to="`books/${book.id}`"
@@ -48,7 +48,7 @@
             <div
               v-for="(book, index) in books"
               :key="index"
-              class="ml-4 flex flex-1 flex-col justify-between sm:ml-0"
+              class="flex flex-1 flex-col justify-between sm:ml-0"
             >
               <div>
                 <div class="grid grid-cols-2">
@@ -93,31 +93,30 @@
         </div>
 
         <!-- Order summary -->
-        <div class="mt-10 sm:ml-32 sm:pl-6">
+        <div class="mt-10 max-w-sm lg:max-w-lg mx-auto">
           <div class="rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:p-8">
             <h2 class="sr-only">Récapitulatif</h2>
 
-            <div class="flow-root">
-              <dl class="-my-4 divide-y divide-gray-200 text-sm">
-                <div class="flex items-center justify-between py-4">
-                  <dt class="text-gray-600">Sous-total</dt>
-                  <dd class="font-medium text-gray-900">{{ prices }} €</dd>
-                </div>
-                <div class="flex items-center justify-between py-4">
-                  <dt class="text-gray-600">Livraison</dt>
-                  <dd class="font-medium text-gray-900">5 €</dd>
-                </div>
-                <div class="flex items-center justify-between py-4">
-                  <dt class="text-base font-medium text-gray-900">Total de la commande</dt>
-                  <dd class="text-base font-medium text-gray-900">{{ prices + 5 }} €</dd>
-                </div>
-              </dl>
-            </div>
+            <dl class="-my-4 divide-y divide-gray-200 text-sm">
+              <div class="flex items-center justify-between py-4">
+                <dt class="text-gray-600">Sous-total</dt>
+                <dd class="font-medium text-gray-900">{{ prices }} €</dd>
+              </div>
+              <div class="flex items-center justify-between py-4">
+                <dt class="text-gray-600">Livraison</dt>
+                <dd class="font-medium text-gray-900">5 €</dd>
+              </div>
+              <div class="flex items-center justify-between py-4">
+                <dt class="text-base font-medium text-gray-900">Total de la commande</dt>
+                <dd class="text-base font-medium text-gray-900">{{ prices + 5 }} €</dd>
+              </div>
+            </dl>
           </div>
+
           <div class="mt-10">
             <button
               type="submit"
-              class="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+              class="w-full rounded-md border border-transparent bg-secondary px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-secondary-light focus:ring-offset-2 focus:ring-offset-gray-50"
               @click="buy"
             >
               Acheter
@@ -127,10 +126,10 @@
           <div class="mt-6 text-center text-sm text-gray-500">
             <p>
               or
-              <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+              <RouterLink to="/" class="font-medium text-secondary hover:text-secondary-dark">
                 Voir d'autres livres
                 <span aria-hidden="true"> &rarr;</span>
-              </a>
+              </RouterLink>
               <!-- go.backward pour revenir à la page précédente -->
             </p>
           </div>
@@ -147,7 +146,6 @@ import { useAccountStore } from '@/stores/useAccountStore'
 import type { Cart } from '@/libs/interfaces/carts'
 import { TwCard } from '@/libs/ui/index.vue'
 import { CheckIcon, XMarkIcon } from '@heroicons/vue/20/solid'
-import router from '@/router'
 import type { Books } from '@/libs/interfaces/books'
 
 const accountStore = useAccountStore()

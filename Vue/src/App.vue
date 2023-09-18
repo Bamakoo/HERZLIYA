@@ -2,7 +2,7 @@
 import { onBeforeMount, ref } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import Header from './components/Header.vue'
-import TwSidebar from './libs/ui/TwSidebar.vue'
+import { TwSidebar, TwButton } from './libs/ui/index.vue'
 import {
   ShieldCheckIcon,
   MagnifyingGlassCircleIcon,
@@ -69,29 +69,28 @@ const routerArrow = router
         v-if="!accountStore.token && route.name !== 'home' && route.name !== 'book'"
         class="py-28 lg:py-32 px-8"
       />
-      <component v-else :is="Component" class="py-28 lg:py-32 mx-auto max-w-5xl" />
+      <component v-else :is="Component" class="py-28 lg:py-32 mx-auto" />
       <!-- </KeepAlive> -->
     </RouterView>
   </Suspense>
-  <aside
+  <!-- <aside
     v-if="accountStore.token || route.name === 'home' || route.name === 'book'"
     class="mr-4 flex items-start"
   >
     <TwSidebar
       :menu="route.path === '/account' ? accountMenu : menus"
-      class="mt-32 hidden lg:block"
+      class="mt-32 mr-2 hidden lg:flex"
     />
-    <button
+    <TwButton
       @click="routerArrow.back()"
-      class="flex items-center space-x-2 sticky transition-colors duration-200 hover:text-primary"
+      size="s"
+      role="button"
+      aria-roledescription="Retour"
+      class="relative top-32 text-gray-700 bg-transparent hover:bg-transparent transition-colors duration-150 hover:text-primary whitespace-nowrap"
     >
       <span class="sr-only">Retour</span>
-      <ArrowLeftIcon
-        class="relative top-[10%] ml-[5%] w-5 h-5"
-        role="navigation"
-        aria-label="Retour"
-      />
-      <span class="hidden lg:inline font-medium">Retour</span>
-    </button>
-  </aside>
+      <ArrowLeftIcon class="w-5 h-5 inline mr-2" role="navigation" aria-label="Retour" />
+      <span class="text-base hidden lg:inline font-medium">Retour</span>
+    </TwButton>
+  </aside> -->
 </template>
