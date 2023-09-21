@@ -13,4 +13,18 @@ export interface Books {
     | 'excellent'
     | 'brandNew'
     | null
+  genre:
+    | 'fantasy'
+    | 'scienceFiction'
+    | 'action'
+    | 'mystery'
+    | 'horror'
+    | 'romance'
+    | 'realism'
+    | 'biography'
+    | null
+  description: string | undefined
+  createdAt: number | null
+  updatedAt: number | null
+  deletedAt: number | null
 }

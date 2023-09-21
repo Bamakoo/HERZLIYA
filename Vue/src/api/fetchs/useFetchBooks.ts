@@ -13,19 +13,19 @@ export const useFetchBooks = () => {
   }
 
   const create = async (datas: Omit<Books, 'id'>) => {
-    const data = await httpClient.post<Books>('/books', datas)
+    const { data } = await httpClient.post<Books>('/books', datas)
     return data
   }
 
-  // const update = async (id: Books['id'], datas: Omit<Books, 'id'>) => {
-  //   const data = await httpClient.patch<Partial<Books>>(`/books/${id}`,  datas )
-  //   return data
-  // }
+  const update = async (id: Books['id'], datas: Omit<Books, 'id'>) => {
+    const { data } = await httpClient.patch<Partial<Books>>(`/books/${id}`, datas)
+    return data
+  }
 
-  // const del = async (id: Books['id']) => {
-  //   const data = await httpClient.delete<Books>(`/books/${id}`)
-  //   return data
-  // }
+  const del = async (id: Books['id']) => {
+    const { data } = await httpClient.delete<Books>(`/books/${id}`)
+    return data
+  }
 
-  return { list, retrieve, create } //, update, del }
+  return { list, retrieve, create, update, del }
 }

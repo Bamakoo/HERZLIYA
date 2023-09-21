@@ -21,7 +21,7 @@
       <div>
         <span>Auteur préféré : {{ user.favoriteAuthor }}</span>
       </div>
-      <TwButton size="l" class="mt-8"
+      <TwButton size="l" class="mt-8" @click="addFriend"
         ><UserPlusIcon class="h-5 w-5 text-white mr-2 stroke-2" /><span
           >Ajouter en ami</span
         ></TwButton
@@ -71,16 +71,34 @@ import { UserPlusIcon } from '@heroicons/vue/24/outline'
 import { TwButton } from '@/libs/ui/index.vue'
 import router from '@/router'
 import axios from 'axios'
+import { useFetchFriends } from '@/api/fetchs/useFetchFriends'
 // import { useRoute } from 'vue-router';
+
 const props = defineProps<{ id: Users['id'] }>()
+
 const accountStore = useAccountStore()
 const user = await accountStore.retrieveUserAccount(props.id)
 const { createdAt } = user
 const memberSince = new Date(createdAt).toLocaleDateString('fr-FR')
+const fetchFriends = useFetchFriends()
+
 const route = router
+
 const logout = () => {
   axios.defaults.headers.delete.Authorization
   window.localStorage.removeItem('token')
   route.go(0)
 }
+
+const addFriend = async () => {
+  const data = await fetchFriends.create(props.id)
+  const friends = accountStore.userAccount?.friends
+  friends?.push(data)
+  console.log(friends)
+  return data
+}
+
+// VÉRIFIER QUE C'EST PAS MOI => DIFFÉRENCE DE TOKEN + AFFICHER LE BOUTON QUE SI LES TOKEN SONT DIFFÉRENTS
+// PB CORS : Access to XMLHttpRequest at 'http://127.0.0.1:3000/friends' from origin 'http://localhost:5173' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+// TO DO : CRÉER LA ROUT EN BACK POUR VOIR SI ÇA FONCTIONNE
 </script>

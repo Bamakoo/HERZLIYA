@@ -1,18 +1,17 @@
 <template>
-  <nav v-bind="{ menu }" class="hidden lg:flex lg:fixed inset-0 lg:flex-col max-w-max">
+  <nav v-bind="{ menu }" class="hidden lg:flex lg:flex-col pl-6 pt-6 w-64">
+    <h3>{{ menu.title }}</h3>
     <component
-      :is="to ? 'RouterLink' : 'button'"
-      v-for="(item, index) in menu"
-      :to="item.to"
-      :key="index"
-      :active-class="'text-primary '"
-      :aria-label="item.name"
-      class="focus-within:ring bg-white focus:ring-offset-0 focus-within:ring-primary hover:text-primary first:rounded-tr-2xl last:rounded-br-2xl border focus:border-transparent"
+      v-for="(sub, i) in menu.submenu"
+      :is="sub.attributes.tag"
+      :key="i"
+      :active-class="'text-primary'"
+      :aria-label="sub.name"
+      v-bind="sub.attributes"
+      class="focus-within:ring focus:ring-offset-0 focus-within:ring-primary hover:text-primary first:rounded-tr-2xl last:rounded-br-2xl border focus:border-transparent p-2 items-center space-x-2 focus:border-none flex"
     >
-      <div class="p-2 items-center space-x-2 focus:ring-0 focus:border-none flex">
-        <component :is="item.icon" class="mr-2 aspect-square w-7" />
-        <span class="font-semibold text-lg">{{ item.name }}</span>
-      </div>
+      <component v-if="sub.icon" :is="sub.icon" class="mr-2 aspect-square w-7" />
+      <span class="font-semibold text-lg">{{ sub.name }}</span>
     </component>
   </nav>
 </template>
@@ -23,9 +22,13 @@ import type { FunctionalComponent } from 'vue'
 const props = defineProps<{
   menu: {
     value: string
-    icon: string | FunctionalComponent
-    name: string
-    to: string
-  }[]
+    title: string
+    submenu: {
+      value: string
+      icon?: string | FunctionalComponent
+      name: string
+      attributes: { tag: string; onClick?: () => {}; to: string }
+    }[]
+  }
 }>()
 </script>

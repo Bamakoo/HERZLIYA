@@ -29,7 +29,7 @@ const props = defineProps<{
   disabled?: boolean
   loading?: boolean
   href?: string
-  color?: string
+  color?: 'red' | string
   // emitValue?: unknown
 }>()
 
@@ -79,7 +79,7 @@ const btnColor = computed(() => {
         classes.push(props.color)
       }
     }
-    classes.push(props.color, ' focus-visible:outline-secondary text-white')
+    classes.push(props.color, 'focus-visible:outline-secondary text-white')
   }
   // if (!props.color) {
   //   if (isDisabled.value)

@@ -8,7 +8,6 @@
       description="Remplissez tous les champs du formulaire pour vendre votre livre."
       class="bg-secondary-light/20 p-8 rounded-xl"
     >
-      {{ datas.state }}
       <div class="border-b border-gray-900/10 pb-12">
         <span class="text-red-500 font-semibold">Tous les champs sont obligatoires</span>
         <div class="mt-10 grid gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -37,7 +36,7 @@
           <TwInputText
             label="Prix"
             type="number"
-            :step="0.05"
+            :step="0.01"
             :min="0"
             for-text="price"
             hint="champ obligatoire"
@@ -48,33 +47,31 @@
             class="sm:col-span-2"
           />
 
-          <!-- <div class="sm:col-span-2">
-            <TwInputSelect
-              label="Genre"
-              :options="genres"
-              v-model="selectedGenre"
-              name="genre"
-              required
-              hint="champ obligatoire"
-            />
-          </div> -->
+          <TwInputSelect
+            label="Genre"
+            :options="genres"
+            v-model="selectedGenre"
+            name="genre"
+            for-text="genre"
+            required
+            hint="champ obligatoire"
+            class="sm:col-span-2"
+            @change:model-value="(val) => (selectedGenre = val)"
+          />
 
-          <div class="sm:col-span-2">
-            <TwInputSelect
-              :options="states"
-              :model-value="selectedState"
-              label="État"
-              required
-              name="state"
-              hint="Champ obligatoire"
-              @change:model-value="selectedState"
-            />
-          </div>
-          <!-- <div class="col-span-full">
-            <label for="description" class="block text-sm font-medium leading-6 text-gray-900"
-              >Description</label
-            >
-            <div>
+          <TwInputSelect
+            label="État"
+            :options="states"
+            :modelValue="selectedState"
+            @change:modelValue="(val) => (selectedState = val)"
+            required
+            name="state"
+            hint="Champ obligatoire"
+            class-name="sm:col-span-2"
+          />
+          <div class="col-span-full">
+            <label for="description" class="text-sm font-medium leading-6"
+              >Description
               <textarea
                 v-model.trim="datas.description"
                 name="description"
@@ -82,10 +79,10 @@
                 rows="3"
                 hint="Champ obligatoire"
                 autocomplete="on"
-                class="block w-full h-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary-dark sm:text-sm sm:leading-6 resize-none"
+                class="w-full h-full rounded-md border-0 py-1.5 px-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary-dark sm:text-sm sm:leading-6 resize-none"
               />
-            </div>
-          </div> -->
+            </label>
+          </div>
         </div>
       </div>
     </TwForm>
@@ -97,19 +94,22 @@ import { ref } from 'vue'
 import { TwForm, TwInputText, TwInputSelect } from '@/libs/ui/index.vue'
 import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
 import type { Books } from '@/libs/interfaces/books'
+import router from '@/router'
 
-// const selectedGenre = ref('')
+const route = router
+
+const selectedGenre = ref('')
 const selectedState = ref('')
-// const genres = [
-//   { value: 'fantasy', name: 'Fantaisie' },
-//   { value: 'scienceFiction', name: 'Science-Fiction' },
-//   { value: 'action', name: 'Action' },
-//   { value: 'mystery', name: 'Mystère' },
-//   { value: 'horror', name: 'Horreur' },
-//   { value: 'romance', name: 'Romance' },
-//   { value: 'realism', name: 'Non-Fiction' },
-//   { value: 'biography', name: 'Biographie' }
-// ]
+const genres = [
+  { value: 'fantasy', name: 'Fantaisie' },
+  { value: 'scienceFiction', name: 'Science-Fiction' },
+  { value: 'action', name: 'Action' },
+  { value: 'mystery', name: 'Mystère' },
+  { value: 'horror', name: 'Horreur' },
+  { value: 'romance', name: 'Romance' },
+  { value: 'realism', name: 'Non-Fiction' },
+  { value: 'biography', name: 'Biographie' }
+]
 
 const states = [
   { name: 'Horrible', value: 'horrendous' },
@@ -127,16 +127,19 @@ const datas = ref<{
   title: NewBook['title']
   author: NewBook['author']
   state: NewBook['state']
-  // genre: NewBook['genre']
+  genre: NewBook['genre']
   price: NewBook['price']
-  // description: NewBook['description']
+  description: NewBook['description']
   // img: NewBook['img']
-  // createdAt: NewBook['createdAt']
+  createdAt: NewBook['createdAt']
 }>({
   title: null,
   author: null,
   state: null,
-  price: 0
+  price: 0,
+  genre: null,
+  description: undefined,
+  createdAt: new Date(Date.now()).getTime()
 })
 
 const { create } = useFetchBooks()
@@ -145,12 +148,14 @@ const onSubmit = async () => {
     const newBookData: Omit<Books, 'id'> = {
       title: datas.value?.title,
       author: datas.value?.author,
-      state: datas.value?.state,
-      // genre: datas.value?.genre ?? null,
-      price: datas.value?.price
-      // description: datas.value?.description,
+      state: selectedState.value,
+      genre: selectedGenre.value,
+      price: datas.value?.price,
+      description: datas.value?.description,
       // img: datas.value.img,
-      // createdAt: datas.value.createdAt
+      createdAt: datas.value.createdAt,
+      updatedAt: null,
+      deletedAt: null
     }
     console.log(newBookData)
     const newBook = await create(newBookData)
@@ -161,6 +166,6 @@ const onSubmit = async () => {
   }
 }
 const onCancel = () => {
-  return
+  route.back()
 }
 </script>

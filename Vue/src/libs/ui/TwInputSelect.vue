@@ -1,8 +1,7 @@
 <template>
-  {{ selected }}
-  <label :for="forText">
+  <label :for="forText" :class="className" :aria-label="label">
     <div class="flex justify-between items-center">
-      <span class="text-sm font-medium leading-6 text-gray-900">{{ label }}</span>
+      <span class="text-sm font-medium leading-6">{{ label }}</span>
       <span
         v-if="hint"
         class="text-xs italic"
@@ -11,26 +10,25 @@
       >
     </div>
 
-    <div>
-      <select
-        v-model="selected"
-        :name="name"
-        :aria-required="required"
-        :required="required"
-        :aria-disabled="disabled"
-        :disabled="disabled"
-        class="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-secondary-dark sm:max-w-xs sm:text-sm sm:leading-6 px-2"
-      >
-        <option v-for="(option, index) in options" :key="index" :value="option.value">
-          {{ option.name }}
-        </option>
-      </select>
-    </div>
+    <select
+      v-model.trim="value"
+      :name="name"
+      :aria-required="required"
+      :required="required"
+      :aria-disabled="disabled"
+      :disabled="disabled"
+      class="block w-full rounded-md py-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary-dark sm:text-sm sm:leading-6 px-2"
+      @change="$emit('change:modelValue', value)"
+    >
+      <option v-for="(option, index) in options" :key="index" :value="option.value">
+        {{ option.name }}
+      </option>
+    </select>
+    <span v-if="subhint" class="text-xs">{{ subhint }}</span>
   </label>
-  <span class="text-xs">{{ subhint }}</span>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 const props = defineProps<{
   options: { name: string; value: string }[]
   modelValue?: string
@@ -41,20 +39,18 @@ const props = defineProps<{
   name?: string
   required?: boolean
   disabled?: boolean
+  className?: string
 }>()
 const emit = defineEmits<{
-  (event: 'change:model-value', value: string): void
+  (event: 'change:modelValue', value: string): void
 }>()
 
-// const selected = ref('')
-const selected = computed({
-  get() {
-    return props.modelValue?.toString() ?? ''
+const value = computed({
+  get: () => {
+    return props.modelValue ?? ''
   },
-  set(val: string) {
-    emit('change:model-value', val)
+  set: (val: string) => {
+    emit('change:modelValue', val)
   }
 })
-
-console.log(selected.value)
 </script>

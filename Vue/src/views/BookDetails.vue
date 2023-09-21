@@ -20,6 +20,7 @@
             <div class="font-medium">Prix : {{ `${book?.price} €` }}</div>
             <div class="font-medium">État : {{ book?.state }}</div>
           </div>
+          <p>{{ book?.description }}</p>
         </div>
         <div class="flex-row-reverse lg:flex-row flex items-center lg:space-x-4">
           <TwButton size="m" @click="addToCart(book as Books)" class="ml-4 lg:ml-0 lg:w-1/2"
