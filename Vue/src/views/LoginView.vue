@@ -61,9 +61,12 @@ const login = (e: SubmitEvent) => {
     const credentials = `${datas.value.username}:${datas.value.password}`
     const loginCredentials = btoa(credentials)
     const login = httpClient.post('/login', datas, {
-      headers: { Authorization: `Basic ${loginCredentials}` }
+      headers: { Authorization: `Basic TRbHQ7EMy/fk8uuWto9zfA==` }
     })
-    window.localStorage.setItem('token', `Basic ${loginCredentials}`)
+    // const login = httpClient.post('/login', datas, {
+    //   headers: { Authorization: `Basic ${loginCredentials}` }
+    // })
+    window.localStorage.setItem('token', `Basic TRbHQ7EMy/fk8uuWto9zfA==`)
     return login
   } catch (error) {
     console.error((error as Error).message)
