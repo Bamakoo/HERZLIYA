@@ -53,7 +53,7 @@ const datas = ref<{
 const isLoading = ref(false)
 
 const login = (e: SubmitEvent) => {
-  // e.preventDefault()
+  e.preventDefault()
   try {
     if (!datas.value.username && !datas.value.password) return
     isLoading.value = true
@@ -61,12 +61,13 @@ const login = (e: SubmitEvent) => {
     const credentials = `${datas.value.username}:${datas.value.password}`
     const loginCredentials = btoa(credentials)
     const login = httpClient.post('/login', datas, {
-      headers: { Authorization: `Basic TRbHQ7EMy/fk8uuWto9zfA==` }
+      headers: { Authorization: `Basic ${loginCredentials}` }
     })
     // const login = httpClient.post('/login', datas, {
     //   headers: { Authorization: `Basic ${loginCredentials}` }
     // })
-    window.localStorage.setItem('token', `Basic TRbHQ7EMy/fk8uuWto9zfA==`)
+    window.localStorage.setItem('token', `Basic ${loginCredentials}`)
+    route.go(0)
     return login
   } catch (error) {
     console.error((error as Error).message)
