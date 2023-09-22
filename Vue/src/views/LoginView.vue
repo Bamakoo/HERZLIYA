@@ -52,21 +52,19 @@ const datas = ref<{
 
 const isLoading = ref(false)
 
-const login = (e: SubmitEvent) => {
+const login = async (e: SubmitEvent) => {
   e.preventDefault()
   try {
     if (!datas.value.username && !datas.value.password) return
     isLoading.value = true
-    // router.go(0)
     const credentials = `${datas.value.username}:${datas.value.password}`
     const loginCredentials = btoa(credentials)
-    const login = httpClient.post('/login', datas, {
+    const { data } = await httpClient.post('/login', datas, {
       headers: { Authorization: `Basic ${loginCredentials}` }
     })
-    // const login = httpClient.post('/login', datas, {
-    //   headers: { Authorization: `Basic ${loginCredentials}` }
-    // })
-    window.localStorage.setItem('token', `Basic ${loginCredentials}`)
+    console.log(data.value)
+    window.localStorage.setItem('token', data.value)
+
     route.go(0)
     return login
   } catch (error) {
