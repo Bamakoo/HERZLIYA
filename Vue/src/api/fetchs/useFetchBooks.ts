@@ -13,8 +13,9 @@ export const useFetchBooks = () => {
   }
 
   const create = async (datas: Omit<Books, 'id'>) => {
+    const loginCredentials = window.localStorage.getItem('token')
     const { data } = await httpClient.post<Books>('/books', datas, {
-      headers: { Authorization: 'Bearer TRbHQ7EMy/fk8uuWto9zfA==' }
+      headers: { Authorization: `Basic ${loginCredentials}` }
     })
     return data
   }
