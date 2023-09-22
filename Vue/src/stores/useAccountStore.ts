@@ -18,7 +18,7 @@ export const useAccountStore = defineStore('users', () => {
 
   const id = ref('')
   const userAccount = ref<Partial<Users> | null>(null)
-  const token = ref<Users['token']>('TRbHQ7EMy/fk8uuWto9zfA==')
+  const token = ref<Users['token']>('')
 
   // const account = {
   //   infos: {
