@@ -123,7 +123,7 @@ const routerArrow = router
         "
         class="py-28 lg:py-32 px-8"
       /> -->
-      <component v-else :is="Component" class="py-28 lg:py-32 mx-auto" />
+      <component :is="Component" class="py-28 lg:py-32 mx-auto" />
       <aside
         v-if="accountStore.token || route.name === 'home' || route.name === 'book'"
         class="mr-4 flex items-start"
