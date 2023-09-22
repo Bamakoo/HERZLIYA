@@ -163,7 +163,7 @@ const onSubmit = async () => {
     console.log('newBookData', newBookData)
     const newBook = await create(newBookData)
     console.log('newBook', newBook)
-
+    route.replace('/')
     return newBook
   } catch (error) {
     console.error((error as Error).message)

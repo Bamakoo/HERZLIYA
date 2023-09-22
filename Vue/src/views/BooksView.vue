@@ -3,23 +3,6 @@
     <h1 class="text-center text-4xl font-semibold mb-8">Tous les livres</h1>
     <FilterBooks />
     <div class="gap-4 mx-auto max-w-sm md:max-w-3xl grid sm:grid-cols-2">
-      <!-- <div
-        v-for="(book, index) in books"
-        :key="index"
-        class="bg-white rounded border max-w-md border-gray-300 cursor-pointer p-2"
-        @click="goTo(book.id)"
-      >
-        <div class="flex justify-between">
-          <div>
-            <div class="text-lg font-semibold">{{ book.title }}</div>
-            <div class="text-sm font-medium uppercase">{{ book.author }}</div>
-          </div>
-          <div class="text-right">
-            <div>{{ book.state }}</div>
-            <div class="font-semibold">{{ book.price }} €</div>
-          </div>
-        </div>
-      </div> -->
       <TwCard
         v-for="(book, index) in books"
         :key="index"
@@ -32,14 +15,14 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, computed } from 'vue'
+import { onBeforeMount, computed, onMounted } from 'vue'
 import { useBookStore } from '@/stores/useBookStore'
-import router from '@/router'
 import { TwCard } from '@/libs/ui/index.vue'
 import FilterBooks from '@/components/FilterBooks.vue'
+import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
 
-const bookStore = useBookStore()
-const books = await bookStore.books
+// const bookStore = useBookStore()
+// const books = await bookStore.books
 
 // const states = 'horrendous'
 //   ? 'Horrible'
@@ -57,7 +40,9 @@ const books = await bookStore.books
 //   ? 'Excellent'
 //   : 'Neuf'
 
-const goTo = (book_id: string) => router.push(`/books/${book_id}`)
-
-onBeforeMount(() => computed(() => books))
+// const filterGenre = computed(() => books?.filter((book) => book.genre === value))
+onMounted(() => computed(() => books))
+const fetchBooks = useFetchBooks()
+const books = await fetchBooks.list()
+console.log(books)
 </script>

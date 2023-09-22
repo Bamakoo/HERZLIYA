@@ -24,15 +24,13 @@
           <button
             v-for="(genre, index) in genres"
             :key="index"
-            class="flex items-center rounded-lg p-1 transition duration-150 ease-in-out hover:bg-secondary-light/30 focus:outline-none focus-visible:ring focus-visible:ring-secondary-light focus-visible:ring-opacity-50 w-full space-x-4"
-            @click="emits('change', filterGenre(genre.value))"
+            class="flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-secondary-light/30 focus:outline-none focus-visible:ring focus-visible:ring-secondary-light focus-visible:ring-opacity-50 w-full space-x-4"
+            @click="emits('change', genre.value)"
           >
             <component :is="genre.icon" class="h-5 w-5" />
-            <div class="ml-4">
-              <p class="font-medium text-gray-900">
-                {{ genre.name }}
-              </p>
-            </div>
+            <span class="font-medium text-gray-900">
+              {{ genre.name }}
+            </span>
           </button>
         </div>
       </PopoverPanel>
@@ -99,13 +97,6 @@ const genres = [
     name: 'Biographie'
   }
 ]
-
-const bookStore = useBookStore()
-const books = await bookStore.books
-const filterGenre = (value: string) => {
-  const filteredBooks = computed(() => books?.filter((book) => book.genre === value))
-  return filteredBooks.value
-}
 
 const emits = defineEmits<{ (event: 'change', val: string): void }>()
 </script>
