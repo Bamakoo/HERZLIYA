@@ -27,7 +27,8 @@ struct AddToCartButton: View {
         .padding(15)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color.blue))
+                .fill(Color.orange)
+        )
     }
 }
 

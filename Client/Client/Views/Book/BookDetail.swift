@@ -13,6 +13,7 @@ struct BookDetail: View {
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @State private var fullText: String = "Your comment"
     @State private var rating: Double = 0
+    @State private var isDisplaying = false
 
     var body: some View {
         ScrollView {
@@ -56,7 +57,6 @@ struct BookDetail: View {
                 Spacer(minLength: 0)
                 Divider()
                 Spacer(minLength: 0)
-
                 VStack(alignment: .center, spacing: 15) {
                     Text("Pages")
                         .foregroundColor(Color.secondary)
@@ -64,10 +64,8 @@ struct BookDetail: View {
                         .fontWeight(.semibold)
                 }
                 Spacer(minLength: 0)
-
                 Divider()
                 Spacer(minLength: 0)
-
                 VStack(alignment: .center, spacing: 15) {
                     Text("Time")
                         .foregroundColor(Color.secondary)
@@ -91,9 +89,63 @@ struct BookDetail: View {
                     .foregroundColor(Color.secondary)
                     .padding([.leading, .trailing], 30)
             }
-            Spacer(minLength: 15)
             VStack(spacing: 5) {
+                Slider(value: $rating, in: 0 ... 10, step: 1) {
+                    Text("Slider")
+                } minimumValueLabel: {
+                    Text("0").font(.title2).fontWeight(.thin)
+                } maximumValueLabel: {
+                    Text("10").font(.title2).fontWeight(.thin)
+                }
+                .tint(.red)
+                .padding([.bottom, .top], 30)
+                Button {
+                    Task {
+                        if let book {
+                            try await viewModel.rateBook(book, rating)
+                        }
+                    }
+                } label: {
+                    Spacer()
+                    Text("Rate book".uppercased())
+                        .font(.system(.title2, design: .rounded ))
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    Spacer()
+                }
+                .padding(15)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.orange)
+                )
+                .padding([.bottom, .top], 5)
+                .padding([.leading, .trailing], 30)
+                TextField("Comment", text: $fullText, prompt: Text("Please input your comment"), axis: .vertical)
+                    .padding()
+                    .background(.gray.opacity(0.2))
+                    .cornerRadius(10.0)
+                    .padding()
                 if let book {
+                    Button {
+                        Task {
+                            try await viewModel.commentOnBook(book, fullText)
+                            try await viewModel.fetchBookComments(book)
+                        }
+                    } label: {
+                        Spacer()
+                        Text("Comment".uppercased())
+                            .font(.system(.title2, design: .rounded ))
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                    .padding(15)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.orange)
+                    )
+                    .padding([.bottom, .top], 5)
+                    .padding([.leading, .trailing], 30)
                     CustomButton(book: book)
                         .padding([.bottom, .top], 5)
                         .padding([.leading, .trailing], 30)
@@ -101,6 +153,16 @@ struct BookDetail: View {
                         .padding([.bottom, .top], 5)
                         .padding([.leading, .trailing], 30)
                 }
+                Button {
+                    isDisplaying.toggle()
+                } label: {
+                    Text("Display comments")
+                }
+            }
+        }
+        .sheet(isPresented: $isDisplaying) {
+            if let book {
+                BookCommentsView(book: book)
             }
         }
         .toolbar {
@@ -117,128 +179,6 @@ struct BookDetail: View {
                 .tint(.red)
             }
         }
-        //        Form {
-        //            Section {
-        //            if let book {
-        //
-        //                HStack {
-        //                    Image(systemName: "book")
-        //                    Text("Title: \(book.title)")
-        //                }
-        //                HStack {
-        //                    Image(systemName: "person")
-        //                    Text("Author: \(book.author)")
-        //                }
-        //                HStack {
-        //                    Image(systemName: "dollarsign")
-        //                    Text("Price: \(book.price)")
-        //                }
-        //                HStack {
-        //                    Image(systemName: book.state.image)
-        //                    Text("State: \(book.state.rawValue)")
-        //                }
-        //                if let bookRating = book.rating {
-        //                    HStack {
-        //                        Image(systemName: "number")
-        //                        Text("Rating \(bookRating)")
-        //                    }
-        //                }
-        //            }
-        //            } header: {
-        //                Text("About")
-        //            }
-        //            Section {
-        //                if let book {
-        //                    Text(book.descritpion)
-        //                }
-        //            } header: {
-        //                Text("Description")
-        //            }
-        //            Section {
-        //                    Slider(value: $rating, in: 0 ... 10, step: 1) {
-        //                        Text("Slider")
-        //                    } minimumValueLabel: {
-        //                        Text("0").font(.title2).fontWeight(.thin)
-        //                    } maximumValueLabel: {
-        //                        Text("10").font(.title2).fontWeight(.thin)
-        //                    }
-        //                    .tint(.red)
-        //                Button {
-        //                    Task {
-        //                        if let book {
-        //                            try await viewModel.rateBook(book, rating)
-        //                        }
-        //                    }
-        //                } label: {
-        //                    Spacer()
-        //                    if let book {
-        //                        Text("Rate \(book.title) \(String(rating))")
-        //                    }
-        //                    Spacer()
-        //                }
-        //                .buttonStyle(.borderedProminent)
-        //            }
-        //             header: {
-        //                Text("Rating")
-        //            }
-        //            Section {
-        //                TextEditor(text: $fullText)
-        //                    .foregroundColor(Color.gray)
-        //                    .lineSpacing(5)
-        //                if let book {
-        //                    Button("Comment on \(book.title)") {
-        //                        Task {
-        //                                try await viewModel.commentOnBook(book, fullText)
-        //                                try await viewModel.fetchBookComments(book)
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //            Section {
-        //                List(viewModel.commentsOnBook) { comment in
-        //                    Text(comment.comment)
-        //                        .swipeActions(edge: .trailing) {
-        //                            Button {
-        //                                Task {
-        //                                    if let book {
-        //                                        try await viewModel.deleteComment(comment.id)
-        //                                        try await viewModel.fetchBookComments(book)
-        //                                    }
-        //                                }
-        //                            } label: {
-        //                                Image(systemName: "delete.backward")
-        //                            }
-        //                            .tint(.red)
-        //                        }
-        //                }
-        //            }
-        //            Button {
-        //                Task {
-        //                    if let book {
-        //                        await viewModel.purchaseBook(book)
-        //                    }
-        //                }
-        //            } label: {
-        //                Text("Purchase \(book!.title)")
-        //            }
-        //            Button {
-        //                Task {
-        //                    if let book {
-        //                        await viewModel.addBookToKart(book)
-        //                    }
-        //                }
-        //            } label: {
-        //                Text("Add to cart")
-        //            }
-        //            .navigationBarTitle(book?.title ?? "", displayMode: .inline)
-        //            .onAppear {
-        //                Task {
-        //                    if let book {
-        //                        try await viewModel.fetchBookComments(book)
-        //                    }
-        //                }
-        //            }
-        //        }
     }
 }
 

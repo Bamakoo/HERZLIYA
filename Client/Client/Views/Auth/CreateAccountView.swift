@@ -38,15 +38,24 @@ struct CreateAccountView: View {
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
             }
-            Button {
-                Task {
-                    try await viewModel.createANewUser()
-                    dismiss()
-                }
-            } label: {
-                Text("Create Account")
-            }
         }
+        Button {
+            Task {
+                try await viewModel.createANewUser()
+                dismiss()
+            }
+        } label: {
+            Spacer()
+            Text("Create Account".uppercased())
+                .font(.system(.title2, design: .rounded ))
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+            Spacer()
+        }
+        .padding(15)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.blue))
     }
 }
 struct CreateAccountView_Previews: PreviewProvider {

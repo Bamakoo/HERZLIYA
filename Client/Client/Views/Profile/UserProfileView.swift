@@ -16,8 +16,19 @@ struct UserProfileView: View {
         NavigationStack {
             List(ProfileMenu.allCases) { item in
                 NavigationLink(value: item) {
-                    Label(item.title, image: item.image)
-                        .foregroundColor(.primary)
+                    HStack {
+                        Image(item.image)
+                            .resizable()
+                            .aspectRatio(1, contentMode: .fit)
+                            .frame(width: 30, height: 30)
+                            .fontWeight(.thin)
+                            .foregroundStyle(.primary)
+                            .padding([.trailing], 8)
+                        Text(item.title)
+                            .font(.title3)
+                            .foregroundStyle(.primary)
+                            .fontWeight(.regular)
+                    }
                 }
             }
             .listStyle(.sidebar)
