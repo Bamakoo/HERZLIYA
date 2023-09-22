@@ -34,7 +34,7 @@ const isLoading = ref(false)
 const isDisabled = ref(false)
 
 const submit = async (e?: SubmitEvent) => {
-  e?.preventDefault()
+  // e?.preventDefault()
   if (!props.onSubmit) return
   try {
     isLoading.value = true
