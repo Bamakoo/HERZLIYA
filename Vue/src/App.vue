@@ -4,16 +4,9 @@ import { RouterView, useRoute } from 'vue-router'
 import Header from './components/Header.vue'
 import { TwSidebar, TwButton } from './libs/ui/index.vue'
 import {
-  ShieldCheckIcon,
-  MagnifyingGlassCircleIcon,
-  AcademicCapIcon,
   HeartIcon,
   ChatBubbleOvalLeftIcon,
-  BeakerIcon,
-  RocketLaunchIcon,
-  BugAntIcon,
   ArrowLeftIcon,
-  BuildingLibraryIcon,
   UserCircleIcon,
   // CurrencyEuroIcon,
   ShoppingBagIcon,
@@ -36,89 +29,11 @@ onBeforeMount(async () => {
 const bookStore = useBookStore()
 const books = ref<Books[]>()
 
-const filterGenre = () => {
-  const { value } = accountMenu ?? genreMenu
-  books.value?.filter((book) => book.genre === value)
-  return books
-}
-const genreMenu = {
-  value: 'genres',
-  title: 'Genres',
-  submenu: [
-    {
-      value: 'realism',
-      icon: ShieldCheckIcon,
-      name: 'Non-fiction',
-      attributes: {
-        tag: 'button',
-        onClick: filterGenre
-      }
-    },
-    {
-      value: 'mystery',
-      icon: MagnifyingGlassCircleIcon,
-      name: 'Mystère',
-      attributes: {
-        tag: 'button',
-        onClick: filterGenre
-      }
-    },
-    {
-      value: 'fantasy',
-      icon: AcademicCapIcon,
-      name: 'Fantaisie',
-      attributes: {
-        tag: 'button',
-        onClick: filterGenre
-      }
-    },
-    {
-      value: 'romance',
-      icon: HeartIcon,
-      name: 'Romance',
-      attributes: {
-        tag: 'button',
-        onClick: filterGenre
-      }
-    },
-    {
-      value: 'scienceFiction',
-      icon: BeakerIcon,
-      name: 'Science-Fiction',
-      attributes: {
-        tag: 'button',
-        onClick: filterGenre
-      }
-    },
-    {
-      value: 'action',
-      icon: RocketLaunchIcon,
-      name: 'Action',
-      attributes: {
-        tag: 'button',
-        onClick: filterGenre
-      }
-    },
-    {
-      value: 'horror',
-      icon: BugAntIcon,
-      name: 'Horreur',
-      attributes: {
-        tag: 'button',
-        onClick: filterGenre
-      }
-    },
-    {
-      value: 'biography',
-      icon: BuildingLibraryIcon,
-      name: 'Biographie',
-      attributes: {
-        tag: 'button',
-        onClick: filterGenre
-      }
-    }
-  ]
-}
+// const filterGenre = () => {
+//   const { value } = accountMenu ?? genreMenu
+//   books.value?.filter((book) => book.genre === value)
+//   return books
+// }
 
 const accountMenu = {
   value: 'account',
@@ -130,7 +45,7 @@ const accountMenu = {
       name: 'Mon Profile',
       attributes: {
         tag: 'RouterLink',
-        to: '/profile'
+        to: '/account/profile'
       }
     },
     {
@@ -139,7 +54,7 @@ const accountMenu = {
       name: 'Mes commentaires',
       attributes: {
         tag: 'RouterLink',
-        to: '/comments'
+        to: '/account/comments'
       }
     },
     {
@@ -148,7 +63,7 @@ const accountMenu = {
       name: 'Mes commandes',
       attributes: {
         tag: 'RouterLink',
-        to: '/orders'
+        to: '/account/orders'
       }
     },
     {
@@ -157,7 +72,7 @@ const accountMenu = {
       name: 'Mes ventes',
       attributes: {
         tag: 'RouterLink',
-        to: '/sales'
+        to: '/account/sales'
       }
     },
     {
@@ -166,7 +81,7 @@ const accountMenu = {
       name: 'Mes livres préférés',
       attributes: {
         tag: 'RouterLink',
-        to: '/favorite_books'
+        to: '/account/favorite_books'
       }
     },
     {
@@ -175,7 +90,7 @@ const accountMenu = {
       name: 'Mon auteurice préféré.e',
       attributes: {
         tag: 'RouterLink',
-        to: '/favorite_authors'
+        to: '/account/favorite_authors'
       }
     },
     {
@@ -184,7 +99,7 @@ const accountMenu = {
       name: 'Mes amis',
       attributes: {
         tag: 'RouterLink',
-        to: '/friends'
+        to: '/account/friends'
       }
     }
   ]
@@ -200,7 +115,12 @@ const routerArrow = router
     <RouterView v-slot="{ Component }">
       <!-- <KeepAlive> -->
       <LoginView
-        v-if="!accountStore.token && route.name !== 'home' && route.name !== 'book'"
+        v-if="
+          !accountStore.token &&
+          route.name !== 'home' &&
+          route.name !== 'book' &&
+          route.name !== 'signup'
+        "
         class="py-28 lg:py-32 px-8"
       />
       <component v-else :is="Component" class="py-28 lg:py-32 mx-auto" />
@@ -209,15 +129,17 @@ const routerArrow = router
         class="mr-4 flex items-start"
       >
         <TwSidebar
-          :menu="route.path.startsWith('/account') ? accountMenu : genreMenu"
+          v-if="route.path.startsWith('/account')"
+          :menu="accountMenu"
           class="mt-32 mr-2 hidden lg:flex"
         />
         <TwButton
-          @click="routerArrow.back()"
           size="s"
           role="button"
           aria-roledescription="Retour"
-          class="relative top-32 text-gray-700 bg-transparent hover:bg-transparent transition-colors duration-150 hover:text-primary whitespace-nowrap"
+          class="relative top-32 transition-colors duration-150 whitespace-nowrap"
+          color="text-gray-900  hover:text-primary"
+          @click="routerArrow.back()"
         >
           <span class="sr-only">Retour</span>
           <ArrowLeftIcon class="w-5 h-5 inline mr-2" role="navigation" aria-label="Retour" />

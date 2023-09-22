@@ -31,13 +31,8 @@ const router = createRouter({
     },
     {
       path: '/account',
-      name: 'accounts',
-      component: () => import('@/views/AccountView.vue')
-    },
-    {
-      path: '/account/:id',
-      name: 'account',
-      component: () => import('@/views/AccountDetails.vue')
+      name: 'my-account',
+      component: () => import('@/views/Account.vue')
     },
     {
       path: '/account/:id',

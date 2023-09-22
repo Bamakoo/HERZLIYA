@@ -41,6 +41,7 @@ import { useRoute } from 'vue-router'
 import httpClient from '@/api/httpClient'
 import type { Users } from '@/libs/interfaces/users'
 
+const route = router
 const datas = ref<{
   username: Users['username']
   password: Users['password']

@@ -31,7 +31,7 @@ export interface Users {
   createdAt: number;
   updatedAt: number;
   books: Books["id"][];
-  cart: Cart;
+  cart: Cart["books"][];
   purchases: Purchases["id"][];
   sales: Sales["id"][];
   friends: Friends["userId"][];

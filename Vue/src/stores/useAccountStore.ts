@@ -36,7 +36,6 @@ export const useAccountStore = defineStore('users', () => {
   //   friends: userAccount.friends
   // }
   retrieveUserAccount(id.value).then((user) => {
-    // Une fois la promesse résolue, mettez les données dans account
     const account = {
       infos: {
         id: user.id,

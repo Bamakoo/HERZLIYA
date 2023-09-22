@@ -1,6 +1,7 @@
 <template>
   <div class="max-w-xl lg:max-w-4xl px-4 md:px-8 mx-auto">
     <h1 class="text-center text-4xl font-semibold mb-8">Tous les livres</h1>
+    <FilterBooks />
     <div class="gap-4 mx-auto max-w-sm md:max-w-3xl grid sm:grid-cols-2">
       <!-- <div
         v-for="(book, index) in books"
@@ -35,6 +36,7 @@ import { onBeforeMount, computed } from 'vue'
 import { useBookStore } from '@/stores/useBookStore'
 import router from '@/router'
 import { TwCard } from '@/libs/ui/index.vue'
+import FilterBooks from '@/components/FilterBooks.vue'
 
 const bookStore = useBookStore()
 const books = await bookStore.books

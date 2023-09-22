@@ -31,10 +31,4 @@ router.patch("/:id", async (req: Request, res: Response) => {
   return res.json(datas);
 });
 
-router.delete("/:id", async (req: Request, res: Response) => {
-  const id = req.params.id;
-  const datas = await del(id);
-  return res.json(datas);
-});
-
 export { router as cartRoutes };

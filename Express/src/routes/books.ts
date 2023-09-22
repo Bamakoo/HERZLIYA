@@ -24,6 +24,10 @@ router.post("/", async (req, res) => {
   const datas = await create(req.body);
   return res.json(datas);
 });
+router.post("/:id/add-to-kart", async (req, res) => {
+  const datas = await create(req.body);
+  return res.json(datas);
+});
 
 router.patch("/:id", async (req: Request, res: Response) => {
   const id = req.params.id;
@@ -32,6 +36,12 @@ router.patch("/:id", async (req: Request, res: Response) => {
 });
 
 router.delete("/:id", async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const datas = await del(id);
+  return res.json(datas);
+});
+
+router.delete("/:id/remove-from-kart", async (req: Request, res: Response) => {
   const id = req.params.id;
   const datas = await del(id);
   return res.json(datas);

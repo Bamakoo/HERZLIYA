@@ -1,7 +1,7 @@
 import type { Books } from './books'
 import type { Cart } from './carts'
 // import type { Comments } from './comments'
-// import type { Likes } from './likes'
+import type { Likes } from './likes'
 
 export interface Purchases {
   id: string
@@ -35,7 +35,7 @@ export interface Users {
   purchases: Purchases[]
   sales: Sales[]
   friends: Friends[]
-  // likes: Likes[]
+  likes?: Likes[]
   // comments: Comments[]
 }
 

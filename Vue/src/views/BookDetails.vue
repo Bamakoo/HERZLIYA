@@ -23,7 +23,7 @@
           <p>{{ book?.description }}</p>
         </div>
         <div class="flex-row-reverse lg:flex-row flex items-center lg:space-x-4">
-          <TwButton size="m" @click="addToCart(book as Books)" class="ml-4 lg:ml-0 lg:w-1/2"
+          <TwButton size="m" @click="addToCart(book?.id, book)" class="ml-4 lg:ml-0 lg:w-1/2"
             ><ShoppingCartIcon class="w-5 h-5 lg:mr-2 text-white" /><span
               >Ajouter au panier</span
             ></TwButton
@@ -42,21 +42,25 @@ import { useBookStore } from '@/stores/useBookStore'
 import { useFetchCart } from '@/api/fetchs/useFetchCart'
 import { TwButton, TwLikes } from '@/libs/ui/index.vue'
 import type { Books } from '@/libs/interfaces/books'
-import { useAccountStore } from '@/stores/useAccountStore'
+// import { useAccountStore } from '@/stores/useAccountStore'
 import { ShoppingCartIcon } from '@heroicons/vue/24/outline'
 
 const route = useRoute()
 const { id } = route.params
 const bookStore = useBookStore()
 const book = ref<Books>()
-const fetchCart = useFetchCart()
-const accountStore = useAccountStore()
-const addToCart = async (book: Books) => {
-  const data = accountStore.userAccount?.cart?.books
-  data?.push(book)
-  console.log(data)
-  return data
-}
+// const fetchCart = useFetchCart()
+// const accountStore = useAccountStore()
+const { addToCart } = useFetchCart()
+// const addToCart = async (book: Books) => {
+//   const data = accountStore.userAccount?.cart?.books
+//   console.log(data)
+
+//   fetchCart.create([data as Books])
+//   data?.push(book)
+//   console.log(data)
+//   return data
+// }
 
 onBeforeMount(async () => (book.value = await bookStore.retrieveBook(id as string)))
 </script>

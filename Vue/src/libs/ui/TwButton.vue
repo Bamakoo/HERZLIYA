@@ -68,17 +68,18 @@ const btnColor = computed(() => {
     if (props.loading) {
       isDisabled.value
       classes.push('bg-secondary-light text-white')
-      if (props.color === 'red') {
-        if (isDisabled.value) classes.push('bg-red-300 text-white pointer-events-none focus-none')
-        if (props.loading) {
-          isDisabled.value
-          classes.push('bg-red-300 text-white')
-        }
-        classes.push('bg-red-600 text-white hover:bg-red-700 active:bg-red-800')
-      } else {
-        classes.push(props.color)
-      }
     }
+    if (props.color === 'red') {
+      if (isDisabled.value) classes.push('bg-red-300 text-white pointer-events-none focus-none')
+      if (props.loading) {
+        isDisabled.value
+        classes.push('bg-red-300 text-white')
+      }
+      classes.push('bg-red-600 text-white hover:bg-red-700 active:bg-red-800')
+    } else {
+      classes.push(props.color)
+    }
+
     classes.push(props.color, 'focus-visible:outline-secondary text-white')
   }
   // if (!props.color) {
