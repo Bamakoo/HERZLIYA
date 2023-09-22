@@ -114,7 +114,7 @@ const routerArrow = router
   <Suspense>
     <RouterView v-slot="{ Component }">
       <!-- <KeepAlive> -->
-      <!-- <LoginView
+      <LoginView
         v-if="
           !accountStore.token &&
           route.name !== 'home' &&
@@ -122,7 +122,7 @@ const routerArrow = router
           route.name !== 'signup'
         "
         class="py-28 lg:py-32 px-8"
-      /> -->
+      />
       <component :is="Component" class="py-28 lg:py-32 mx-auto" />
       <aside
         v-if="accountStore.token || route.name === 'home' || route.name === 'book'"

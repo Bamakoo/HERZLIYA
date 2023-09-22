@@ -130,6 +130,7 @@ const datas = ref<{
   genre: NewBook['genre']
   price: NewBook['price']
   description: NewBook['description']
+  status: NewBook['status']
   // img: NewBook['img']
   createdAt: NewBook['createdAt']
 }>({
@@ -139,7 +140,8 @@ const datas = ref<{
   price: 0,
   genre: null,
   description: undefined,
-  createdAt: new Date(Date.now()).getTime()
+  createdAt: new Date(Date.now()).getTime(),
+  status: 'available'
 })
 
 const { create } = useFetchBooks()
@@ -153,12 +155,15 @@ const onSubmit = async () => {
       price: datas.value?.price,
       description: datas.value?.description,
       // img: datas.value.img,
+      status: 'available',
       createdAt: datas.value.createdAt,
       updatedAt: null,
       deletedAt: null
     }
-    console.log(newBookData)
+    console.log('newBookData', newBookData)
     const newBook = await create(newBookData)
+    console.log('newBook', newBook)
+
     return newBook
   } catch (error) {
     console.error((error as Error).message)

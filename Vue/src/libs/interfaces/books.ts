@@ -27,4 +27,5 @@ export interface Books {
   createdAt: number | null
   updatedAt: number | null
   deletedAt: number | null
+  status: 'available'
 }
