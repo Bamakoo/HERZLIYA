@@ -138,6 +138,8 @@ const onSubmit = async () => {
 
     accountStore.token = loginCredentials
     window.localStorage.setItem('token', accountStore.token)
+    console.log('Signup token :', accountStore.token)
+
     const signup = httpClient.post('/users', newUser, {
       headers: { Authorization: `Basic ${loginCredentials}` }
     })

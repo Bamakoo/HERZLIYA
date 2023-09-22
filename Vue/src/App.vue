@@ -28,7 +28,7 @@ onBeforeMount(async () => {
 })
 const bookStore = useBookStore()
 const books = ref<Books[]>()
-
+console.log('App token :', accountStore.token)
 // const filterGenre = () => {
 //   const { value } = accountMenu ?? genreMenu
 //   books.value?.filter((book) => book.genre === value)

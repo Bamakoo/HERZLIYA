@@ -67,6 +67,7 @@ const login = (e: SubmitEvent) => {
     //   headers: { Authorization: `Basic ${loginCredentials}` }
     // })
     window.localStorage.setItem('token', `Basic TRbHQ7EMy/fk8uuWto9zfA==`)
+
     return login
   } catch (error) {
     console.error((error as Error).message)
