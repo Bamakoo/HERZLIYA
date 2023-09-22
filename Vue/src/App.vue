@@ -22,6 +22,7 @@ import type { Books } from './libs/interfaces/books'
 // import { fetchUsers } from './api/axios/users.routes'
 
 const accountStore = useAccountStore()
+window
 onBeforeMount(async () => {
   books.value = await bookStore.books
   return accountStore.token
