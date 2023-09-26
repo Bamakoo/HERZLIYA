@@ -97,7 +97,7 @@ struct BookDetail: View {
                 } maximumValueLabel: {
                     Text("10").font(.title2).fontWeight(.thin)
                 }
-                .tint(.red)
+                .tint(.orange)
                 .padding([.bottom, .top], 30)
                 Button {
                     Task {
@@ -106,20 +106,9 @@ struct BookDetail: View {
                         }
                     }
                 } label: {
-                    Spacer()
                     Text("Rate book".uppercased())
-                        .font(.system(.title2, design: .rounded ))
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                    Spacer()
                 }
-                .padding(15)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.orange)
-                )
-                .padding([.bottom, .top], 5)
-                .padding([.leading, .trailing], 30)
+                .buttonStyle(MainButtonStyle())
                 TextField("Comment", text: $fullText, prompt: Text("Please input your comment"), axis: .vertical)
                     .padding()
                     .background(.gray.opacity(0.2))
@@ -156,8 +145,9 @@ struct BookDetail: View {
                 Button {
                     isDisplaying.toggle()
                 } label: {
-                    Text("Display comments")
+                    Text("Display comments".uppercased())
                 }
+                .buttonStyle(MainButtonStyle())
             }
         }
         .sheet(isPresented: $isDisplaying) {

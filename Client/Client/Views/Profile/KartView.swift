@@ -17,6 +17,7 @@ struct KartView: View {
                 NavigationLink(destination: BookDetail(book: Binding.constant(book))) {
                     BookRow(book: book)
                 }
+                .listRowViewModifier()
                 .swipeActions(edge: .trailing) {
                     Button {
                         Task {
@@ -40,6 +41,7 @@ struct KartView: View {
                     .tint(.mint)
                 }
             }
+            .listViewModifier()
             .onAppear {
                 Task {
                     try await viewModel.getBooksInKart()

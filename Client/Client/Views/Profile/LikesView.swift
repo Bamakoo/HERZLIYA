@@ -17,7 +17,9 @@ struct LikesView: View {
                 NavigationLink(destination: BookDetail(book: Binding.constant(book))) {
                     BookRow(book: book)
                 }
+                .listRowViewModifier()
             }
+            .listViewModifier()
             .navigationTitle("My liked books")
             .listStyle(.grouped)
         .onAppear {

@@ -16,14 +16,15 @@ struct BooksByMyFavoriteAuthorView: View {
                 NavigationLink(destination: BookDetail(book: Binding.constant(book))) {
                     BookRow(book: book)
                 }
+                .listRowViewModifier()
             }
+            .listViewModifier()
             .onAppear {
                 Task {
                     try await viewModel.bookByUsersFavoriteAuthor()
                 }
             }
             .navigationTitle("Buy books by my favorite author")
-            .listStyle(.grouped)
     }
 }
 

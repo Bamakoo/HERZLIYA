@@ -94,6 +94,9 @@
 		A4C9867029A10B5F003CF879 /* OldBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9866F29A10B5F003CF879 /* OldBook.swift */; };
 		A4C9867329A1198F003CF879 /* BooksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867229A1198F003CF879 /* BooksViewModel.swift */; };
 		A4C9867829A11EFC003CF879 /* BooksByGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9867729A11EFC003CF879 /* BooksByGenre.swift */; };
+		A4D575D82AC1E394003E1B21 /* ListRowViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D575D72AC1E394003E1B21 /* ListRowViewModifier.swift */; };
+		A4D575DA2AC1E510003E1B21 /* ListViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D575D92AC1E510003E1B21 /* ListViewModifier.swift */; };
+		A4D575DC2AC2CF71003E1B21 /* MainButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D575DB2AC2CF71003E1B21 /* MainButtonStyle.swift */; };
 		A4DD9DB229D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DB129D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift */; };
 		A4DD9DB429D9D50B0063DD9B /* MyFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DB329D9D50B0063DD9B /* MyFriendsView.swift */; };
 		A4DD9DB629D9D54F0063DD9B /* SoldBooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DD9DB529D9D54F0063DD9B /* SoldBooks.swift */; };
@@ -218,6 +221,9 @@
 		A4C9866F29A10B5F003CF879 /* OldBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldBook.swift; sourceTree = "<group>"; };
 		A4C9867229A1198F003CF879 /* BooksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksViewModel.swift; sourceTree = "<group>"; };
 		A4C9867729A11EFC003CF879 /* BooksByGenre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksByGenre.swift; sourceTree = "<group>"; };
+		A4D575D72AC1E394003E1B21 /* ListRowViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowViewModifier.swift; sourceTree = "<group>"; };
+		A4D575D92AC1E510003E1B21 /* ListViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModifier.swift; sourceTree = "<group>"; };
+		A4D575DB2AC2CF71003E1B21 /* MainButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonStyle.swift; sourceTree = "<group>"; };
 		A4DD9DB129D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksByMyFavoriteAuthorView.swift; sourceTree = SOURCE_ROOT; };
 		A4DD9DB329D9D50B0063DD9B /* MyFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsView.swift; sourceTree = "<group>"; };
 		A4DD9DB529D9D54F0063DD9B /* SoldBooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoldBooks.swift; sourceTree = "<group>"; };
@@ -522,6 +528,7 @@
 			isa = PBXGroup;
 			children = (
 				A4C9863D299FB843003CF879 /* MainMenu.swift */,
+				A4D575D62AC1E379003E1B21 /* ViewModifiers */,
 				A450ECA52A9CECD80077C94A /* Featured */,
 				A40C77FF2A829046003C11EB /* Auth */,
 				A40C77FE2A828FED003C11EB /* User */,
@@ -529,6 +536,16 @@
 				A413CB4029BD40A300FDB528 /* Profile */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A4D575D62AC1E379003E1B21 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				A4D575D72AC1E394003E1B21 /* ListRowViewModifier.swift */,
+				A4D575DB2AC2CF71003E1B21 /* MainButtonStyle.swift */,
+				A4D575D92AC1E510003E1B21 /* ListViewModifier.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 		A4DD9DBD29DB2CB10063DD9B /* User */ = {
@@ -720,12 +737,14 @@
 				A4C9863E299FB843003CF879 /* MainMenu.swift in Sources */,
 				A4B33B8D2A818C2700F6A33A /* AllRatings.swift in Sources */,
 				A4AEC1E82A7165BE00875E70 /* CommentsAPI.swift in Sources */,
+				A4D575DA2AC1E510003E1B21 /* ListViewModifier.swift in Sources */,
 				A4B783FF2A8D291100B6285E /* RatingDetailedView.swift in Sources */,
 				A4BDB5DB29D5BD4500C973CE /* UserProfileEnum.swift in Sources */,
 				A450ECA72A9CECF80077C94A /* Featured.swift in Sources */,
 				A43C72DC29CDD3DF00CDF56B /* UsersViewModel.swift in Sources */,
 				A43E2F792A542401006CFB63 /* MyCommentsViewModel.swift in Sources */,
 				A464D94D2AAF5CDA003B36E9 /* CustomShape.swift in Sources */,
+				A4D575DC2AC2CF71003E1B21 /* MainButtonStyle.swift in Sources */,
 				A4C9867829A11EFC003CF879 /* BooksByGenre.swift in Sources */,
 				A4B33B892A81834F00F6A33A /* AllLikes.swift in Sources */,
 				A4B784052A8E1E4200B6285E /* LikesAPI.swift in Sources */,
@@ -787,6 +806,7 @@
 				A4DD9DB229D9D4E40063DD9B /* BooksByMyFavoriteAuthorView.swift in Sources */,
 				A4C9866B299FDB68003CF879 /* BooksNetworkManager.swift in Sources */,
 				A450ECAB2A9DE4FD0077C94A /* FeaturedItem.swift in Sources */,
+				A4D575D82AC1E394003E1B21 /* ListRowViewModifier.swift in Sources */,
 				A4B33B8F2A818CBC00F6A33A /* AllUsers.swift in Sources */,
 				A4DD9DBA29DAC95C0063DD9B /* Keychain.swift in Sources */,
 				A4B784032A8E1D5C00B6285E /* LikesUseCase.swift in Sources */,

@@ -65,7 +65,7 @@ const login = async (e: SubmitEvent) => {
     console.log(data.value)
     window.localStorage.setItem('token', data.value)
 
-    route.go(0)
+    route.replace(route.currentRoute.value)
     return login
   } catch (error) {
     console.error((error as Error).message)

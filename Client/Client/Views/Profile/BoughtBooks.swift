@@ -17,9 +17,10 @@ struct MyPurchases: View {
                 NavigationLink(destination: BookDetail(book: Binding.constant(book))) {
                     BookRow(book: book)
                 }
+                .listRowViewModifier()
             }
             .navigationTitle("Books I've Purchased")
-            .listStyle(.grouped)
+            .listViewModifier()
         .onAppear {
             Task {
                 try await viewModel.fetchPurchasedBooks()

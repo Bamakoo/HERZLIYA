@@ -15,9 +15,10 @@ struct SoldBooks: View {
                 NavigationLink(destination: BookDetail(book: Binding.constant(book))) {
                     BookRow(book: book)
                 }
+                .listRowViewModifier()
             }
             .navigationTitle("Books I've sold")
-            .listStyle(.grouped)
+            .listViewModifier()
         .onAppear {
             Task {
                 try await viewModel.soldBooks()
