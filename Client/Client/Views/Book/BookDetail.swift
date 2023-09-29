@@ -45,6 +45,20 @@ struct BookDetail: View {
                 }
             }
             Spacer(minLength: 30)
+            Button {
+                isDisplaying.toggle()
+            } label: {
+                switch viewModel.commentsOnBook.count {
+                case 0:
+                    Text("No comments to display")
+                case let numberOfComments where numberOfComments == 1:
+                    Text("Display 1 comment")
+                case let numberOfComments where numberOfComments > 1:
+                    Text("Display \(viewModel.commentsOnBook.count) comments")
+                case _ :
+                    Text("Something went wrong")
+                }
+            }
             HStack(alignment: .center, spacing: 0) {
                 VStack(alignment: .center, spacing: 15) {
                     Text("Genre")
@@ -89,7 +103,7 @@ struct BookDetail: View {
                     .foregroundColor(Color.secondary)
                     .padding([.leading, .trailing], 30)
             }
-            VStack(spacing: 5) {
+            VStack(spacing: 10) {
                 Slider(value: $rating, in: 0 ... 10, step: 1) {
                     Text("Slider")
                 } minimumValueLabel: {
@@ -99,6 +113,7 @@ struct BookDetail: View {
                 }
                 .tint(.orange)
                 .padding([.bottom, .top], 30)
+                .padding([.leading, .trailing], 30)
                 Button {
                     Task {
                         if let book {
@@ -106,9 +121,9 @@ struct BookDetail: View {
                         }
                     }
                 } label: {
-                    Text("Rate book".uppercased())
+                    Text("Give book a \(rating) rating".uppercased())
                 }
-                .buttonStyle(MainButtonStyle())
+                .buttonStyle(TertiaryButtonStyle())
                 TextField("Comment", text: $fullText, prompt: Text("Please input your comment"), axis: .vertical)
                     .padding()
                     .background(.gray.opacity(0.2))
@@ -121,33 +136,13 @@ struct BookDetail: View {
                             try await viewModel.fetchBookComments(book)
                         }
                     } label: {
-                        Spacer()
                         Text("Comment".uppercased())
-                            .font(.system(.title2, design: .rounded ))
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                        Spacer()
                     }
-                    .padding(15)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.orange)
-                    )
-                    .padding([.bottom, .top], 5)
-                    .padding([.leading, .trailing], 30)
+                    .buttonStyle(SecondaryButtonStyle())
                     CustomButton(book: book)
                         .padding([.bottom, .top], 5)
                         .padding([.leading, .trailing], 30)
-                    AddToCartButton(book: book)
-                        .padding([.bottom, .top], 5)
-                        .padding([.leading, .trailing], 30)
                 }
-                Button {
-                    isDisplaying.toggle()
-                } label: {
-                    Text("Display comments".uppercased())
-                }
-                .buttonStyle(MainButtonStyle())
             }
         }
         .sheet(isPresented: $isDisplaying) {
@@ -168,6 +163,24 @@ struct BookDetail: View {
                 }
                 .tint(.red)
             }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    Task {
+                        if let book {
+                            await viewModel.addBookToKart(book)
+                        }
+                    }
+                } label: {
+                    Image("shopping-cart")
+                }
+            }
+        }
+        .onAppear {
+            Task {
+                if let book {
+                    try await viewModel.fetchBookComments(book)
+                }
+            }
         }
     }
 }
@@ -181,15 +194,15 @@ struct Detail_Previews: PreviewProvider {
                                                descritpion: """
 Le Lorem Ipsum est simple
 ment du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum
- est le faux texte standard de
- l'imprimerie depuis les années 1500, quand un imprimeur anonym
+    est le faux texte standard de
+    l'imprimerie depuis les années 1500, quand un imprimeur anonym
 e assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de
-texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été
- popularisé dans les années 19
+texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique,                           sans que son contenu n'en soit modifié. Il a été
+    popularisé dans les années 19
 60 grâce à la ven
 te de feuilles Letraset contenant des passages du L
 orem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus
- PageMaker.
+    PageMaker.
 """,
                                                genre: .action,
                                                rating: 10)))

@@ -60,7 +60,7 @@ struct CreateBookView: View {
             .padding(15)
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.purple))
+                    .fill(Color.orange))
                 .padding([.bottom, .top], 5)
                 .padding([.leading, .trailing], 30)
         }

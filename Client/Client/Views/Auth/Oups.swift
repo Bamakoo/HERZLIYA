@@ -10,33 +10,29 @@ import SwiftUI
 struct Oups: View {
     @State private var createAnAccount = false
     @State private var signIn = false
+    @ObservedObject var viewModel = SignInViewModel()
+    @EnvironmentObject var loginManager: LoginManager
 
     var body: some View {
-        VStack(alignment: .center, spacing: 10) {
-            Text("Oups")
-                .font(.largeTitle)
-                .fontWeight(.heavy)
-            Text("That's on us!")
-                .font(.title2)
-            Text("Profiles are only accessible to logged in users")
-                .font(.callout)
-            VStack(alignment: .center, spacing: 10) {
-                Button {
-                    createAnAccount.toggle()
-                } label: {
-                    Spacer()
-                    Text("create an accout".uppercased())
-                        .font(.system(.title2, design: .rounded ))
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                    Spacer()
+        VStack(alignment: .center, spacing: 20) {
+            Text("Sign in to access your profile")
+                .font(.title)
+            VStack(alignment: .center, spacing: 30) {
+                Form {
+                    TextField("Username", text: $viewModel.username, prompt: Text("Username"))
+                        .autocapitalization(.none)
+                        .keyboardType(.emailAddress)
+                        .disableAutocorrection(true)
+                    SecureField("Password", text: $viewModel.password, prompt: Text("Password"))
                 }
-                .padding(15)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.blue))
                 Button {
-                    signIn.toggle()
+                    Task {
+                        if try await viewModel.signIn() {
+                                loginManager.isLoggedIn.toggle()
+                        } else {
+                            print("alert")
+                        }
+                    }
                 } label: {
                     Spacer()
                     Text("Sign in".uppercased())
@@ -45,10 +41,22 @@ struct Oups: View {
                         .foregroundColor(.white)
                     Spacer()
                 }
-                .padding(15)
+                .padding(20)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.red))
+                        .fill(Color.orange))
+                .padding([.bottom, .top], 5)
+                .padding([.leading, .trailing], 30)
+                Button {
+                    createAnAccount.toggle()
+                } label: {
+                    Spacer()
+                    Text("Create an accout")
+                        .font(.system(.subheadline, design: .rounded ))
+                        .fontWeight(.medium)
+                        .foregroundColor(.blue)
+                    Spacer()
+                }
             }
             .sheet(isPresented: $createAnAccount) {
                 CreateAccountView()

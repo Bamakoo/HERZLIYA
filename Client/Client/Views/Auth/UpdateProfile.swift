@@ -8,22 +8,30 @@
 import SwiftUI
 
 struct UpdateProfile: View {
+
     @State private var changeMyPassword = false
     @EnvironmentObject var loginManager: LoginManager
 
     var body: some View {
-        Button("Delete my profile") {
-            print("profile deleted")
+        Button {
+            print("deleted the profile")
+            loginManager.isLoggedIn.toggle()
+        } label: {
+            Text("Delete profile")
         }
-        Button("Disconnect") {
+        Button {
             @TokenRepository<Any>
             var token: String?
             token = nil
             loginManager.isLoggedIn.toggle()
+        } label: {
+            Text("Disconnect")
         }
-        Button("Change my password") {
-            print("changing my password")
+        .buttonStyle(MainButtonStyle())
+        Button {
             changeMyPassword.toggle()
+        } label: {
+            Text("Change passord")
         }
         .sheet(isPresented: $changeMyPassword) {
             ChangeMyPassword()
