@@ -36,7 +36,7 @@
             type="button"
             ><ShoppingCartIcon class="w-5 h-5 lg:mr-2 text-white" /><span>Acheter</span></TwButton
           >
-          <TwLikes />
+          <TwLikes :on-submit="like" />
         </div>
       </div>
     </div>
@@ -48,15 +48,21 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
+
 import { useBookStore } from '@/stores/useBookStore'
 // import { useCartStore } from '@/stores/useCartStore'
 // import { useFetchCart } from '@/api/fetchs/useFetchCart'
+import { useFetchLikes } from '@/api/fetchs/useFetchLikes'
+import httpClient from '@/api/httpClient'
+
+import Login from './Login.vue'
 import { TwButton, TwLikes } from '@/libs/ui/index.vue'
-import type { Books } from '@/libs/interfaces/books'
 // import { useAccountStore } from '@/stores/useAccountStore'
 import { ShoppingCartIcon } from '@heroicons/vue/24/outline'
-import httpClient from '@/api/httpClient'
-import Login from './Login.vue'
+import type { Books } from '@/libs/interfaces/books'
+import { useAccountStore } from '@/stores/useAccountStore'
+
+const accountStore = useAccountStore()
 
 const route = useRoute()
 const { id } = route.params
@@ -99,6 +105,18 @@ const buy = async (bookId: Books['id'], e?: SubmitEvent) => {
   } catch (error) {
     throw new Error((error as Error).message)
   }
+}
+
+const fetchLikes = useFetchLikes()
+const liked = ref(false)
+const like = () => {
+  if (liked.value) {
+    fetchLikes.create(book.value?.id as string)
+    accountStore.token
+    accountStore.userAccount?.likes?.push(book.value?.id)
+  }
+  fetchLikes.del(book.value?.id as string)
+  //POST DANS TABLE LIKES (USER -> LIKES) => USER TOKEN + BOOK ID
 }
 
 onBeforeMount(async () => (book.value = await bookStore.retrieveBook(id as string)))
