@@ -15,7 +15,7 @@ import {
   TruckIcon
 } from '@heroicons/vue/24/outline'
 import { useAccountStore } from '@/stores/useAccountStore'
-import LoginView from './views/LoginView.vue'
+import Login from './views/Login.vue'
 import router from './router'
 import { useBookStore } from './stores/useBookStore'
 import type { Books } from './libs/interfaces/books'
@@ -115,7 +115,7 @@ const routerArrow = router
   <Suspense>
     <RouterView v-slot="{ Component }">
       <!-- <KeepAlive> -->
-      <LoginView
+      <Login
         v-if="
           !accountStore.token &&
           route.name !== 'home' &&
