@@ -114,17 +114,19 @@ const routerArrow = router
   <Header />
   <Suspense>
     <RouterView v-slot="{ Component }">
-      <!-- <KeepAlive> -->
-      <Login
-        v-if="
-          !accountStore.token &&
-          route.name !== 'home' &&
-          route.name !== 'book' &&
-          route.name !== 'signup'
-        "
-        class="py-28 lg:py-32 px-8"
-      />
-      <component v-else :is="Component" class="py-28 lg:py-32 mx-auto" />
+      <main class="py-28 lg:py-32 mx-auto">
+        <!-- <KeepAlive> -->
+        <Login
+          v-if="
+            !accountStore.token &&
+            route.name !== 'home' &&
+            route.name !== 'book' &&
+            route.name !== 'signup'
+          "
+          class=""
+        />
+        <component v-else :is="Component" />
+      </main>
       <aside
         v-if="accountStore.token || route.name === 'home' || route.name === 'book'"
         class="mr-4 flex items-start"
@@ -134,18 +136,16 @@ const routerArrow = router
           :menu="accountMenu"
           class="mt-32 mr-2 hidden lg:flex"
         />
-        <TwButton
-          size="s"
+        <button
           role="button"
           aria-roledescription="Retour"
-          class="relative top-32 transition-colors duration-150 whitespace-nowrap"
-          color="text-gray-900 hover:text-primary"
+          class="sm:px-2.5 sm:py-1.5 sm:text-xs sm:font-medium sm:leading-6 relative top-32 transition-colors duration-150 whitespace-nowrap hover:text-primary"
           @click="routerArrow.back()"
         >
           <span class="sr-only">Retour</span>
           <ArrowLeftIcon class="w-5 h-5 inline mr-2" role="navigation" aria-label="Retour" />
           <span class="text-base hidden lg:inline font-medium">Retour</span>
-        </TwButton>
+        </button>
       </aside>
       <!-- </KeepAlive> -->
     </RouterView>

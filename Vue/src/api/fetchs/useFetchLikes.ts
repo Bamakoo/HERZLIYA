@@ -14,7 +14,14 @@ export const useFetchLikes = () => {
   }
 
   const create = async (id: Likes['bookID']) => {
-    const { data } = await httpClient.post<Likes>(`/likes/${id}`, id)
+    const loginCredentials = window.localStorage.getItem('token')
+
+    const { data } = await httpClient.post<Likes>(`/likes/${id}`, id, {
+      headers: {
+        Authorization: `Basic ${loginCredentials}`
+      }
+    })
+
     return data
   }
 

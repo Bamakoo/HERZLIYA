@@ -1,5 +1,5 @@
 <template>
-  <Popover class="relative">
+  <Popover class="">
     <PopoverButton
       class="group inline-flex items-center rounded-md bg-secondary px-3 py-2 text-base font-medium text-white hover:bg-secondary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
     >

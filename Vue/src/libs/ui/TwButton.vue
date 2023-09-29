@@ -40,7 +40,7 @@ const isDisabled = computed(() => props.disabled || props.loading)
 const btnSize = computed(() => {
   const classes: string[] = []
   if (!props.size) {
-    classes.push(' px-3 py-2 ')
+    classes.push('px-3 py-2')
   } else {
     if (props.size === 's') {
       classes.push('sm:px-2.5 sm:py-1.5 sm:text-xs sm:font-medium sm:leading-6')

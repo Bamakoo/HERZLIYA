@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-lg lg:max-w-4xl mx-auto px-8">
+  <div v-if="!showLogin" class="max-w-lg lg:max-w-4xl mx-auto px-8">
     <div class="grid lg:grid-cols-2 gap-x-8 gap-y-8 lg:gap-y-0">
       <h1 class="lg:hidden text-5xl font-bold text-center">
         {{ book?.title ?? 'Titre du livre' }}
@@ -33,6 +33,7 @@
             size="m"
             @click="buy(book?.id as string)"
             class="ml-4 lg:ml-0 lg:w-1/2"
+            type="button"
             ><ShoppingCartIcon class="w-5 h-5 lg:mr-2 text-white" /><span>Acheter</span></TwButton
           >
           <TwLikes />
@@ -40,6 +41,8 @@
       </div>
     </div>
   </div>
+  <RouterView v-if="!showLogin" />
+  <Login v-if="showLogin" />
 </template>
 
 <script setup lang="ts">
@@ -53,6 +56,7 @@ import type { Books } from '@/libs/interfaces/books'
 // import { useAccountStore } from '@/stores/useAccountStore'
 import { ShoppingCartIcon } from '@heroicons/vue/24/outline'
 import httpClient from '@/api/httpClient'
+import Login from './Login.vue'
 
 const route = useRoute()
 const { id } = route.params
@@ -74,15 +78,21 @@ const book = ref<Books>()
 
 // const cartStore = useCartStore()
 // const cart = await cartStore.retrieveCart()
+const showLogin = ref(false)
+const token = ref('')
 
 const buy = async (bookId: Books['id'], e?: SubmitEvent) => {
   e?.preventDefault()
   try {
-    const token = window.localStorage.getItem('token')
-    //vérifier que le livre est encore dispo
+    token.value = window.localStorage.getItem('token') as string
+
+    if (!token.value) {
+      showLogin.value = true // Affiche la vue Login
+      return
+    }
 
     const data = await httpClient.post(`/books/${bookId}/purchase`, bookId, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token.value}` }
     })
     // const data = (cart.purchased_at = new Date(Date.now()))
     return data

@@ -18,7 +18,7 @@
           required
         />
         <TwButton
-          type="button"
+          type="submit"
           size="l"
           class="bg-secondary font-semibold justify-center"
           @click="login"
