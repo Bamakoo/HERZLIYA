@@ -143,6 +143,8 @@ const onSubmit = async () => {
     const signup = httpClient.post('/users', newUser, {
       headers: { Authorization: `Basic ${loginCredentials}` }
     })
+    location.reload()
+
     return [newAccount, signup]
   } catch (error) {
     console.error((error as Error).message)

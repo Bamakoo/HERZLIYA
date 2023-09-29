@@ -54,8 +54,8 @@ const datas = ref<{
 
 const isLoading = ref(false)
 
-const login = async (e: SubmitEvent) => {
-  e.preventDefault()
+const login = async () => {
+  // e.preventDefault()
   try {
     if (!datas.value.username && !datas.value.password) return
     isLoading.value = true
@@ -67,7 +67,7 @@ const login = async (e: SubmitEvent) => {
     console.log(data.value)
     window.localStorage.setItem('token', data.value)
 
-    useRoute().redirectedFrom
+    location.reload()
     return login
   } catch (error) {
     console.error((error as Error).message)

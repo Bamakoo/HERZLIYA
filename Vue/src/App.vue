@@ -124,7 +124,7 @@ const routerArrow = router
         "
         class="py-28 lg:py-32 px-8"
       />
-      <component :is="Component" class="py-28 lg:py-32 mx-auto" />
+      <component v-else :is="Component" class="py-28 lg:py-32 mx-auto" />
       <aside
         v-if="accountStore.token || route.name === 'home' || route.name === 'book'"
         class="mr-4 flex items-start"
@@ -139,7 +139,7 @@ const routerArrow = router
           role="button"
           aria-roledescription="Retour"
           class="relative top-32 transition-colors duration-150 whitespace-nowrap"
-          color="text-gray-900  hover:text-primary"
+          color="text-gray-900 hover:text-primary"
           @click="routerArrow.back()"
         >
           <span class="sr-only">Retour</span>

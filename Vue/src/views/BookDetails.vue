@@ -23,10 +23,17 @@
           <p>{{ book?.description }}</p>
         </div>
         <div class="flex-row-reverse lg:flex-row flex items-center lg:space-x-4">
-          <TwButton size="m" @click="addToCart(book?.id, book)" class="ml-4 lg:ml-0 lg:w-1/2"
+          <!-- <TwButton size="m" @click="addToCart(book?.id, book)" class="ml-4 lg:ml-0 lg:w-1/2"
             ><ShoppingCartIcon class="w-5 h-5 lg:mr-2 text-white" /><span
               >Ajouter au panier</span
             ></TwButton
+          > -->
+          <TwButton
+            v-if="book?.status !== 'available'"
+            size="m"
+            @click="buy(book?.id as string)"
+            class="ml-4 lg:ml-0 lg:w-1/2"
+            ><ShoppingCartIcon class="w-5 h-5 lg:mr-2 text-white" /><span>Acheter</span></TwButton
           >
           <TwLikes />
         </div>
@@ -39,19 +46,22 @@
 import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBookStore } from '@/stores/useBookStore'
-import { useFetchCart } from '@/api/fetchs/useFetchCart'
+// import { useCartStore } from '@/stores/useCartStore'
+// import { useFetchCart } from '@/api/fetchs/useFetchCart'
 import { TwButton, TwLikes } from '@/libs/ui/index.vue'
 import type { Books } from '@/libs/interfaces/books'
 // import { useAccountStore } from '@/stores/useAccountStore'
 import { ShoppingCartIcon } from '@heroicons/vue/24/outline'
+import httpClient from '@/api/httpClient'
 
 const route = useRoute()
 const { id } = route.params
 const bookStore = useBookStore()
 const book = ref<Books>()
+
 // const fetchCart = useFetchCart()
 // const accountStore = useAccountStore()
-const { addToCart } = useFetchCart()
+// const { addToCart } = useFetchCart()
 // const addToCart = async (book: Books) => {
 //   const data = accountStore.userAccount?.cart?.books
 //   console.log(data)
@@ -61,6 +71,25 @@ const { addToCart } = useFetchCart()
 //   console.log(data)
 //   return data
 // }
+
+// const cartStore = useCartStore()
+// const cart = await cartStore.retrieveCart()
+
+const buy = async (bookId: Books['id'], e?: SubmitEvent) => {
+  e?.preventDefault()
+  try {
+    const token = window.localStorage.getItem('token')
+    //vérifier que le livre est encore dispo
+
+    const data = await httpClient.post(`/books/${bookId}/purchase`, bookId, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    // const data = (cart.purchased_at = new Date(Date.now()))
+    return data
+  } catch (error) {
+    throw new Error((error as Error).message)
+  }
+}
 
 onBeforeMount(async () => (book.value = await bookStore.retrieveBook(id as string)))
 </script>
