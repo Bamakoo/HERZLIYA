@@ -55,7 +55,7 @@ struct CreateAccountView: View {
         .padding(15)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color.blue))
+                .fill(Color.orange))
     }
 }
 struct CreateAccountView_Previews: PreviewProvider {
