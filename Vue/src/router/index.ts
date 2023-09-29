@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import BookView from '../views/BooksView.vue'
+import Books from '../views/Books.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: BookView
+      component: Books
     },
     {
       path: '/add',
@@ -42,17 +42,17 @@ const router = createRouter({
     {
       path: '/cart',
       name: 'cart',
-      component: () => import('@/views/CartView.vue')
+      component: () => import('@/views/Cart.vue')
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/LoginView.vue')
+      component: () => import('@/views/Login.vue')
     },
     {
       path: '/signup',
       name: 'signup',
-      component: () => import('@/views/SignupView.vue')
+      component: () => import('@/views/Signup.vue')
     }
   ]
 })

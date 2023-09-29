@@ -59,7 +59,7 @@ export const useAccountStore = defineStore('users', () => {
     token.value = userAccount.value.token //account.infos.token
   })
 
-  const { logout } = useFetchAccounts()
+  // const { logout } = useFetchAccounts()
 
-  return { userList, retrieveUserAccount, token, userAccount, logout }
+  return { userList, retrieveUserAccount, token, userAccount }
 })

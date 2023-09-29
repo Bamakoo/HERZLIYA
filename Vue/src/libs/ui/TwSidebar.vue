@@ -1,7 +1,7 @@
 <template>
   <nav
     v-bind="{ menu }"
-    class="hidden lg:flex lg:flex-col w-64 first:rounded-tr-2xl border focus:border-transparent last:rounded-br-2xl"
+    class="hidden lg:block w-64 first:rounded-tr-2xl border focus:border-transparent last:rounded-br-2xl"
   >
     <component
       v-for="(sub, i) in menu.submenu"

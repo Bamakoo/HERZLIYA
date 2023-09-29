@@ -91,6 +91,7 @@ import { TwForm, TwInputText, TwButton } from '@/libs/ui/index.vue'
 import { useAccountStore } from '@/stores/useAccountStore'
 import type { Users } from '@/libs/interfaces/users'
 import httpClient from '@/api/httpClient'
+// import router from '@/router'
 
 type User = Omit<Users, 'id' | 'books' | 'cart' | 'sales' | 'friends' | 'token' | 'purchases'>
 
@@ -117,7 +118,7 @@ const onSubmit = async () => {
     if (!datas.value) return
 
     isLoading.value = true
-    //router.go(0)
+
     const newUser: User = {
       username: datas.value.username ?? null,
       email: datas.value.email ?? null,
@@ -143,6 +144,9 @@ const onSubmit = async () => {
     const signup = httpClient.post('/users', newUser, {
       headers: { Authorization: `Basic ${loginCredentials}` }
     })
+
+    //location.reload() //router.go(0)
+
     return [newAccount, signup]
   } catch (error) {
     console.error((error as Error).message)
