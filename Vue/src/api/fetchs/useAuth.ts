@@ -18,7 +18,7 @@ export const useFetchAccounts = () => {
       'id' | 'updatedAt' | 'books' | 'cart' | 'sales' | 'friends' | 'token' | 'purchases'
     >
   ) => {
-    const { data } = await httpClient.post<Users>('/users', datas)
+    const { data } = await httpClient.post<Users>('/login', datas)
     return data
   }
 
