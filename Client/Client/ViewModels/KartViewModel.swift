@@ -17,6 +17,17 @@ import Foundation
             print(error.localizedDescription)
         }
     }
+    
+    func purchaseBooksInCart() async throws {
+        do {
+            try await getBooksInKart()
+            for book in kartBooks {
+                try await buyBook(book)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 
     func removeBookFromKart(_ book: Book) async throws {
         do {

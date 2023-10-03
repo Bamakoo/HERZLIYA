@@ -42,6 +42,14 @@ struct KartView: View {
                 }
             }
             .listViewModifier()
+        Button(action: {
+            Task {
+               try await viewModel.purchaseBooksInCart()
+            }
+        }, label: {
+            Text("Purchase all books in cart")
+        })
+        .buttonStyle(MainButtonStyle())
             .onAppear {
                 Task {
                     try await viewModel.getBooksInKart()

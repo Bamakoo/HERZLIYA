@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct BookCommentsView: View {
+
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
     @Environment(\.dismiss) private var dismiss
     @State private var fullText: String = "Your comment"
     @State private var rating: Double = 0
     let book: Book
+
     var body: some View {
         VStack(spacing: 10) {
             Slider(value: $rating, in: 0 ... 10, step: 1) {
@@ -32,7 +34,7 @@ struct BookCommentsView: View {
             } label: {
                 Text("Give book a \(rating) rating".uppercased())
             }
-            .buttonStyle(TertiaryButtonStyle())
+            .buttonStyle(MainButtonStyle())
             TextField("Comment", text: $fullText, prompt: Text("Please input your comment"), axis: .vertical)
                 .padding()
                 .background(.gray.opacity(0.2))
@@ -44,9 +46,9 @@ struct BookCommentsView: View {
                         try await viewModel.fetchBookComments(book)
                     }
                 } label: {
-                    Text("Comment".uppercased())
+                    Text("Comment on \(book.title)".uppercased())
                 }
-                .buttonStyle(SecondaryButtonStyle())
+                .buttonStyle(MainButtonStyle())
         }
         List(viewModel.commentsOnBook) { comment in
             Text(comment.comment)

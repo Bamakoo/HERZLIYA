@@ -114,9 +114,17 @@ struct UserController: RouteCollection {
             throw Abort(.notFound, reason: "unable to find kart")
         }
 
-        /// return all the books associated to the kart
+        /// return all the books associated with the user's kart
         let books = try await kart.$books.get(on: req.db)
-        return try books.map { book in
+        var returnedBooks = [Book]()
+
+        for book in books {
+            if book.status == .available {
+                returnedBooks.append(book)
+            }
+        }
+
+        return try returnedBooks.map { book in
             try GetBook(id: book.requireID(),
                         descritpion: book.description,
                         genre: book.genre,
