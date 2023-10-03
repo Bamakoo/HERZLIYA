@@ -15,30 +15,40 @@ struct MyComments: View {
     var body: some View {
         List(viewModel.myComments, selection: $selectedComment) { comment in
             NavigationLink(destination: CommentBookDetailedView(comment: Binding.constant(comment))) {
-                Label(comment.comment, systemImage: "speaker.wave.3")
-                    .swipeActions(edge: .trailing) {
-                        Button {
-                            Task {
-                                try await viewModel.deleteComment(comment.id)
-                                try await viewModel.fetchMyComments()
-                            }
-                        } label: {
-                            Image(systemName: "delete.backward")
-                        }
-                        .tint(.red)
+                HStack(alignment: .center) {
+                    Image(systemName: "speaker.wave.3")
+                        .fontWeight(.thin)
+                        .foregroundStyle(.primary)
+                        .padding([.trailing], 8)
+                    Text(comment.comment)
+                        .font(.title3)
+                        .foregroundStyle(.primary)
+                        .fontWeight(.regular)
+                }
+            }
+            .swipeActions(edge: .trailing) {
+                Button {
+                    Task {
+                        try await viewModel.deleteComment(comment.id)
+                        try await viewModel.fetchMyComments()
                     }
-                    .swipeActions(edge: .leading) {
-                        Button {
-                            Task {
-                                print("change my comments")
-                            }
-                        } label: {
-                            Image(systemName: "tornado")
-                        }
-                        .tint(.blue)
+                } label: {
+                    Image(systemName: "delete.backward")
+                }
+                .tint(.red)
+            }
+            .swipeActions(edge: .leading) {
+                Button {
+                    Task {
+                        print("change my comments")
                     }
+                } label: {
+                    Image(systemName: "tornado")
+                }
+                .tint(.blue)
             }
         }
+        .navigationTitle("My Comments")
         .onAppear {
             Task {
                 try await viewModel.fetchMyComments()

@@ -25,7 +25,7 @@ struct UserProfileView: View {
                             .foregroundStyle(.primary)
                             .padding([.trailing], 8)
                         Text(item.title)
-                            .font(.title3)
+                            .font(.headline)
                             .foregroundStyle(.primary)
                             .fontWeight(.regular)
                     }
@@ -44,26 +44,26 @@ struct UserProfileView: View {
                     .sheet(isPresented: $updateProfile) {
                         UpdateProfile()
                     }
-                    .navigationDestination(for: ProfileMenu.self) { item in
-                        switch item {
-                        case .booksByFavoriteAuthor:
-                            BooksByMyFavoriteAuthorView()
-                        case .friends:
-                            MyFriendsView()
-                        case .likes:
-                            LikesView()
-                        case .myKart:
-                            KartView()
-                        case .purchases:
-                            MyPurchases()
-                        case .soldBooks:
-                            SoldBooks()
-                        case .commentsOnMyBooks:
-                            CommentsOnMyBooksView()
-                        case .myComments:
-                            MyComments()
-                        }
-                    }
+                }
+            }
+            .navigationDestination(for: ProfileMenu.self) { item in
+                switch item {
+                case .booksByFavoriteAuthor:
+                    BooksByMyFavoriteAuthorView()
+                case .friends:
+                    MyFriendsView()
+                case .likes:
+                    LikesView()
+                case .myKart:
+                    KartView()
+                case .purchases:
+                    MyPurchases()
+                case .soldBooks:
+                    SoldBooks()
+                case .commentsOnMyBooks:
+                    CommentsOnMyBooksView()
+                case .myComments:
+                    MyComments()
                 }
             }
         }

@@ -15,7 +15,19 @@ struct MyFriendsView: View {
     var body: some View {
         List(viewModel.myFriends, selection: $selection) { user in
             NavigationLink(destination: PublicProfileView(user: Binding.constant(user))) {
-                Label(user.username, systemImage: "person.crop.circle.fill")
+                HStack(alignment: .center, spacing: 5) {
+                    Image(systemName: "person")
+                        .resizable()
+                        .aspectRatio(1, contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                        .fontWeight(.thin)
+                        .foregroundStyle(.primary)
+                        .padding([.trailing], 8)
+                    Text(user.username)
+                        .font(.headline)
+                        .foregroundStyle(.primary)
+                        .fontWeight(.medium)
+                }
             }
             .swipeActions(edge: .trailing) {
                 Button {

@@ -11,6 +11,7 @@ struct PublicProfileView: View {
     @Binding var user: FetchUser?
     var body: some View {
         if let user {
+            
             Text(user.username)
         }
     }

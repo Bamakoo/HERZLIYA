@@ -38,7 +38,7 @@ struct BookList: View {
                     } label: {
                         Image(systemName: "cart.badge.plus")
                     }
-                    .tint(Color.blue)
+                    .tint(Color.orange)
                 }
             }
             .listViewModifier()

@@ -11,8 +11,6 @@ struct BookDetail: View {
 
     @Binding var book: Book?
     @StateObject private var viewModel = BooksViewModel(networkManager: BooksNetworkManager(httpClient: Networking()))
-    @State private var fullText: String = "Your comment"
-    @State private var rating: Double = 0
     @State private var isDisplaying = false
 
     var body: some View {
@@ -50,12 +48,12 @@ struct BookDetail: View {
             } label: {
                 switch viewModel.commentsOnBook.count {
                 case 0:
-                    Text("No comments to display")
+                    Text("Be the first to comment")
                 case let numberOfComments where numberOfComments == 1:
                     Text("Display 1 comment")
                 case let numberOfComments where numberOfComments > 1:
                     Text("Display \(viewModel.commentsOnBook.count) comments")
-                case _ :
+                case _:
                     Text("Something went wrong")
                 }
             }
@@ -103,46 +101,10 @@ struct BookDetail: View {
                     .foregroundColor(Color.secondary)
                     .padding([.leading, .trailing], 30)
             }
-            VStack(spacing: 10) {
-                Slider(value: $rating, in: 0 ... 10, step: 1) {
-                    Text("Slider")
-                } minimumValueLabel: {
-                    Text("0").font(.title2).fontWeight(.thin)
-                } maximumValueLabel: {
-                    Text("10").font(.title2).fontWeight(.thin)
-                }
-                .tint(.orange)
-                .padding([.bottom, .top], 30)
-                .padding([.leading, .trailing], 30)
-                Button {
-                    Task {
-                        if let book {
-                            try await viewModel.rateBook(book, rating)
-                        }
-                    }
-                } label: {
-                    Text("Give book a \(rating) rating".uppercased())
-                }
-                .buttonStyle(TertiaryButtonStyle())
-                TextField("Comment", text: $fullText, prompt: Text("Please input your comment"), axis: .vertical)
-                    .padding()
-                    .background(.gray.opacity(0.2))
-                    .cornerRadius(10.0)
-                    .padding()
-                if let book {
-                    Button {
-                        Task {
-                            try await viewModel.commentOnBook(book, fullText)
-                            try await viewModel.fetchBookComments(book)
-                        }
-                    } label: {
-                        Text("Comment".uppercased())
-                    }
-                    .buttonStyle(SecondaryButtonStyle())
-                    CustomButton(book: book)
-                        .padding([.bottom, .top], 5)
-                        .padding([.leading, .trailing], 30)
-                }
+            if let book {
+                CustomButton(book: book)
+                    .padding([.bottom, .top], 20)
+                    .padding([.leading, .trailing], 30)
             }
         }
         .sheet(isPresented: $isDisplaying) {

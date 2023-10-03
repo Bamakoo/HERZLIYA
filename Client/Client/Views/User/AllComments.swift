@@ -17,7 +17,21 @@ struct AllComments: View {
                 NavigationLink(destination: CommentBookDetailedView(comment: Binding.constant(comment))) {
                     if let commentUsername = comment.username,
                        let commentBookTitle = comment.bookTitle {
-                        Label("\(commentUsername) commented on \(commentBookTitle)", systemImage: "person.2.wave.2")
+                        HStack {
+                            Image(systemName: "speaker.wave.3")
+                                .fontWeight(.thin)
+                                .foregroundStyle(.primary)
+                                .padding([.trailing], 8)
+                            VStack {
+                                Text("\(commentUsername) commented on \(commentBookTitle)")
+                                    .font(.title3)
+                                    .foregroundStyle(.primary)
+                                    .fontWeight(.regular)
+                                Text(comment.comment)
+                                    .font(.footnote)
+                                    .fontWeight(.medium)
+                            }
+                        }
                     }
                 }
             }

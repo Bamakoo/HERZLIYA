@@ -13,7 +13,7 @@ struct DetailedUserProfile: View {
 
     var body: some View {
         if let user {
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .center, spacing: 30) {
                 Text(user.username)
                     .font(.title)
                     .padding(.bottom, 10)
