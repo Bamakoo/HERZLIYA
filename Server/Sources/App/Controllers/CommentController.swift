@@ -9,6 +9,7 @@ struct CommentController: RouteCollection {
         let tokenMiddleware = UserToken.guardMiddleware()
         let tokenAuthComment = commentRoutes.grouped(tokenAuthenticator, tokenMiddleware)
         tokenAuthComment.get(":bookID", use: commentsOnBook)
+        tokenAuthComment.get("users", "books", use: commentsOnMyBooks)
         tokenAuthComment.patch(":commentID", use: update)
         tokenAuthComment.post(use: create)
         tokenAuthComment.delete(":commentID", use: delete)
@@ -35,22 +36,32 @@ func commentsOnBook(req: Request) async throws -> [GetComment] {
     }
 }
 
-//TODO: find a way to fix
 func commentsOnMyBooks(req: Request) async throws -> [GetComment] {
     
     let user = try req.auth.require(User.self)
     guard let userID = user.id else {
         throw Abort(.badRequest, reason: "unable to get user")
     }
-    
+    var returnedComments = [Comment]()
     let comments = try await Comment.query(on: req.db)
         .with(\.$book)
         .with(\.$user)
-        .filter(\Comment.book.$seller.$id == userID)
+       // .filter(\Comment.book.$seller.$id == userID)
         .all()
+    
+    for comment in comments {
+        if comment.book.$seller.id == userID {
+            returnedComments.append(comment)
+        }
+    }
         
-    return try comments.map { comment in
-        try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.$book.id, userID: comment.$user.id, username: comment.user.username, bookTitle: comment.book.title)
+    return try returnedComments.map { comment in
+        try GetComment(id: comment.requireID(),
+                       comment: comment.comment,
+                       bookID: comment.$book.id,
+                       userID: comment.$user.id,
+                       username: comment.user.username,
+                       bookTitle: comment.book.title)
     }
 }
 

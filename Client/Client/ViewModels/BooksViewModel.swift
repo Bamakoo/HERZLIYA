@@ -8,16 +8,16 @@
 import Foundation
 @MainActor final class BooksViewModel: ObservableObject {
 
-    @Published var title = ""
-    @Published var author = ""
-    @Published var description = ""
+    @Published var title = String()
+    @Published var author = String()
+    @Published var description = String()
     @Published var genre: BookGenre = .action
     @Published var state: BookState = .acceptable
     @Published var price = 0
     @Published var status: BookStatus = .available
     @Published var books = [Book]()
     @Published var booksByUsersFavoriteAuthor = [Book]()
-    @Published var searchText: String = ""
+    @Published var searchText: String = String()
     @Published var searchResults = [Book]()
     @Published var commentsOnBook = [Comment]()
 
