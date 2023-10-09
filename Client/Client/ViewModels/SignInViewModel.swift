@@ -1,7 +1,7 @@
 import Foundation
 @MainActor final class SignInViewModel: ObservableObject {
-    @Published var username = ""
-    @Published var password = ""
+    @Published var username = String()
+    @Published var password = String()
     @Published var hasError = false
     @Published var isSigningIn = false
     var canSignIn: Bool {

@@ -10,10 +10,19 @@ import Foundation
 @MainActor final class MyCommentsViewModel: ObservableObject {
 
     @Published var myComments = [Comment]()
+    @Published var commentsOnMyBooks = [Comment]()
 
     func fetchMyComments() async throws {
         do {
             myComments = try await UseCase.Comments.fetchMyComments()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
+    func fetchCommentsOnMySoldBooks() async throws {
+        do {
+            commentsOnMyBooks = try await UseCase.Comments.fetchCommentsOnMyBooks()
         } catch {
             print(error.localizedDescription)
         }

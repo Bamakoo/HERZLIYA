@@ -8,8 +8,52 @@
 import SwiftUI
 
 struct CommentsOnMyBooksView: View {
+
+    @StateObject private var viewModel = MyCommentsViewModel()
+    @State private var selectedComment: Comment?
+
     var body: some View {
-        Text("Comments on my books")
+        List(viewModel.commentsOnMyBooks, selection: $selectedComment) { comment in
+            NavigationLink(destination: CommentBookDetailedView(comment: Binding.constant(comment))) {
+                HStack(alignment: .center) {
+                    Image(systemName: "speaker.wave.3")
+                        .fontWeight(.thin)
+                        .foregroundStyle(.primary)
+                        .padding([.trailing], 8)
+                    Text(comment.comment)
+                        .font(.title3)
+                        .foregroundStyle(.primary)
+                        .fontWeight(.regular)
+                }
+            }
+            .swipeActions(edge: .trailing) {
+                Button {
+                    Task {
+                        try await viewModel.deleteComment(comment.id)
+                        try await viewModel.fetchMyComments()
+                    }
+                } label: {
+                    Image(systemName: "delete.backward")
+                }
+                .tint(.red)
+            }
+            .swipeActions(edge: .leading) {
+                Button {
+                    Task {
+                        print("change my comments")
+                    }
+                } label: {
+                    Image(systemName: "tornado")
+                }
+                .tint(.blue)
+            }
+        }
+        .navigationTitle("Comments on my books")
+        .onAppear {
+            Task {
+                try await viewModel.fetchCommentsOnMySoldBooks()
+            }
+        }
     }
 }
 

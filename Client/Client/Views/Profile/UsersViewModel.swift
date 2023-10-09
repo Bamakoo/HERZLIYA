@@ -11,18 +11,18 @@ import SwiftUI
 @MainActor final class UsersViewModel: ObservableObject {
 
     @Published var users = [FetchUser]()
-    @Published var currentPassword = ""
-    @Published var confirmCurrentPassword = ""
-    @Published var newPassword = ""
-    @Published var confirmNewPasswordd = ""
-    @Published var username = ""
-    @Published var email = ""
-    @Published var password = ""
-    @Published var confirmPassword = ""
-    @Published var favoriteBook = ""
-    @Published var favoriteAuthor = ""
-    @Published var city = ""
-    @Published var country = ""
+    @Published var currentPassword = String()
+    @Published var confirmCurrentPassword = String()
+    @Published var newPassword = String()
+    @Published var confirmNewPasswordd = String()
+    @Published var username = String()
+    @Published var email = String()
+    @Published var password = String()
+    @Published var confirmPassword = String()
+    @Published var favoriteBook = String()
+    @Published var favoriteAuthor = String()
+    @Published var city = String()
+    @Published var country = String()
 
     func friendUser(_ userID: UUID) async throws {
         do {
