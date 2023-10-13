@@ -52,12 +52,11 @@ export const useAccountStore = defineStore('users', () => {
       friends: user.friends,
       cart: user.cart
     }
-
-    watch(account, () => {
-      token.value = window.localStorage.getItem('token')
-    })
   })
 
+  watch(token, () => {
+    token.value = window.localStorage.getItem('token')
+  })
   // const { logout } = useFetchAccounts()
 
   return { userList, retrieveUserAccount, token }
