@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto max-w-3xl p-4">
+  <div v-if="!accountStore.token" class="mx-auto max-w-3xl p-4">
     <form @submit="signup" class="bg-secondary-light/20 p-8 rounded-xl">
       <div class="space-y-2 text-center mb-10">
         <h1 class="text-4xl font-semibold">Créer mon compte</h1>
