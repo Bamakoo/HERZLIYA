@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { useFetchAccounts } from '@/api/fetchs/useFetchAccounts'
 import type { Users } from '@/libs/interfaces/users'
@@ -17,7 +17,6 @@ export const useAccountStore = defineStore('users', () => {
   }
 
   const id = ref('')
-  let userAccount: Partial<Users> | null = null
   const token = ref<Users['token']>('')
 
   // const account = {
@@ -54,12 +53,12 @@ export const useAccountStore = defineStore('users', () => {
       cart: user.cart
     }
 
-    userAccount = account
-    userAccount.token = window.localStorage.getItem('token')
-    token.value = userAccount.token //account.infos.token
+    watch(account, () => {
+      token.value = window.localStorage.getItem('token')
+    })
   })
 
   // const { logout } = useFetchAccounts()
 
-  return { userList, retrieveUserAccount, token, userAccount }
+  return { userList, retrieveUserAccount, token }
 })
