@@ -17,7 +17,7 @@ export const useAccountStore = defineStore('users', () => {
   }
 
   const id = ref('')
-  const userAccount = ref<Partial<Users> | null>(null)
+  let userAccount: Partial<Users> | null = null
   const token = ref<Users['token']>('')
 
   // const account = {
@@ -54,9 +54,9 @@ export const useAccountStore = defineStore('users', () => {
       cart: user.cart
     }
 
-    userAccount.value = account
-    userAccount.value.token = window.localStorage.getItem('token')
-    token.value = userAccount.value.token //account.infos.token
+    userAccount = account
+    userAccount.token = window.localStorage.getItem('token')
+    token.value = userAccount.token //account.infos.token
   })
 
   // const { logout } = useFetchAccounts()
