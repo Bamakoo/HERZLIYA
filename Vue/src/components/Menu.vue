@@ -4,12 +4,8 @@
       <MenuButton
         class="inline-flex w-full justify-center rounded-full bg-black bg-opacity-20 p-2 items-center font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
       >
-        <Bars3BottomRightIcon
-          v-if="!open"
-          class="w-5 text-violet-200 hover:text-violet-100"
-          aria-hidden="true"
-        />
-        <XMarkIcon v-else class="w-5 text-violet-200 hover:text-violet-100" aria-hidden="true" />
+        <Bars3BottomRightIcon v-if="!open" class="w-5 text-secondary-light" aria-hidden="true" />
+        <XMarkIcon v-else class="w-5 text-secondary-light" aria-hidden="true" />
       </MenuButton>
 
       <transition
@@ -37,7 +33,7 @@
                     : null
                 "
                 :class="[
-                  active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                  active ? 'bg-secondary/5 text-secondary' : 'text-gray-900',
                   'group flex w-full items-center rounded-md px-2 py-2 text-sm'
                 ]"
               >
@@ -45,7 +41,7 @@
                   v-if="item.icon"
                   :is="item.icon"
                   :active="active"
-                  class="mr-2 h-5 w-5 text-violet-400"
+                  :class="['mr-2 h-5 w-5', active ? 'text-secondary' : 'text-gray-900']"
                   aria-hidden="true"
                 />
                 {{ item.title }}

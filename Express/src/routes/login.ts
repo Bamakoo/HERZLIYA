@@ -18,7 +18,7 @@ router.post("/", async (req: Request, res: Response) => {
 
   if (match) {
     let BufferStringify = match.token.toString();
-    BufferStringify = token.toString(); //atob(auth ?? "");
+    BufferStringify = atob(auth ?? ""); //token.toString(); //
     return BufferStringify;
   }
   res.header("Authorization", `Basic ${token}`);

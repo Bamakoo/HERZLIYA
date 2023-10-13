@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto max-w-lg p-4">
-    <form class="bg-secondary-light/20 p-4 md:p-6 lg:p-8 rounded-xl">
+    <form class="bg-secondary-light/20 p-4 md:p-6 lg:p-8 rounded-xl" @submit="login">
       <h1 class="text-4xl font-semibold text-center mb-10">Me connnecter</h1>
       <div class="space-y-8 border-b pb-4 border-gray-200">
         <TwInputText

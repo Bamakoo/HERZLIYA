@@ -8,6 +8,9 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Books
+      // props:{
+      //   searchResult:
+      // }
     },
     {
       path: '/add',

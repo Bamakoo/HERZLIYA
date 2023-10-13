@@ -119,33 +119,32 @@ const routerArrow = router
         <Login
           v-if="
             !accountStore.token &&
-            route.name !== 'home' &&
+            route.path !== '/' &&
             route.name !== 'book' &&
-            route.name !== 'signup'
+            route.path !== '/signup'
           "
-          class=""
         />
-        <component v-else :is="Component" />
+        <!-- && route.path !== '/account' -->
+        <div v-else>
+          <button
+            role="button"
+            aria-roledescription="Retour"
+            class="sm:px-2.5 sm:py-1.5 sm:text-xs sm:font-medium sm:leading-6 relative top-32 transition-colors duration-150 whitespace-nowrap hover:text-primary"
+            @click="routerArrow.back()"
+          >
+            <span class="sr-only">Retour</span>
+            <ArrowLeftIcon class="w-5 h-5 inline mr-2" role="navigation" aria-label="Retour" />
+            <span class="text-base hidden lg:inline font-medium">Retour</span>
+          </button>
+          <component :is="Component" />
+        </div>
       </main>
-      <aside
-        v-if="accountStore.token || route.name === 'home' || route.name === 'book'"
-        class="mr-4 flex items-start"
-      >
+      <aside v-if="accountStore.token || route.path === '/' || route.name === 'book'" class="mr-4">
         <TwSidebar
           v-if="route.path.startsWith('/account')"
           :menu="accountMenu"
           class="mt-32 mr-2 hidden lg:flex"
         />
-        <button
-          role="button"
-          aria-roledescription="Retour"
-          class="sm:px-2.5 sm:py-1.5 sm:text-xs sm:font-medium sm:leading-6 relative top-32 transition-colors duration-150 whitespace-nowrap hover:text-primary"
-          @click="routerArrow.back()"
-        >
-          <span class="sr-only">Retour</span>
-          <ArrowLeftIcon class="w-5 h-5 inline mr-2" role="navigation" aria-label="Retour" />
-          <span class="text-base hidden lg:inline font-medium">Retour</span>
-        </button>
       </aside>
       <!-- </KeepAlive> -->
     </RouterView>

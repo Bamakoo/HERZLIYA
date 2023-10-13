@@ -44,7 +44,7 @@
       </div>
     </div>
   </div>
-  <TwButton color="red" @click="logout">Bye Bye</TwButton>
+  <TwButton color="red" @click="logout" class="absolute right-0">Bye Bye</TwButton>
 </template>
 
 <!-- <script setup lang="ts">

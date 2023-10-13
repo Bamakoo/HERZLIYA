@@ -1,7 +1,21 @@
 <template>
   <div class="max-w-xl lg:max-w-4xl px-4 md:px-8 mx-auto">
-    <h1 class="text-center text-4xl font-semibold mb-8">Tous les livres</h1>
-    <div class="flex items-start mx-auto max-w-sm md:max-w-3xl">
+    <h1 class="text-center text-4xl font-semibold mb-8">
+      {{ searchResult ? 'Résultat de ta recherche' : 'Tous les livres' }}
+    </h1>
+    <div v-if="searchResult" class="flex items-start mx-auto max-w-sm md:max-w-3xl">
+      <div class="gap-4 mr-2 grid sm:grid-cols-2 w-11/12">
+        <TwCard
+          v-for="(book, index) in searchResult"
+          :key="index"
+          :book="book"
+          :to="`/books/${book.id}`"
+          class="max-w-sm sm:max-w-none"
+        />
+      </div>
+      <FilterBooks />
+    </div>
+    <div v-else class="flex items-start mx-auto max-w-sm md:max-w-3xl">
       <div class="gap-4 mr-2 grid sm:grid-cols-2 w-11/12">
         <TwCard
           v-for="(book, index) in books"
@@ -22,6 +36,7 @@ import { onBeforeMount, computed, onMounted } from 'vue'
 import { TwCard } from '@/libs/ui/index.vue'
 import FilterBooks from '@/components/FilterBooks.vue'
 import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
+import type { Books } from '@/libs/interfaces/books'
 
 // const bookStore = useBookStore()
 // const books = await bookStore.books
@@ -46,4 +61,6 @@ import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
 onMounted(() => computed(() => books))
 const fetchBooks = useFetchBooks()
 const books = await fetchBooks.list()
+
+const props = defineProps<{ searchResult: Books | Books[] }>()
 </script>

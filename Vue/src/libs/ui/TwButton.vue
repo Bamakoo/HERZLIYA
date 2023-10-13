@@ -10,7 +10,7 @@
     v-else
     :type="type ?? 'button'"
     class="inline-flex items-center justify-center rounded-md text-sm font-semibold text-center shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-    :class="[btnSize, btnColor]"
+    :class="[btnSize, btnColor, className]"
   >
     <TwSpinner v-if="loading" class="absolute h-4 w-4" />
     <div class="justify-center flex select-none items-center" :class="{ invisible: loading }">
@@ -30,6 +30,7 @@ const props = defineProps<{
   loading?: boolean
   href?: string
   color?: 'red' | string
+  className?: string
   // emitValue?: unknown
 }>()
 

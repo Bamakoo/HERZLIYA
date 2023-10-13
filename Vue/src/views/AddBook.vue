@@ -122,7 +122,7 @@ const states = [
   { name: 'Neuf', value: 'brandNew' }
 ]
 
-type NewBook = Omit<Books, 'id' | 'status' | 'updatedAt' | 'deletedAt' | 'isFavorite'>
+type NewBook = Omit<Books, 'id' | 'updatedAt' | 'deletedAt' | 'isFavorite'>
 const datas = ref<{
   title: NewBook['title']
   author: NewBook['author']

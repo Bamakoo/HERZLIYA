@@ -11,14 +11,17 @@
       <label
         class="focus-within:ring hidden md:visible md:flex items-center rounded-xl bg-primary-dark/30 min-w-full focus:ring-offset-0 focus:border-none px-2 text-gray-700"
       >
-        <div class="inline mr-2"><MagnifyingGlassIcon class="h-6 w-6" /></div>
         <input
+          v-model.trim="text"
           type="search"
           dir="ltr"
           aria-autocomplete="list"
           aria-label="Tapez votre recherche"
           class="p-2 border-0 focus:ring-0 bg-transparent placeholder:Rechercher placeholder:text-gray-900 w-full"
         />
+        <button class="inline mr-2" @click="search(text)">
+          <MagnifyingGlassIcon class="h-6 w-6" />
+        </button>
       </label>
     </div>
     <nav class="hidden lg:flex lg:justify-center lg:text-center mx-auto space-x-4">
@@ -42,6 +45,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import Menu from './Menu.vue'
 import {
   MagnifyingGlassIcon,
@@ -51,6 +55,9 @@ import {
   UserCircleIcon,
   ShoppingCartIcon
 } from '@heroicons/vue/24/outline/index.js'
+import axios from 'axios'
+import type { Books } from '@/libs/interfaces/books'
+import httpClient from '@/api/httpClient'
 
 const navigation = [
   {
@@ -62,4 +69,21 @@ const navigation = [
   { icon: UserCircleIcon, title: 'Compte', to: `/account` },
   { icon: ShoppingCartIcon, title: 'Panier', to: '/cart' }
 ]
+const emit = defineEmits<{ (event: 'search', val: Books | Books[]): void }>()
+const text = ref('')
+const search = async (text: string) => {
+  console.log(text)
+  const { data } = await httpClient.get('/books')
+  console.dir(data)
+  const searchResult = computed(() =>
+    data.find((e: Books) => {
+      const titleMatch = e.title?.toLowerCase().includes(text.toLowerCase())
+      const authorMatch = e.author?.toLowerCase().includes(text.toLowerCase())
+      return titleMatch || authorMatch
+    })
+  )
+  console.dir(searchResult.value)
+  emit('search', searchResult.value)
+  return searchResult
+}
 </script>
