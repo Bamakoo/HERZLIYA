@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 @MainActor final class BooksViewModel: ObservableObject {
 
     @Published var title = String()

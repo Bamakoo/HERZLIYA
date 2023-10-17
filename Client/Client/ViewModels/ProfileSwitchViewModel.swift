@@ -11,6 +11,6 @@ final class ProfileSwitchViewModel: ObservableObject {
     @TokenRepository<Any>
     var token: String?
     func isLoggedIn() -> Bool {
-            return token != nil
+        return token != nil
     }
 }

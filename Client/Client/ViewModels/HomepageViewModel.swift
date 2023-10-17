@@ -19,8 +19,8 @@ import Foundation
             guard let bookID = book.id else {
                 return
             }
-                try await UseCase.Books.likeABook(bookID)
-            } catch {
+            try await UseCase.Books.likeABook(bookID)
+        } catch {
             print(error.localizedDescription)
         }
     }
@@ -63,6 +63,8 @@ import Foundation
                 return
             }
             try await UseCase.Books.addBookToKart(bookID)
+        } catch HttpError.unauthorized {
+            print("User was not authorized to add the book to the cart")
         } catch {
             print(error.localizedDescription)
         }

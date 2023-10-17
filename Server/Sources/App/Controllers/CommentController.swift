@@ -46,13 +46,10 @@ func commentsOnMyBooks(req: Request) async throws -> [GetComment] {
     let comments = try await Comment.query(on: req.db)
         .with(\.$book)
         .with(\.$user)
-       // .filter(\Comment.book.$seller.$id == userID)
         .all()
     
-    for comment in comments {
-        if comment.book.$seller.id == userID {
+    for comment in comments where comment.book.$seller.id == userID {
             returnedComments.append(comment)
-        }
     }
         
     return try returnedComments.map { comment in
@@ -73,7 +70,12 @@ func index(req: Request) async throws -> [GetComment] {
     
     let comments = try await Comment.query(on: req.db).with(\.$book).with(\.$user).all()
     return try comments.map { comment in
-        try GetComment(id: comment.requireID(), comment: comment.comment, bookID: comment.$book.id, userID: comment.$user.id, username: comment.user.username, bookTitle: comment.book.title)
+        try GetComment(id: comment.requireID(),
+                       comment: comment.comment,
+                       bookID: comment.$book.id,
+                       userID: comment.$user.id,
+                       username: comment.user.username,
+                       bookTitle: comment.book.title)
     }
 }
 
@@ -90,7 +92,9 @@ func create(req: Request) async throws -> Response {
         throw Abort(.badRequest, reason: "unable to get user")
     }
     
-    let realComment = try Comment(comment: comment.comment, userID: userID, bookID: comment.bookID)
+    let realComment = try Comment(comment: comment.comment,
+                                  userID: userID,
+                                  bookID: comment.bookID)
     try await realComment.save(on: req.db)
     
     let getComment = GetComment(id: try realComment.requireID(), comment: realComment.comment, bookID: realComment.$book.id, userID: realComment.$user.id, username: nil, bookTitle: nil)
