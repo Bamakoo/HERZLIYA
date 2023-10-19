@@ -32,12 +32,22 @@
             v-if="book?.status !== 'available'"
             size="m"
             @click="buy(book?.id as string)"
-            class="ml-4 lg:ml-0 lg:w-1/2"
+            class="ml-4 lg:ml-0 lg:w-1/2 space-x-2"
             type="button"
-            ><ShoppingCartIcon class="w-5 h-5 lg:mr-2 text-white" /><span>Acheter</span></TwButton
+            ><CreditCardIcon class="w-5 h-5 lg:mr-2 text-white" /><span>Acheter</span></TwButton
           >
           <TwLikes :on-submit="like" />
         </div>
+        <TwButton
+          v-if="book?.status !== 'available'"
+          size="m"
+          @click="cart"
+          class="ml-4 lg:ml-0 lg:w-1/2 space-x-2"
+          type="button"
+          ><ShoppingCartIcon class="w-5 h-5 lg:mr-2 text-white" /><span
+            >Ajouter au panier</span
+          ></TwButton
+        >
       </div>
     </div>
   </div>
@@ -50,17 +60,16 @@ import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { useBookStore } from '@/stores/useBookStore'
-// import { useCartStore } from '@/stores/useCartStore'
-// import { useFetchCart } from '@/api/fetchs/useFetchCart'
+import { useCartStore } from '@/stores/useCartStore'
+import { useFetchCart } from '@/api/fetchs/useFetchCart'
 import { useFetchLikes } from '@/api/fetchs/useFetchLikes'
 import httpClient from '@/api/httpClient'
 
 import Login from './Login.vue'
 import { TwButton, TwLikes } from '@/libs/ui/index.vue'
-// import { useAccountStore } from '@/stores/useAccountStore'
-import { ShoppingCartIcon } from '@heroicons/vue/24/outline'
-import type { Books } from '@/libs/interfaces/books'
 import { useAccountStore } from '@/stores/useAccountStore'
+import { CreditCardIcon, ShoppingCartIcon } from '@heroicons/vue/24/outline'
+import type { Books } from '@/libs/interfaces/books'
 
 const accountStore = useAccountStore()
 
@@ -69,36 +78,35 @@ const { id } = route.params
 const bookStore = useBookStore()
 const book = ref<Books>()
 
-// const fetchCart = useFetchCart()
 // const accountStore = useAccountStore()
-// const { addToCart } = useFetchCart()
-// const addToCart = async (book: Books) => {
-//   const data = accountStore.userAccount?.cart?.books
-//   console.log(data)
+const { addToCart, retrieve } = useFetchCart()
+const cart = async (book: Books) => {
+  try {
+    const myCart = (await retrieve(accountStore.token)).books
+    console.log('myCart before push :', myCart)
+    myCart.push(book.id)
+    console.log('hey')
+    console.log('myCart :', typeof myCart)
+    const data = await addToCart(accountStore.token as string, book.id)
+    console.log('data', data)
+    return data
+  } catch (error) {
+    throw new Error((error as Error).message)
+  }
+}
 
-//   fetchCart.create([data as Books])
-//   data?.push(book)
-//   console.log(data)
-//   return data
-// }
-
-// const cartStore = useCartStore()
-// const cart = await cartStore.retrieveCart()
+const cartStore = useCartStore()
+const mycart = await cartStore.retrieveCart(accountStore.token)
+console.log('mycart', mycart)
 const showLogin = ref(false)
-const token = ref('')
 
 const buy = async (bookId: Books['id'], e?: SubmitEvent) => {
   e?.preventDefault()
   try {
-    token.value = window.localStorage.getItem('token') as string
-
-    if (!token.value) {
-      showLogin.value = true // Affiche la vue Login
-      return
-    }
+    if (!accountStore.token) showLogin.value = true // Affiche la vue Login
 
     const data = await httpClient.post(`/books/${bookId}/purchase`, bookId, {
-      headers: { Authorization: `Bearer ${token.value}` }
+      headers: { Authorization: `Bearer ${accountStore.token}` }
     })
     // const data = (cart.purchased_at = new Date(Date.now()))
     return data
@@ -113,7 +121,11 @@ const like = () => {
   if (liked.value) {
     fetchLikes.create(book.value?.id as string)
     accountStore.token
-    accountStore.userAccount?.likes?.push(book.value?.id)
+    accountStore.userAccount?.likes?.push({
+      userID: accountStore.token as string,
+      bookID: book.value?.id,
+      createdAt: Date.now()
+    })
   }
   fetchLikes.del(book.value?.id as string)
   //POST DANS TABLE LIKES (USER -> LIKES) => USER TOKEN + BOOK ID

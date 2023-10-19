@@ -25,7 +25,8 @@ router.post("/", async (req, res) => {
   return res.json(datas);
 });
 router.post("/:id/add-to-kart", async (req, res) => {
-  const datas = await create(req.body);
+  const id = req.params.id;
+  const datas = await create(req.body, id);
   return res.json(datas);
 });
 

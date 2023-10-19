@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="large"
-    class="flex rounded-md overflow-hidden bg-white max-w-2xl h-28 border border-gray-200 hover:bg-gray-100"
+    class="flex rounded-md overflow-hidden bg-white max-w-3xl h-28 border border-gray-200 hover:bg-gray-100"
   >
     <!-- <div class="aspect-square w-1/3">
     <RouterLink :to="to" rel="noopener">

@@ -18,7 +18,7 @@ export const useFetchLikes = () => {
 
     const { data } = await httpClient.post<Likes>(`/likes/${id}`, id, {
       headers: {
-        Authorization: `Basic ${loginCredentials}`
+        Authorization: `Bearer ${loginCredentials}`
       }
     })
 

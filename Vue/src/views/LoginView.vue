@@ -60,7 +60,7 @@ const login = async (e: SubmitEvent) => {
     const credentials = `${datas.value.username}:${datas.value.password}`
     const loginCredentials = btoa(credentials)
     const { data } = await httpClient.post('/login', datas, {
-      headers: { Authorization: `Basic ${loginCredentials}` }
+      headers: { Authorization: `Bearer ${loginCredentials}` }
     })
     console.log(data.value)
     window.localStorage.setItem('token', data.value)

@@ -28,7 +28,7 @@ export const retrieve = (id: Books["id"]) => {
   return result;
 };
 
-export const create = (data: Books) => {
+export const create = (data: Books, id?: string) => {
   const result = new Promise((resolve) => {
     try {
       const { datas } = books;

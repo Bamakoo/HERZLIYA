@@ -1,6 +1,6 @@
 <template>
   <div v-if="!accountStore.token" class="mx-auto max-w-3xl p-4">
-    <form @submit="signup" class="bg-secondary-light/20 p-8 rounded-xl">
+    <form @submit.prevent="signup" class="bg-secondary-light/20 p-8 rounded-xl">
       <div class="space-y-2 text-center mb-10">
         <h1 class="text-4xl font-semibold">Créer mon compte</h1>
         <span class="text-base text-gray-400"
@@ -33,7 +33,6 @@
               label="Mot de passe"
               autocomplete
               required
-              hint="8 caractères minimum"
             />
             <TwInputText
               type="password"
@@ -91,7 +90,7 @@
       </div>
 
       <div class="space-y-2 pt-4 max-w-xl mx-auto">
-        <span class="font-semibold block text-sm text-center">Pas encore de compte ?</span>
+        <span class="font-semibold block text-sm text-center">Déjà un compte ?</span>
         <TwButton href="/login" size="l" color="bg-gray-400" class="justify-center"
           >Me connecter</TwButton
         >
@@ -114,18 +113,14 @@ import { ref } from 'vue'
 import { useFetchAccounts } from '@/api/fetchs/useFetchAccounts'
 import { TwInputText, TwButton } from '@/libs/ui/index.vue'
 import { useAccountStore } from '@/stores/useAccountStore'
-import httpClient from '@/api/httpClient'
+import router from '@/router'
 import type { Users } from '@/libs/interfaces/users'
-// import router from '@/router'
 
 type User = Omit<Users, 'id' | 'books' | 'cart' | 'sales' | 'friends' | 'token' | 'purchases'>
 
 const fetchAccounts = useFetchAccounts()
 const accountStore = useAccountStore()
-const isLoading = ref(false)
-// const isLogged = await accountStore.userList
-// const token = await accountStore.retrieveUserAccount()
-// isLogged.find(user => user.token === )
+
 const datas = ref<User>({
   username: null,
   email: null,
@@ -138,6 +133,9 @@ const datas = ref<User>({
   createdAt: null,
   updatedAt: null
 })
+
+const isLoading = ref(false)
+
 const signup = async () => {
   try {
     if (!datas.value) return
@@ -156,26 +154,10 @@ const signup = async () => {
       createdAt: new Date(Date.now()).getTime(),
       updatedAt: null
     }
-    // console.log(newUser)
-    const newAccount = fetchAccounts.create(newUser)
-
-    const credentials = Math.random().toString(36)
-    const loginCredentials = btoa(credentials)
-
-    accountStore.token = loginCredentials
-    window.localStorage.setItem('token', accountStore.token)
-    console.log('Signup token :', accountStore.token)
-
-    const signup = httpClient.post('/users', newUser, {
-      headers: { Authorization: `Basic ${loginCredentials}` }
-    })
-
-    //location.reload() //router.go(0)
-
-    return [newAccount, signup]
+    fetchAccounts.create(newUser)
+    router.replace('/login')
   } catch (error) {
-    console.error((error as Error).message)
-    return error
+    throw new Error((error as Error).message)
   } finally {
     isLoading.value = false
   }

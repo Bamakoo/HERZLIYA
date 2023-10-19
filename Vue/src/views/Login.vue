@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto max-w-lg p-4">
-    <form class="bg-secondary-light/20 p-4 md:p-6 lg:p-8 rounded-xl" @submit="login">
+    <form class="bg-secondary-light/20 p-4 md:p-6 lg:p-8 rounded-xl" @submit.prevent="login">
       <h1 class="text-4xl font-semibold text-center mb-10">Me connnecter</h1>
       <div class="space-y-8 border-b pb-4 border-gray-200">
         <TwInputText
@@ -38,12 +38,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { TwInputText, TwButton } from '@/libs/ui/index.vue'
-import router from '@/router'
-import { useRoute } from 'vue-router'
+import { useAccountStore } from '@/stores/useAccountStore'
+// import router from '@/router'
+// import { useRoute } from 'vue-router'
 import httpClient from '@/api/httpClient'
 import type { Users } from '@/libs/interfaces/users'
 
-const route = router
+// const route = router
 const datas = ref<{
   username: Users['username']
   password: Users['password']
@@ -52,26 +53,36 @@ const datas = ref<{
   password: null
 })
 
+const accountStore = useAccountStore()
+
 const isLoading = ref(false)
 
 const login = async () => {
-  // e.preventDefault()
   try {
     if (!datas.value.username && !datas.value.password) return
     isLoading.value = true
     const credentials = `${datas.value.username}:${datas.value.password}`
+    console.log(credentials)
     const loginCredentials = btoa(credentials)
-    const { data } = await httpClient.post('/login', datas, {
-      headers: { Authorization: `Basic ${loginCredentials}` }
-    })
-    console.log(data.value)
-    window.localStorage.setItem('token', data.value)
+    console.log(loginCredentials)
+    const { data } = await httpClient.post<string>(
+      '/login',
+      { data: null },
+      {
+        headers: { Authorization: `Bearer ${loginCredentials}` }
+      }
+    )
+    // const { data } = await httpClient.post<string>('/login', null, {
+    //   headers: { Authorization: `Bearer ${loginCredentials}` }
+    // })
 
-    location.reload()
-    return login
+    console.log('data :', data)
+    accountStore.token = data
+    window.localStorage.setItem('token', data)
+    console.log('localStorage.length :', localStorage.length)
+    // return  data.value //login
   } catch (error) {
     console.error((error as Error).message)
-    return error
   } finally {
     isLoading.value = false
   }

@@ -435,13 +435,13 @@ import { CheckCircleIcon, TrashIcon } from '@heroicons/vue/20/solid'
 const products = [
   {
     id: 1,
-    title: 'Basic Tee',
+    title: 'Bearer Tee',
     href: '#',
     price: '$32.00',
     color: 'Black',
     size: 'Large',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black."
+    imageAlt: "Front of men's Bearer Tee in black."
   }
   // More products...
 ]
