@@ -52,8 +52,9 @@ private extension HTTP {
         if let httpResponse = response as? HTTPURLResponse,
            !(200...299).contains(httpResponse.statusCode) {
             throw HttpError.badResponse
+        } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 401 {
+            throw HttpError.unauthorized
         }
-
         return data
     }
 }
