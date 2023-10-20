@@ -37,7 +37,7 @@
             type="button"
             ><CreditCardIcon class="w-5 h-5 lg:mr-2 text-white" /><span>Acheter</span></TwButton
           >
-          <TwLikes :on-submit="like" />
+          <TwLikes :book-id="book?.id as string" />
         </div>
         <TwButton
           v-if="book?.status !== 'available'"
@@ -46,7 +46,7 @@
           class="ml-4 lg:ml-0 lg:w-1/2 space-x-2"
           color="bg-gray-50 border-secondary border hover:bg-secondary text-secondary-dark hover:text-white"
           :disabled="isAlreadyInCart"
-          @click="addCart(book?.id)"
+          @click="addCart"
           ><ShoppingCartIcon class="w-5 h-5 lg:mr-2" /><span>Ajouter au panier</span></TwButton
         >
 
@@ -76,8 +76,8 @@ import { useRoute } from 'vue-router'
 
 import { useBookStore } from '@/stores/useBookStore'
 // import { useCartStore } from '@/stores/useCartStore'
-import { useFetchCart } from '@/api/fetchs/useFetchCart'
-import { useFetchLikes } from '@/api/fetchs/useFetchLikes'
+// import { useFetchCart } from '@/api/fetchs/useFetchCart'
+// import { useFetchLikes } from '@/api/fetchs/useFetchLikes'
 import httpClient from '@/api/httpClient'
 
 import Login from './Login.vue'
@@ -97,21 +97,14 @@ const isAlreadyInCart = ref(false)
 const added = ref(false)
 // const accountStore = useAccountStore()
 
-const addCart = async (book: Books) => {
+const addCart = async () => {
   try {
     console.log('cart button pushed')
     // if (!accountStore.token) showLogin.value = true // Affiche la vue Login
-    const { addToCart, retrieve } = useFetchCart()
 
-    // const myCart = (await retrieve('b5ZvjMmJQNbgzcCahIm6uA==')).books
-    // const hasBookAlreadyInCart = myCart.find((bookId) => bookId === book.id)
-    // if (hasBookAlreadyInCart) isAlreadyInCart.value = true
-    // console.log('myCart before push :', myCart)
-    // myCart.push(book.id)
-    // console.log('myCart :', typeof myCart)
     const data = await httpClient.post<Books>(`/books/${id}/add-to-kart`, id, {
       headers: { Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA==` }
-    }) //addToCart(book.id)
+    })
     console.log('data', data)
     added.value = true
     isAlreadyInCart.value = true
@@ -146,29 +139,29 @@ const buy = async (bookId: Books['id']) => {
 
 // const fetchLikes = useFetchLikes()
 // const liked = ref(false)
-const like = async () => {
-  //   if (liked.value) {
-  //  //fetchLikes.create(book.value?.id as string)
-  //     // ;('b5ZvjMmJQNbgzcCahIm6uA==')
-  //     // accountStore.userAccount?.likes?.push({
-  //     //   userID: 'b5ZvjMmJQNbgzcCahIm6uA==',
-  //     //   bookID: book.value?.id,
-  //     //   createdAt: Date.now()
-  //     // })
-  //   }
-  const data = await httpClient.post<Likes>(
-    `/likes/${id}`,
-    { data: null },
-    {
-      headers: {
-        Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA==`
-      }
-    }
-  ) //fetchLikes.create(book.value?.id as string)
-  // fetchLikes.del(book.value?.id as string)
-  return data
-  //POST DANS TABLE LIKES (USER -> LIKES) => USER TOKEN + BOOK ID
-}
+// const like = async () => {
+//   //   if (liked.value) {
+//   //  //fetchLikes.create(book.value?.id as string)
+//   //     // ;('b5ZvjMmJQNbgzcCahIm6uA==')
+//   //     // accountStore.userAccount?.likes?.push({
+//   //     //   userID: 'b5ZvjMmJQNbgzcCahIm6uA==',
+//   //     //   bookID: book.value?.id,
+//   //     //   createdAt: Date.now()
+//   //     // })
+//   //   }
+//   const data = await httpClient.post<Likes>(
+//     `/likes/${id}`,
+//     { data: null },
+//     {
+//       headers: {
+//         Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA==`
+//       }
+//     }
+//   ) //fetchLikes.create(book.value?.id as string)
+//   // fetchLikes.del(book.value?.id as string)
+//   return data
+//   //POST DANS TABLE LIKES (USER -> LIKES) => USER TOKEN + BOOK ID
+// }
 
 onBeforeMount(async () => (book.value = await bookStore.retrieveBook(id as string)))
 </script>
