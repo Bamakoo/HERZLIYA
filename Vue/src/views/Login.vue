@@ -21,7 +21,6 @@
           type="submit"
           size="l"
           class="bg-secondary font-semibold justify-center"
-          @click="login"
           :loading="isLoading"
           >Me connecter</TwButton
         >
@@ -73,8 +72,8 @@ const login = async () => {
         headers: { Authorization: `Bearer ${loginCredentials}` }
       }
     )
-    const headers = new Headers()
-    headers.append('Authorization', `Bearer ${data}`)
+    // const headers = new Headers()
+    // headers.append('Authorization', `Bearer ${data}`)
     // const { data } = await httpClient.post<string>('/login', null, {
     //   headers: { Authorization: `Bearer ${loginCredentials}` }
     // })
