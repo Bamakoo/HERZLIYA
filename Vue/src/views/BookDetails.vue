@@ -129,7 +129,7 @@ const buy = async (bookId: Books['id']) => {
       return
     } // Affiche la vue Login
 
-    const data = await httpClient.post(`/books/${bookId}/purchase`, bookId, {
+    const data = await httpClient.patch(`/books/${bookId}/purchase`, bookId, {
       headers: { Authorization: `Bearer ${accountStore.token}` }
     })
     // const data = (cart.purchased_at = new Date(Date.now()))
