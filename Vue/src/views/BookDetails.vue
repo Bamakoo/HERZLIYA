@@ -85,7 +85,6 @@ import { TwButton, TwLikes } from '@/libs/ui/index.vue'
 import { useAccountStore } from '@/stores/useAccountStore'
 import { CreditCardIcon, ShoppingCartIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import type { Books } from '@/libs/interfaces/books'
-import type { Likes } from '@/libs/interfaces/likes'
 
 const accountStore = useAccountStore()
 
