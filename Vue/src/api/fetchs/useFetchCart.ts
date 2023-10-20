@@ -14,7 +14,7 @@ export const useFetchCart = () => {
   }
 
   const addToCart = async (token: Users['token'], bookId: Books['id']) => {
-    const { data } = await httpClient.post<Books>(`/books/${bookId}/add-to-kart`, bookId, {
+    const { data } = await httpClient.patch<Books>(`/books/${bookId}/add-to-kart`, bookId, {
       headers: { Authorization: `Bearer ${token}` }
     })
     return data
