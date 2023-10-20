@@ -109,7 +109,7 @@ const addCart = async (book: Books) => {
     // console.log('myCart before push :', myCart)
     // myCart.push(book.id)
     // console.log('myCart :', typeof myCart)
-    const data = await httpClient.post<Books>(`/books/${book.id}/add-to-kart`, book.id, {
+    const data = await httpClient.post<Books>(`/books/${id}/add-to-kart`, id, {
       headers: { Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA==` }
     }) //addToCart(book.id)
     console.log('data', data)
@@ -120,6 +120,7 @@ const addCart = async (book: Books) => {
   }
 }
 
+console.log(id)
 // const cartStore = useCartStore()
 // const mycart = await cartStore.retrieveCart(accountStore.token)
 // console.log('mycart', mycart)
