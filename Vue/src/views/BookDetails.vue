@@ -144,8 +144,8 @@ const buy = async (bookId: Books['id']) => {
   }
 }
 
-const fetchLikes = useFetchLikes()
-const liked = ref(false)
+// const fetchLikes = useFetchLikes()
+// const liked = ref(false)
 const like = async () => {
   //   if (liked.value) {
   //  //fetchLikes.create(book.value?.id as string)
@@ -156,15 +156,11 @@ const like = async () => {
   //     //   createdAt: Date.now()
   //     // })
   //   }
-  const data = await httpClient.post<Likes>(
-    `/likes/${id}`,
-    { data: null },
-    {
-      headers: {
-        Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA`
-      }
+  const data = await httpClient.post<Likes>(`/likes/${id}`, null, {
+    headers: {
+      Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA==`
     }
-  ) //fetchLikes.create(book.value?.id as string)
+  }) //fetchLikes.create(book.value?.id as string)
   // fetchLikes.del(book.value?.id as string)
   return data
   //POST DANS TABLE LIKES (USER -> LIKES) => USER TOKEN + BOOK ID
