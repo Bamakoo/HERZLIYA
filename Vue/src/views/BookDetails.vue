@@ -117,9 +117,9 @@ const addCart = async (book: Books) => {
   }
 }
 
-const cartStore = useCartStore()
-const mycart = await cartStore.retrieveCart(accountStore.token)
-console.log('mycart', mycart)
+// const cartStore = useCartStore()
+// const mycart = await cartStore.retrieveCart(accountStore.token)
+// console.log('mycart', mycart)
 const showLogin = ref(false)
 
 const buy = async (bookId: Books['id'], e?: SubmitEvent) => {
