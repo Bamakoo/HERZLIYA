@@ -46,7 +46,7 @@
           class="ml-4 lg:ml-0 lg:w-1/2 space-x-2"
           color="bg-gray-50 border-secondary border hover:bg-secondary text-secondary-dark hover:text-white"
           :disabled="isAlreadyInCart"
-          @click="addCart"
+          @click="addCart(book?.id)"
           ><ShoppingCartIcon class="w-5 h-5 lg:mr-2" /><span>Ajouter au panier</span></TwButton
         >
 
@@ -108,7 +108,9 @@ const addCart = async (book: Books) => {
     // console.log('myCart before push :', myCart)
     // myCart.push(book.id)
     // console.log('myCart :', typeof myCart)
-    const data = await addToCart(book.id)
+    const data = await httpClient.post<Books>(`/books/${book.id}/add-to-kart`, null, {
+      headers: { Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA==` }
+    }) //addToCart(book.id)
     console.log('data', data)
     added.value = true
     isAlreadyInCart.value = true
