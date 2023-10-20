@@ -1,5 +1,6 @@
 <template>
   <button
+    type="button"
     role="button"
     aria-roledescription="Bouton pour aimer"
     class="flex flex-col items-center"

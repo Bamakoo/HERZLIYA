@@ -37,7 +37,7 @@
             type="button"
             ><CreditCardIcon class="w-5 h-5 lg:mr-2 text-white" /><span>Acheter</span></TwButton
           >
-          <TwLikes :book-id="book?.id as string" />
+          <TwLikes :book-id="id" />
         </div>
         <TwButton
           v-if="book?.status !== 'available'"
