@@ -13,9 +13,10 @@ export const useFetchCart = () => {
     return data
   }
 
-  const addToCart = async (token: Users['token'], bookId: Books['id']) => {
+  const addToCart = async (bookId: Books['id']) => {
+    const loginCredentials = window.localStorage.getItem('token') ?? 'b5ZvjMmJQNbgzcCahIm6uA=='
     const { data } = await httpClient.post<Books>(`/books/${bookId}/add-to-kart`, null, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${loginCredentials}` }
     })
     return data
   }

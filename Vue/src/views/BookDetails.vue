@@ -108,7 +108,7 @@ const addCart = async (book: Books) => {
     // console.log('myCart before push :', myCart)
     // myCart.push(book.id)
     // console.log('myCart :', typeof myCart)
-    const data = await addToCart('b5ZvjMmJQNbgzcCahIm6uA==' as string, book.id)
+    const data = await addToCart(book.id)
     console.log('data', data)
     added.value = true
     isAlreadyInCart.value = true
