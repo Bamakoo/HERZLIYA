@@ -85,6 +85,7 @@ import { TwButton, TwLikes } from '@/libs/ui/index.vue'
 import { useAccountStore } from '@/stores/useAccountStore'
 import { CreditCardIcon, ShoppingCartIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import type { Books } from '@/libs/interfaces/books'
+import type { Likes } from '@/libs/interfaces/likes'
 
 const accountStore = useAccountStore()
 
@@ -108,7 +109,7 @@ const addCart = async (book: Books) => {
     // console.log('myCart before push :', myCart)
     // myCart.push(book.id)
     // console.log('myCart :', typeof myCart)
-    const data = await httpClient.post<Books>(`/books/${book.id}/add-to-kart`, null, {
+    const data = await httpClient.post<Books>(`/books/${book.id}/add-to-kart`, book.id, {
       headers: { Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA==` }
     }) //addToCart(book.id)
     console.log('data', data)
@@ -144,17 +145,27 @@ const buy = async (bookId: Books['id']) => {
 
 const fetchLikes = useFetchLikes()
 const liked = ref(false)
-const like = () => {
-  if (liked.value) {
-    fetchLikes.create(book.value?.id as string)
-    // ;('b5ZvjMmJQNbgzcCahIm6uA==')
-    accountStore.userAccount?.likes?.push({
-      userID: 'b5ZvjMmJQNbgzcCahIm6uA==',
-      bookID: book.value?.id,
-      createdAt: Date.now()
-    })
-  }
-  fetchLikes.del(book.value?.id as string)
+const like = async () => {
+  //   if (liked.value) {
+  //  //fetchLikes.create(book.value?.id as string)
+  //     // ;('b5ZvjMmJQNbgzcCahIm6uA==')
+  //     // accountStore.userAccount?.likes?.push({
+  //     //   userID: 'b5ZvjMmJQNbgzcCahIm6uA==',
+  //     //   bookID: book.value?.id,
+  //     //   createdAt: Date.now()
+  //     // })
+  //   }
+  const data = await httpClient.post<Likes>(
+    `/likes/${id}`,
+    { data: null },
+    {
+      headers: {
+        Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA`
+      }
+    }
+  ) //fetchLikes.create(book.value?.id as string)
+  // fetchLikes.del(book.value?.id as string)
+  return data
   //POST DANS TABLE LIKES (USER -> LIKES) => USER TOKEN + BOOK ID
 }
 
