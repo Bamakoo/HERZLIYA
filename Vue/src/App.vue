@@ -17,19 +17,19 @@ import {
 // import { useAccountStore } from '@/stores/useAccountStore'
 import Login from './views/Login.vue'
 import router from './router'
-import { useBookStore } from './stores/useBookStore'
-import type { Books } from './libs/interfaces/books'
+// import { useBookStore } from './stores/useBookStore'
+// import type { Books } from './libs/interfaces/books'
 // import { fetchUsers } from './api/axios/users.routes'
 
 // const accountStore = useAccountStore()
 // console.log('account store token : ', accountStore.token)
 
-onBeforeMount(async () => {
-  books.value = await bookStore.books
-  // return accountStore.token
-})
-const bookStore = useBookStore()
-const books = ref<Books[]>()
+// onBeforeMount(async () => {
+//   books.value = await bookStore.books
+//   // return accountStore.token
+// })
+// const bookStore = useBookStore()
+// const books = ref<Books[]>()
 const token = ref(localStorage.getItem('token'))
 watch(token, (newVal) => (token.value = newVal))
 // const filterGenre = () => {
