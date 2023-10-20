@@ -102,12 +102,12 @@ const addCart = async (book: Books) => {
     // if (!accountStore.token) showLogin.value = true // Affiche la vue Login
     const { addToCart, retrieve } = useFetchCart()
 
-    const myCart = (await retrieve('b5ZvjMmJQNbgzcCahIm6uA==')).books
-    const hasBookAlreadyInCart = myCart.find((bookId) => bookId === book.id)
-    if (hasBookAlreadyInCart) isAlreadyInCart.value = true
-    console.log('myCart before push :', myCart)
-    myCart.push(book.id)
-    console.log('myCart :', typeof myCart)
+    // const myCart = (await retrieve('b5ZvjMmJQNbgzcCahIm6uA==')).books
+    // const hasBookAlreadyInCart = myCart.find((bookId) => bookId === book.id)
+    // if (hasBookAlreadyInCart) isAlreadyInCart.value = true
+    // console.log('myCart before push :', myCart)
+    // myCart.push(book.id)
+    // console.log('myCart :', typeof myCart)
     const data = await addToCart('b5ZvjMmJQNbgzcCahIm6uA==' as string, book.id)
     console.log('data', data)
     added.value = true
@@ -145,9 +145,9 @@ const liked = ref(false)
 const like = () => {
   if (liked.value) {
     fetchLikes.create(book.value?.id as string)
-    ;('b5ZvjMmJQNbgzcCahIm6uA==')
+    // ;('b5ZvjMmJQNbgzcCahIm6uA==')
     accountStore.userAccount?.likes?.push({
-      userID: 'b5ZvjMmJQNbgzcCahIm6uA==' as string,
+      userID: 'b5ZvjMmJQNbgzcCahIm6uA==',
       bookID: book.value?.id,
       createdAt: Date.now()
     })
