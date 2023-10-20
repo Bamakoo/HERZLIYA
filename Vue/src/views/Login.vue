@@ -40,11 +40,12 @@ import { ref } from 'vue'
 import { TwInputText, TwButton } from '@/libs/ui/index.vue'
 import { useAccountStore } from '@/stores/useAccountStore'
 // import router from '@/router'
-// import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import httpClient from '@/api/httpClient'
 import type { Users } from '@/libs/interfaces/users'
+import router from '@/router'
 
-// const route = router
+const route = useRoute()
 const datas = ref<{
   username: Users['username']
   password: Users['password']
@@ -72,6 +73,8 @@ const login = async () => {
         headers: { Authorization: `Bearer ${loginCredentials}` }
       }
     )
+    const headers = new Headers()
+    headers.append('Authorization', `Bearer ${data}`)
     // const { data } = await httpClient.post<string>('/login', null, {
     //   headers: { Authorization: `Bearer ${loginCredentials}` }
     // })
@@ -80,6 +83,9 @@ const login = async () => {
     accountStore.token = data
     window.localStorage.setItem('token', data)
     console.log('localStorage.length :', localStorage.length)
+    const goTo = route.redirectedFrom?.path
+    router.go(-1)
+    console.log(goTo)
     // return  data.value //login
   } catch (error) {
     console.error((error as Error).message)
