@@ -122,8 +122,7 @@ const addCart = async (book: Books) => {
 // console.log('mycart', mycart)
 const showLogin = ref(false)
 
-const buy = async (bookId: Books['id'], e?: SubmitEvent) => {
-  e?.preventDefault()
+const buy = async (bookId: Books['id']) => {
   try {
     if (!accountStore.token) {
       showLogin.value = true
