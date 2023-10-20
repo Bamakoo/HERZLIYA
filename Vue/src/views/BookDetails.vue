@@ -95,12 +95,12 @@ const book = ref<Books>()
 const isAlreadyInCart = ref(false)
 const added = ref(false)
 // const accountStore = useAccountStore()
-const { addToCart, retrieve } = useFetchCart()
 
 const addCart = async (book: Books) => {
   try {
     console.log('cart button pushed')
     // if (!accountStore.token) showLogin.value = true // Affiche la vue Login
+    const { addToCart, retrieve } = useFetchCart()
 
     const myCart = (await retrieve(accountStore.token)).books
     const hasBookAlreadyInCart = myCart.find((bookId) => bookId === book.id)
