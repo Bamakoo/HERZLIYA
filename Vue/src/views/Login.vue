@@ -76,16 +76,21 @@ const login = async () => {
     console.log('data :', data)
     window.localStorage.setItem('token', data)
     const token = window.localStorage.getItem('token')
-    accountStore.token = token
+    accountStore.token = token ?? 'tokenendur'
     console.log('localStorage.length :', localStorage.length)
     const goTo = route.redirectedFrom?.path
     router.go(-1)
     console.log(goTo)
-    // return  data.value //login
+    // return  data.value // accountStore.token
   } catch (error) {
     console.error((error as Error).message)
   } finally {
     isLoading.value = false
   }
 }
+
+/**PB :
+ *    - vue Login reste affichées
+ *    - accountStore token n'est pas affecté
+ * */
 </script>
