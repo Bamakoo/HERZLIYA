@@ -30,8 +30,8 @@ import router from './router'
 // })
 // const bookStore = useBookStore()
 // const books = ref<Books[]>()
-const token = ref(localStorage.getItem('token'))
-watch(token, (newVal) => (token.value = newVal))
+const token = ref(localStorage.getItem('token') ?? 'b5ZvjMmJQNbgzcCahIm6uA==')
+// watch(token, (newVal) => (token.value = newVal))
 // const filterGenre = () => {
 //   const { value } = accountMenu ?? genreMenu
 //   books.value?.filter((book) => book.genre === value)

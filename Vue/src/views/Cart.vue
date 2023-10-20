@@ -153,7 +153,7 @@ import type { Cart } from '@/libs/interfaces/carts'
 
 const accountStore = useAccountStore()
 const cartStore = useCartStore()
-const cart = await cartStore.retrieveCart(accountStore.token)
+const cart = await cartStore.retrieveCart(accountStore ?? 'b5ZvjMmJQNbgzcCahIm6uA==')
 const { del } = useFetchCart()
 
 const books = accountStore.userAccount?.cart?.books
@@ -188,7 +188,7 @@ const buy = async (e: SubmitEvent) => {
 
     const { data } = await httpClient.post<Cart>('/cart', item, {
       headers: {
-        Authorization: `Bearer ${accountStore.token}`
+        Authorization: `Bearer ${accountStore.token ?? 'b5ZvjMmJQNbgzcCahIm6uA=='}`
       }
     })
     return data

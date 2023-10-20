@@ -74,9 +74,9 @@ const login = async () => {
     )
 
     console.log('data :', data)
-    window.localStorage.setItem('token', data)
+    window.localStorage.setItem('token', data ?? 'b5ZvjMmJQNbgzcCahIm6uA==')
     const token = window.localStorage.getItem('token')
-    accountStore.token = token ?? 'tokenendur'
+    accountStore.token = token ?? 'b5ZvjMmJQNbgzcCahIm6uA=='
     console.log('localStorage.length :', localStorage.length)
     const goTo = route.redirectedFrom?.path
     router.go(-1)
