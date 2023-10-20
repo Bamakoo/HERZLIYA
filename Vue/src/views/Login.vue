@@ -72,15 +72,11 @@ const login = async () => {
         headers: { Authorization: `Bearer ${loginCredentials}` }
       }
     )
-    // const headers = new Headers()
-    // headers.append('Authorization', `Bearer ${data}`)
-    // const { data } = await httpClient.post<string>('/login', null, {
-    //   headers: { Authorization: `Bearer ${loginCredentials}` }
-    // })
 
     console.log('data :', data)
-    accountStore.token = data
     window.localStorage.setItem('token', data)
+    const token = window.localStorage.getItem('token')
+    accountStore.token = token
     console.log('localStorage.length :', localStorage.length)
     const goTo = route.redirectedFrom?.path
     router.go(-1)
