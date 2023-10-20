@@ -125,7 +125,10 @@ const showLogin = ref(false)
 const buy = async (bookId: Books['id'], e?: SubmitEvent) => {
   e?.preventDefault()
   try {
-    if (!accountStore.token) showLogin.value = true // Affiche la vue Login
+    if (!accountStore.token) {
+      showLogin.value = true
+      return
+    } // Affiche la vue Login
 
     const data = await httpClient.post(`/books/${bookId}/purchase`, bookId, {
       headers: { Authorization: `Bearer ${accountStore.token}` }
