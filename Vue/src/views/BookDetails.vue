@@ -102,13 +102,13 @@ const addCart = async (book: Books) => {
     // if (!accountStore.token) showLogin.value = true // Affiche la vue Login
     const { addToCart, retrieve } = useFetchCart()
 
-    const myCart = (await retrieve(accountStore.token)).books
+    const myCart = (await retrieve('b5ZvjMmJQNbgzcCahIm6uA==')).books
     const hasBookAlreadyInCart = myCart.find((bookId) => bookId === book.id)
     if (hasBookAlreadyInCart) isAlreadyInCart.value = true
     console.log('myCart before push :', myCart)
     myCart.push(book.id)
     console.log('myCart :', typeof myCart)
-    const data = await addToCart(accountStore.token as string, book.id)
+    const data = await addToCart('b5ZvjMmJQNbgzcCahIm6uA==' as string, book.id)
     console.log('data', data)
     added.value = true
     isAlreadyInCart.value = true
@@ -124,13 +124,14 @@ const showLogin = ref(false)
 
 const buy = async (bookId: Books['id']) => {
   try {
+    console.log('token from book details : ', accountStore.token)
     if (!accountStore.token) {
       showLogin.value = true
       return
     } // Affiche la vue Login
 
     const data = await httpClient.patch(`/books/${bookId}/purchase`, bookId, {
-      headers: { Authorization: `Bearer ${accountStore.token}` }
+      headers: { Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA==` }
     })
     // const data = (cart.purchased_at = new Date(Date.now()))
     return data
@@ -144,9 +145,9 @@ const liked = ref(false)
 const like = () => {
   if (liked.value) {
     fetchLikes.create(book.value?.id as string)
-    accountStore.token
+    ;('b5ZvjMmJQNbgzcCahIm6uA==')
     accountStore.userAccount?.likes?.push({
-      userID: accountStore.token as string,
+      userID: 'b5ZvjMmJQNbgzcCahIm6uA==' as string,
       bookID: book.value?.id,
       createdAt: Date.now()
     })
