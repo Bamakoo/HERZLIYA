@@ -21,7 +21,6 @@
           type="submit"
           size="l"
           class="bg-secondary font-semibold justify-center"
-          @click="login"
           :loading="isLoading"
           >Me connecter</TwButton
         >
@@ -39,11 +38,11 @@
 import { ref } from 'vue'
 import { TwInputText, TwButton } from '@/libs/ui/index.vue'
 import { useAccountStore } from '@/stores/useAccountStore'
-import router from '@/router'
-// import { useRoute } from 'vue-router'
+// import router from '@/router'
+import { useRoute } from 'vue-router'
 import httpClient from '@/api/httpClient'
 import type { Users } from '@/libs/interfaces/users'
-import { useRoute } from 'vue-router'
+import router from '@/router'
 
 const route = useRoute()
 const datas = ref<{
@@ -73,20 +72,25 @@ const login = async () => {
         headers: { Authorization: `Bearer ${loginCredentials}` }
       }
     )
-    // const { data } = await httpClient.post<string>('/login', null, {
-    //   headers: { Authorization: `Bearer ${loginCredentials}` }
-    // })
 
     console.log('data :', data)
-    accountStore.token = data
-    window.localStorage.setItem('token', data)
+    window.localStorage.setItem('token', data ?? 'b5ZvjMmJQNbgzcCahIm6uA==')
+    const token = window.localStorage.getItem('token')
+    accountStore.token = token ?? 'b5ZvjMmJQNbgzcCahIm6uA=='
     console.log('localStorage.length :', localStorage.length)
-    // const goto = route.redirectedFrom?.path
-    // console.log(goto)
+    const goTo = route.redirectedFrom?.path
+    router.go(-1)
+    console.log(goTo)
+    // return  data.value // accountStore.token
   } catch (error) {
     console.error((error as Error).message)
   } finally {
     isLoading.value = false
   }
 }
+
+/**PB :
+ *    - vue Login reste affichées
+ *    - accountStore token n'est pas affecté
+ * */
 </script>

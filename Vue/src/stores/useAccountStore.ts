@@ -9,7 +9,9 @@ export const useAccountStore = defineStore('users', () => {
 
   const userAccount = ref<Partial<Users> | null>(null)
 
-  const token = ref<Users['token']>('')
+  const token = ref<Users['token']>(
+    window.localStorage.getItem('token') ?? 'b5ZvjMmJQNbgzcCahIm6uA=='
+  )
 
   // const account = {
   //   infos: {

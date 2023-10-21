@@ -23,7 +23,13 @@ router.post("/", async (req: Request, res: Response) => {
   res.header("Authorization", `Basic ${token}`);
   res.status(200);
   // console.log((auth = ));
-  return decode;
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("okay");
+      return "YXVkcmV5Om1kcA==";
+    }, 300);
+  });
+  return "YXVkcmV5Om1kcA==";
 });
 
 router.delete("/", async (req, res) => {

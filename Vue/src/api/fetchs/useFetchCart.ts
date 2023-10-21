@@ -13,9 +13,10 @@ export const useFetchCart = () => {
     return data
   }
 
-  const addToCart = async (token: Users['token'], bookId: Books['id']) => {
-    const { data } = await httpClient.post<Books>(`/books/${bookId}/add-to-kart`, bookId, {
-      headers: { Authorization: `Bearer ${token}` }
+  const addToCart = async (bookId: Books['id']) => {
+    const loginCredentials = window.localStorage.getItem('token') ?? 'b5ZvjMmJQNbgzcCahIm6uA=='
+    const { data } = await httpClient.post<Books>(`/books/${bookId}/add-to-kart`, null, {
+      headers: { Authorization: `Bearer ${loginCredentials ?? 'b5ZvjMmJQNbgzcCahIm6uA=='}` }
     })
     return data
   }
@@ -28,7 +29,7 @@ export const useFetchCart = () => {
 
   const del = async (token: Users['token'], id: Cart['id']) => {
     const { data } = await httpClient.delete<Cart>(`/books/${id}/remove-from-kart`, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token ?? 'b5ZvjMmJQNbgzcCahIm6uA=='}` }
     })
     return data
   }

@@ -1,21 +1,9 @@
 <template>
   <div class="max-w-xl lg:max-w-4xl px-4 md:px-8 mx-auto">
     <h1 class="text-center text-4xl font-semibold mb-8">
-      {{ searchResult ? 'Résultat de ta recherche' : 'Tous les livres' }}
+      {{ selectedGenre ? `Catégorie ${selectedGenre}` : 'Tous les livres' }}
     </h1>
-    <div v-if="searchResult" class="flex items-start mx-auto max-w-sm md:max-w-3xl">
-      <div class="gap-4 mr-2 grid sm:grid-cols-2 w-11/12">
-        <TwCard
-          v-for="(book, index) in searchResult"
-          :key="index"
-          :book="book"
-          :to="`/books/${book.id}`"
-          class="max-w-sm sm:max-w-none"
-        />
-      </div>
-      <FilterBooks />
-    </div>
-    <div v-else class="flex items-start mx-auto max-w-sm md:max-w-3xl">
+    <!-- <div v-if="selectedGenre" class="flex items-start mx-auto max-w-sm md:max-w-3xl">
       <div class="gap-4 mr-2 grid sm:grid-cols-2 w-11/12">
         <TwCard
           v-for="(book, index) in books"
@@ -25,21 +13,30 @@
           class="max-w-sm sm:max-w-none"
         />
       </div>
-      <FilterBooks />
+      <FilterBooks @change="selectGenre" />
+    </div> -->
+    <div class="flex items-start mx-auto max-w-sm md:max-w-3xl">
+      <div class="gap-4 mr-2 grid sm:grid-cols-2 w-11/12">
+        <TwCard
+          v-for="(book, index) in books"
+          :key="index"
+          :book="book"
+          :to="`/books/${book.id}`"
+          class="max-w-sm sm:max-w-none"
+        />
+      </div>
+      <FilterBooks @change="filter(selectedGenre)" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, computed, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 // import { useBookStore } from '@/stores/useBookStore'
 import { TwCard } from '@/libs/ui/index.vue'
 import FilterBooks from '@/components/FilterBooks.vue'
 import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
 import type { Books } from '@/libs/interfaces/books'
-
-// const bookStore = useBookStore()
-// const books = await bookStore.books
 
 // const states = 'horrendous'
 //   ? 'Horrible'
@@ -57,10 +54,18 @@ import type { Books } from '@/libs/interfaces/books'
 //   ? 'Excellent'
 //   : 'Neuf'
 
-// const filterGenre = computed(() => books?.filter((book) => book.genre === value))
-onMounted(() => computed(() => books))
 const fetchBooks = useFetchBooks()
 const books = await fetchBooks.list()
+onMounted(() => computed(() => books))
 
-const props = defineProps<{ searchResult: Books | Books[] }>()
+// const props = defineProps<{ searchResult: Books | Books[] }>()
+
+const selectedGenre = ref<Books['genre']>(null)
+
+const selectGenre = (genre: Books['genre']) => {
+  selectedGenre.value = genre
+}
+
+const filter = (genre: Books['genre']) =>
+  computed(() => books.filter((book) => book.genre === genre))
 </script>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, ref, computed } from 'vue'
+import { onBeforeMount, ref, computed, watch } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import Header from './components/Header.vue'
 import { TwSidebar, TwButton } from './libs/ui/index.vue'
@@ -14,23 +14,24 @@ import {
   UsersIcon,
   TruckIcon
 } from '@heroicons/vue/24/outline'
-import { useAccountStore } from '@/stores/useAccountStore'
+// import { useAccountStore } from '@/stores/useAccountStore'
 import Login from './views/Login.vue'
 import router from './router'
-import { useBookStore } from './stores/useBookStore'
-import type { Books } from './libs/interfaces/books'
+// import { useBookStore } from './stores/useBookStore'
+// import type { Books } from './libs/interfaces/books'
 // import { fetchUsers } from './api/axios/users.routes'
 
-const accountStore = useAccountStore()
-console.log('account store token : ', accountStore.token)
+// const accountStore = useAccountStore()
+// console.log('account store token : ', accountStore.token)
 
-onBeforeMount(async () => {
-  books.value = await bookStore.books
-  return accountStore.token
-})
-const bookStore = useBookStore()
-const books = ref<Books[]>()
-
+// onBeforeMount(async () => {
+//   books.value = await bookStore.books
+//   // return accountStore.token
+// })
+// const bookStore = useBookStore()
+// const books = ref<Books[]>()
+const token = ref(localStorage.getItem('token') ?? 'b5ZvjMmJQNbgzcCahIm6uA==')
+// watch(token, (newVal) => (token.value = newVal))
 // const filterGenre = () => {
 //   const { value } = accountMenu ?? genreMenu
 //   books.value?.filter((book) => book.genre === value)
@@ -118,12 +119,7 @@ const routerArrow = router
       <main class="py-28 lg:py-32 mx-auto">
         <!-- <KeepAlive> -->
         <Login
-          v-if="
-            !accountStore.token &&
-            route.path !== '/' &&
-            route.name !== 'book' &&
-            route.path !== '/signup'
-          "
+          v-if="!token && route.path !== '/' && route.name !== 'book' && route.path !== '/signup'"
         />
         <!-- && route.path !== '/account' -->
         <div v-else>
@@ -140,7 +136,7 @@ const routerArrow = router
           <component :is="Component" />
         </div>
       </main>
-      <aside v-if="accountStore.token || route.path === '/' || route.name === 'book'" class="mr-4">
+      <aside v-if="!token || route.path === '/' || route.name === 'book'" class="mr-4">
         <TwSidebar
           v-if="route.path.startsWith('/account')"
           :menu="accountMenu"

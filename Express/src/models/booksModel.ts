@@ -12,4 +12,13 @@ export interface Books {
     | "good"
     | "excellent"
     | "brandNew";
+  genre:
+    | "realism"
+    | "mystery"
+    | "fantasy"
+    | "romance"
+    | "scienceFiction"
+    | "action"
+    | "horror"
+    | "biography";
 }

@@ -148,10 +148,12 @@ import { useFetchCart } from '@/api/fetchs/useFetchCart'
 // import { TwCard } from '@/libs/ui/index.vue'
 // import { CheckIcon, XMarkIcon } from '@heroicons/vue/20/solid'
 import type { Books } from '@/libs/interfaces/books'
+import httpClient from '@/api/httpClient'
+import type { Cart } from '@/libs/interfaces/carts'
 
 const accountStore = useAccountStore()
 const cartStore = useCartStore()
-const cart = await cartStore.retrieveCart()
+const cart = await cartStore.retrieveCart(accountStore ?? 'b5ZvjMmJQNbgzcCahIm6uA==')
 const { del } = useFetchCart()
 
 const books = accountStore.userAccount?.cart?.books
@@ -174,21 +176,21 @@ onMounted(async () =>
 )
 
 const removeItem = (id: Books['id']) => {
-  const itemToRemove = computed(() => del(id))
+  const itemToRemove = computed(() => del(accountStore.token, id))
   return itemToRemove
 }
 
-const buy = (e: SubmitEvent) => {
+const buy = async (e: SubmitEvent) => {
   e.preventDefault()
   try {
     if (!books) return
-    const item = JSON.parse(JSON.stringify(books)) //retourne bien tableau d'objet et pas proxy
-    /**(3) [{…}, {…}, {…}]
-0: {id: 'bd11dc9c-1e34-4a6d-a485-8d606e351960', title: 'Baise-moi', author: 'Virginie Despantes', price: 7, state: 'good'}
-1: {id: '8c2d43f0-a5a0-425e-8cb9-543266b9cfc3', title: 'Sister Outsider', author: 'AUDRE LORDE', price: 15, state: 'excellent'}
-2: {id: '046dc20c-8c5b-46d3-bde4-fc8e7d6521e4', title: 'Orlando', author: 'VIRGINIA WOOLF', price: 12, state: 'okay'}
-length: 3 */
-    const data = (cart.purchased_at = new Date(Date.now()))
+    const item = JSON.parse(JSON.stringify(books))
+
+    const { data } = await httpClient.post<Cart>('/cart', item, {
+      headers: {
+        Authorization: `Bearer ${accountStore.token ?? 'b5ZvjMmJQNbgzcCahIm6uA=='}`
+      }
+    })
     return data
   } catch (error) {
     throw new Error((error as Error).message)
