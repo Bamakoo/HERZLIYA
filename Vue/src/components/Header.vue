@@ -8,7 +8,7 @@
           <img src="" alt="logo Herzliya" class="cover h-14 w-14" />
         </div>
       </RouterLink>
-      <label
+      <!-- <label
         class="focus-within:ring hidden md:visible md:flex items-center rounded-xl bg-primary-dark/30 min-w-full focus:ring-offset-0 focus:border-none px-2 text-gray-700"
       >
         <input
@@ -22,7 +22,8 @@
         <button class="inline mr-2" @click="search(text)">
           <MagnifyingGlassIcon class="h-6 w-6" />
         </button>
-      </label>
+      </label> -->
+      <SearchBar />
     </div>
     <nav class="hidden lg:flex lg:justify-center lg:text-center mx-auto space-x-4">
       <RouterLink
@@ -45,19 +46,20 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+// import { computed, ref } from 'vue'
 import Menu from './Menu.vue'
 import {
-  MagnifyingGlassIcon,
+  // MagnifyingGlassIcon,
   HomeIcon,
   // BookOpenIcon,
   PlusCircleIcon,
   UserCircleIcon,
   ShoppingCartIcon
 } from '@heroicons/vue/24/outline/index.js'
-import axios from 'axios'
-import type { Books } from '@/libs/interfaces/books'
-import httpClient from '@/api/httpClient'
+import SearchBar from './SearchBar.vue'
+// import axios from 'axios'
+// import type { Books } from '@/libs/interfaces/books'
+// import httpClient from '@/api/httpClient'
 
 const navigation = [
   {
@@ -69,21 +71,21 @@ const navigation = [
   { icon: UserCircleIcon, title: 'Compte', to: `/account` },
   { icon: ShoppingCartIcon, title: 'Panier', to: '/cart' }
 ]
-const emit = defineEmits<{ (event: 'search', val: Books | Books[]): void }>()
-const text = ref('')
-const search = async (text: string) => {
-  console.log(text)
-  const { data } = await httpClient.get('/books')
-  console.dir(data)
-  const searchResult = computed(() =>
-    data.find((e: Books) => {
-      const titleMatch = e.title?.toLowerCase().includes(text.toLowerCase())
-      const authorMatch = e.author?.toLowerCase().includes(text.toLowerCase())
-      return titleMatch || authorMatch
-    })
-  )
-  console.dir(searchResult.value)
-  emit('search', searchResult.value)
-  return searchResult
-}
+// const emit = defineEmits<{ (event: 'search', val: Books | Books[]): void }>()
+// const text = ref('')
+// const search = async (text: string) => {
+//   console.log(text)
+//   const { data } = await httpClient.get('/books')
+//   console.dir(data)
+//   const searchResult = computed(() =>
+//     data.find((e: Books) => {
+//       const titleMatch = e.title?.toLowerCase().includes(text.toLowerCase())
+//       const authorMatch = e.author?.toLowerCase().includes(text.toLowerCase())
+//       return titleMatch || authorMatch
+//     })
+//   )
+//   console.dir(searchResult.value)
+//   emit('search', searchResult.value)
+//   return searchResult
+// }
 </script>

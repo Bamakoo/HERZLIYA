@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { onBeforeMount, ref, computed, watch } from 'vue'
+import { ref } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import Header from './components/Header.vue'
-import { TwSidebar, TwButton } from './libs/ui/index.vue'
+import { TwSidebar } from './libs/ui/index.vue'
 import {
   HeartIcon,
   ChatBubbleOvalLeftIcon,

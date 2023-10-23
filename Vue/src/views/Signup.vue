@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!accountStore.token" class="mx-auto max-w-3xl p-4">
+  <div class="mx-auto max-w-3xl p-4">
     <form @submit.prevent="signup" class="bg-secondary-light/20 p-8 rounded-xl">
       <div class="space-y-2 text-center mb-10">
         <h1 class="text-4xl font-semibold">Créer mon compte</h1>
@@ -82,7 +82,6 @@
             type="submit"
             size="l"
             class="bg-secondary font-semibold justify-center"
-            @click="signup"
             :loading="isLoading"
             >Créer mon compte</TwButton
           >
@@ -112,14 +111,10 @@
 import { ref } from 'vue'
 import { useFetchAccounts } from '@/api/fetchs/useFetchAccounts'
 import { TwInputText, TwButton } from '@/libs/ui/index.vue'
-import { useAccountStore } from '@/stores/useAccountStore'
 import router from '@/router'
 import type { Users } from '@/libs/interfaces/users'
 
 type User = Omit<Users, 'id' | 'books' | 'cart' | 'sales' | 'friends' | 'token' | 'purchases'>
-
-const fetchAccounts = useFetchAccounts()
-const accountStore = useAccountStore()
 
 const datas = ref<User>({
   username: null,
@@ -154,7 +149,9 @@ const signup = async () => {
       createdAt: new Date(Date.now()).getTime(),
       updatedAt: null
     }
-    fetchAccounts.create(newUser)
+    const { create } = useFetchAccounts()
+    create(newUser)
+    console.log(newUser)
     router.replace('/login')
   } catch (error) {
     throw new Error((error as Error).message)

@@ -1,5 +1,5 @@
 <template>
-  <form v-if="onSubmit || onCancel" @submit.prevent="submit()">
+  <form v-if="onSubmit || onCancel" @submit.prevent="submit">
     <div class="space-y-2 text-center mb-10">
       <h1 v-if="title" class="text-4xl font-semibold">{{ title }}</h1>
       <span v-if="description" class="text-base text-gray-400">{{ description }}</span>
@@ -33,8 +33,7 @@ const props = defineProps<{
 const isLoading = ref(false)
 const isDisabled = ref(false)
 
-const submit = async (e?: SubmitEvent) => {
-  e?.preventDefault()
+const submit = async () => {
   if (!props.onSubmit) return
   try {
     isLoading.value = true

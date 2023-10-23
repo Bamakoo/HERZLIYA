@@ -2,8 +2,9 @@ import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { useFetchAccounts } from '@/api/fetchs/useFetchAccounts'
 import type { Users } from '@/libs/interfaces/users'
+import type { Books } from '@/libs/interfaces/books'
 
-export const useAccountStore = defineStore('users', () => {
+/* export const useAccountStore = defineStore('users', () => {
   const fetchUsers = useFetchAccounts()
   const userList = fetchUsers.list()
 
@@ -68,4 +69,34 @@ export const useAccountStore = defineStore('users', () => {
   // const { logout } = useFetchAccounts()
 
   return { userList, retrieveUserAccount, token, userAccount }
+}) */
+export const useAccountStore = defineStore('users', {
+  state: (): Users => ({
+    token: null,
+    booksForSale: [],
+    cart: []
+  }),
+  getters: {
+    isAuthenticated: (state) => !!state.token
+  },
+  actions: {
+    setToken(token: string | null) {
+      this.token = token
+    },
+    setBooksForSale(books: Books[]) {
+      this.booksForSale = books
+    },
+    addToCart(book: Books) {
+      this.cart.push(book)
+    },
+    removeFromCart(book: Books) {
+      const index = this.cart.findIndex((item) => item.id === book.id)
+      if (index !== -1) {
+        this.cart.splice(index, 1)
+      }
+    },
+    clearCart() {
+      this.cart = []
+    }
+  }
 })

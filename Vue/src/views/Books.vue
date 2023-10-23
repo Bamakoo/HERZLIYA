@@ -25,7 +25,7 @@
           class="max-w-sm sm:max-w-none"
         />
       </div>
-      <FilterBooks @change="filter(selectedGenre)" />
+      <FilterBooks @change="filter($event)" />
     </div>
   </div>
 </template>
@@ -61,11 +61,8 @@ onMounted(() => computed(() => books))
 // const props = defineProps<{ searchResult: Books | Books[] }>()
 
 const selectedGenre = ref<Books['genre']>(null)
-
-const selectGenre = (genre: Books['genre']) => {
-  selectedGenre.value = genre
+const filter = (genre: Books['genre']) => {
+  console.log('selectedGenre : ', selectedGenre.value)
+  return computed(() => books.filter((book) => book.genre === (selectedGenre.value = genre)))
 }
-
-const filter = (genre: Books['genre']) =>
-  computed(() => books.filter((book) => book.genre === genre))
 </script>
