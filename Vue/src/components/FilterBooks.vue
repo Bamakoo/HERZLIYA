@@ -37,6 +37,7 @@
 </template>
 
 <script setup lang="ts">
+import type { Books } from '@/libs/interfaces/books'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import {
   ShieldCheckIcon,
@@ -49,6 +50,8 @@ import {
   HeartIcon,
   FunnelIcon
 } from '@heroicons/vue/24/outline'
+
+const props = defineProps<{ selectedGenre: Books['genre'] }>()
 
 const genres = [
   {

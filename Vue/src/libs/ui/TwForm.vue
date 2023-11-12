@@ -9,7 +9,7 @@
     </div>
 
     <div v-if="onSubmit || onCancel" class="mt-6 flex items-center justify-end gap-x-6">
-      <TwButton type="button" color="bg-gray-500" @click="cancel">Annuler</TwButton>
+      <TwButton type="button" color="gray" @click="cancel">Annuler</TwButton>
       <TwButton type="submit">{{ submitText }}</TwButton>
     </div>
   </form>

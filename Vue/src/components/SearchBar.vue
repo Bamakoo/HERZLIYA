@@ -1,11 +1,10 @@
 <template>
   <label
-    class="focus-within:ring hidden md:visible md:flex items-center rounded-xl bg-primary-dark/30 min-w-full focus:ring-offset-0 focus:border-none px-2 text-gray-700"
+    class="focus-within:ring focus-within:ring-primary-dark hidden md:visible md:flex items-center rounded-xl bg-primary-dark/30 min-w-full focus:ring-offset-0 focus:border-none px-2 text-gray-700"
   >
     <input
       v-model.trim="text"
       type="search"
-      @input="filterBooks"
       dir="ltr"
       aria-autocomplete="list"
       aria-label="Tapez votre recherche"
@@ -15,10 +14,13 @@
       <MagnifyingGlassIcon class="h-6 w-6" />
     </button>
   </label>
-  <div v-if="text" class="absolute z-10 bg-white max-w-3xl p-4 space-y-2 overflow-y-scroll">
+  <div
+    v-if="text"
+    class="absolute -bottom-8 z-10 bg-white max-w-3xl w-full p-4 space-y-2 overflow-y-scroll grid lg:grid-cols-3 shadow-md shadow-primary-dark/5 rounded-lg border-primary-light"
+  >
     <!-- <RouterLink :to="`/books/${book?.id}`"> -->
     <div
-      v-for="(book, index) in filteredBooks"
+      v-for="(book, index) in search(text)"
       :key="index"
       class="flex justify-between border p-2 rounded-sm hover:bg-primary/20 hover:border-primary"
     >
@@ -44,45 +46,34 @@ import type { Books } from '@/libs/interfaces/books'
 const text = ref('')
 const books = ref<Books[]>([])
 
-// const searchInput = document.querySelector('[data-search]')
-// searchInput?.addEventListener('input', (e) => console.log(e.target?.value))
 const search = async (text: string) => {
-  console.log(text)
+  const searchRegex = new RegExp(
+    '(?:[0-9a-zA-Z\\u00C0-\\u00FF\\s!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~]+)',
+    'gi'
+  )
+  const matches = searchRegex.exec(text)
   const { data } = await httpClient.get<Books[]>('/books')
-  console.log(data)
   books.value = data
 
-  // return computed(() =>
-  //   books.value.find(
-  //     (e: Books) =>
-  //       e.title?.toLowerCase().match(text.toLowerCase()) ||
-  //       e.author?.toLowerCase().match(text.toLowerCase())
-  //   )
-  // )
-  // const searchText = ref('')
+  // computed(() => searchRegex.exec(text))
 
   // const filteredBooks = computed(() => {
-  //   const searchTerm = searchText.value.toLowerCase()
-  //   if (searchTerm.trim() === '') {
-  //     return books.value
-  //   } else {
-  //     return books.value.filter((book) => book.title?.toLowerCase().includes(searchTerm))
-  //   }
+  //   const res = books.value.filter(
+  //     (book) => book.title?.match(searchRegex) || book.author?.match(searchRegex)
+  //   )
+  //   return res
   // })
-}
+  const filteredBooks = ref<Books[]>([])
 
-const searchText = ref('')
-
-const filteredBooks = computed(() => {
-  const searchTerm = searchText.value.toLowerCase()
-  if (searchTerm.trim() === '') {
-    return books.value
-  } else {
-    return books.value.filter((book) => book.title?.toLowerCase().includes(searchTerm))
+  if (matches) {
+    computed(
+      () =>
+        (filteredBooks.value = books.value.filter(
+          (book) => book.title?.match(searchRegex) || book.author?.match(searchRegex)
+        ))
+    )
   }
-})
-
-const filterBooks = () => {
-  // Appelée lors de la saisie dans la barre de recherche pour mettre à jour la liste filtrée.
+  console.log(filteredBooks.value)
+  return filteredBooks.value
 }
 </script>

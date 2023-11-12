@@ -36,7 +36,7 @@
             <TwInputText
               label="Prix"
               type="number"
-              :step="0.01"
+              :step="1"
               :min="0"
               for-text="price"
               hint="champ obligatoire"
@@ -88,7 +88,7 @@
       </div>
 
       <div class="mt-6 flex items-center justify-end gap-x-6">
-        <TwButton type="button" color="bg-gray-500" @click="onCancel">Annuler</TwButton>
+        <TwButton type="button" color="gray" @click="onCancel">Annuler</TwButton>
         <TwButton type="submit">Vendez votre livre</TwButton>
       </div>
     </form>

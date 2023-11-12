@@ -16,7 +16,7 @@
       <FilterBooks @change="selectGenre" />
     </div> -->
     <div class="flex items-start mx-auto max-w-sm md:max-w-3xl">
-      <div class="gap-4 mr-2 grid sm:grid-cols-2 w-11/12">
+      <div class="gap-4 mr-2 grid lg:grid-cols-2 w-11/12">
         <TwCard
           v-for="(book, index) in books"
           :key="index"
@@ -25,7 +25,7 @@
           class="max-w-sm sm:max-w-none"
         />
       </div>
-      <FilterBooks @change="filter($event)" />
+      <FilterBooks :selected-genre="selectedGenre" @change="filter(selectedGenre)" />
     </div>
   </div>
 </template>
@@ -65,4 +65,5 @@ const filter = (genre: Books['genre']) => {
   console.log('selectedGenre : ', selectedGenre.value)
   return computed(() => books.filter((book) => book.genre === (selectedGenre.value = genre)))
 }
+// bind selectedGenre à FilterGenre + le passer en arg
 </script>

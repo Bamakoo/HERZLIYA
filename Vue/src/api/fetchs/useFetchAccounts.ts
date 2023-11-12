@@ -2,13 +2,17 @@ import httpClient from '../httpClient'
 import type { Users } from '@/libs/interfaces/users'
 
 export const useFetchAccounts = () => {
+  const token = localStorage.getItem('token')
+
   const list = async () => {
     const { data } = await httpClient.get<Users[]>('/users')
     return data
   }
 
   const retrieve = async (id: Users['id']) => {
-    const { data } = await httpClient.get<Users>(`/users/${id}`)
+    const { data } = await httpClient.get<Users>(`/users/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
     return data
   }
 
@@ -23,12 +27,16 @@ export const useFetchAccounts = () => {
   }
 
   const update = async (id: Users['id'], datas: Omit<Users, 'id'>) => {
-    const { data } = await httpClient.patch<Partial<Users>>(`/users/${id}`, datas)
+    const { data } = await httpClient.patch<Partial<Users>>(`/users/${id}`, datas, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
     return data
   }
 
   const del = async (id: Users['id']) => {
-    const { data } = await httpClient.delete<Users>(`/users/${id}`)
+    const { data } = await httpClient.delete<Users>(`/users/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
     return data
   }
 

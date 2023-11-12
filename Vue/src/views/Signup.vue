@@ -33,14 +33,26 @@
               label="Mot de passe"
               autocomplete
               required
+              :error="passwordController"
+              :sub-hint="
+                passwordController
+                  ? `${passwordController}`
+                  : 'Le mot de passe doit avec 8 caractères minimum : 1 majuscule, 1 minuscule, 1 caractère spécial'
+              "
             />
             <TwInputText
               type="password"
               v-model="datas.confirmPassword"
+              :min="8"
               label="Confirmer le mot de passe"
               autocomplete
               required
-              hint="Champ obligatoire"
+              :error="passwordController"
+              :sub-hint="
+                passwordController
+                  ? `${passwordController}`
+                  : 'Le mot de passe doit avec 8 caractères minimum : 1 majuscule, 1 minuscule, 1 caractère spécial'
+              "
             />
           </div>
           <div class="sm:col-span-6 pt-12 gap-6 grid sm:grid-cols-2">
@@ -86,13 +98,14 @@
             >Créer mon compte</TwButton
           >
         </div>
-      </div>
-
-      <div class="space-y-2 pt-4 max-w-xl mx-auto">
-        <span class="font-semibold block text-sm text-center">Déjà un compte ?</span>
-        <TwButton href="/login" size="l" color="bg-gray-400" class="justify-center"
-          >Me connecter</TwButton
-        >
+        <div class="col-span-12">
+          <div class="space-y-2 pt-4 max-w-xl mx-auto">
+            <span class="font-semibold block text-sm text-center">Déjà un compte ?</span>
+            <TwButton href="/login" size="l" color="gray" class="justify-center"
+              >Me connecter</TwButton
+            >
+          </div>
+        </div>
       </div>
     </form>
 
@@ -108,7 +121,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useFetchAccounts } from '@/api/fetchs/useFetchAccounts'
 import { TwInputText, TwButton } from '@/libs/ui/index.vue'
 import router from '@/router'
@@ -130,6 +143,23 @@ const datas = ref<User>({
 })
 
 const isLoading = ref(false)
+
+const passwordController = computed(() => {
+  const passwordError = ref(false)
+  const controlller = new RegExp(
+    // eslint-disable-next-line no-useless-escape
+    '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$'
+  )
+  if (datas.value.password && !datas.value.password?.match(controlller)) {
+    passwordError.value = true
+    return 'Le mot de passe doit contenenir minimum : 1 majuscule, 1 minuscule, 8 caractères, 1 nombre et 1 caractère spécial'
+  }
+  if (datas.value.password !== datas.value.confirmPassword) {
+    passwordError.value = true
+    return 'Les mots de passe ne correspondent pas'
+  }
+  return ''
+})
 
 const signup = async () => {
   try {

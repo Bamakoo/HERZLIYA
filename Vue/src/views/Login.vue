@@ -27,7 +27,7 @@
       </div>
       <div class="space-y-2 pt-4 max-w-xl mx-auto">
         <span class="font-semibold block text-sm text-center">Pas encore de compte ?</span>
-        <TwButton href="/signup" size="l" color="bg-gray-400" class="justify-center"
+        <TwButton href="/signup" size="l" color="gray" class="justify-center"
           >Créer mon compte</TwButton
         >
       </div>
@@ -59,37 +59,21 @@ const login = async () => {
   try {
     if (!datas.value.username && !datas.value.password) return
     isLoading.value = true
-    const credentials = `${datas.value.username}:${datas.value.password}`
-    console.log(credentials)
-    const loginCredentials = btoa(credentials)
-    console.log(loginCredentials)
-    const { data } = await httpClient.post<string>(
-      '/login',
-      { data: null },
-      {
-        headers: { Authorization: `Bearer ${loginCredentials}` }
-      }
-    )
 
-    console.log('data :', data)
-    window.localStorage.setItem('token', data ?? 'b5ZvjMmJQNbgzcCahIm6uA==')
-    const token = window.localStorage.getItem('token')
+    const { data } = await httpClient.post('/login', null, {
+      auth: { username: datas.value.username, password: datas.value.password }
+    })
+
     const accountStore = useAccountStore()
-    accountStore.token = token ?? 'b5ZvjMmJQNbgzcCahIm6uA=='
-    console.log('localStorage.length :', localStorage.length)
-    const goTo = route.redirectedFrom?.path
-    router.go(-1)
-    console.log(goTo)
-    // return  data.value // accountStore.token
+    accountStore.token = data.value
+
+    window.localStorage.setItem('token', data)
+
+    if (data) router.go(0)
   } catch (error) {
     console.error((error as Error).message)
   } finally {
     isLoading.value = false
   }
 }
-
-/**PB :
- *    - vue Login reste affichées
- *    - accountStore token n'est pas affecté
- * */
 </script>

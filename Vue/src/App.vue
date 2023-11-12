@@ -14,14 +14,14 @@ import {
   UsersIcon,
   TruckIcon
 } from '@heroicons/vue/24/outline'
-// import { useAccountStore } from '@/stores/useAccountStore'
+import { useAccountStore } from '@/stores/useAccountStore'
 import Login from './views/Login.vue'
 import router from './router'
 // import { useBookStore } from './stores/useBookStore'
 // import type { Books } from './libs/interfaces/books'
 // import { fetchUsers } from './api/axios/users.routes'
 
-// const accountStore = useAccountStore()
+const accountStore = useAccountStore()
 // console.log('account store token : ', accountStore.token)
 
 // onBeforeMount(async () => {
@@ -30,7 +30,8 @@ import router from './router'
 // })
 // const bookStore = useBookStore()
 // const books = ref<Books[]>()
-const token = ref(localStorage.getItem('token') ?? 'b5ZvjMmJQNbgzcCahIm6uA==')
+
+const token = ref(localStorage.getItem('token')) // 'b5ZvjMmJQNbgzcCahIm6uA=='
 // watch(token, (newVal) => (token.value = newVal))
 // const filterGenre = () => {
 //   const { value } = accountMenu ?? genreMenu
@@ -119,14 +120,20 @@ const routerArrow = router
       <main class="py-28 lg:py-32 mx-auto">
         <!-- <KeepAlive> -->
         <Login
-          v-if="!token && route.path !== '/' && route.name !== 'book' && route.path !== '/signup'"
+          v-if="
+            !accountStore.token &&
+            !token &&
+            route.path !== '/' &&
+            route.name !== 'book' &&
+            route.path !== '/signup'
+          "
         />
         <!-- && route.path !== '/account' -->
         <div v-else>
           <button
             role="button"
             aria-roledescription="Retour"
-            class="sm:px-2.5 sm:py-1.5 sm:text-xs sm:font-medium sm:leading-6 relative top-32 transition-colors duration-150 whitespace-nowrap hover:text-primary"
+            class="sm:px-2.5 sm:py-1.5 sm:text-xs sm:font-medium sm:leading-6 relative top-10 transition-colors duration-150 whitespace-nowrap flex items-center hover:text-primary"
             @click="routerArrow.back()"
           >
             <span class="sr-only">Retour</span>

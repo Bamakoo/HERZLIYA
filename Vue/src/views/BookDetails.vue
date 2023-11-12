@@ -20,34 +20,22 @@
             <div class="font-medium">Prix : {{ `${book?.price} €` }}</div>
             <div class="font-medium">État : {{ book?.state }}</div>
           </div>
-          <p>{{ book?.description }}</p>
+          <p><span class="font-medium">Description :</span> {{ book?.description }}</p>
         </div>
 
         <div class="flex-row-reverse lg:flex-row flex items-center lg:space-x-4">
-          <!-- <TwButton size="m" @click="addToCart(book?.id, book)" class="ml-4 lg:ml-0 lg:w-1/2"
-            ><ShoppingCartIcon class="w-5 h-5 lg:mr-2 text-white" /><span
-              >Ajouter au panier</span
-            ></TwButton
-          > -->
-          <TwButton
-            v-if="book?.status !== 'available'"
-            size="m"
-            @click="buy(book?.id as string)"
-            class="ml-4 lg:ml-0 lg:w-1/2 space-x-2"
-            type="button"
-            ><CreditCardIcon class="w-5 h-5 lg:mr-2 text-white" /><span>Acheter</span></TwButton
+          <TwButton size="m" @click="buy" class="ml-4 lg:ml-0 lg:w-1/2 space-x-2" type="button"
+            ><CreditCardIcon class="w-5 h-5 mr-2 text-white" /><span>Acheter</span></TwButton
           >
           <TwLikes :book-id="id" />
         </div>
         <TwButton
-          v-if="book?.status !== 'available'"
           type="button"
           size="m"
           class="ml-4 lg:ml-0 lg:w-1/2 space-x-2"
-          color="bg-gray-50 border-secondary border hover:bg-secondary text-secondary-dark hover:text-white"
-          :disabled="isAlreadyInCart"
+          color="border border-secondary hover:bg-secondary text-secondary hover:text-white"
           @click="addCart"
-          ><ShoppingCartIcon class="w-5 h-5 lg:mr-2" /><span>Ajouter au panier</span></TwButton
+          ><ShoppingCartIcon class="w-5 h-5 mr-2" /><span>Ajouter au panier</span></TwButton
         >
 
         <div
@@ -83,84 +71,52 @@ import httpClient from '@/api/httpClient'
 import Login from './Login.vue'
 import { TwButton, TwLikes } from '@/libs/ui/index.vue'
 import { useAccountStore } from '@/stores/useAccountStore'
+import { useFetchCart } from '@/api/fetchs/useFetchCart'
 import { CreditCardIcon, ShoppingCartIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import type { Books } from '@/libs/interfaces/books'
+import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
 
 const accountStore = useAccountStore()
 
 const route = useRoute()
 const { id } = route.params
+const { addToCart } = useFetchCart()
 const bookStore = useBookStore()
+const { retrieve } = useFetchBooks()
 const book = ref<Books>()
-const isAlreadyInCart = ref(false)
 const added = ref(false)
-// const accountStore = useAccountStore()
+const showLogin = ref(false)
+
+onBeforeMount(async () => (book.value = await retrieve(id as string)))
 
 const addCart = async () => {
   try {
-    console.log('cart button pushed')
-    // if (!accountStore.token) showLogin.value = true // Affiche la vue Login
-
-    const data = await httpClient.post<Books>(`/books/${id}/add-to-kart`, id, {
-      headers: { Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA==` }
-    })
+    if (!accountStore.token) showLogin.value = true
+    const data = await addToCart(id as string)
     console.log('data', data)
     added.value = true
-    isAlreadyInCart.value = true
   } catch (error) {
     throw new Error((error as Error).message)
   }
 }
 
-console.log(id)
 // const cartStore = useCartStore()
 // const mycart = await cartStore.retrieveCart(accountStore.token)
 // console.log('mycart', mycart)
-const showLogin = ref(false)
 
-const buy = async (bookId: Books['id']) => {
+const buy = async () => {
   try {
-    console.log('token from book details : ', accountStore.token)
     if (!accountStore.token) {
       showLogin.value = true
       return
-    } // Affiche la vue Login
+    }
 
-    const data = await httpClient.patch(`/books/${bookId}/purchase`, bookId, {
-      headers: { Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA==` }
+    const { data } = await httpClient.patch(`/books/${id}/purchase`, id, {
+      headers: { Authorization: `Bearer ${accountStore.token}` }
     })
-    // const data = (cart.purchased_at = new Date(Date.now()))
     return data
   } catch (error) {
     throw new Error((error as Error).message)
   }
 }
-
-// const fetchLikes = useFetchLikes()
-// const liked = ref(false)
-// const like = async () => {
-//   //   if (liked.value) {
-//   //  //fetchLikes.create(book.value?.id as string)
-//   //     // ;('b5ZvjMmJQNbgzcCahIm6uA==')
-//   //     // accountStore.userAccount?.likes?.push({
-//   //     //   userID: 'b5ZvjMmJQNbgzcCahIm6uA==',
-//   //     //   bookID: book.value?.id,
-//   //     //   createdAt: Date.now()
-//   //     // })
-//   //   }
-//   const data = await httpClient.post<Likes>(
-//     `/likes/${id}`,
-//     { data: null },
-//     {
-//       headers: {
-//         Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA==`
-//       }
-//     }
-//   ) //fetchLikes.create(book.value?.id as string)
-//   // fetchLikes.del(book.value?.id as string)
-//   return data
-//   //POST DANS TABLE LIKES (USER -> LIKES) => USER TOKEN + BOOK ID
-// }
-
-onBeforeMount(async () => (book.value = await bookStore.retrieveBook(id as string)))
 </script>

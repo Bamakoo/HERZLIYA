@@ -2,14 +2,14 @@
   <RouterLink
     v-if="href"
     :to="href"
-    class="inline-flex items-center justify-center rounded-md text-sm font-semibold text-center shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+    class="inline-flex items-center justify-center rounded-md text-sm font-semibold text-center shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2"
     :class="[btnSize, btnColor]"
     ><slot></slot
   ></RouterLink>
   <button
     v-else
     :type="type ?? 'button'"
-    class="inline-flex items-center justify-center rounded-md text-sm font-semibold text-center shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+    class="inline-flex items-center justify-center rounded-md text-sm font-semibold text-center shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2"
     :class="[btnSize, btnColor, className]"
   >
     <TwSpinner v-if="loading" class="absolute h-4 w-4" />
@@ -76,12 +76,20 @@ const btnColor = computed(() => {
         isDisabled.value
         classes.push('bg-red-300 text-white')
       }
-      classes.push('bg-red-600 text-white hover:bg-red-700 active:bg-red-800')
+      classes.push('bg-red-600 text-white hover:bg-red-700 focus-visible:outline-red-600')
+    }
+    if (props.color === 'gray') {
+      if (isDisabled.value) classes.push('bg-gray-300 text-white pointer-events-none focus-none')
+      if (props.loading) {
+        isDisabled.value
+        classes.push('bg-red-300 text-white')
+      }
+      classes.push('bg-gray-400 text-white hover:bg-gray-500')
     } else {
       classes.push(props.color)
     }
 
-    classes.push(props.color, 'focus-visible:outline-secondary text-white')
+    classes.push(props.color, 'focus-visible:outline-secondary')
   }
   // if (!props.color) {
   //   if (isDisabled.value)

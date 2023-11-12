@@ -2,30 +2,16 @@
   <header
     class="fixed w-full max-h-max top-0 bg-primary flex px-2 pt-2 justify-between items-center align-middle"
   >
-    <div class="flex space-x-2 px-2 items-center w-1/5">
-      <RouterLink to="../">
-        <div class="rounded-full aspect-square bg-gray-400">
-          <img src="" alt="logo Herzliya" class="cover h-14 w-14" />
-        </div>
-      </RouterLink>
-      <!-- <label
-        class="focus-within:ring hidden md:visible md:flex items-center rounded-xl bg-primary-dark/30 min-w-full focus:ring-offset-0 focus:border-none px-2 text-gray-700"
-      >
-        <input
-          v-model.trim="text"
-          type="search"
-          dir="ltr"
-          aria-autocomplete="list"
-          aria-label="Tapez votre recherche"
-          class="p-2 border-0 focus:ring-0 bg-transparent placeholder:Rechercher placeholder:text-gray-900 w-full"
-        />
-        <button class="inline mr-2" @click="search(text)">
-          <MagnifyingGlassIcon class="h-6 w-6" />
-        </button>
-      </label> -->
+    <div class="relative flex space-x-2 px-2 items-center w-1/3">
+      <div class="rounded-full lg:rounded-none aspect-square">
+        <RouterLink to="/">
+          <img :src="logo" alt="logo Herzliya" class="contain h-14 w-14 shrink-0" />
+        </RouterLink>
+      </div>
+
       <SearchBar />
     </div>
-    <nav class="hidden lg:flex lg:justify-center lg:text-center mx-auto space-x-4">
+    <nav class="hidden lg:relative lg:flex lg:justify-center lg:text-center mx-auto space-x-4">
       <RouterLink
         v-for="(nav, index) in navigation"
         :to="nav.to"
@@ -34,6 +20,13 @@
         :aria-label="nav.title"
         class="h-full flex-col w-24 text-gray-700 transition-colors duration-200 hover:text-white hover:border-b-white"
       >
+        <div v-if="nav.value === 'cart' && cartStore" class="t-0 absolute right-3">
+          <p
+            class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white"
+          >
+            {{ cartStore }}
+          </p>
+        </div>
         <component :is="nav.icon" class="pb-1 h-12 w-12 mx-auto" />
 
         <span :aria-describedby="nav.title" class="text-center max-w-full">
@@ -46,46 +39,28 @@
 </template>
 
 <script setup lang="ts">
-// import { computed, ref } from 'vue'
 import Menu from './Menu.vue'
+import logo from '@/assets/logo.png'
 import {
-  // MagnifyingGlassIcon,
   HomeIcon,
-  // BookOpenIcon,
   PlusCircleIcon,
   UserCircleIcon,
   ShoppingCartIcon
 } from '@heroicons/vue/24/outline/index.js'
 import SearchBar from './SearchBar.vue'
-// import axios from 'axios'
-// import type { Books } from '@/libs/interfaces/books'
-// import httpClient from '@/api/httpClient'
+import { useCartStore } from '@/stores/useCartStore'
 
 const navigation = [
   {
+    value: 'home',
     icon: HomeIcon,
     title: 'Livres',
     to: '/'
   },
-  { icon: PlusCircleIcon, title: 'Vendre', to: '/add' },
-  { icon: UserCircleIcon, title: 'Compte', to: `/account` },
-  { icon: ShoppingCartIcon, title: 'Panier', to: '/cart' }
+  { value: 'sell', icon: PlusCircleIcon, title: 'Vendre', to: '/add' },
+  { value: 'account', icon: UserCircleIcon, title: 'Compte', to: `/account` },
+  { value: 'cart', icon: ShoppingCartIcon, title: 'Panier', to: '/cart' }
 ]
-// const emit = defineEmits<{ (event: 'search', val: Books | Books[]): void }>()
-// const text = ref('')
-// const search = async (text: string) => {
-//   console.log(text)
-//   const { data } = await httpClient.get('/books')
-//   console.dir(data)
-//   const searchResult = computed(() =>
-//     data.find((e: Books) => {
-//       const titleMatch = e.title?.toLowerCase().includes(text.toLowerCase())
-//       const authorMatch = e.author?.toLowerCase().includes(text.toLowerCase())
-//       return titleMatch || authorMatch
-//     })
-//   )
-//   console.dir(searchResult.value)
-//   emit('search', searchResult.value)
-//   return searchResult
-// }
+
+const cartStore = useCartStore().cart?.books.length
 </script>

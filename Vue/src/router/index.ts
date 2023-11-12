@@ -8,26 +8,13 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Books
-      // props:{
-      //   searchResult:
-      // }
     },
     {
       path: '/add',
       name: 'add',
       component: () => import('../views/AddBook.vue')
     },
-    // {
-    //   path: '/books',
-    //   name: 'books',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('@/views/BooksView.vue')
-    // },
     {
-      // UserProfile will be rendered inside User's <router-view>
-      // when /user/:id/profile is matched
       path: '/books/:id',
       name: 'book',
       component: () => import('@/views/BookDetails.vue')
