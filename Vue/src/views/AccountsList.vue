@@ -28,12 +28,12 @@
 
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue'
-import { useAccountStore } from '@/stores/useAccountStore'
+import { useFetchAccounts } from '@/api/fetchs/useFetchAccounts'
 import router from '@/router'
 import AccountDetails from './AccountDetails.vue'
 
-const userStore = useAccountStore()
-const users = await userStore.userList
+const { list } = useFetchAccounts()
+const users = await list()
 // const user = await userStore.retrieveUserAccount('efc67baf-2593-4218-ad94-34ecc1302a07')
 onBeforeMount(() => users)
 

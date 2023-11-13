@@ -4,7 +4,7 @@
       <h1 class="text-3xl font-bold tracking-tight text-gray-900 text-center">
         {{
           cart.length
-            ? `Vous avez ${cart.length} article${cart.length > 1 ? 's' : ''} dans votre Panier`
+            ? `Vous avez ${cart.length} article${cart.length > 1 ? 's' : ''} dans votre panier`
             : 'Votre panier est vide'
         }}
       </h1>
@@ -37,7 +37,7 @@
                         >{{ book.title }}</RouterLink
                       >
                     </span>
-                    <span class="mt-1 text-sm text-gray-500 block lowercase">{{
+                    <span class="mt-1 text-sm text-gray-500 block capitalize">{{
                       book.author
                     }}</span>
                   </div>
@@ -108,17 +108,14 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { useCartStore } from '@/stores/useCartStore'
 import { useAccountStore } from '@/stores/useAccountStore'
 import { useFetchCart } from '@/api/fetchs/useFetchCart'
 import type { Cart } from '@/libs/interfaces/carts'
-// import { TwCard } from '@/libs/ui/index.vue'
 
 import type { Books } from '@/libs/interfaces/books'
 import httpClient from '@/api/httpClient'
 
 const accountStore = useAccountStore()
-const cartStore = useCartStore()
 const { retrieve, del } = useFetchCart()
 const cart = await retrieve(accountStore.token)
 
@@ -142,24 +139,16 @@ onMounted(async () =>
 
 const removeItem = async (id: Books['id']) => await del(accountStore.token, id)
 
-const buy = async () => {
+const buy = () => {
   try {
-    if (!books) return
-    const item = JSON.parse(JSON.stringify(books))
-
-    const { data } = await httpClient.post<Cart>('/cart', item, {
-      headers: {
-        Authorization: `Bearer ${accountStore.token}`
-      }
+    if (!cart) return
+    cart.map(async (book) => {
+      book.id
+      const { data } = await httpClient.patch<Cart>(`/books/${book.id}/purchase`, cart)
+      return data
     })
-    return data
   } catch (error) {
     throw new Error((error as Error).message)
   }
 }
-// const { data } = await httpClient.post<Cart>('/cart', item, {
-//   headers: {
-//     Authorization: `Bearer ${accountStore.token}`
-//   }
-// })
 </script>

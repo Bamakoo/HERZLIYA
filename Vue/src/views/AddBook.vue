@@ -193,14 +193,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { TwForm, TwInputText, TwInputSelect, TwButton } from '@/libs/ui/index.vue'
-// import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
+import { TwInputText, TwInputSelect, TwButton } from '@/libs/ui/index.vue'
+import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
 import type { Books } from '@/libs/interfaces/books'
 import router from '@/router'
-// import { useAccountStore } from '@/stores/useAccountStore'
-import httpClient from '@/api/httpClient'
+import { useAccountStore } from '@/stores/useAccountStore'
 
 const route = router
+const accountStore = useAccountStore()
 
 const selectedGenre = ref('')
 const selectedState = ref('')
@@ -226,8 +226,6 @@ const states = [
   { name: 'Neuf', value: 'brandNew' }
 ]
 
-// const accountStore = useAccountStore()
-
 type NewBook = Omit<Books, 'id' | 'updatedAt' | 'deletedAt' | 'isFavorite'>
 const datas = ref<{
   title: NewBook['title']
@@ -247,11 +245,11 @@ const datas = ref<{
   state: null,
   price: 0,
   status: 'available',
-  sellerId: 'b5ZvjMmJQNbgzcCahIm6uA==',
+  sellerId: accountStore.token,
   buyerId: null
 })
 
-// const { create } = useFetchBooks()
+const { create } = useFetchBooks()
 const createBook = async () => {
   try {
     const newBookData: Omit<Books, 'id'> = {
@@ -262,14 +260,11 @@ const createBook = async () => {
       state: selectedState.value,
       price: datas.value?.price,
       status: 'available',
-      sellerId: 'b5ZvjMmJQNbgzcCahIm6uA==',
+      sellerId: accountStore.token,
       buyerId: null
     }
-    console.log('newBookData', newBookData)
-    const { data } = await httpClient.post<Books>('/books', newBookData, {
-      headers: { Authorization: `Bearer b5ZvjMmJQNbgzcCahIm6uA==` }
-    })
-    console.log('newBook', data)
+
+    const data = await create(newBookData)
     route.replace('/')
     return data
   } catch (error) {

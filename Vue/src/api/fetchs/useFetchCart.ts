@@ -6,7 +6,7 @@ import type { Users } from '@/libs/interfaces/users'
 export const useFetchCart = () => {
   const retrieve = async (token: Users['token']) => {
     const loginCredentials = window.localStorage.getItem('token')
-    const { data } = await httpClient.get<Cart>('/users/cart/', {
+    const { data } = await httpClient.get<Cart['books']>('/users/cart/', {
       headers: {
         Authorization: `Bearer ${token ?? loginCredentials}`
       }

@@ -1,9 +1,6 @@
 <template>
   <div class="max-w-7xl mx-auto p-8 space-y-28">
     <div class="flex flex-col items-center space-y-4">
-      <!-- <div class="aspect-w-1 aspect-h-1 rounded-full">
-        <img :src="user.img" :alt="user.username" class="object-cover object-top" />
-      </div> -->
       <h1 class="text-3xl font-bold mb-6">{{ user.username }}</h1>
       <div class="space-x-2">
         <span>{{ user?.city }}, {{ user.country }}</span>
