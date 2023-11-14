@@ -4,7 +4,7 @@
   >
     <div class="relative flex space-x-2 px-2 items-center w-1/3">
       <div class="aspect-square">
-        <RouterLink to="/">
+        <RouterLink to="/" rel="noopener nofollow">
           <img :src="logo" alt="logo Herzliya" class="object-contain h-14 w-14 shrink-0" />
         </RouterLink>
       </div>
@@ -14,8 +14,9 @@
     <nav class="hidden lg:relative lg:flex lg:justify-center lg:text-center mx-auto space-x-4">
       <RouterLink
         v-for="(nav, index) in navigation"
-        :to="nav.to"
         :key="index"
+        :to="nav.to"
+        rel="noopener nofollow"
         :active-class="'text-white border-b-2 border-b-white'"
         :aria-label="nav.title"
         class="h-full flex-col w-24 text-gray-700 transition-colors duration-200 hover:text-white hover:border-b-white"

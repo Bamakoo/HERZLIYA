@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-7xl mx-auto relative">
-    <div class="aspect-square max-w-xs mx-auto bg-gray-300 rounded-full mb-8">
+    <div class="aspect-square max-w-xs mx-auto bg-gray-200 rounded-full mb-8">
       <!-- <img src="" alt="" class="object-contain object-left-top" /> -->
     </div>
     <div class="flex flex-col items-center space-y-4">
@@ -28,9 +28,11 @@
           :key="index"
           class="rounded-lg p-3 bg-white border border-gray-200"
         >
-          <div v-if="book.title" class="text-center font-semibold leading-3 text-lg">
-            {{ book.title }}
-          </div>
+          <RouterLink :to="`/books/${book.id}`" rel="noopener nofollow">
+            <div v-if="book.title" class="text-center font-semibold leading-3 text-lg">
+              {{ book.title }}
+            </div>
+          </RouterLink>
         </div>
       </div>
     </section>

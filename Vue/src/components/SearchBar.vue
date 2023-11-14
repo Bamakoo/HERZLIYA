@@ -25,7 +25,7 @@
         <div v-for="(book, index) in books" :key="index">
           <RouterLink
             :to="`/books/${book?.id}`"
-            rel="noopener"
+            rel="noopener nofollow"
             class="flex justify-between border p-2 rounded-sm hover:bg-gray-100"
           >
             <div>
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div v-else>
-        <p>Votre recherche n'a pas abouti, sorry 🤷🏽</p>
+        <p>Ta recherche n'a pas abouti, sorry 🤷🏽</p>
       </div>
     </div>
   </div>

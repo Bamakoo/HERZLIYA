@@ -5,7 +5,7 @@
         {{ book?.title ?? 'Titre du livre' }}
       </h1>
 
-      <div class="aspect-square max-w-md bg-gray-300 rounded-md">
+      <div class="aspect-square max-w-md bg-gray-200 rounded-md">
         <img src="" alt="" />
       </div>
       <div class="space-y-8">
@@ -21,7 +21,6 @@
             <div class="font-medium">État : {{ book?.state }}</div>
           </div>
         </div>
-        <p class="block"><span class="font-medium">Description :</span> {{ book?.description }}</p>
 
         <div class="flex-row-reverse lg:flex-row flex items-center lg:space-x-4">
           <TwButton size="m" @click="buy" class="ml-4 lg:ml-0 lg:w-1/2 space-x-2" type="button"
@@ -37,6 +36,13 @@
           @click="addCart"
           ><ShoppingCartIcon class="w-5 h-5 mr-2" /><span>Ajouter au panier</span></TwButton
         >
+        <div
+          class="bg-red-600/80 border-red-500 text-white p-4 border rounded-md max-w-fit mx-auto mt-8"
+        >
+          <p>
+            Attention : si tu retires ce livre de ton panier tu ne pourras plus le remettre dedans !
+          </p>
+        </div>
 
         <div
           v-if="added"

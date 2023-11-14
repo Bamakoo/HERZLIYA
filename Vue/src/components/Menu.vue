@@ -3,6 +3,8 @@
     <Menu v-slot="{ open }" as="div" class="relative inline-block text-left" role="menu">
       <MenuButton
         class="inline-flex w-full justify-center rounded-full bg-black bg-opacity-20 p-2 items-center font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+        aria-roledescription="bouton menu"
+        role="button"
       >
         <Bars3BottomRightIcon v-if="!open" class="w-5 text-secondary-light" aria-hidden="true" />
         <XMarkIcon v-else class="w-5 text-secondary-light" aria-hidden="true" />

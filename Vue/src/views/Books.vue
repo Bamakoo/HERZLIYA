@@ -23,6 +23,7 @@
           :key="index"
           :book="book"
           :to="`/books/${book.id}`"
+          large
           class="max-w-sm sm:max-w-none"
         />
       </div>

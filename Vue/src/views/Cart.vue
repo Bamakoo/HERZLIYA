@@ -14,14 +14,6 @@
           <h2 class="sr-only">Les livres dans votre panier</h2>
 
           <ul role="list" class="space-y-4">
-            <!-- <TwCard
-              :book="book"
-              :to="`books/${book.id}`"
-              large
-              v-for="(book, index) in books"
-              :key="index"
-            > -->
-
             <div
               v-for="(book, index) in cart"
               :key="index"
@@ -33,7 +25,8 @@
                     <span class="font-semibold font-courrier text-lg block">
                       <RouterLink
                         :to="`books/${book.id}`"
-                        class="text-gray-700 hover:text-gray-800"
+                        rel="noopener nofollow"
+                        class="text-gray-700 hover:text-gray-800 hover:underline"
                         >{{ book.title }}</RouterLink
                       >
                     </span>
@@ -48,6 +41,8 @@
 
                     <button
                       type="button"
+                      role="button"
+                      aria-roledescription="retirer du panier"
                       class="ml-4 mt-4 text-sm font-medium hover:text-primary-dark underline sm:ml-0 sm:mt-3 inline float-right"
                       @click="removeItem(book.id)"
                     >
@@ -60,7 +55,17 @@
           </ul>
         </div>
 
-        <!-- Order summary -->
+        <div
+          v-if="cart.length"
+          class="bg-red-600/80 border-red-500 text-white p-4 border rounded-md max-w-fit mx-auto mt-8"
+        >
+          <p>
+            Attention : si tu retires
+            <span>{{ cart.length === 1 ? ' livre' : 'tes livres' }}</span> tu ne pourras plus
+            <span>{{ cart.length === 1 ? "l'" : 'les' }}</span
+            >ajouter à nouveau dans ton panier !
+          </p>
+        </div>
         <div class="mt-10 max-w-sm lg:max-w-lg mx-auto">
           <div class="rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:p-8">
             <h2 class="sr-only">Récapitulatif</h2>
