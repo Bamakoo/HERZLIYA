@@ -1,5 +1,8 @@
 <template>
-  <div class="max-w-7xl mx-auto p-8 space-y-28">
+  <div class="max-w-7xl mx-auto p-8 space-y-20 relative">
+    <div class="aspect-square max-w-xs mx-auto bg-gray-300 rounded-full">
+      <!-- <img src="" alt="" class="object-contain object-left-top" /> -->
+    </div>
     <div class="flex flex-col items-center space-y-4">
       <h1 class="text-3xl font-bold mb-6">{{ user.username }}</h1>
       <div class="space-x-2">
@@ -15,23 +18,23 @@
         <span>Auteur préféré : {{ user.favoriteAuthor }}</span>
       </div>
     </div>
-    <div class="grid gap-y-4 lg:grid-cols-3 lg:gap-4 mt-8">
-      <div
-        v-for="(book, index) in user?.books"
-        :key="index"
-        class="rounded max-w-lg bg-white border border-gray-300"
-      >
-        <div>
-          <span class="block">{{ book.title }}</span>
-          <span class="block uppercase">{{ book.author }}</span>
-        </div>
-        <div>
-          <span class="block">{{ book.state }}</span>
-          <span class="block">{{ book.price }}</span>
+
+    <section>
+      <h2 class="text-center text-2xl font-semibold">Mes livres préférés 💖</h2>
+
+      <div class="mx-auto grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-8">
+        <div
+          v-for="(book, index) in user?.likes"
+          :key="index"
+          class="rounded-lg p-3 bg-white border border-gray-200"
+        >
+          <div v-if="book.title" class="text-center font-semibold leading-3 text-lg">
+            {{ book.title }}
+          </div>
         </div>
       </div>
-    </div>
-    <TwButton color="red" class="mx-auto" @click="logout">Bye Bye</TwButton>
+    </section>
+    <TwButton color="red" class-name="absolute right-8" @click="logout">Bye Bye</TwButton>
   </div>
 </template>
 
@@ -42,11 +45,10 @@ import router from '@/router'
 import axios from 'axios'
 
 const accountStore = useAccountStore()
-// const user = await accountStore.account
-const user = accountStore.account
-console.log('user :', user)
-const memberSince = user?.createdAt?.toLocaleString('fr-FR')
 
+const user = JSON.parse(JSON.stringify(await accountStore.fetchUserData()))
+console.log('user :', user)
+const memberSince = new Date(user?.createdAt).toLocaleDateString('fr-FR')
 const route = router
 
 const logout = () => {

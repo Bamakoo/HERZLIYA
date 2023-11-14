@@ -26,7 +26,7 @@
      </RouterLink> 
     </div> -->
     <RouterLink :to="to" rel="noopener">
-      <div class="">
+      <div>
         <span v-if="book.title" class="text-center font-semibold leading-3 text-lg">{{
           book.title
         }}</span>

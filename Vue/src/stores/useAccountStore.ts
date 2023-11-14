@@ -6,7 +6,9 @@ import type { Users } from '@/libs/interfaces/users'
 export const useAccountStore = defineStore('users', () => {
   const token = ref('')
   const id = ref('')
-  const { list, retrieve } = useFetchAccounts()
+  const {
+    profile: { infos, likes, purchases }
+  } = useFetchAccounts()
 
   if (localStorage.getItem('token')) {
     token.value = localStorage.getItem('token') as string
@@ -39,19 +41,19 @@ export const useAccountStore = defineStore('users', () => {
 
   const fetchUserData = async () => {
     try {
-      account.value = (await list()).find((user) => user.token === token.value)
+      account.value = await infos()
+      account.value.purchases = await purchases()
+      account.value.likes = await likes()
       console.log(`infos.value Store : ${account.value}`)
 
-      const infos = computed(() => {
-        return account.value
-      })
-      console.log(`infos.value Store : ${infos.value}`)
-      return infos.value
+      const metadatas = computed(() => account.value)
+      console.log(`metadatas.value Store : ${metadatas.value}`)
+      return metadatas.value
     } catch (error) {
       throw new Error((error as Error).message)
     }
   }
-  console.log('fetchUserData Store', async () => await fetchUserData())
+
   return {
     token,
     id,

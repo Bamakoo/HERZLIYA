@@ -1,6 +1,6 @@
 <template>
   <label
-    class="focus-within:ring focus-within:ring-primary-dark hidden md:visible md:flex items-center rounded-xl bg-primary-dark/30 min-w-full focus:ring-offset-0 focus:border-none px-2 text-gray-700"
+    class="focus-within:ring focus-within:ring-primary-dark hidden md:flex items-center rounded-xl bg-primary-dark/30 min-w-full focus:ring-offset-0 focus:border-none px-2 text-gray-700"
   >
     <input
       v-model.trim="text"
@@ -16,24 +16,24 @@
   </label>
   <div
     v-if="text"
-    class="absolute -bottom-8 z-10 bg-white max-w-3xl w-full p-4 space-y-2 overflow-y-scroll grid lg:grid-cols-3 shadow-md shadow-primary-dark/5 rounded-lg border-primary-light"
+    class="absolute top-8 z-10 bg-white max-w-3xl w-full p-4 overflow-y-scroll grid gap-2 max-h-[48px] h-1/2 shadow-md shadow-primary-dark/5 rounded-lg border-primary-light"
   >
-    <!-- <RouterLink :to="`/books/${book?.id}`"> -->
-    <div
-      v-for="(book, index) in search(text)"
-      :key="index"
-      class="flex justify-between border p-2 rounded-sm hover:bg-primary/20 hover:border-primary"
-    >
-      <div>
-        <span class="block">{{ book.title }}</span>
-        <span>{{ book.author }}</span>
-      </div>
-      <div class="text-right">
-        <span class="block">{{ book.price }} €</span>
-        <span>{{ book.state }}</span>
-      </div>
+    <div v-for="(book, index) in books" :key="index">
+      <RouterLink
+        :to="`/books/${book?.id}`"
+        rel="noopener"
+        class="flex justify-between border p-2 rounded-sm hover:bg-gray-100"
+      >
+        <div>
+          <span class="block">{{ book.title }}</span>
+          <span>{{ book.author }}</span>
+        </div>
+        <div class="text-right">
+          <span class="block">{{ book.price }} €</span>
+          <span>{{ book.state }}</span>
+        </div>
+      </RouterLink>
     </div>
-    <!-- </RouterLink> -->
   </div>
 </template>
 
@@ -51,11 +51,17 @@ const search = async (text: string) => {
     '(?:[0-9a-zA-Z\\u00C0-\\u00FF\\s!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~]+)',
     'gi'
   )
-  const matches = searchRegex.exec(text)
+  // const matches = searchRegex.exec(text)
   const { data } = await httpClient.get<Books[]>('/books')
   books.value = data
 
-  // computed(() => searchRegex.exec(text))
+  computed(() => {
+    const match = searchRegex.exec(text)
+    console.log(typeof match)
+    return books.value.filter(
+      (book) => searchRegex.exec(book.title) || searchRegex.exec(book.author)
+    )
+  })
 
   // const filteredBooks = computed(() => {
   //   const res = books.value.filter(
@@ -63,17 +69,17 @@ const search = async (text: string) => {
   //   )
   //   return res
   // })
-  const filteredBooks = ref<Books[]>([])
+  // const filteredBooks = ref<Books[]>([])
 
-  if (matches) {
-    computed(
-      () =>
-        (filteredBooks.value = books.value.filter(
-          (book) => book.title?.match(searchRegex) || book.author?.match(searchRegex)
-        ))
-    )
-  }
-  console.log(filteredBooks.value)
-  return filteredBooks.value
+  // if (matches) {
+  //   computed(
+  //     () =>
+  //       (filteredBooks.value = books.value.filter(
+  //         (book) => book.title?.match(searchRegex) || book.author?.match(searchRegex)
+  //       ))
+  //   )
+  // }
+  // console.log(filteredBooks.value)
+  // return filteredBooks.value
 }
 </script>

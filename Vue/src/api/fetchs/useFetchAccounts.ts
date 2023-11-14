@@ -16,6 +16,21 @@ export const useFetchAccounts = () => {
     return data
   }
 
+  const infos = async () => {
+    const { data } = await httpClient.get<Users>('/my')
+    return data
+  }
+
+  const purchases = async () => {
+    const { data } = await httpClient.get('users/purchases')
+    return data
+  }
+
+  const likes = async () => {
+    const { data } = await httpClient.get('users/likes')
+    return data
+  }
+
   const create = async (
     datas: Omit<
       Users,
@@ -40,5 +55,5 @@ export const useFetchAccounts = () => {
     return data
   }
 
-  return { list, retrieve, create, update, del }
+  return { list, retrieve, profile: { infos, purchases, likes }, create, update, del }
 }

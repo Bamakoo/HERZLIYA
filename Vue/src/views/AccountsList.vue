@@ -34,7 +34,6 @@ import AccountDetails from './AccountDetails.vue'
 
 const { list } = useFetchAccounts()
 const users = await list()
-// const user = await userStore.retrieveUserAccount('efc67baf-2593-4218-ad94-34ecc1302a07')
 onBeforeMount(() => users)
 
 const selectedUser = ref('')

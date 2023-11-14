@@ -16,12 +16,19 @@ const props = defineProps<{ bookId: string }>()
 import { ref } from 'vue'
 import { HeartIcon } from '@heroicons/vue/24/solid'
 import { useFetchLikes } from '@/api/fetchs/useFetchLikes'
+import { useAccountStore } from '@/stores/useAccountStore'
 
 const liked = ref(false)
 const like = async () => {
+  // const accountStore = useAccountStore()
+  // const likes = accountStore.account.likes
+  // if (likes?.includes(props.bookId)) {
+  //   liked.value = true
+  // }
+  // console.log(likes)
   const { create, del } = useFetchLikes()
   if (liked.value) {
-    del()
+    del(props.bookId)
     liked.value = false
   }
   create(props.bookId)

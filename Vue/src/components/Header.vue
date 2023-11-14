@@ -1,11 +1,11 @@
 <template>
   <header
-    class="fixed w-full max-h-max top-0 bg-primary flex px-2 pt-2 justify-between items-center align-middle"
+    class="fixed w-full z-10 max-h-max top-0 bg-primary flex px-2 pt-2 justify-between items-center align-middle"
   >
     <div class="relative flex space-x-2 px-2 items-center w-1/3">
-      <div class="rounded-full lg:rounded-none aspect-square">
+      <div class="aspect-square">
         <RouterLink to="/">
-          <img :src="logo" alt="logo Herzliya" class="contain h-14 w-14 shrink-0" />
+          <img :src="logo" alt="logo Herzliya" class="object-contain h-14 w-14 shrink-0" />
         </RouterLink>
       </div>
 

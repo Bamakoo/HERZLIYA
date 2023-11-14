@@ -108,16 +108,6 @@
         </div>
       </div>
     </form>
-
-    <!-- <TwForm
-      title="Créer mon compte"
-      :onSubmit="submit"
-      submitText="Créer mon compte"
-      class="bg-secondary-light/20 p-8 rounded-xl"
-    >
-    
-      
-    </TwForm> -->
   </div>
 </template>
 <script setup lang="ts">

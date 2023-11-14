@@ -77,7 +77,7 @@ import { useFetchFriends } from '@/api/fetchs/useFetchFriends'
 const props = defineProps<{ id: Users['id'] }>()
 
 const accountStore = useAccountStore()
-const user = await accountStore.retrieveUserAccount(props.id)
+const user = await accountStore.fetchUserData(props.id)
 const { createdAt } = user
 const memberSince = new Date(createdAt).toLocaleDateString('fr-FR')
 const fetchFriends = useFetchFriends()
@@ -92,7 +92,7 @@ const logout = () => {
 
 const addFriend = async () => {
   const data = await fetchFriends.create(props.id)
-  const friends = accountStore.userAccount?.friends
+  const friends = accountStore.account?.friends
   friends?.push(data)
   console.log(friends)
   return data

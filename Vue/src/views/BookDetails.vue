@@ -20,8 +20,8 @@
             <div class="font-medium">Prix : {{ `${book?.price} €` }}</div>
             <div class="font-medium">État : {{ book?.state }}</div>
           </div>
-          <p><span class="font-medium">Description :</span> {{ book?.description }}</p>
         </div>
+        <p class="block"><span class="font-medium">Description :</span> {{ book?.description }}</p>
 
         <div class="flex-row-reverse lg:flex-row flex items-center lg:space-x-4">
           <TwButton size="m" @click="buy" class="ml-4 lg:ml-0 lg:w-1/2 space-x-2" type="button"
@@ -54,6 +54,7 @@
       </div>
     </div>
   </div>
+  <!-- <UserComments :book-id="id" /> -->
   <RouterView v-if="!showLogin" />
   <Login v-if="showLogin" />
 </template>
@@ -62,9 +63,8 @@
 import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { useBookStore } from '@/stores/useBookStore'
+// import { useBookStore } from '@/stores/useBookStore'
 // import { useCartStore } from '@/stores/useCartStore'
-// import { useFetchCart } from '@/api/fetchs/useFetchCart'
 // import { useFetchLikes } from '@/api/fetchs/useFetchLikes'
 import httpClient from '@/api/httpClient'
 
@@ -75,13 +75,14 @@ import { useFetchCart } from '@/api/fetchs/useFetchCart'
 import { CreditCardIcon, ShoppingCartIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import type { Books } from '@/libs/interfaces/books'
 import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
+// import UserComments from '@/components/Users/UserComments.vue'
 
 const accountStore = useAccountStore()
 
 const route = useRoute()
 const { id } = route.params
 const { addToCart } = useFetchCart()
-const bookStore = useBookStore()
+// const bookStore = useBookStore()
 const { retrieve } = useFetchBooks()
 const book = ref<Books>()
 const added = ref(false)

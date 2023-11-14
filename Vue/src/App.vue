@@ -8,7 +8,6 @@ import {
   ChatBubbleOvalLeftIcon,
   ArrowLeftIcon,
   UserCircleIcon,
-  // CurrencyEuroIcon,
   ShoppingBagIcon,
   PencilIcon,
   UsersIcon,
@@ -17,27 +16,10 @@ import {
 import { useAccountStore } from '@/stores/useAccountStore'
 import Login from './views/Login.vue'
 import router from './router'
-// import { useBookStore } from './stores/useBookStore'
-// import type { Books } from './libs/interfaces/books'
-// import { fetchUsers } from './api/axios/users.routes'
 
 const accountStore = useAccountStore()
-// console.log('account store token : ', accountStore.token)
 
-// onBeforeMount(async () => {
-//   books.value = await bookStore.books
-//   // return accountStore.token
-// })
-// const bookStore = useBookStore()
-// const books = ref<Books[]>()
-
-const token = ref(localStorage.getItem('token')) // 'b5ZvjMmJQNbgzcCahIm6uA=='
-// watch(token, (newVal) => (token.value = newVal))
-// const filterGenre = () => {
-//   const { value } = accountMenu ?? genreMenu
-//   books.value?.filter((book) => book.genre === value)
-//   return books
-// }
+const token = ref(localStorage.getItem('token'))
 
 const accountMenu = {
   value: 'account',
@@ -110,7 +92,6 @@ const accountMenu = {
 }
 
 const route = useRoute()
-const routerArrow = router
 </script>
 
 <template>
@@ -133,12 +114,12 @@ const routerArrow = router
           <button
             role="button"
             aria-roledescription="Retour"
-            class="sm:px-2.5 sm:py-1.5 sm:text-xs sm:font-medium sm:leading-6 relative top-10 transition-colors duration-150 whitespace-nowrap flex items-center hover:text-primary"
-            @click="routerArrow.back()"
+            class="sm:px-2.5 sm:py-1.5 sm:text-xs sm:font-medium sm:leading-6 top-10 transition-colors duration-150 whitespace-nowrap flex items-center lg:hover:text-primary"
+            @click="router.back()"
           >
             <span class="sr-only">Retour</span>
             <ArrowLeftIcon class="w-5 h-5 inline mr-2" role="navigation" aria-label="Retour" />
-            <span class="text-base hidden lg:inline font-medium">Retour</span>
+            <span class="text-base inline font-medium">Retour</span>
           </button>
           <component :is="Component" />
         </div>
