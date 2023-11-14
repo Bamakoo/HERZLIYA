@@ -9,7 +9,7 @@
         </RouterLink>
       </div>
 
-      <SearchBar />
+      <SearchBar class="hidden lg:inline" />
     </div>
     <nav class="hidden lg:relative lg:flex lg:justify-center lg:text-center mx-auto space-x-4">
       <RouterLink
