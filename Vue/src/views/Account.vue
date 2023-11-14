@@ -1,6 +1,6 @@
 <template>
-  <div class="max-w-7xl mx-auto p-8 space-y-20 relative">
-    <div class="aspect-square max-w-xs mx-auto bg-gray-300 rounded-full">
+  <div class="max-w-7xl mx-auto relative">
+    <div class="aspect-square max-w-xs mx-auto bg-gray-300 rounded-full mb-8">
       <!-- <img src="" alt="" class="object-contain object-left-top" /> -->
     </div>
     <div class="flex flex-col items-center space-y-4">
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <section>
+    <section class="my-20 px-4">
       <h2 class="text-center text-2xl font-semibold">Mes livres préférés 💖</h2>
 
       <div class="mx-auto grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-8">
