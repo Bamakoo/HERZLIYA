@@ -3,19 +3,20 @@
     <div class="aspect-square max-w-xs mx-auto bg-gray-200 rounded-full mb-8">
       <!-- <img src="" alt="" class="object-contain object-left-top" /> -->
     </div>
-    <div class="flex flex-col items-center space-y-4">
-      <h1 class="text-3xl font-bold mb-6">{{ user.username }}</h1>
+    <div class="flex flex-col items-center space-y-2">
+      <h1 class="text-3xl font-bold">{{ user.username }}</h1>
       <div class="space-x-2">
         <span>{{ user?.city }}, {{ user.country }}</span>
       </div>
       <div>
-        <span>Membre depuis : {{ memberSince }}</span>
+        <span class="font-medium">Membre depuis :</span> <span>{{ memberSince }}</span>
       </div>
       <div>
-        <span>Livre préféré : {{ user.favoriteBook }}</span>
+        <span class="font-medium">Livre préféré : </span> <span>{{ user.favoriteBook }}</span>
       </div>
       <div>
-        <span>Auteur préféré : {{ user.favoriteAuthor }}</span>
+        <span class="font-medium">Auteurice préféré·e : </span>
+        <span>{{ user.favoriteAuthor }}</span>
       </div>
     </div>
 
@@ -48,7 +49,7 @@ import axios from 'axios'
 
 const accountStore = useAccountStore()
 
-const user = JSON.parse(JSON.stringify(await accountStore.fetchUserData()))
+const user = await accountStore.fetchUserData()
 console.log('user :', user)
 const memberSince = new Date(user?.createdAt).toLocaleDateString('fr-FR')
 const route = router

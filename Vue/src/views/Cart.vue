@@ -95,7 +95,12 @@
               Acheter
             </button>
           </div>
-
+          <div
+            v-if="bought"
+            class="bg-green-600/10 border-green-500 text-green-800 p-4 border rounded-md max-w-fit mx-auto mt-8"
+          >
+            <p>🎉 Félicitation ! Un nouveau livre va rejoindre ton étagère d'ici peu ! 🎉</p>
+          </div>
           <div class="mt-6 text-center text-sm text-gray-500">
             <p>
               or
@@ -124,7 +129,6 @@ const accountStore = useAccountStore()
 const { retrieve, del } = useFetchCart()
 const cart = await retrieve(accountStore.token)
 
-console.log('cart :', cart)
 const prices = cart
   .map((book) => book.price)
   .reduce((acc, current) => {
@@ -134,13 +138,14 @@ const prices = cart
 onMounted(async () =>
   computed(() => {
     try {
-      console.log('cart :', cart)
       return cart
     } catch (error) {
       throw new Error((error as Error).message)
     }
   })
 )
+
+const bought = ref(false)
 
 const removeItem = async (id: Books['id']) => await del(accountStore.token, id)
 
@@ -150,6 +155,7 @@ const buy = () => {
     cart.map(async (book) => {
       book.id
       const { data } = await httpClient.patch<Cart>(`/books/${book.id}/purchase`, cart)
+      bought.value = true
       return data
     })
   } catch (error) {

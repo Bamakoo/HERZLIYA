@@ -31,7 +31,7 @@
         <TwButton
           type="button"
           size="m"
-          class="ml-4 lg:ml-0 lg:w-1/2 space-x-2"
+          class="lg:w-1/2 space-x-2"
           color="border border-secondary hover:bg-secondary text-secondary hover:text-white"
           @click="addCart"
           ><ShoppingCartIcon class="w-5 h-5 mr-2" /><span>Ajouter au panier</span></TwButton
@@ -69,9 +69,6 @@
 import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 
-// import { useBookStore } from '@/stores/useBookStore'
-// import { useCartStore } from '@/stores/useCartStore'
-// import { useFetchLikes } from '@/api/fetchs/useFetchLikes'
 import httpClient from '@/api/httpClient'
 
 import Login from './Login.vue'
@@ -81,14 +78,12 @@ import { useFetchCart } from '@/api/fetchs/useFetchCart'
 import { CreditCardIcon, ShoppingCartIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import type { Books } from '@/libs/interfaces/books'
 import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
-// import UserComments from '@/components/Users/UserComments.vue'
 
 const accountStore = useAccountStore()
 
 const route = useRoute()
 const { id } = route.params
 const { addToCart } = useFetchCart()
-// const bookStore = useBookStore()
 const { retrieve } = useFetchBooks()
 const book = ref<Books>()
 const added = ref(false)
@@ -106,10 +101,6 @@ const addCart = async () => {
     throw new Error((error as Error).message)
   }
 }
-
-// const cartStore = useCartStore()
-// const mycart = await cartStore.retrieveCart(accountStore.token)
-// console.log('mycart', mycart)
 
 const buy = async () => {
   try {
