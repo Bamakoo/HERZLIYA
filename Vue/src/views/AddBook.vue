@@ -35,9 +35,10 @@
 
             <TwInputText
               label="Prix"
+              aria-label=""
               type="number"
               :step="1"
-              :min="0"
+              :min="1"
               for-text="price"
               hint="champ obligatoire"
               v-model="datas.price"
@@ -67,7 +68,7 @@
               required
               name="state"
               hint="Champ obligatoire"
-              class-name="sm:col-span-2"
+              class="sm:col-span-2"
             />
             <div class="col-span-full">
               <label for="description" class="text-sm font-medium leading-6"

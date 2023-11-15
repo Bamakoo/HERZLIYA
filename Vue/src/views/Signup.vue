@@ -136,11 +136,11 @@ const isLoading = ref(false)
 
 const passwordController = computed(() => {
   const passwordError = ref(false)
-  const controlller = new RegExp(
+  const controller = new RegExp(
     // eslint-disable-next-line no-useless-escape
     '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$'
   )
-  if (datas.value.password && !datas.value.password?.match(controlller)) {
+  if (datas.value.password && !datas.value.password?.match(controller)) {
     passwordError.value = true
     return 'Le mot de passe doit contenenir minimum : 1 majuscule, 1 minuscule, 8 caractères, 1 nombre et 1 caractère spécial'
   }

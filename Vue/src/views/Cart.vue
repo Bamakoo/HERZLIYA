@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mx-auto max-w-5xl">
+    <div class="mx-auto max-w-5xl pt-4 lg:pt-0">
       <h1 class="text-3xl font-bold tracking-tight text-gray-900 text-center">
         {{
           cart.length
@@ -55,17 +55,23 @@
           </ul>
         </div>
 
-        <div
+        <!-- <div
+          class="bg-red-600/80 border-red-500 text-white p-4 border rounded-md "
+        ></div> -->
+
+        <TwAlert
           v-if="cart.length"
-          class="bg-red-600/80 border-red-500 text-white p-4 border rounded-md max-w-fit mx-auto mt-8"
+          type="warning"
+          title="N'enlève un livre que si tu es sûr·e."
+          class="max-w-fit mx-auto mt-8"
         >
           <p>
             Attention : si tu retires
-            <span>{{ cart.length === 1 ? ' livre' : 'tes livres' }}</span> tu ne pourras plus
-            <span>{{ cart.length === 1 ? "l'" : 'les' }}</span
-            >ajouter à nouveau dans ton panier !
+            <span>{{ cart.length === 1 ? 'ce livre' : 'tes livres' }}</span> tu ne pourras plus le
+            <span>{{ cart.length > 1 ? 's' : '' }}</span
+            >remettre dans ton panier !
           </p>
-        </div>
+        </TwAlert>
         <div class="mt-10 max-w-sm lg:max-w-lg mx-auto">
           <div class="rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:p-8">
             <h2 class="sr-only">Récapitulatif</h2>
@@ -95,12 +101,9 @@
               Acheter
             </button>
           </div>
-          <div
-            v-if="bought"
-            class="bg-green-600/10 border-green-500 text-green-800 p-4 border rounded-md max-w-fit mx-auto mt-8"
-          >
-            <p>🎉 Félicitation ! Un nouveau livre va rejoindre ton étagère d'ici peu ! 🎉</p>
-          </div>
+          <TwAlert v-if="bought" type="success" title="Merci pour ton achat !" class="mt-8">
+            <p>Félicitations ! Une nouvelle aventure va rejoindre ton étagère d'ici peu ! 🎉</p>
+          </TwAlert>
           <div class="mt-6 text-center text-sm text-gray-500">
             <p>
               or
@@ -124,6 +127,7 @@ import type { Cart } from '@/libs/interfaces/carts'
 
 import type { Books } from '@/libs/interfaces/books'
 import httpClient from '@/api/httpClient'
+import TwAlert from '@/libs/ui/TwAlert.vue'
 
 const accountStore = useAccountStore()
 const { retrieve, del } = useFetchCart()

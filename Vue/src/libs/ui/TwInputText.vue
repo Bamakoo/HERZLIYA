@@ -27,7 +27,7 @@
       :step="step"
       :min="min"
       :minlength="minlength"
-      class="block w-full rounded-md py-2 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary-dark focus-visible:ring-2 focus-visible:ring-secondary-dark sm:text-sm sm:leading-6 px-2"
+      class="block w-full rounded-md py-2 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-secondary focus-visible:ring-0 sm:text-sm sm:leading-6 px-2"
       :class="hasError ? 'ring-red-500' : 'ring-gray-300'"
     />
     <span
@@ -75,4 +75,10 @@ const text = computed({
 })
 
 const hasError = ref(props.error)
+
+// const controller = computed(() => {
+//   const sqlDirectives = new RegExp('^(?!(dump|insert|select|alter)(\\s+(column|table|row)))', 'i')
+//   if (sqlDirectives.exec(text.value)) hasError.value = true
+//   return (hasError.value = false)
+// })
 </script>

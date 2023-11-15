@@ -37,7 +37,7 @@
         </div>
       </div>
     </section>
-    <TwButton color="red" class-name="absolute right-8" @click="logout">Bye Bye</TwButton>
+    <TwButton color="red" class-name="absolute right-4" @click="logout">À la prochaine !</TwButton>
   </div>
 </template>
 

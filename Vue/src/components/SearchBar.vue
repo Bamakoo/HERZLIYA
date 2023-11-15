@@ -12,7 +12,13 @@
         class="p-2 border-0 outline-0 bg-transparent placeholder:italic placeholder:text-sm placeholder:text-gray-700 w-full"
         placeholder="Rechercher..."
       />
-      <button class="inline mr-2" @click="search(text)">
+      <button
+        class="inline mr-2"
+        role="button"
+        aria-label="bouton de recherche"
+        aria-roledescription="bouton pour lancer la recherche"
+        @click="search(text)"
+      >
         <MagnifyingGlassIcon class="h-6 w-6" />
       </button>
     </label>
