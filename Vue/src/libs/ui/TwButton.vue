@@ -31,10 +31,7 @@ const props = defineProps<{
   href?: string
   color?: 'red' | string
   className?: string
-  // emitValue?: unknown
 }>()
-
-// const emits = defineEmits<{ (event: 'submit', value: unknown): void }>()
 
 const isDisabled = computed(() => props.disabled || props.loading)
 
@@ -91,19 +88,7 @@ const btnColor = computed(() => {
 
     classes.push(props.color, 'focus-visible:outline-secondary')
   }
-  // if (!props.color) {
-  //   if (isDisabled.value)
-  //     classes.push('bg-secondary text-indigo-300 pointer-events-none focus-none')
-  //   classes.push('bg-secondary hover:bg-secondary focus-visible:outline-secondary text-white')
-  // }
 
-  /** CASES
-   * disabled + !color
-   * disabled + color
-   * loading + color
-   * loading + !color
-   * loading => disabled
-   */
   return classes
 })
 </script>
