@@ -10,7 +10,6 @@ const httpClient = axios.create({
   }
 })
 
-//pour ajouter automatiquement le token à chaque requête s'il y en a un
 httpClient.interceptors.request.use((request) => {
   const token = localStorage.getItem('token')
   if (token) {
