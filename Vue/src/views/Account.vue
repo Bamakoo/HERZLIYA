@@ -37,6 +37,21 @@
         </div>
       </div>
     </section>
+    <section class="my-20 px-4">
+      <h2 class="text-center text-2xl font-semibold">Mes achats 🛒</h2>
+
+      <div class="mx-auto grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-8">
+        <div
+          v-for="(book, index) in user?.purchases"
+          :key="index"
+          class="rounded-lg p-3 bg-white border border-gray-200"
+        >
+          <div v-if="book.title" class="text-center font-semibold leading-6 text-lg">
+            {{ book.title }}
+          </div>
+        </div>
+      </div>
+    </section>
     <TwButton color="red" class-name="absolute right-4" @click="logout">À la prochaine !</TwButton>
   </div>
 </template>

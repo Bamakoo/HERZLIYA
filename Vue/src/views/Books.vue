@@ -14,7 +14,7 @@
           class="max-w-sm sm:max-w-none"
         />
       </div>
-      <FilterBooks :selected-genre="selectGenre" @change="selectGenre" />
+      <FilterBooks :selected-genre="selectedGenre" @change="() => selectedGenre" />
     </div>
     <section class="flex items-start mx-auto max-w-sm md:max-w-3xl mt-8 lg:mt-0">
       <div class="gap-4 mr-2 grid lg:grid-cols-2 w-11/12">
@@ -58,5 +58,4 @@ const filter = (genre: Books['genre']) => {
   )
   return result
 }
-// bind selectedGenre à FilterGenre + le passer en arg
 </script>
