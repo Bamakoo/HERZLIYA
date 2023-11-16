@@ -4,7 +4,7 @@
       {{ selectedGenre ? `Catégorie ${selectedGenre}` : 'Tous les livres' }}
     </h1>
     <SearchBar class="lg:hidden" />
-    <!-- <div v-if="selectedGenre" class="flex items-start mx-auto max-w-sm md:max-w-3xl">
+    <div v-if="selectedGenre" class="flex items-start mx-auto max-w-sm md:max-w-3xl">
       <div class="gap-4 mr-2 grid sm:grid-cols-2 w-11/12">
         <TwCard
           v-for="(book, index) in books"
@@ -14,8 +14,8 @@
           class="max-w-sm sm:max-w-none"
         />
       </div>
-      <FilterBooks @change="selectGenre" />
-    </div> -->
+      <FilterBooks :selected-genre="selectGenre" @change="selectGenre" />
+    </div>
     <section class="flex items-start mx-auto max-w-sm md:max-w-3xl mt-8 lg:mt-0">
       <div class="gap-4 mr-2 grid lg:grid-cols-2 w-11/12">
         <TwCard
@@ -41,32 +41,22 @@ import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
 import type { Books } from '@/libs/interfaces/books'
 import SearchBar from '@/components/SearchBar.vue'
 
-// const states = 'horrendous'
-//   ? 'Horrible'
-//   : 'bad'
-//   ? 'Mauvais'
-//   : 'okay'
-//   ? 'Okay'
-//   : 'passable'
-//   ? 'Passable'
-//   : 'acceptable'
-//   ? 'Acceptable'
-//   : 'good'
-//   ? 'Bon État'
-//   : 'excellent'
-//   ? 'Excellent'
-//   : 'Neuf'
-
 const fetchBooks = useFetchBooks()
-const books = await fetchBooks.list()
-onMounted(() => computed(() => books))
+const books = ref(await fetchBooks.list())
+onMounted(() => computed(() => books.value))
 
 // const props = defineProps<{ searchResult: Books | Books[] }>()
 
 const selectedGenre = ref<Books['genre']>(null)
 const filter = (genre: Books['genre']) => {
-  console.log('selectedGenre : ', selectedGenre.value)
-  return computed(() => books.filter((book) => book.genre === (selectedGenre.value = genre)))
+  const result = computed(() =>
+    books.value.filter((book) => {
+      selectedGenre.value = genre
+      book.genre === selectedGenre.value
+      console.log(selectedGenre.value)
+    })
+  )
+  return result
 }
 // bind selectedGenre à FilterGenre + le passer en arg
 </script>

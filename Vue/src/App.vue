@@ -124,13 +124,7 @@ const route = useRoute()
           <component :is="Component" />
         </div>
       </main>
-      <aside v-if="!token || route.path === '/' || route.name === 'book'" class="mr-4">
-        <TwSidebar
-          v-if="route.path.startsWith('/account')"
-          :menu="accountMenu"
-          class="mt-32 mr-2 hidden lg:flex"
-        />
-      </aside>
+
       <!-- </KeepAlive> -->
     </RouterView>
   </Suspense>

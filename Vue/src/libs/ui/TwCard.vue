@@ -12,7 +12,23 @@
           <span class="text-sm">{{ book.author }}</span>
           <span class="text-base font-bold">{{ book.price ? `${book.price} €` : 'Gratuit' }}</span>
         </div>
-        <span v-if="book.state" class="block mt-4">{{ book.state }}</span>
+        <span v-if="book.state" class="block mt-4">{{
+          book.state === 'horrendous'
+            ? 'Horrible'
+            : book.state === 'bad'
+            ? 'Mauvais'
+            : book.state === 'okay'
+            ? 'Okay'
+            : book.state === 'passable'
+            ? 'Passable'
+            : book.state === 'acceptable'
+            ? 'Acceptable'
+            : book.state === 'good'
+            ? 'Bon État'
+            : book.state === 'excellent'
+            ? 'Excellent'
+            : 'Neuf'
+        }}</span>
       </div>
     </div>
   </RouterLink>
@@ -30,7 +46,23 @@
           <span v-if="book.author" class="text-sm uppercase">{{ book.author }}</span>
           <span class="text-base font-bold">{{ book.price ? `${book.price} €` : 'Gratuit' }}</span>
         </div>
-        <span v-if="book.state" class="block">{{ book.state }}</span>
+        <span v-if="book.state" class="block">{{
+          book.state === 'horrendous'
+            ? 'Horrible'
+            : book.state === 'bad'
+            ? 'Mauvais'
+            : book.state === 'okay'
+            ? 'Okay'
+            : book.state === 'passable'
+            ? 'Passable'
+            : book.state === 'acceptable'
+            ? 'Acceptable'
+            : book.state === 'good'
+            ? 'Bon État'
+            : book.state === 'excellent'
+            ? 'Excellent'
+            : 'Neuf'
+        }}</span>
       </div>
     </div>
   </RouterLink>

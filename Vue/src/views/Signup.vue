@@ -169,9 +169,10 @@ const signup = async () => {
       createdAt: new Date(Date.now()).getTime(),
       updatedAt: null
     }
+
     const { create } = useFetchAccounts()
     create(newUser)
-    console.log(newUser)
+
     router.replace('/login')
   } catch (error) {
     throw new Error((error as Error).message)

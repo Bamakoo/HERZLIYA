@@ -25,7 +25,7 @@
             v-for="(genre, index) in genres"
             :key="index"
             class="flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-secondary-light/30 focus:outline-none focus-visible:ring focus-visible:ring-secondary-light focus-visible:ring-opacity-50 w-full space-x-4"
-            @click="emits('change', genre.value), console.log(genre.value)"
+            @click="emits('change', genre.value)"
           >
             <component :is="genre.icon" class="h-5 w-5" />
             <span class="font-medium text-gray-900"> {{ genre.name }} </span>
@@ -52,6 +52,7 @@ import {
 } from '@heroicons/vue/24/outline'
 
 const props = defineProps<{ selectedGenre: Books['genre'] }>()
+const emits = defineEmits<{ (event: 'change', val: string): void }>()
 
 const genres = [
   {
@@ -95,6 +96,4 @@ const genres = [
     name: 'Biographie'
   }
 ]
-
-const emits = defineEmits<{ (event: 'change', val: string): void }>()
 </script>
