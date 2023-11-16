@@ -34,18 +34,15 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-// import { useBookStore } from '@/stores/useBookStore'
+import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
 import { TwCard } from '@/libs/ui/index.vue'
 import FilterBooks from '@/components/FilterBooks.vue'
-import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
-import type { Books } from '@/libs/interfaces/books'
 import SearchBar from '@/components/SearchBar.vue'
+import type { Books } from '@/libs/interfaces/books'
 
 const fetchBooks = useFetchBooks()
 const books = ref(await fetchBooks.list())
 onMounted(() => computed(() => books.value))
-
-// const props = defineProps<{ searchResult: Books | Books[] }>()
 
 const selectedGenre = ref<Books['genre']>(null)
 const filter = (genre: Books['genre']) => {
