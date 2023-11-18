@@ -39,20 +39,20 @@ export const useAccountStore = defineStore('users', () => {
     cart: undefined
   })
 
-  const fetchUserData = async () => {
-    try {
-      account.value = await infos()
-      account.value.purchases = await purchases()
-      account.value.likes = await likes()
-      console.log(`infos.value Store : ${account.value}`)
+  const fetchUserData = computed(() => {
+    const metadatas = async () => {
+      try {
+        account.value = await infos()
+        account.value.purchases = await purchases()
+        account.value.likes = await likes()
 
-      const metadatas = computed(() => account.value)
-      console.log(`metadatas.value Store : ${metadatas.value}`)
-      return metadatas.value
-    } catch (error) {
-      throw new Error((error as Error).message)
+        return account.value
+      } catch (error) {
+        throw new Error((error as Error).message)
+      }
     }
-  }
+    return metadatas
+  })
 
   return {
     token,

@@ -65,7 +65,6 @@ import axios from 'axios'
 const accountStore = useAccountStore()
 
 const user = await accountStore.fetchUserData()
-console.log('user :', user)
 const memberSince = new Date(user?.createdAt).toLocaleDateString('fr-FR')
 const route = router
 
