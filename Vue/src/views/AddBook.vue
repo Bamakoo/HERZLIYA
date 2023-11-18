@@ -35,7 +35,6 @@
 
             <TwInputText
               label="Prix"
-              aria-label=""
               type="number"
               :step="1"
               :min="1"
@@ -71,7 +70,10 @@
               class="sm:col-span-2"
             />
             <div class="col-span-full">
-              <label for="description" class="text-sm font-medium leading-6"
+              <label
+                for="description"
+                aria-label="Description"
+                class="text-sm font-medium leading-6"
                 >Description
                 <textarea
                   v-model.trim="datas.description"

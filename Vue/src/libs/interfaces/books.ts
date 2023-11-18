@@ -28,4 +28,6 @@ export interface Books {
   updatedAt: number | null
   deletedAt: number | null
   status: 'available'
+  sellerId: string
+  buyerId?: string | null
 }
