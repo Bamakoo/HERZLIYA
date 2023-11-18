@@ -31,12 +31,7 @@ export const useFetchAccounts = () => {
     return data
   }
 
-  const create = async (
-    datas: Omit<
-      Users,
-      'id' | 'updatedAt' | 'books' | 'cart' | 'sales' | 'friends' | 'token' | 'purchases'
-    >
-  ) => {
+  const create = async (datas: Partial<Users>) => {
     const { data } = await httpClient.post<Users>('/users', datas)
     return data
   }

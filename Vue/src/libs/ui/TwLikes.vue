@@ -20,12 +20,18 @@ import { useAccountStore } from '@/stores/useAccountStore'
 
 const liked = ref(false)
 const like = async () => {
-  // const accountStore = useAccountStore()
-  // const likes = accountStore.account.likes
-  // if (likes?.includes(props.bookId)) {
-  //   liked.value = true
-  // }
-  // console.log(likes)
+  const accountStore = useAccountStore()
+  const likes = (await accountStore.fetchUserData()).likes
+  const position = likes?.indexOf(props.bookId)
+
+  if (likes?.includes(props.bookId)) {
+    liked.value = true
+    const like = likes?.splice(position ?? -1, 1)
+    return like
+  }
+
+  console.log('likes', likes)
+  console.log('like id :', like)
   const { create, del } = useFetchLikes()
   if (liked.value) {
     del(props.bookId)
@@ -34,13 +40,5 @@ const like = async () => {
   create(props.bookId)
 
   liked.value = true
-
-  // accountStore.userAccount?.likes?.push({
-  //    userID: 'b5ZvjMmJQNbgzcCahIm6uA==',
-  //   bookID: book.value?.id,
-  //  })
-  console.log('book id : ', props.bookId)
-  // fetchLikes.del(book.value?.id as string)
-  //POST DANS TABLE LIKES (USER -> LIKES) => USER TOKEN + BOOK ID
 }
 </script>

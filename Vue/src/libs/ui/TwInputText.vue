@@ -76,7 +76,7 @@ const text = computed({
 
 const hasError = ref(props.error)
 
-// const controller = computed(() => {
+// const controller = () => {
 //   const sqlDirectives = new RegExp('^(?!(dump|insert|select|alter)(\\s+(column|table|row)))', 'i')
 //   if (sqlDirectives.exec(text.value)) hasError.value = true
 //   return (hasError.value = false)

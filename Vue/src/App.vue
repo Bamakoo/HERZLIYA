@@ -110,19 +110,18 @@ const route = useRoute()
           "
         />
         <!-- && route.path !== '/account' -->
-        <div v-else>
-          <button
-            role="button"
-            aria-roledescription="Retour"
-            class="sm:px-2.5 sm:py-1.5 sm:text-xs sm:font-medium sm:leading-6 top-10 transition-colors duration-150 whitespace-nowrap flex items-center lg:hover:text-primary"
-            @click="router.back()"
-          >
-            <span class="sr-only">Retour</span>
-            <ArrowLeftIcon class="w-5 h-5 inline mr-2" role="navigation" aria-label="Retour" />
-            <span class="text-base inline font-medium">Retour</span>
-          </button>
-          <component :is="Component" />
-        </div>
+
+        <button
+          role="button"
+          aria-roledescription="Retour"
+          class="ml-4 sm:px-2.5 sm:py-1.5 sm:text-xs sm:font-medium sm:leading-6 top-10 transition-colors duration-150 whitespace-nowrap flex items-center lg:hover:text-primary"
+          @click="router.back()"
+        >
+          <span class="sr-only">Retour</span>
+          <ArrowLeftIcon class="w-5 h-5 inline mr-2" role="navigation" aria-label="Retour" />
+          <span class="text-base inline font-medium">Retour</span>
+        </button>
+        <component :is="Component" />
       </main>
 
       <!-- </KeepAlive> -->

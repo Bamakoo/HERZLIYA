@@ -28,7 +28,6 @@ test.describe.parallel('BOOKS API TESTING', () => {
     state: 'good',
     description: 'Test playwright create book ! 🧪'
   }
-
   test('POST - Create a book without token', async ({ request }) => {
     const response = await request.post(`${BASE_URL}/books`, {
       data: bookData,
@@ -51,7 +50,7 @@ test.describe.parallel('BOOKS API TESTING', () => {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': FRONT_URL,
         Accept: 'application/json',
-        Authorization: 'Bearer Hh4/SNvn0l/NK/nPIVP6Xw=='
+        Authorization: 'Bearer JzQCXZQj2C3P5npwGBWbwg=='
       }
     })
     expect(response.status()).toBe(200)

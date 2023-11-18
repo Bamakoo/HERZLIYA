@@ -38,13 +38,10 @@
 import { ref } from 'vue'
 import { TwInputText, TwButton } from '@/libs/ui/index.vue'
 import { useAccountStore } from '@/stores/useAccountStore'
-// import router from '@/router'
-import { useRoute } from 'vue-router'
 import httpClient from '@/api/httpClient'
-import type { Users } from '@/libs/interfaces/users'
 import router from '@/router'
+import type { Users } from '@/libs/interfaces/users'
 
-const route = useRoute()
 const datas = ref<{
   username: Users['username']
   password: Users['password']
@@ -69,7 +66,7 @@ const login = async () => {
 
     window.localStorage.setItem('token', data)
 
-    if (data) router.go(0)
+    if (data) router.go(-1)
   } catch (error) {
     console.error((error as Error).message)
   } finally {

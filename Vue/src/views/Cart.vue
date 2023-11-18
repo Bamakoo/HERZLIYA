@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mx-auto max-w-5xl pt-4 lg:pt-0">
+    <div class="mx-auto max-w-7xl pt-4 lg:pt-0">
       <h1 class="text-3xl font-bold tracking-tight text-gray-900 text-center">
         {{
           cart.length
@@ -55,10 +55,6 @@
           </ul>
         </div>
 
-        <!-- <div
-          class="bg-red-600/80 border-red-500 text-white p-4 border rounded-md "
-        ></div> -->
-
         <TwAlert
           v-if="cart.length"
           type="warning"
@@ -67,9 +63,8 @@
         >
           <p>
             Attention : si tu retires
-            <span>{{ cart.length === 1 ? 'ce livre' : 'tes livres' }}</span> tu ne pourras plus le
-            <span>{{ cart.length > 1 ? 's' : '' }}</span
-            >remettre dans ton panier !
+            <span>{{ cart.length === 1 ? 'ce livre' : 'tes livres' }}</span> tu ne pourras plus
+            le<span>{{ cart.length > 1 ? 's ' : '' }}</span> remettre dans ton panier !
           </p>
         </TwAlert>
         <div class="mt-10 max-w-sm lg:max-w-lg mx-auto">
@@ -87,7 +82,7 @@
               </div>
               <div class="flex items-center justify-between py-4">
                 <dt class="text-base font-medium text-gray-900">Total de la commande</dt>
-                <dd class="text-base font-medium text-gray-900">{{ (prices ?? 0) + 3 }} €</dd>
+                <dd class="text-base font-medium text-gray-900">{{ prices + 3 }} €</dd>
               </div>
             </dl>
           </div>
@@ -121,17 +116,15 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { useAccountStore } from '@/stores/useAccountStore'
 import { useFetchCart } from '@/api/fetchs/useFetchCart'
-import type { Cart } from '@/libs/interfaces/carts'
+
+import { TwAlert } from '@/libs/ui/index.vue'
 
 import type { Books } from '@/libs/interfaces/books'
-import httpClient from '@/api/httpClient'
-import TwAlert from '@/libs/ui/TwAlert.vue'
 
-const accountStore = useAccountStore()
-const { retrieve, del } = useFetchCart()
-const cart = await retrieve(accountStore.token)
+const { retrieve, del, purchase } = useFetchCart()
+const cart = await retrieve()
+const bought = ref(false)
 
 const prices = cart
   .map((book) => book.price)
@@ -149,18 +142,14 @@ onMounted(async () =>
   })
 )
 
-const bought = ref(false)
-
-const removeItem = async (id: Books['id']) => await del(accountStore.token, id)
+const removeItem = async (id: Books['id']) => await del(id)
 
 const buy = () => {
   try {
     if (!cart) return
     cart.map(async (book) => {
-      book.id
-      const { data } = await httpClient.patch<Cart>(`/books/${book.id}/purchase`, cart)
+      purchase(book.id)
       bought.value = true
-      return data
     })
   } catch (error) {
     throw new Error((error as Error).message)

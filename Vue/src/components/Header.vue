@@ -21,13 +21,13 @@
         :aria-label="nav.title"
         class="h-full flex-col w-24 text-gray-700 transition-colors duration-200 hover:text-white hover:border-b-white"
       >
-        <div v-if="nav.value === 'cart' && cartStore" class="t-0 absolute right-3">
+        <!-- <div v-if="nav.value === 'cart' && cartStore" class="t-0 absolute right-3">
           <p
             class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white"
           >
-            {{ cartStore }}
+            {{ cartStore.length }}
           </p>
-        </div>
+        </div> -->
         <component :is="nav.icon" class="pb-1 h-12 w-12 mx-auto" />
 
         <span :aria-describedby="nav.title" class="text-center max-w-full">
@@ -63,5 +63,5 @@ const navigation = [
   { value: 'cart', icon: ShoppingCartIcon, title: 'Panier', to: '/cart' }
 ]
 
-const cartStore = useCartStore().cart?.books.length
+const cartStore = useCartStore().cart
 </script>

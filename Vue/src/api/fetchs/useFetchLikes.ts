@@ -17,7 +17,7 @@ export const useFetchLikes = () => {
   }
 
   const create = async (id: Likes['bookID']) => {
-    const loginCredentials = window.localStorage.getItem('token') ?? 'b5ZvjMmJQNbgzcCahIm6uA=='
+    const loginCredentials = window.localStorage.getItem('token')
 
     const { data } = await httpClient.post<Likes>(
       `/likes/${id}`,
@@ -32,7 +32,7 @@ export const useFetchLikes = () => {
     return data
   }
 
-  const del = async (id: Likes['bookID']) => {
+  const del = async (id: Likes['id']) => {
     const { data } = await httpClient.delete<Likes>(`/likes/${id}`)
     return data
   }

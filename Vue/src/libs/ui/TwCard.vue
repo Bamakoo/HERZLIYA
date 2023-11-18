@@ -12,23 +12,7 @@
           <span class="text-sm">{{ book.author }}</span>
           <span class="text-base font-bold">{{ book.price ? `${book.price} €` : 'Gratuit' }}</span>
         </div>
-        <span v-if="book.state" class="block mt-4">{{
-          book.state === 'horrendous'
-            ? 'Horrible'
-            : book.state === 'bad'
-            ? 'Mauvais'
-            : book.state === 'okay'
-            ? 'Okay'
-            : book.state === 'passable'
-            ? 'Passable'
-            : book.state === 'acceptable'
-            ? 'Acceptable'
-            : book.state === 'good'
-            ? 'Bon État'
-            : book.state === 'excellent'
-            ? 'Excellent'
-            : 'Neuf'
-        }}</span>
+        <span v-if="book.state" class="block mt-4">{{ stateFormat(book.state) }}</span>
       </div>
     </div>
   </RouterLink>
@@ -69,6 +53,7 @@
 </template>
 
 <script setup lang="ts">
+import { stateFormat } from '@/libs/composables/stateFormat'
 import type { Books } from '../interfaces/books'
 
 const props = defineProps<{

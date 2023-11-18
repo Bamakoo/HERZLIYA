@@ -1,4 +1,5 @@
 <script lang="ts">
+export { default as TwAlert } from './TwAlert.vue'
 export { default as TwButton } from './TwButton.vue'
 export { default as TwCard } from './TwCard.vue'
 export { default as TwComments } from './TwComments.vue'

@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto max-w-2xl p-4">
-    <form class="bg-secondary-light/20 p-8 rounded-xl" @submit.prevent="createBook">
+    <form class="bg-secondary-light/20 p-8 rounded-xl" @submit.prevent.once="createBook">
       <div class="space-y-2 text-center mb-10">
         <h1 class="text-4xl font-semibold">Vendez votre livre</h1>
         <span class="text-base text-gray-400"
@@ -100,9 +100,9 @@
 import { ref } from 'vue'
 import { TwInputText, TwInputSelect, TwButton } from '@/libs/ui/index.vue'
 import { useFetchBooks } from '@/api/fetchs/useFetchBooks'
-import type { Books } from '@/libs/interfaces/books'
-import router from '@/router'
 import { useAccountStore } from '@/stores/useAccountStore'
+import router from '@/router'
+import type { Books } from '@/libs/interfaces/books'
 
 const route = router
 const accountStore = useAccountStore()
@@ -148,7 +148,7 @@ const datas = ref<{
   description: undefined,
   genre: null,
   state: null,
-  price: 0,
+  price: 1,
   status: 'available',
   sellerId: accountStore.token,
   buyerId: null
@@ -169,15 +169,12 @@ const createBook = async () => {
       buyerId: null
     }
 
-    const data = await create(newBookData)
-    route.replace('/')
-    return data
+    await create(newBookData)
+    route.push('/')
   } catch (error) {
     console.error((error as Error).message)
     return error
   }
 }
-const onCancel = () => {
-  route.back()
-}
+const onCancel = () => route.back()
 </script>
