@@ -148,7 +148,7 @@ const signup = async () => {
     )
     if (datas.value.password && controller.test(datas.value.password) === false) {
       passwordError.value =
-        'Le mot de passe doit avec 8 caractères minimum : 1 majuscule, 1 minuscule, 1 caractère spécial'
+        'Le mot de passe doit avec 8 caractères minimum : 1 majuscule, 1 minuscule, 1 caractère spécial et 1 chiffre'
       return
     }
 
