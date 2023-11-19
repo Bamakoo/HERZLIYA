@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto max-w-2xl p-4">
-    <form class="bg-secondary-light/20 p-8 rounded-xl" @submit.prevent.once="createBook">
+    <form class="bg-secondary-light/20 p-8 rounded-xl" @submit.prevent="createBook">
       <div class="space-y-2 text-center mb-10">
         <h1 class="text-4xl font-semibold">Vendez votre livre</h1>
         <span class="text-base text-gray-400"

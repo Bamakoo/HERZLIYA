@@ -22,10 +22,11 @@ test.describe.parallel('BOOKS API TESTING', () => {
 
   const bookData = {
     title: 'Playwright Book',
-    author: 'Playwrigt',
+    author: 'Playwright',
     genre: 'nonFiction',
     price: 124,
     state: 'good',
+    status: 'available',
     description: 'Test playwright create book ! 🧪'
   }
   test('POST - Create a book without token', async ({ request }) => {
@@ -37,8 +38,6 @@ test.describe.parallel('BOOKS API TESTING', () => {
         Accept: 'application/json'
       }
     })
-    const body = JSON.parse(await response.text())
-    console.log(body)
 
     expect(response.status()).toBe(401)
   })
@@ -55,6 +54,7 @@ test.describe.parallel('BOOKS API TESTING', () => {
     })
     expect(response.status()).toBe(200)
     const body = JSON.parse(await response.text())
-    expect(body.data.author).toBe('Playwrigt')
+    console.log(body)
+    expect(body.data.author).toBe('Playwright')
   })
 })

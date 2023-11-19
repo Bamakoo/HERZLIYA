@@ -59,12 +59,14 @@
           v-if="cart.length"
           type="warning"
           title="N'enlève un livre que si tu es sûr·e."
-          class="max-w-fit mx-auto mt-8"
+          class="max-w-2xl mx-auto mt-8"
         >
           <p>
             Attention : si tu retires
             <span>{{ cart.length === 1 ? 'ce livre' : 'tes livres' }}</span> tu ne pourras plus
-            le<span>{{ cart.length > 1 ? 's ' : '' }}</span> remettre dans ton panier !
+            le<span>{{ cart.length > 1 ? 's ' : '' }}</span> remettre dans ton panier ! Mais aucune
+            inquiétude, tu pourras toujours l'acheter directement en cliquant sur le bouton Acheter
+            ci-dessus.
           </p>
         </TwAlert>
         <div class="mt-10 max-w-sm lg:max-w-lg mx-auto">

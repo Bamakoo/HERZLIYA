@@ -39,7 +39,11 @@
         >
 
         <TwAlert type="warning" title="Attention à l'ajout du livre dans ton panier !">
-          <p>Si tu retires ce livre de ton panier tu ne pourras plus le remettre dedans !</p>
+          <p>
+            Si tu retires ce livre de ton panier tu ne pourras plus le remettre dedans ! Mais aucune
+            inquiétude, tu pourras toujours l'acheter directement en cliquant sur le bouton Acheter
+            ci-dessus.
+          </p>
         </TwAlert>
 
         <TwAlert

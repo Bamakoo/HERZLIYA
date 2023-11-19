@@ -66,7 +66,8 @@ const login = async () => {
 
     window.localStorage.setItem('token', data)
 
-    if (data) router.go(-1)
+    if (data && router.currentRoute.value.fullPath !== '/login') router.go(-1)
+    router.replace('/')
   } catch (error) {
     console.error((error as Error).message)
   } finally {
