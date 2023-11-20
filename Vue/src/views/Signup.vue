@@ -37,7 +37,7 @@
               :sub-hint="
                 passwordError
                   ? `${passwordError}`
-                  : 'Le mot de passe doit avec 8 caractères minimum : 1 majuscule, 1 minuscule, 1 caractère spécial'
+                  : 'Le mot de passe doit avec 8 caractères minimum : 1 majuscule, 1 minuscule, 1 caractère spécial, et 1 chiffre'
               "
             />
             <TwInputText
@@ -51,7 +51,7 @@
               :sub-hint="
                 passwordError
                   ? `${passwordError}`
-                  : 'Le mot de passe doit avec 8 caractères minimum : 1 majuscule, 1 minuscule, 1 caractère spécial'
+                  : 'Le mot de passe doit avec 8 caractères minimum : 1 majuscule, 1 minuscule, 1 caractère spécial, et 1 chiffre'
               "
             />
           </div>
