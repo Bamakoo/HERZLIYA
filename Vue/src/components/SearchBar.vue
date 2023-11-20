@@ -52,7 +52,7 @@ const text = ref('')
 const books = ref<Books[]>([])
 const panel = ref(false)
 const search = async (text: string) => {
-  const { data } = await httpClient.get<Books[]>(`http://localhost:8080/books?search=${text}`)
+  const { data } = await httpClient.get<Books[]>(`/books?search=${text}`)
   books.value = data
   computed(() => books.value)
   panel.value = true
