@@ -30,8 +30,6 @@ const like = async () => {
     return like
   }
 
-  console.log('likes', likes)
-  console.log('like id :', like)
   const { create, del } = useFetchLikes()
   if (liked.value) {
     del(props.bookId)
