@@ -6,7 +6,7 @@
 
 This Project was built by [Audrey CARMONT](https://www.linkedin.com/in/o-drey-carmont/) with some help from [Emma GAUBERT](https://www.linkedin.com/in/emma-gaubert/). 
 
-Two two main goals were pursued with this project :
+The main goals were pursued with this project are as follows:
 
 - Improve author's knowledge of the Swift and JavaScript programming languages.
 - Build and deploy a Vapor backend. 
@@ -21,6 +21,6 @@ Technically, it makes heavy use of Swift's latest Concurrency features.
 ### Contributions
 
 Although we appreciate the sentiment, this project is not currently open to contributions. It is used to showcase our skills. 
-We have no plans of opening it up to contributions in the coming weeks and months. 
+We have no plans of opening it up to contributions in short or even long term. 
 
 
